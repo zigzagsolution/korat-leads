@@ -177,6 +177,7 @@ th button:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-
 @media (max-width:980px){.work{grid-template-columns:minmax(0,1fr)}.card{height:auto;min-height:0}.grid3{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:640px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.mapbox{height:min(64vh,540px);min-height:380px}.legend{display:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.staylink{display:inline-block;margin-top:10px;padding:8px 14px;border-radius:999px;background:#C6F432;color:#111;font-weight:600;text-decoration:none;font-size:14px}
 </style>
 
 <header class="band">
@@ -247,7 +248,8 @@ th button:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-
     <p class="sub">ตัวเลขรวมเป็นสถิติทางการ ส่วนรายอำเภอเป็นค่าประมาณ</p>
     <div class="grid3 rooms">
       <div class="panel"><h4>ห้องพักทั้งจังหวัด</h4><b class="big">20,815 <small>ห้อง</small></b>
-        <p class="src">ปี 2563 · ตาราง 17.1 สำนักงานสถิติแห่งชาติ ที่มา: สำนักงานปลัดกระทรวงการท่องเที่ยวและกีฬา</p></div>
+        <p class="src">ปี 2563 · ตาราง 17.1 สำนักงานสถิติแห่งชาติ ที่มา: สำนักงานปลัดกระทรวงการท่องเที่ยวและกีฬา</p>
+        <a class="staylink" href="./stay.html">ดูราคาห้องพักช่วงงาน →</a></div>
       <div class="panel" style="grid-column:span 2"><h4>ประมาณการห้องพักรายอำเภอ (10 อันดับ)</h4><div class="bars" id="cRoom"></div>
         <p class="src">ประมาณการ = ห้องทั้งจังหวัด × สัดส่วนจำนวนที่พักของอำเภอนั้นในแผนที่ (<span id="nLodge"></span> แห่ง) ยังไม่ได้นับห้องจริงรายแห่ง ใช้ดูภาพรวมเท่านั้น</p></div>
     </div>

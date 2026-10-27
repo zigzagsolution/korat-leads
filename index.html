@@ -94,6 +94,7 @@ button,input,select{font:inherit;color:inherit}
 .jump button{padding:0 12px;font-size:13px}
 .legend{position:absolute;left:12px;bottom:12px;background:rgba(0,40,87,.85);border-radius:10px;padding:8px 12px;font-size:12.5px;color:var(--mute);display:flex;gap:12px;flex-wrap:wrap;max-width:calc(100% - 24px)}
 .legend span{display:inline-flex;gap:6px;align-items:center}
+.legend [data-lf]{cursor:pointer}.legend [data-lf]:hover{color:#fff}
 .tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--navy);font-weight:600;font-size:13px;padding:4px 9px;border-radius:7px;white-space:nowrap;transform:translate(-50%,calc(-100% - 10px));opacity:0;transition:opacity .12s}
 .count{position:absolute;right:12px;bottom:12px;font-size:12.5px;color:var(--mute);background:rgba(0,40,87,.85);padding:6px 10px;border-radius:8px;font-variant-numeric:tabular-nums}
 
@@ -293,7 +294,7 @@ const chipsEl=document.getElementById('chips');
 G.forEach((g,k)=>{const b=document.createElement('button');b.className='chip';b.setAttribute('aria-pressed','true');
   b.innerHTML=`<span class="dot" style="${g.ring?`border:2.5px solid ${g.c};background:transparent`:`background:${g.c}`}"></span>${g.n} <small id="gc${k}"></small>`;
   b.dataset.f='g'+k;b.onclick=()=>pickF('g',k);chipsEl.appendChild(b)});
-document.getElementById('legend').innerHTML=''+AG.map(a=>`<span><span class="atic" style="color:${a.c}">★</span>${a.n}</span>`).join('')+'<span><span class="pkic" style="width:12px;height:12px"></span>ที่จอดรถ</span>'+'<span><span style="width:16px;height:2px;background:rgba(233,84,41,.8);display:inline-block"></span>ถนนหลัก</span><span><span style="width:16px;border-top:2px dashed rgba(255,255,255,.6);display:inline-block"></span>รถไฟ</span>'+G.map(g=>`<span><span class="dot" style="width:9px;height:9px;border-radius:50%;display:inline-block;${g.ring?`border:2px solid ${g.c}`:`background:${g.c}`}"></span>${g.n}</span>`).join('');
+document.getElementById('legend').innerHTML=''+AG.map((a,t)=>`<span data-lf="a${t}"><span class="atic" style="color:${a.c}">★</span>${a.n}</span>`).join('')+'<span data-lf="p"><span class="pkic" style="width:12px;height:12px"></span>ที่จอดรถ</span>'+'<span><span style="width:16px;height:2px;background:rgba(233,84,41,.8);display:inline-block"></span>ถนนหลัก</span><span><span style="width:16px;border-top:2px dashed rgba(255,255,255,.6);display:inline-block"></span>รถไฟ</span>'+G.map((g,k)=>`<span data-lf="g${k}"><span class="dot" style="width:9px;height:9px;border-radius:50%;display:inline-block;${g.ring?`border:2px solid ${g.c}`:`background:${g.c}`}"></span>${g.n}</span>`).join('');
 const dsel=document.getElementById('dsel');
 const dCounts=d3.rollup(P,v=>v.length,p=>p.d);
 dsel.innerHTML='<option value="-1">ทุกอำเภอ</option>'+DN.map((n,i)=>[n,i]).sort((a,b)=>(dCounts.get(b[1])||0)-(dCounts.get(a[1])||0)).map(([n,i])=>`<option value="${i}">${n} (${dCounts.get(i)||0})</option>`).join('');
@@ -492,7 +493,7 @@ function bars(el,items,max,onclick){el.innerHTML=items.map((it,k)=>`<button clas
   requestAnimationFrame(()=>requestAnimationFrame(()=>el.querySelectorAll('i[data-w]').forEach(i=>i.style.width=i.dataset.w+'%')))}
 function charts(){
   const byG=d3.rollup(F,v=>v.length,p=>p.g);
-  bars(document.getElementById('cType'),G.map((g,k)=>({l:g.n,v:byG.get(k)||0,c:g.c})),d3.max(G,(g,k)=>byG.get(k)||0));
+  bars(document.getElementById('cType'),G.map((g,k)=>({l:g.n,v:byG.get(k)||0,c:g.c,k,on:!allOn()&&st.groups.has(k)})),d3.max(G,(g,k)=>byG.get(k)||0),it=>pickF('g',it.k));
   const base=P.filter(p=>(!st.r||p.dm<=st.r)&&st.groups.has(p.g)&&(!st.phone||p.phone)&&(!st.q||p.name.toLowerCase().includes(st.q)));
   const byD=Array.from(d3.rollup(base,v=>v.length,p=>p.d)).sort((a,b)=>b[1]-a[1]).slice(0,10);
   bars(document.getElementById('cDist'),byD.map(([d,v])=>({l:DN[d],v,c:d===st.d?'#D3FF34':'#E95429',d,on:d===st.d})),byD.length?byD[0][1]:0,it=>{st.d=it.d===st.d?-1:it.d;dsel.value=st.d;update();zoomTo(st.d<0?'all':DN[st.d]);document.getElementById('mapbox').scrollIntoView({behavior:RM?'auto':'smooth',block:'center'})});
@@ -556,6 +557,7 @@ function applyF(pkOn){G.forEach((_,k)=>document.querySelector(`[data-f="g${k}"]`
   AG.forEach((_,t)=>document.querySelector(`[data-f="a${t}"]`).setAttribute('aria-pressed',st.at.has(t)));
   pkBtn.setAttribute('aria-pressed',st.pk);document.getElementById('allBtn').setAttribute('aria-pressed',allOn());
   update();if(pkOn&&!allOn()&&T.k<4&&!st.r)zoomTo('เมืองนครราชสีมา')}
+document.getElementById('legend').onclick=e=>{const el=e.target.closest('[data-lf]');if(!el)return;const f=el.dataset.lf;pickF(f[0],+f.slice(1))};
 document.getElementById('allBtn').onclick=()=>{setAll(true);applyF(false)};
 document.querySelectorAll('[data-lens]').forEach(b=>b.onclick=()=>{st.lens=b.dataset.lens;document.querySelectorAll('[data-lens]').forEach(x=>x.setAttribute('aria-pressed',x===b));
   if(st.sel&&st.sel.ln)st.sel=null;buildLens();if(!st.sel)topCard();draw()});

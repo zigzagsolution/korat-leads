@@ -167,6 +167,7 @@ th button:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-
 .radius .pk{display:inline-flex;align-items:center;gap:7px}
 .pkic{display:inline-block;width:16px;height:16px;border-radius:3px;background:repeating-conic-gradient(#fff 0 25%,#003674 0 50%) 0 0/50% 50%;box-shadow:0 0 0 1.5px #fff;font-size:0!important;color:transparent!important;flex:none}
 .atic{color:var(--lime);font-size:15px;line-height:1}
+.edic{width:17px;height:17px;flex:none;vertical-align:-3px}
 .more{display:flex;justify-content:center;padding:14px}
 .note{color:var(--mute);font-size:13px;margin:40px 0 0;padding-block:18px 36px;border-top:1px solid var(--line);max-width:90ch}
 
@@ -197,7 +198,7 @@ th button:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-
   <div class="filters" role="group" aria-label="ตัวกรอง">
     <button class="chip" id="allBtn" aria-pressed="true">ทั้งหมด</button>
     <div id="chips" style="display:contents"></div>
-    <span id="atChips" style="display:contents"></span><button class="chip" id="pkBtn" aria-pressed="true"><span class="pkic" style="width:13px;height:13px"></span>ที่จอดรถ <small id="pkN"></small></button>
+    <span id="atChips" style="display:contents"></span><span id="edChips" style="display:contents"></span><button class="chip" id="pkBtn" aria-pressed="true"><span class="pkic" style="width:13px;height:13px"></span>ที่จอดรถ <small id="pkN"></small></button>
     <input id="q" class="field" type="search" placeholder="ค้นชื่อร้าน เช่น ข้าวมันไก่, Cafe">
     <select id="dsel" class="field" aria-label="อำเภอ"></select>
     <label class="toggle"><input id="onlyPhone" type="checkbox"> เฉพาะร้านที่มีเบอร์</label>
@@ -270,7 +271,7 @@ const fmt=n=>n.toLocaleString('th-TH');
 document.querySelector('.tiles').innerHTML='<i></i>'.repeat(24);
 
 // state
-const st={groups:new Set([0,1,2,3,4]),q:'',d:-1,phone:false,sel:null,limit:50,r:0,sort:null,dir:1,pk:true,at:new Set([0,1,2]),lens:''};
+const st={groups:new Set([0,1,2,3,4]),q:'',d:-1,phone:false,sel:null,limit:50,r:0,sort:null,dir:1,pk:true,at:new Set([0,1,2]),ed:new Set([0,1]),lens:''};
 const YAMO=[102.09796,14.97504];
 function hav(lng,lat){const R=6371000,t=Math.PI/180,dl=(lat-YAMO[1])*t,dg=(lng-YAMO[0])*t,a=Math.sin(dl/2)**2+Math.cos(lat*t)*Math.cos(YAMO[1]*t)*Math.sin(dg/2)**2;return 2*R*Math.asin(Math.sqrt(a))}
 P.forEach(p=>p.dm=hav(p.lng,p.lat));
@@ -284,6 +285,12 @@ const LN={ed:{n:'การศึกษา',c:'#8EC5FF',subs:['มหาวิท
   to:{n:'ท่องเที่ยว',c:'#D3FF34',subs:['สถานที่ท่องเที่ยว','ที่พัก','คาเฟ่'],w:[3,1,.5]}};
 const LP={};['ed','re','in'].forEach(k=>LP[k]=((RAW.ln||{})[k]||[]).map(r=>({ln:k,name:r[0],cat:r[1],lat:r[2],lng:r[3],pid:r[4],rate:r[5],rev:r[6],sub:r[7],d:r[8],fl:r[9]})));
 LP.ed.concat(LP.re,LP.in).forEach(p=>p.dm=hav(p.lng,p.lat));
+const EG=[{n:'มหาวิทยาลัย/วิทยาลัย',c:'#8EC5FF',d:'M12 3L23 8.5 12 14 1 8.5Z M5.5 11.3v4.9c0 1.9 2.9 3.4 6.5 3.4s6.5-1.5 6.5-3.4v-4.9L12 14.6Z M20 9.4h1.3v6.4h-1.3Z'},
+  {n:'โรงเรียน',c:'#FFC24B',d:'M1.5 5.5C4.5 4.2 8 4.4 11.2 6.3V20.2C8 18.4 4.5 18.2 1.5 19.4Z M22.5 5.5C19.5 4.2 16 4.4 12.8 6.3V20.2C16 18.4 19.5 18.2 22.5 19.4Z'}];
+EG.forEach(g=>g.p=new Path2D(g.d));LP.ed.forEach(p=>p.eg=p.sub<=1?0:1);
+const edSvg=(g)=>`<svg class="edic" viewBox="0 0 24 24"><path d="${g.d}" fill="${g.c}" stroke="#002857" stroke-width="1"/></svg>`;
+const EDv=()=>LP.ed.filter(p=>st.ed.has(p.eg)&&(!st.r||p.dm<=st.r));
+let equad;
 let LBINS=null,lquad=null;
 const ATv=()=>AT.filter(p=>st.at.has(p.t)&&(!st.r||p.dm<=st.r));
 const fmtD=m=>m<1000?Math.round(m/10)*10+' ม.':(m/1000).toFixed(m<10000?1:0).replace(/\.0$/,'')+' กม.';
@@ -295,7 +302,7 @@ const chipsEl=document.getElementById('chips');
 G.forEach((g,k)=>{const b=document.createElement('button');b.className='chip';b.setAttribute('aria-pressed','true');
   b.innerHTML=`<span class="dot" style="${g.ring?`border:2.5px solid ${g.c};background:transparent`:`background:${g.c}`}"></span>${g.n} <small id="gc${k}"></small>`;
   b.dataset.f='g'+k;b.onclick=()=>pickF('g',k);chipsEl.appendChild(b)});
-document.getElementById('legend').innerHTML=''+AG.map((a,t)=>`<span data-lf="a${t}"><span class="atic" style="color:${a.c}">★</span>${a.n}</span>`).join('')+'<span data-lf="p"><span class="pkic" style="width:12px;height:12px"></span>ที่จอดรถ</span>'+'<span><span style="width:16px;height:2px;background:rgba(233,84,41,.8);display:inline-block"></span>ถนนหลัก</span><span><span style="width:16px;border-top:2px dashed rgba(255,255,255,.6);display:inline-block"></span>รถไฟ</span>'+G.map((g,k)=>`<span data-lf="g${k}"><span class="dot" style="width:9px;height:9px;border-radius:50%;display:inline-block;${g.ring?`border:2px solid ${g.c}`:`background:${g.c}`}"></span>${g.n}</span>`).join('');
+document.getElementById('legend').innerHTML=''+AG.map((a,t)=>`<span data-lf="a${t}"><span class="atic" style="color:${a.c}">★</span>${a.n}</span>`).join('')+EG.map((g,t)=>`<span data-lf="e${t}">${edSvg(g)}${g.n}</span>`).join('')+'<span data-lf="p"><span class="pkic" style="width:12px;height:12px"></span>ที่จอดรถ</span>'+'<span><span style="width:16px;height:2px;background:rgba(233,84,41,.8);display:inline-block"></span>ถนนหลัก</span><span><span style="width:16px;border-top:2px dashed rgba(255,255,255,.6);display:inline-block"></span>รถไฟ</span>'+G.map((g,k)=>`<span data-lf="g${k}"><span class="dot" style="width:9px;height:9px;border-radius:50%;display:inline-block;${g.ring?`border:2px solid ${g.c}`:`background:${g.c}`}"></span>${g.n}</span>`).join('');
 const dsel=document.getElementById('dsel');
 const dCounts=d3.rollup(P,v=>v.length,p=>p.d);
 dsel.innerHTML='<option value="-1">ทุกอำเภอ</option>'+DN.map((n,i)=>[n,i]).sort((a,b)=>(dCounts.get(b[1])||0)-(dCounts.get(a[1])||0)).map(([n,i])=>`<option value="${i}">${n} (${dCounts.get(i)||0})</option>`).join('');
@@ -318,7 +325,7 @@ function resize(){const r=box.getBoundingClientRect();W=r.width;H=r.height;dpr=w
   dFeats.forEach(f=>{const xy=proj(f.properties.c);f.properties.x=xy[0];f.properties.y=xy[1];f.properties.b=path.bounds(f)});
   zoom.extent([[0,0],[W,H]]).translateExtent([[-W*.5,-H*.5],[W*1.5,H*1.5]]);
   buildQuad();buildLens();draw()}
-let pquad;function buildQuad(){quad=d3.quadtree().x(p=>p.x).y(p=>p.y).addAll(F);pquad=d3.quadtree().x(p=>p.x).y(p=>p.y).addAll(PKv());aquad=d3.quadtree().x(p=>p.x).y(p=>p.y).addAll(ATv())}
+let pquad;function buildQuad(){quad=d3.quadtree().x(p=>p.x).y(p=>p.y).addAll(F);pquad=d3.quadtree().x(p=>p.x).y(p=>p.y).addAll(PKv());aquad=d3.quadtree().x(p=>p.x).y(p=>p.y).addAll(ATv());equad=d3.quadtree().x(p=>p.x).y(p=>p.y).addAll(EDv())}
 function lensPts(k){if(k!=='to')return LP[k];return AT.map(p=>({p,sub:0})).concat(P.filter(p=>p.g===0).map(p=>({p,sub:1})),P.filter(p=>p.g===1).map(p=>({p,sub:2}))).map(o=>Object.assign(Object.create(o.p),{sub:o.sub,src:o.p}))}
 function buildLens(){LBINS=null;lquad=null;if(!st.lens||!proj)return;const L=LN[st.lens],pts=lensPts(st.lens);
   if(st.lens!=='to')lquad=d3.quadtree().x(p=>p.x).y(p=>p.y).addAll(pts);
@@ -376,6 +383,9 @@ function draw(){
       ctx.globalAlpha=(p.fl?.4:1)*(st.lens&&st.lens!=='to'?.3:1);ctx.font=`${s}px system-ui,sans-serif`;ctx.lineWidth=3;ctx.strokeStyle='#002857';ctx.strokeText('★',x,y);ctx.fillStyle=AG[p.t].c;ctx.fillText('★',x,y);
       if(T.k>=8){const w=Math.min(160,p.name.length*6.5),bx=[x-w/2,y+s*.4,x+w/2,y+s*.4+14];if(boxes.some(o=>bx[0]<o[2]&&bx[2]>o[0]&&bx[1]<o[3]&&bx[3]>o[1]))return;boxes.push(bx);ctx.font='500 11.5px "IBM Plex Sans Thai",system-ui,sans-serif';ctx.lineWidth=3;ctx.strokeText(p.name,x,y+s*.85);ctx.fillStyle='#fff';ctx.fillText(p.name,x,y+s*.85)}});
     ctx.globalAlpha=1;ctx.textBaseline='alphabetic'}
+  if(st.ed.size&&st.lens!=='ed'){const s=Math.max(14,Math.min(26,12+T.k/2));
+    EDv().forEach(p=>{const x=T.applyX(p.x),y=T.applyY(p.y);if(x<-20||x>W+20||y<-20||y>H+20)return;const g=EG[p.eg];
+      ctx.save();ctx.globalAlpha=(p.fl?.4:1)*(st.lens?.3:1);ctx.translate(x-s/2,y-s/2);ctx.scale(s/24,s/24);ctx.lineWidth=2.6;ctx.strokeStyle='#002857';ctx.lineJoin='round';ctx.stroke(g.p);ctx.fillStyle=g.c;ctx.fill(g.p);ctx.restore()})}
   if(st.lens&&st.lens!=='to'){const col=LN[st.lens].c,s=Math.max(3.5,Math.min(8,3*Math.sqrt(T.k)));ctx.fillStyle=col;ctx.strokeStyle='#002857';ctx.lineWidth=1.5;
     LP[st.lens].forEach(p=>{const x=T.applyX(p.x),y=T.applyY(p.y);if(x<-10||x>W+10||y<-10||y>H+10)return;ctx.globalAlpha=p.fl?.4:1;ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s,y);ctx.closePath();ctx.fill();ctx.stroke()});ctx.globalAlpha=1}
   if(st.sel&&(st.sel.pk||st.sel.at||st.sel.ln)){const p=st.sel,x=T.applyX(p.x),y=T.applyY(p.y);ctx.beginPath();ctx.arc(x,y,12+pulse*6,0,6.2832);ctx.lineWidth=2.5;ctx.strokeStyle=`rgba(211,255,52,${1-pulse*.7})`;ctx.stroke()}
@@ -399,7 +409,7 @@ function zoomTo(name){let t=d3.zoomIdentity;
     const k=Math.min(60,.85/Math.max((x1-x0)/W,(y1-y0)/H));t=d3.zoomIdentity.translate(W/2,H/2).scale(k).translate(-(x0+x1)/2,-(y0+y1)/2)}
   d3.select(cv).transition().duration(RM?0:900).call(zoom.transform,t)}
 document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>zoomTo(b.dataset.jump));
-function pick(ev){const [mx,my]=d3.pointer(ev,cv);const ix=T.invertX(mx),iy=T.invertY(my);if(lquad){const q=lquad.find(ix,iy,12/T.k);if(q)return q}if(st.at.size){const q=aquad.find(ix,iy,12/T.k);if(q)return q}if(pkShow()){const q=pquad.find(ix,iy,12/T.k);if(q)return q}return quad.find(ix,iy,14/T.k)}
+function pick(ev){const [mx,my]=d3.pointer(ev,cv);const ix=T.invertX(mx),iy=T.invertY(my);if(lquad){const q=lquad.find(ix,iy,12/T.k);if(q)return q}if(st.at.size){const q=aquad.find(ix,iy,12/T.k);if(q)return q}if(st.ed.size&&st.lens!=='ed'){const q=equad.find(ix,iy,12/T.k);if(q)return q}if(pkShow()){const q=pquad.find(ix,iy,12/T.k);if(q)return q}return quad.find(ix,iy,14/T.k)}
 cv.addEventListener('mousemove',ev=>{const p=pick(ev);if(p){const [mx,my]=d3.pointer(ev,box);tip.textContent=(p.pk?'ที่จอดรถ · ':p.at?'★ ':p.ln?LN[p.ln].subs[p.sub]+' · ':'')+p.name;tip.style.left=mx+'px';tip.style.top=my+'px';tip.style.opacity=1;cv.style.cursor='pointer'}else{tip.style.opacity=0;cv.style.cursor=''}});
 cv.addEventListener('mouseleave',()=>tip.style.opacity=0);
 cv.addEventListener('click',ev=>{const p=pick(ev);if(p)select(p,false)});
@@ -449,13 +459,13 @@ function selectAt(p,f){
   document.getElementById('back').onclick=()=>{st.sel=null;topCard();draw()};
   if(f)fly(p);draw()}
 function selectLn(p,f){const L=LN[p.ln];
-  card.innerHTML=`<div class="eyebrow">โซน${L.n}</div>
+  card.innerHTML=`<div class="eyebrow">${st.lens?'โซน'+L.n:'สถานศึกษา'}</div>
   <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill" style="background:${L.c};color:#003674">${L.subs[p.sub]}</span>${p.fl?'<span class="pill" style="background:var(--orange)">ปิด</span>':''}</div>
   <h2>${esc(p.name)}</h2>
   <div>${stars(p.rate)} ${p.rev?`<span class="empty">· ${fmt(p.rev)} รีวิว</span>`:''}</div>
   <dl class="kv"><dt>หมวด</dt><dd>${esc(p.cat||'-')}</dd><dt>อำเภอ</dt><dd>${DN[p.d]}</dd><dt>ห่างย่าโม</dt><dd>${fmtD(p.dm)}</dd></dl>
   <div class="btns"><a class="btn main" href="${gmap(p)}" target="_blank" rel="noopener">เปิดใน Google Maps</a></div>
-  <button class="btn" id="back" style="align-self:flex-start">← กลับไปดูสรุปโซน</button>`;
+  <button class="btn" id="back" style="align-self:flex-start">← ${st.lens?'กลับไปดูสรุปโซน':'กลับ'}</button>`;
   document.getElementById('back').onclick=()=>{st.sel=null;topCard();draw()};
   if(f)fly(p);draw()}
 function lensCard(){const L=LN[st.lens],pts=lensPts(st.lens),B=LBINS[1];
@@ -530,7 +540,7 @@ function kpis(){const n=F.length,ph=F.filter(p=>p.phone).length,wb=F.filter(p=>p
   const v={total:n,phone:ph,web:wb,dist:ds};document.querySelectorAll('[data-count]').forEach(el=>countUp(el,v[el.dataset.count]));
   document.getElementById('mPhone').style.width=(n?ph/n*100:0)+'%';document.getElementById('mWeb').style.width=(n?wb/n*100:0)+'%';document.getElementById('mDist').style.width=ds/32*100+'%';
   G.forEach((g,k)=>document.getElementById('gc'+k).textContent=fmt(P.filter(p=>p.g===k&&(st.d<0||p.d===st.d)&&(!st.phone||p.phone)&&(!st.q||p.name.toLowerCase().includes(st.q))).length));
-  document.getElementById('count').textContent=`แสดง ${fmt(n+ATv().length+PKv().length)} จุด`}
+  document.getElementById('count').textContent=`แสดง ${fmt(n+ATv().length+PKv().length+EDv().length)} จุด`}
 
 function update(){F=P.filter(pass);st.limit=50;if(st.sel&&!st.sel.ln&&(st.sel.pk?!PKv().includes(st.sel):st.sel.at?!ATv().includes(st.sel):!pass(st.sel)))st.sel=null;buildQuad();draw();kpis();charts();table();if(!st.sel)topCard()}
 
@@ -549,16 +559,19 @@ const atEl=document.getElementById('atChips');AG.forEach((g,t)=>{const b=documen
   b.innerHTML=`<span class="atic" style="color:${g.c}">★</span>${g.n} <small>${AT.filter(p=>p.t===t).length}</small>`;
   b.dataset.f='a'+t;b.onclick=()=>pickF('a',t);atEl.appendChild(b)});
 // tap a chip = show only that; tap more to add; "ทั้งหมด" shows everything
-const allOn=()=>st.groups.size===G.length&&st.at.size===AG.length&&st.pk;
-function setAll(on){st.groups=new Set(on?G.map((_,k)=>k):[]);st.at=new Set(on?AG.map((_,t)=>t):[]);st.pk=on}
-function pickF(kind,k){const wasPk=st.pk;if(allOn()){setAll(false);kind==='p'?st.pk=true:(kind==='g'?st.groups:st.at).add(k)}
-  else if(kind==='p')st.pk=!st.pk;else{const S=kind==='g'?st.groups:st.at;S.has(k)?S.delete(k):S.add(k)}
-  if(!st.groups.size&&!st.at.size&&!st.pk)setAll(true);applyF(!wasPk&&st.pk)}
+const allOn=()=>st.groups.size===G.length&&st.at.size===AG.length&&st.ed.size===EG.length&&st.pk;
+function setAll(on){st.groups=new Set(on?G.map((_,k)=>k):[]);st.at=new Set(on?AG.map((_,t)=>t):[]);st.ed=new Set(on?EG.map((_,t)=>t):[]);st.pk=on}
+function pickF(kind,k){const wasPk=st.pk;if(allOn()){setAll(false);kind==='p'?st.pk=true:(kind==='g'?st.groups:kind==='e'?st.ed:st.at).add(k)}
+  else if(kind==='p')st.pk=!st.pk;else{const S=kind==='g'?st.groups:kind==='e'?st.ed:st.at;S.has(k)?S.delete(k):S.add(k)}
+  if(!st.groups.size&&!st.at.size&&!st.ed.size&&!st.pk)setAll(true);applyF(!wasPk&&st.pk)}
 function applyF(pkOn){G.forEach((_,k)=>document.querySelector(`[data-f="g${k}"]`).setAttribute('aria-pressed',st.groups.has(k)));
   AG.forEach((_,t)=>document.querySelector(`[data-f="a${t}"]`).setAttribute('aria-pressed',st.at.has(t)));
+  EG.forEach((_,t)=>document.querySelector(`[data-f="e${t}"]`).setAttribute('aria-pressed',st.ed.has(t)));
   pkBtn.setAttribute('aria-pressed',st.pk);document.getElementById('allBtn').setAttribute('aria-pressed',allOn());
   update();if(pkOn&&!allOn()&&T.k<4&&!st.r)zoomTo('เมืองนครราชสีมา')}
 document.getElementById('legend').onclick=e=>{const el=e.target.closest('[data-lf]');if(!el)return;const f=el.dataset.lf;pickF(f[0],+f.slice(1))};
+const edEl=document.getElementById('edChips');EG.forEach((g,t)=>{const b=document.createElement('button');b.className='chip';b.setAttribute('aria-pressed','true');
+  b.innerHTML=`${edSvg(g)}${g.n} <small>${LP.ed.filter(p=>p.eg===t).length}</small>`;b.dataset.f='e'+t;b.onclick=()=>pickF('e',t);edEl.appendChild(b)});
 document.getElementById('allBtn').onclick=()=>{setAll(true);applyF(false)};
 document.querySelectorAll('[data-lens]').forEach(b=>b.onclick=()=>{st.lens=b.dataset.lens;document.querySelectorAll('[data-lens]').forEach(x=>x.setAttribute('aria-pressed',x===b));
   if(st.sel&&st.sel.ln)st.sel=null;buildLens();if(!st.sel)topCard();draw()});

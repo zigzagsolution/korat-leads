@@ -78,7 +78,9 @@ button,input,select{font:inherit;color:inherit}
 .band-row .mini{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--mute)}
 .band-row .mini span{display:inline-flex;gap:5px;align-items:center}
 .work{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px}
-.mapbox{position:relative;background:var(--panel);border-radius:18px;overflow:hidden;height:min(72vh,680px);min-height:420px;touch-action:none}
+.mapbox{position:relative;background:var(--panel);border-radius:18px;overflow:hidden;height:min(72vh,680px);min-height:420px;touch-action:pan-y}
+.twohint{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,40,87,.55);color:#fff;font-weight:600;font-size:16px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:5}
+.twohint.on{opacity:1}
 #map{display:block;width:100%;height:100%;cursor:grab}
 #map:active{cursor:grabbing}
 .mapctl{position:absolute;top:12px;right:12px;display:flex;flex-direction:column;gap:6px}
@@ -208,6 +210,7 @@ th button:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-
       <div class="legend" id="legend"></div>
       <div class="count" id="count"></div>
       <div class="tip" id="tip"></div>
+      <div class="twohint" id="twohint">ใช้ 2 นิ้วเพื่อเลื่อนหรือซูมแผนที่</div>
     </div>
     <aside class="card" id="card" aria-live="polite"></aside>
   </div>
@@ -346,8 +349,9 @@ function draw(){
     ctx.beginPath();ctx.arc(x,y,r+2,0,6.2832);ctx.fillStyle=G[p.g].c;ctx.fill();ctx.lineWidth=2;ctx.strokeStyle='#002857';ctx.stroke()}
 }
 let pulse=0,ringT=1;(function loop(t){pulse=RM?0:((t/1400)%1);if(st.sel&&!RM)draw();requestAnimationFrame(loop)})(0);
-const zoom=d3.zoom().scaleExtent([1,60]).on('zoom',e=>{T=e.transform;draw()});
-d3.select(cv).call(zoom).on('dblclick.zoom',null);
+const zoom=d3.zoom().scaleExtent([1,60]).filter(e=>e.type.startsWith('touch')?e.touches.length>=2:(!e.ctrlKey||e.type==='wheel')&&!e.button).on('zoom',e=>{T=e.transform;draw()});
+{const h=document.getElementById('twohint');let ht;cv.addEventListener('touchmove',e=>{if(e.touches.length===1){h.classList.add('on');clearTimeout(ht);ht=setTimeout(()=>h.classList.remove('on'),1100)}else h.classList.remove('on')},{passive:true})}
+d3.select(cv).call(zoom).style('touch-action','pan-y').on('dblclick.zoom',null);
 document.getElementById('zin').onclick=()=>d3.select(cv).transition().duration(350).call(zoom.scaleBy,1.8);
 document.getElementById('zout').onclick=()=>d3.select(cv).transition().duration(350).call(zoom.scaleBy,1/1.8);
 function zoomTo(name){let t=d3.zoomIdentity;

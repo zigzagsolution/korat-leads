@@ -563,7 +563,7 @@ const allOn=()=>st.groups.size===G.length&&st.at.size===AG.length&&st.ed.size===
 function setAll(on){st.groups=new Set(on?G.map((_,k)=>k):[]);st.at=new Set(on?AG.map((_,t)=>t):[]);st.ed=new Set(on?EG.map((_,t)=>t):[]);st.pk=on}
 function pickF(kind,k){const wasPk=st.pk;if(allOn()){setAll(false);kind==='p'?st.pk=true:(kind==='g'?st.groups:kind==='e'?st.ed:st.at).add(k)}
   else if(kind==='p')st.pk=!st.pk;else{const S=kind==='g'?st.groups:kind==='e'?st.ed:st.at;S.has(k)?S.delete(k):S.add(k)}
-  if(!st.groups.size&&!st.at.size&&!st.ed.size&&!st.pk)setAll(true);applyF(!wasPk&&st.pk)}
+  applyF(!wasPk&&st.pk)}
 function applyF(pkOn){G.forEach((_,k)=>document.querySelector(`[data-f="g${k}"]`).setAttribute('aria-pressed',st.groups.has(k)));
   AG.forEach((_,t)=>document.querySelector(`[data-f="a${t}"]`).setAttribute('aria-pressed',st.at.has(t)));
   EG.forEach((_,t)=>document.querySelector(`[data-f="e${t}"]`).setAttribute('aria-pressed',st.ed.has(t)));
@@ -572,8 +572,10 @@ function applyF(pkOn){G.forEach((_,k)=>document.querySelector(`[data-f="g${k}"]`
 document.getElementById('legend').onclick=e=>{const el=e.target.closest('[data-lf]');if(!el)return;const f=el.dataset.lf;pickF(f[0],+f.slice(1))};
 const edEl=document.getElementById('edChips');EG.forEach((g,t)=>{const b=document.createElement('button');b.className='chip';b.setAttribute('aria-pressed','true');
   b.innerHTML=`${edSvg(g)}${g.n} <small>${LP.ed.filter(p=>p.eg===t).length}</small>`;b.dataset.f='e'+t;b.onclick=()=>pickF('e',t);edEl.appendChild(b)});
-document.getElementById('allBtn').onclick=()=>{setAll(true);applyF(false)};
-document.querySelectorAll('[data-lens]').forEach(b=>b.onclick=()=>{st.lens=b.dataset.lens;document.querySelectorAll('[data-lens]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+document.getElementById('allBtn').onclick=()=>{setAll(!allOn());applyF(false)};
+const noneOn=()=>!st.groups.size&&!st.at.size&&!st.ed.size&&!st.pk;
+document.querySelectorAll('[data-lens]').forEach(b=>b.onclick=()=>{const was=st.lens;st.lens=b.dataset.lens;buildLens();
+  if(st.lens&&!was&&allOn()){setAll(false);applyF(false)}else if(!st.lens&&noneOn()){setAll(true);applyF(false)}document.querySelectorAll('[data-lens]').forEach(x=>x.setAttribute('aria-pressed',x===b));
   if(st.sel&&st.sel.ln)st.sel=null;buildLens();if(!st.sel)topCard();draw()});
 new ResizeObserver(()=>resize()).observe(box);
 resize();kpis();charts();table();topCard();

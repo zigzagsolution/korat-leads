@@ -194,6 +194,7 @@ th button:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-
   </section>
 
   <div class="filters" role="group" aria-label="ตัวกรอง">
+    <button class="chip" id="allBtn" aria-pressed="true">ทั้งหมด</button>
     <div id="chips" style="display:contents"></div>
     <span id="atChips" style="display:contents"></span><button class="chip" id="pkBtn" aria-pressed="true"><span class="pkic" style="width:13px;height:13px"></span>ที่จอดรถ <small id="pkN"></small></button>
     <input id="q" class="field" type="search" placeholder="ค้นชื่อร้าน เช่น ข้าวมันไก่, Cafe">
@@ -291,7 +292,7 @@ let F=P;
 const chipsEl=document.getElementById('chips');
 G.forEach((g,k)=>{const b=document.createElement('button');b.className='chip';b.setAttribute('aria-pressed','true');
   b.innerHTML=`<span class="dot" style="${g.ring?`border:2.5px solid ${g.c};background:transparent`:`background:${g.c}`}"></span>${g.n} <small id="gc${k}"></small>`;
-  b.onclick=()=>{st.groups.has(k)?st.groups.delete(k):st.groups.add(k);b.setAttribute('aria-pressed',st.groups.has(k));update()};chipsEl.appendChild(b)});
+  b.dataset.f='g'+k;b.onclick=()=>pickF('g',k);chipsEl.appendChild(b)});
 document.getElementById('legend').innerHTML=''+AG.map(a=>`<span><span class="atic" style="color:${a.c}">★</span>${a.n}</span>`).join('')+'<span><span class="pkic" style="width:12px;height:12px"></span>ที่จอดรถ</span>'+'<span><span style="width:16px;height:2px;background:rgba(233,84,41,.8);display:inline-block"></span>ถนนหลัก</span><span><span style="width:16px;border-top:2px dashed rgba(255,255,255,.6);display:inline-block"></span>รถไฟ</span>'+G.map(g=>`<span><span class="dot" style="width:9px;height:9px;border-radius:50%;display:inline-block;${g.ring?`border:2px solid ${g.c}`:`background:${g.c}`}"></span>${g.n}</span>`).join('');
 const dsel=document.getElementById('dsel');
 const dCounts=d3.rollup(P,v=>v.length,p=>p.d);
@@ -527,7 +528,7 @@ function kpis(){const n=F.length,ph=F.filter(p=>p.phone).length,wb=F.filter(p=>p
   const v={total:n,phone:ph,web:wb,dist:ds};document.querySelectorAll('[data-count]').forEach(el=>countUp(el,v[el.dataset.count]));
   document.getElementById('mPhone').style.width=(n?ph/n*100:0)+'%';document.getElementById('mWeb').style.width=(n?wb/n*100:0)+'%';document.getElementById('mDist').style.width=ds/32*100+'%';
   G.forEach((g,k)=>document.getElementById('gc'+k).textContent=fmt(P.filter(p=>p.g===k&&(st.d<0||p.d===st.d)&&(!st.phone||p.phone)&&(!st.q||p.name.toLowerCase().includes(st.q))).length));
-  document.getElementById('count').textContent=`แสดง ${fmt(n)} จุด`}
+  document.getElementById('count').textContent=`แสดง ${fmt(n+ATv().length+PKv().length)} จุด`}
 
 function update(){F=P.filter(pass);st.limit=50;if(st.sel&&!st.sel.ln&&(st.sel.pk?!PKv().includes(st.sel):st.sel.at?!ATv().includes(st.sel):!pass(st.sel)))st.sel=null;buildQuad();draw();kpis();charts();table();if(!st.sel)topCard()}
 
@@ -541,11 +542,21 @@ document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{st.r=+b.dataset.
     if(!RM){const t0=performance.now();(function f(t){ringT=Math.max(0,Math.min(1,(t-t0)/1100));ringT=1-Math.pow(1-ringT,3);draw();if(ringT<1)requestAnimationFrame(f)})(t0)}}
   else zoomTo('all')});
 const pkBtn=document.getElementById('pkBtn');document.getElementById('pkN').textContent=PK.length;
-pkBtn.onclick=()=>{st.pk=!st.pk;pkBtn.setAttribute('aria-pressed',st.pk);buildQuad();if(st.sel&&st.sel.pk&&!st.pk){st.sel=null;topCard()}else if(!st.sel)topCard();
-  if(st.pk&&T.k<4&&!st.r)zoomTo('เมืองนครราชสีมา');else draw()};
+pkBtn.onclick=()=>pickF('p');
 const atEl=document.getElementById('atChips');AG.forEach((g,t)=>{const b=document.createElement('button');b.className='chip';b.setAttribute('aria-pressed','true');
   b.innerHTML=`<span class="atic" style="color:${g.c}">★</span>${g.n} <small>${AT.filter(p=>p.t===t).length}</small>`;
-  b.onclick=()=>{st.at.has(t)?st.at.delete(t):st.at.add(t);b.setAttribute('aria-pressed',st.at.has(t));buildQuad();if(st.sel&&st.sel.at&&!st.at.has(st.sel.t)){st.sel=null;topCard()}else if(!st.sel)topCard();draw()};atEl.appendChild(b)});
+  b.dataset.f='a'+t;b.onclick=()=>pickF('a',t);atEl.appendChild(b)});
+// tap a chip = show only that; tap more to add; "ทั้งหมด" shows everything
+const allOn=()=>st.groups.size===G.length&&st.at.size===AG.length&&st.pk;
+function setAll(on){st.groups=new Set(on?G.map((_,k)=>k):[]);st.at=new Set(on?AG.map((_,t)=>t):[]);st.pk=on}
+function pickF(kind,k){const wasPk=st.pk;if(allOn()){setAll(false);kind==='p'?st.pk=true:(kind==='g'?st.groups:st.at).add(k)}
+  else if(kind==='p')st.pk=!st.pk;else{const S=kind==='g'?st.groups:st.at;S.has(k)?S.delete(k):S.add(k)}
+  if(!st.groups.size&&!st.at.size&&!st.pk)setAll(true);applyF(!wasPk&&st.pk)}
+function applyF(pkOn){G.forEach((_,k)=>document.querySelector(`[data-f="g${k}"]`).setAttribute('aria-pressed',st.groups.has(k)));
+  AG.forEach((_,t)=>document.querySelector(`[data-f="a${t}"]`).setAttribute('aria-pressed',st.at.has(t)));
+  pkBtn.setAttribute('aria-pressed',st.pk);document.getElementById('allBtn').setAttribute('aria-pressed',allOn());
+  update();if(pkOn&&!allOn()&&T.k<4&&!st.r)zoomTo('เมืองนครราชสีมา')}
+document.getElementById('allBtn').onclick=()=>{setAll(true);applyF(false)};
 document.querySelectorAll('[data-lens]').forEach(b=>b.onclick=()=>{st.lens=b.dataset.lens;document.querySelectorAll('[data-lens]').forEach(x=>x.setAttribute('aria-pressed',x===b));
   if(st.sel&&st.sel.ln)st.sel=null;buildLens();if(!st.sel)topCard();draw()});
 new ResizeObserver(()=>resize()).observe(box);

@@ -60,6 +60,22 @@ button,input,select{font:inherit;color:inherit}
 .toggle input{accent-color:var(--lime);width:16px;height:16px}
 
 /* workspace */
+.fest{margin:0 0 12px;background:var(--panel);border-radius:14px;padding:14px 16px}
+.festhd{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:baseline;justify-content:space-between}
+.fest h3{margin:0;font-family:var(--display);font-weight:700;font-size:19px}.fest h3 em{font-style:normal;color:var(--lime)}
+.fest .sub{color:var(--mute);font-size:13.5px;margin:0}
+.fdays{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}.fdays .lbl{color:var(--mute);font-size:14px}
+.vlist{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:10px}
+.vbtn{display:flex;gap:10px;align-items:flex-start;text-align:left;background:var(--ground,#002857);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;min-width:0}
+.vbtn:hover{border-color:rgba(211,255,52,.6)}
+.vbtn b{flex:none;width:24px;height:24px;border-radius:50%;background:var(--orange);color:#fff;display:grid;place-items:center;font-family:var(--display);font-size:13px}
+.vbtn span{font-weight:600;font-size:13.5px;line-height:1.3;display:block}.vbtn small{color:var(--mute);font-size:12px;display:block;line-height:1.35;margin-top:2px}
+.vbtn[aria-pressed="true"]{border-color:var(--lime);background:rgba(211,255,52,.1)}.vbtn.off{opacity:.38}
+.fnote{color:var(--faint,rgba(255,255,255,.4));font-size:12.5px;margin:10px 0 0}
+.sched{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13.5px}
+.sched li{display:grid;grid-template-columns:76px minmax(0,1fr);gap:8px}.sched li b{color:var(--lime);font-weight:600;white-space:nowrap}
+@media (max-width:980px){.vlist{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.vlist{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .radius{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px;padding:10px 12px;background:var(--panel);border-radius:14px}
 .radius .lbl{font-family:var(--display);font-weight:500;margin-right:4px}
 .radius .lbl b{color:var(--lime);font-weight:500}
@@ -208,10 +224,16 @@ th button:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-
     <label class="toggle"><input id="onlyPhone" type="checkbox"> เฉพาะร้านที่มีเบอร์</label>
   </div>
 
+  <section class="fest" aria-labelledby="festh">
+    <div class="festhd"><h3 id="festh"><em>K-BATTLE 2026</em> · จุดจัดงาน 20–29 พ.ย.</h3><p class="sub">แตะจุดจัดงานเพื่อดูกิจกรรม และร้านค้าในรัศมีเดิน 1 กม.</p></div>
+    <div class="fdays" id="fdays" role="group" aria-label="ช่วงวันงาน"></div>
+    <div class="vlist" id="vlist" role="group" aria-label="จุดจัดงาน"></div>
+    <p class="fnote">กิจกรรมและจุดจัดงานจากโปสเตอร์ทางการ K-BATTLE 2026 · เส้นประบนแผนที่เชื่อมจุดตามโปสเตอร์ ไม่ใช่เส้นถนนจริง · ตำแหน่ง Korat Street Food เป็นค่าประมาณ · คราฟต์เบียร์ 27–29 พ.ย. ที่ Tin's Thing ไม่ได้ระบุบนแผนที่</p>
+  </section>
   <div class="radius" role="group" aria-label="รัศมีจากลานย่าโม">
-    <span class="lbl">มีร้านอะไรบ้างรอบ <b>ลานย่าโม</b></span>
+    <span class="lbl">มีร้านอะไรบ้างรอบ <b id="cnl">ลานย่าโม</b></span>
     <button data-r="500" aria-pressed="false">500 ม.</button><button data-r="1000" aria-pressed="false">1 กม.</button><button data-r="2000" aria-pressed="false">2 กม.</button><button data-r="0" aria-pressed="true">ไม่ใช้รัศมี</button>
-    <span class="hint">วัดเป็นเส้นตรงจากอนุสาวรีย์ท้าวสุรนารี</span>
+    <span class="hint" id="cnh">วัดเป็นเส้นตรงจากอนุสาวรีย์ท้าวสุรนารี</span>
   </div>
   <div class="radius" role="group" aria-label="มองเป็นโซน">
     <span class="lbl">มองเป็น<b>โซน</b></span>
@@ -258,7 +280,7 @@ th button:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-
   <section class="sec">
     <h3 id="tblTitle">รายชื่อร้าน เรียงตามจำนวนรีวิว</h3>
     <div class="tbl"><table>
-      <thead><tr><th data-sort="name"><button>ชื่อร้าน</button></th><th data-sort="g"><button>ประเภท</button></th><th data-sort="d"><button>อำเภอ</button></th><th data-sort="rate" class="r"><button>คะแนน</button></th><th data-sort="rev" class="r"><button>รีวิว</button></th><th data-sort="phone"><button>เบอร์โทร</button></th><th data-sort="dm" class="r"><button>ห่างย่าโม</button></th></tr></thead>
+      <thead><tr><th data-sort="name"><button>ชื่อร้าน</button></th><th data-sort="g"><button>ประเภท</button></th><th data-sort="d"><button>อำเภอ</button></th><th data-sort="rate" class="r"><button>คะแนน</button></th><th data-sort="rev" class="r"><button>รีวิว</button></th><th data-sort="phone"><button>เบอร์โทร</button></th><th data-sort="dm" class="r"><button id="thdm">ห่างย่าโม</button></th></tr></thead>
       <tbody id="rows"></tbody>
     </table><div class="more"><button class="btn" id="moreBtn">แสดงเพิ่มอีก 50 ร้าน</button></div></div>
   </section>
@@ -270,6 +292,19 @@ th button:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script>
 (function(){
+// K-BATTLE 2026 venues + schedule, from the official poster (20–29 Nov 2026). Coordinates from Google Maps places in our scrape; Street Food is placed on ถ.สุรนารี per the poster pin (approximate).
+const VEN=[
+ {n:'สุรนารีสแควร์',s:'ลานย่าโม',ll:[102.098141,14.9747607],ev:[[20,29,'สถาปนิก (Architect Showcase)'],[21,22,'Korat Artist Contest'],[23,23,'Wind Symphony Gala Concert'],[24,24,'Jennifer Kim x Siam Event Orchestra'],[25,25,'Jazz on Stage'],[27,27,'Javis Concert'],[27,27,'K-Battle Parade (ขบวนพาเหรด)'],[27,29,'K-Battle Competition'],[27,29,'แฟชั่น (Fashion)'],[28,28,'Maiyarap Concert'],[29,29,'Chinchinawut Concert']]},
+ {n:'Korat Street Food',s:'ถนนเส้นสุรนารี (ตำแหน่งโดยประมาณ)',ll:[102.0915,14.9772],ev:[[27,29,'Street Food']]},
+ {n:'Terminal 21 Korat',s:'เทอร์มินอล 21',ll:[102.0900816,14.9818718],ev:[[28,29,'สตรีทบาส (Street Basketball)']]},
+ {n:'Central Korat',s:'Expo Zone · เซ็นทรัลโคราช',ll:[102.1160881,14.996555],ev:[[21,22,'Dance Camp'],[27,27,'เปิดงาน KBAT X (Grand Opening)'],[27,29,'Expo: นวัตกรรม & ไลฟ์สไตล์, ครีเอทีฟ & อาร์ต, เอ็กซิบิชัน & เวิร์กชอป, ธุรกิจสร้างสรรค์, เทคโนโลยี, Business Matching, Brand Showcase']]},
+ {n:'ม.ราชภัฏนครราชสีมา',s:'Workshop & Masterclass',ll:[102.113701,14.984639],ev:[[24,24,'Siam Event Orchestra Workshop'],[24,24,'Workshop & Masterclass: Andrea Giuffredi'],[25,25,'YUSU Workshop']]},
+ {n:'ร.ร.สุรนารีวิทยา',s:'Band Master',ll:[102.102489,14.980495],ev:[[27,29,'Band Master']]}];
+const ROUTE=[[0,1],[1,2],[2,3],[0,4]],VR=1;// km walking radius
+const DAYS=[{k:'all',n:'ทุกวัน 20–29',a:20,b:29},{k:'w1',n:'สุดสัปดาห์แรก 20–22',a:20,b:22},{k:'wd',n:'วันธรรมดา 23–26',a:23,b:26},{k:'w2',n:'สุดสัปดาห์ที่ 2 · 27–29',a:27,b:29}];
+const evIn=(e,dk)=>{const D=DAYS.find(d=>d.k===dk);return e[0]<=D.b&&e[1]>=D.a};
+const dl=e=>e[0]===e[1]?`${e[0]} พ.ย.`:`${e[0]}–${e[1]} พ.ย.`;
+
 const RAW=JSON.parse(document.getElementById('data').textContent);
 const RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const G=[
@@ -287,8 +322,8 @@ const fmt=n=>n.toLocaleString('th-TH');
 document.querySelector('.tiles').innerHTML='<i></i>'.repeat(24);
 
 // state
-const st={groups:new Set([0,1,2,3,4]),q:'',d:-1,phone:false,sel:null,limit:50,r:0,sort:null,dir:1,pk:true,at:new Set([0,1,2]),ed:new Set([0,1]),lens:''};
-const YAMO=[102.09796,14.97504];
+const st={groups:new Set([0,1,2,3,4]),q:'',d:-1,phone:false,sel:null,limit:50,r:0,sort:null,dir:1,pk:true,at:new Set([0,1,2]),ed:new Set([0,1]),lens:'',v:-1,days:'all'};
+const YAMO0=[102.09796,14.97504];let YAMO=YAMO0,CN='ย่าโม',CNL='ลานย่าโม';
 function hav(lng,lat){const R=6371000,t=Math.PI/180,dl=(lat-YAMO[1])*t,dg=(lng-YAMO[0])*t,a=Math.sin(dl/2)**2+Math.cos(lat*t)*Math.cos(YAMO[1]*t)*Math.sin(dg/2)**2;return 2*R*Math.asin(Math.sqrt(a))}
 P.forEach(p=>p.dm=hav(p.lng,p.lat));
 const PK=(RAW.pk||[]).map(r=>({pk:1,name:r[0],cat:r[1],lat:r[2],lng:r[3],pid:r[4],hrs:r[5],addr:r[6],fl:r[7]}));PK.forEach(p=>p.dm=hav(p.lng,p.lat));
@@ -404,6 +439,7 @@ function draw(){
       ctx.save();ctx.globalAlpha=(p.fl?.4:1)*(st.lens?.3:1);ctx.translate(x-s/2,y-s/2);ctx.scale(s/24,s/24);ctx.lineWidth=2.6;ctx.strokeStyle='#002857';ctx.lineJoin='round';ctx.stroke(g.p);ctx.fillStyle=g.c;ctx.fill(g.p);ctx.restore()})}
   if(st.lens&&st.lens!=='to'){const col=LN[st.lens].c,s=Math.max(3.5,Math.min(8,3*Math.sqrt(T.k)));ctx.fillStyle=col;ctx.strokeStyle='#002857';ctx.lineWidth=1.5;
     LP[st.lens].forEach(p=>{const x=T.applyX(p.x),y=T.applyY(p.y);if(x<-10||x>W+10||y<-10||y>H+10)return;ctx.globalAlpha=p.fl?.4:1;ctx.beginPath();ctx.moveTo(x,y-s);ctx.lineTo(x+s,y);ctx.lineTo(x,y+s);ctx.lineTo(x-s,y);ctx.closePath();ctx.fill();ctx.stroke()});ctx.globalAlpha=1}
+  drawFest();
   if(st.sel&&(st.sel.pk||st.sel.at||st.sel.ln)){const p=st.sel,x=T.applyX(p.x),y=T.applyY(p.y);ctx.beginPath();ctx.arc(x,y,12+pulse*6,0,6.2832);ctx.lineWidth=2.5;ctx.strokeStyle=`rgba(211,255,52,${1-pulse*.7})`;ctx.stroke()}
   else if(st.sel){const p=st.sel,x=T.applyX(p.x),y=T.applyY(p.y);
     ctx.beginPath();ctx.arc(x,y,r+7+pulse*6,0,6.2832);ctx.lineWidth=2.5;ctx.strokeStyle=`rgba(211,255,52,${1-pulse*.7})`;ctx.stroke();
@@ -442,13 +478,13 @@ function select(p,fly){st.sel=p;if(p.pk)return selectPk(p,fly);if(p.ln)return se
   <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill" style="${g.ring?`border:1.5px solid ${g.c};color:${g.c}`:`background:${g.c};color:#003674`}">${g.n}</span>${status}</div>
   <h2>${esc(p.name)}</h2>
   <div>${stars(p.rate)} ${p.rev?`<span class="empty">· ${fmt(p.rev)} รีวิว</span>`:''}</div>
-  <dl class="kv"><dt>หมวด Google</dt><dd>${esc(p.cat)}</dd><dt>อำเภอ</dt><dd>${DN[p.d]}</dd><dt>ห่างย่าโม</dt><dd>${fmtD(p.dm)}</dd>
+  <dl class="kv"><dt>หมวด Google</dt><dd>${esc(p.cat)}</dd><dt>อำเภอ</dt><dd>${DN[p.d]}</dd><dt>ห่าง ${CN}</dt><dd>${fmtD(p.dm)}</dd>
   <dt>เบอร์โทร</dt><dd>${p.phone?`<span class="phone" id="ph">${esc(p.phone.replace('+66 ','0'))}</span>`:'<span class="empty">ไม่มีในข้อมูล</span>'}</dd>
   <dt>ออนไลน์</dt><dd>${p.web?`<a href="${esc(p.web)}" target="_blank" rel="noopener">${webLabel(p.web)}</a>`:'<span class="empty">ไม่มีในข้อมูล</span>'}</dd></dl>
   <div class="btns"><a class="btn main" href="${gmap(p)}" target="_blank" rel="noopener">เปิดใน Google Maps</a>${p.phone?'<button class="btn" id="cp">คัดลอกเบอร์</button>':''}</div>
   <button class="btn" id="back" style="align-self:flex-start">← กลับไปดูร้านเด่น</button>`;
   const cp=document.getElementById('cp');if(cp)cp.onclick=()=>{const t=document.getElementById('ph').textContent;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>cp.textContent='คัดลอกแล้ว',()=>{const r=document.createRange();r.selectNodeContents(document.getElementById('ph'));const s=getSelection();s.removeAllRanges();s.addRange(r);cp.textContent='เลือกเบอร์ไว้แล้ว กด Ctrl+C'})};
-  document.getElementById('back').onclick=()=>{st.sel=null;topCard();draw()};document.getElementById('back').textContent=st.r?'← กลับไปดูสรุปรอบย่าโม':'← กลับไปดูร้านเด่น';
+  document.getElementById('back').onclick=()=>{st.sel=null;topCard();draw()};document.getElementById('back').textContent=st.r?'← กลับไปดูสรุปรอบ '+CN:'← กลับไปดูร้านเด่น';
   if(fly){const k=Math.max(T.k,14);d3.select(cv).transition().duration(RM?0:900).call(zoom.transform,d3.zoomIdentity.translate(W/2,H/2).scale(k).translate(-p.x,-p.y));
     if(window.innerWidth<980)box.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'})}
   draw()}
@@ -457,11 +493,11 @@ function selectPk(p,f){
   card.innerHTML=`<div class="eyebrow">ที่จอดรถ</div>
   <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill" style="background:#fff;color:#003674;display:inline-flex;align-items:center;gap:6px"><span class="pkic" style="width:13px;height:13px;box-shadow:0 0 0 1.5px #003674"></span>${esc(p.cat||'ไม่ระบุหมวด')}</span>${p.fl?'<span class="pill" style="background:var(--orange)">ปิด</span>':''}</div>
   <h2>${esc(p.name)}</h2>
-  <dl class="kv"><dt>ห่างย่าโม</dt><dd>${fmtD(p.dm)}</dd><dt>เวลาเปิด</dt><dd>${p.hrs?esc(p.hrs.replace(' to ',' – ')):'<span class="empty">ไม่มีในข้อมูล</span>'}</dd>
+  <dl class="kv"><dt>ห่าง ${CN}</dt><dd>${fmtD(p.dm)}</dd><dt>เวลาเปิด</dt><dd>${p.hrs?esc(p.hrs.replace(' to ',' – ')):'<span class="empty">ไม่มีในข้อมูล</span>'}</dd>
   <dt>ที่อยู่</dt><dd>${p.addr?esc(p.addr):'<span class="empty">ไม่มีในข้อมูล</span>'}</dd></dl>
   <p class="empty" style="margin:0;font-size:13px">จำนวนช่องจอดและค่าจอดไม่มีในข้อมูล Google ควรเช็กหน้างานก่อนใช้จริง</p>
   <div class="btns"><a class="btn main" href="${gmap(p)}" target="_blank" rel="noopener">เปิดใน Google Maps</a></div>
-  <button class="btn" id="back" style="align-self:flex-start">${st.r?'← กลับไปดูสรุปรอบย่าโม':'← กลับไปดูร้านเด่น'}</button>`;
+  <button class="btn" id="back" style="align-self:flex-start">${st.r?'← กลับไปดูสรุปรอบ '+CN:'← กลับไปดูร้านเด่น'}</button>`;
   document.getElementById('back').onclick=()=>{st.sel=null;topCard();draw()};
   if(f)fly(p);draw()}
 function selectAt(p,f){
@@ -469,9 +505,9 @@ function selectAt(p,f){
   <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill" style="background:${AG[p.t].c};color:#003674">★ ${AG[p.t].n}</span><span class="pill" style="border:1.5px solid var(--line)">${esc(p.cat||'สถานที่ท่องเที่ยว')}</span>${p.fl?'<span class="pill" style="background:var(--orange)">ปิด</span>':''}</div>
   <h2>${esc(p.name)}</h2>
   <div>${stars(p.rate)} ${p.rev?`<span class="empty">· ${fmt(p.rev)} รีวิว</span>`:''}</div>
-  <dl class="kv"><dt>ห่างย่าโม</dt><dd>${fmtD(p.dm)}</dd><dt>ที่อยู่</dt><dd>${p.addr?esc(p.addr):'<span class="empty">ไม่มีในข้อมูล</span>'}</dd></dl>
+  <dl class="kv"><dt>ห่าง ${CN}</dt><dd>${fmtD(p.dm)}</dd><dt>ที่อยู่</dt><dd>${p.addr?esc(p.addr):'<span class="empty">ไม่มีในข้อมูล</span>'}</dd></dl>
   <div class="btns"><a class="btn main" href="${gmap(p)}" target="_blank" rel="noopener">เปิดใน Google Maps</a></div>
-  <button class="btn" id="back" style="align-self:flex-start">${st.r?'← กลับไปดูสรุปรอบย่าโม':'← กลับไปดูร้านเด่น'}</button>`;
+  <button class="btn" id="back" style="align-self:flex-start">${st.r?'← กลับไปดูสรุปรอบ '+CN:'← กลับไปดูร้านเด่น'}</button>`;
   document.getElementById('back').onclick=()=>{st.sel=null;topCard();draw()};
   if(f)fly(p);draw()}
 function selectLn(p,f){const L=LN[p.ln];
@@ -479,7 +515,7 @@ function selectLn(p,f){const L=LN[p.ln];
   <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill" style="background:${L.c};color:#003674">${L.subs[p.sub]}</span>${p.fl?'<span class="pill" style="background:var(--orange)">ปิด</span>':''}</div>
   <h2>${esc(p.name)}</h2>
   <div>${stars(p.rate)} ${p.rev?`<span class="empty">· ${fmt(p.rev)} รีวิว</span>`:''}</div>
-  <dl class="kv"><dt>หมวด</dt><dd>${esc(p.cat||'-')}</dd><dt>อำเภอ</dt><dd>${DN[p.d]}</dd><dt>ห่างย่าโม</dt><dd>${fmtD(p.dm)}</dd></dl>
+  <dl class="kv"><dt>หมวด</dt><dd>${esc(p.cat||'-')}</dd><dt>อำเภอ</dt><dd>${DN[p.d]}</dd><dt>ห่าง ${CN}</dt><dd>${fmtD(p.dm)}</dd></dl>
   <div class="btns"><a class="btn main" href="${gmap(p)}" target="_blank" rel="noopener">เปิดใน Google Maps</a></div>
   <button class="btn" id="back" style="align-self:flex-start">← ${st.lens?'กลับไปดูสรุปโซน':'กลับ'}</button>`;
   document.getElementById('back').onclick=()=>{st.sel=null;topCard();draw()};
@@ -503,9 +539,9 @@ function radiusCard(){
     <div class="stack">${c.map((v,k)=>`<i style="flex-grow:${v};background:${G[k].ring?'transparent':G[k].c};${G[k].ring?`box-shadow:inset 0 0 0 2px ${G[k].c}`:''}"></i>`).join('')}</div>
     <div class="mini">${c.map((v,k)=>v?`<span><span class="sq" style="${G[k].ring?`border:2px solid ${G[k].c}`:`background:${G[k].c}`}"></span>${G[k].n} ${fmt(v)}</span>`:'').join('')}${AG.map((g,t)=>st.at.has(t)?`<span><span class="atic" style="color:${g.c}">★</span>${g.n} ${fmt(AT.filter(p=>p.t===t&&(p.dm>a&&p.dm<=b||(a===0&&p.dm<=b))).length)}</span>`:'').join('')}${st.pk?`<span><span class="pkic" style="width:11px;height:11px"></span>ที่จอดรถ ${fmt(PK.filter(p=>p.dm>a&&p.dm<=b||(a===0&&p.dm<=b)).length)}</span>`:''}</div></div>`}).join('');
   const near=F.filter(p=>!p.fl).slice().sort((a,b)=>a.dm-b.dm).slice(0,12);
-  card.innerHTML=`<div class="eyebrow">รอบลานย่าโม ${fmtD(st.r)}</div><h2>${fmt(F.length)} ร้านในรัศมี ${fmtD(st.r)}</h2>
+  card.innerHTML=`${st.v>=0?schedHtml(VEN[st.v]):''}<div class="eyebrow">รอบ ${CNL} ${fmtD(st.r)}</div><h2>${fmt(F.length)} ร้านในรัศมี ${fmtD(st.r)}</h2>
   <div>${rows}</div>
-  <h4 style="margin:6px 0 0;font-family:var(--display);font-weight:500">ร้านที่ใกล้ย่าโมที่สุด</h4>
+  <h4 style="margin:6px 0 0;font-family:var(--display);font-weight:500">ร้านที่ใกล้ ${CN} ที่สุด</h4>
   <ol class="toplist">${near.map((p,k)=>`<li><button data-i="${p.i}"><span class="rk">${k+1}</span><span class="nm">${esc(p.name)}</span><span class="rv">${fmtD(p.dm)}</span></button></li>`).join('')}</ol>`;
   card.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>select(P[+b.dataset.i],true))}
 function topCard(){if(st.lens)return lensCard();if(st.r)return radiusCard();const top=F.filter(p=>!p.fl).slice().sort((a,b)=>b.rev-a.rev).slice(0,10);
@@ -544,7 +580,7 @@ document.querySelectorAll('th[data-sort]').forEach(th=>th.querySelector('button'
 function table(){const k=st.sort||(st.r?'dm':'rev'),dir=st.sort?st.dir:SORT[k].d,f=SORT[k].f;
   const s=F.slice().sort((a,b)=>dir*f(a,b)||b.rev-a.rev);
   document.querySelectorAll('th[data-sort]').forEach(th=>th.setAttribute('aria-sort',th.dataset.sort===k?(dir>0?'ascending':'descending'):'none'));
-  document.getElementById('tblTitle').textContent=`${st.r?`ร้านในรัศมี ${fmtD(st.r)} จากลานย่าโม`:'รายชื่อร้าน'} เรียงตาม${SORT[k].l} ${DIRL[k][dir>0?0:1]}`;
+  document.getElementById('tblTitle').textContent=`${st.r?`ร้านในรัศมี ${fmtD(st.r)} จาก ${CNL}`:'รายชื่อร้าน'} เรียงตาม${SORT[k].l} ${DIRL[k][dir>0?0:1]}`;
   rowsEl.innerHTML=s.slice(0,st.limit).map(p=>`<tr data-i="${p.i}"><td>${esc(p.name)}${p.fl?' <span class="pill" style="background:var(--orange);font-size:11px;padding:1px 7px">ปิด</span>':''}</td><td>${G[p.g].n}</td><td>${DN[p.d]}</td><td class="n">${p.rate!=null?p.rate.toFixed(1):'–'}</td><td class="n">${fmt(p.rev)}</td><td>${p.phone?esc(p.phone.replace('+66 ','0')):'<span class="empty">–</span>'}</td><td class="n">${fmtD(p.dm)}</td></tr>`).join('')||'<tr><td colspan="7" class="empty">ไม่มีร้านตรงกับตัวกรอง</td></tr>';
   moreBtn.hidden=s.length<=st.limit;
   rowsEl.querySelectorAll('tr[data-i]').forEach(tr=>tr.onclick=()=>{select(P[+tr.dataset.i],true);box.scrollIntoView({behavior:RM?'auto':'smooth',block:'center'})})}
@@ -563,7 +599,7 @@ function update(){F=P.filter(pass);st.limit=50;if(st.sel&&!st.sel.ln&&(st.sel.pk
 // order dots so the load animation ripples out from Korat city hall
 const C0=[102.098,14.975];P.sort((a,b)=>((a.lng-C0[0])**2+(a.lat-C0[1])**2)-((b.lng-C0[0])**2+(b.lat-C0[1])**2));P.forEach((p,k)=>p.i=k);
 F=P.filter(pass);
-document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{st.r=+b.dataset.r;st.sort=null;document.querySelectorAll('[data-r]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{st.r=+b.dataset.r;if(!st.r&&st.v>=0){st.v=-1;setCenter(-1);festBtns()}st.sort=null;document.querySelectorAll('[data-r]').forEach(x=>x.setAttribute('aria-pressed',x===b));
   if(st.r){st.d=-1;dsel.value=-1}st.sel=null;update();
   if(st.r){const c=proj(YAMO),rp=proj([YAMO[0],YAMO[1]+st.r/111320]);const rpx=Math.abs(rp[1]-c[1]);const k=Math.min(60,.42*Math.min(W,H)/rpx);
     d3.select(cv).transition().duration(RM?0:900).call(zoom.transform,d3.zoomIdentity.translate(W/2,H/2).scale(k).translate(-c[0],-c[1]));
@@ -600,6 +636,26 @@ resize();kpis();charts();table();topCard();
   bars(el,by.map(([d,v])=>({l:DN[d],v:Math.round(ROOMS*v/L.length/10)*10,c:'#D3FF34',d})),Math.round(ROOMS*by[0][1]/L.length/10)*10,it=>zoomTo(DN[it.d]));
   el.querySelectorAll('.v').forEach(v=>v.textContent='≈ '+v.textContent)}
 if(!RM){const t0=performance.now();(function f(t){appear=Math.max(0,Math.min(1,(t-t0)/1600));draw();if(appear<1)requestAnimationFrame(f)})(t0)}
+// K-BATTLE venues: picking one moves the radius centre there
+function setCenter(k){YAMO=k<0?YAMO0:VEN[k].ll;CN=k<0?'ย่าโม':VEN[k].n;CNL=k<0?'ลานย่าโม':VEN[k].n;
+  P.concat(PK,AT,LP.ed,LP.re,LP.in).forEach(p=>p.dm=hav(p.lng,p.lat));
+  document.getElementById('cnl').textContent=CNL;document.getElementById('thdm').textContent='ห่าง '+CN;
+  document.getElementById('cnh').textContent=k<0?'วัดเป็นเส้นตรงจากอนุสาวรีย์ท้าวสุรนารี':'วัดเป็นเส้นตรงจากจุดจัดงาน K-BATTLE'}
+const vlist=document.getElementById('vlist'),fdays=document.getElementById('fdays');
+fdays.innerHTML='<span class="lbl">ช่วงวันงาน</span>'+DAYS.map(d=>`<button class="chip" data-day="${d.k}" aria-pressed="${d.k===st.days}">${d.n}</button>`).join('');
+fdays.querySelectorAll('[data-day]').forEach(b=>b.onclick=()=>{st.days=b.dataset.day;fdays.querySelectorAll('[data-day]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.day===st.days));festBtns();draw();if(st.r&&!st.sel&&!st.lens)topCard()});
+function festBtns(){vlist.innerHTML=VEN.map((v,k)=>{const n=v.ev.filter(e=>evIn(e,st.days)).length,near=P.filter(p=>d3.geoDistance(v.ll,[p.lng,p.lat])*6371<=VR).length;
+  return `<button class="vbtn${n?'':' off'}" data-v="${k}" aria-pressed="${st.v===k}"><b>${k+1}</b><div><span>${v.n}</span><small>${n?n+' กิจกรรม':'ไม่มีกิจกรรมช่วงนี้'} · ร้าน ${fmt(near)} แห่ง</small></div></button>`}).join('');
+  vlist.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>pickVen(+b.dataset.v))}
+function pickVen(k){st.v=st.v===k?-1:k;setCenter(st.v);festBtns();document.querySelector(`[data-r="${st.v<0?0:1000}"]`).click()}
+function schedHtml(v){const E=v.ev.filter(e=>evIn(e,st.days));return `<div class="eyebrow">K-BATTLE 2026 · ${esc(v.s)}</div><h2>${esc(v.n)}</h2>${E.length?`<ul class="sched">${E.map(e=>`<li><b>${dl(e)}</b><span>${esc(e[2])}</span></li>`).join('')}</ul>`:'<p class="empty" style="margin:0">ไม่มีกิจกรรมในช่วงวันที่เลือก</p>'}`}
+function drawFest(){if(!(T.k>=2.5||st.v>=0))return;const on=v=>v.ev.some(e=>evIn(e,st.days)),xy=VEN.map(v=>{const c=proj(v.ll);return [T.applyX(c[0]),T.applyY(c[1])]});
+  ctx.setLineDash([7,5]);ctx.lineWidth=2.5;ctx.strokeStyle='#E95429';ROUTE.forEach(([a,b])=>{ctx.beginPath();ctx.moveTo(xy[a][0],xy[a][1]);ctx.lineTo(xy[b][0],xy[b][1]);ctx.stroke()});ctx.setLineDash([]);
+  const s=Math.max(9,Math.min(13,7+T.k/3));ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`700 ${Math.round(s*1.1)}px Kanit,system-ui,sans-serif`;
+  VEN.forEach((v,k)=>{const [x,y]=xy[k];if(x<-20||x>W+20||y<-20||y>H+20)return;ctx.globalAlpha=on(v)?1:.4;ctx.beginPath();ctx.arc(x,y,s,0,6.2832);ctx.fillStyle='#E95429';ctx.fill();
+    ctx.lineWidth=k===st.v?3:1.6;ctx.strokeStyle=k===st.v?'#D3FF34':'#fff';ctx.stroke();ctx.fillStyle='#fff';ctx.fillText(k+1,x,y+1)});
+  ctx.globalAlpha=1;ctx.textBaseline='alphabetic'}
+festBtns();
 })();
 </script>
 

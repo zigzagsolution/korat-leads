@@ -25,6 +25,7 @@ button,input,select{font:inherit;color:inherit}
 .wrap{max-width:1320px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .band{background:var(--orange)}
 .band .wrap{padding-block:22px 20px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:flex-end;justify-content:space-between}
+.srcbadge{display:inline-block;margin-top:10px;padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.92);color:#0b1f4a;font-size:13px;font-weight:600}
 .band h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(30px,5vw,52px);line-height:1}
 .band p{margin:6px 0 0;font-size:15px}
 .band nav a{font-family:var(--display);font-weight:500;color:var(--navy);text-decoration:none;background:#fff;border-radius:999px;padding:7px 14px;display:inline-block}
@@ -101,7 +102,7 @@ footer{color:var(--faint);font-size:13px;padding:36px 0 40px;text-align:center}
 </head>
 <body>
 <header class="band"><div class="wrap">
-  <div><h1>Korat</h1><p>ที่พักและราคาห้อง · คืนวันเสาร์ 21 พ.ย. 2569 (ช่วงงานเทศกาล)</p></div>
+  <div><h1>Korat</h1><p>ที่พักและราคาห้อง · คืนวันเสาร์ 21 พ.ย. 2569 (ช่วงงานเทศกาล)</p><span class="srcbadge">ที่มาข้อมูล: Agoda.com · เก็บข้อมูล 27–28 ต.ค. 2569</span></div>
   <nav><a href="./">← กลับไปหน้าข้อมูลร้าน</a></nav>
 </div><div class="tiles"></div></header>
 
@@ -110,7 +111,7 @@ footer{color:var(--faint);font-size:13px;padding:36px 0 40px;text-align:center}
     <div class="kpi"><b id="kN">0</b><span>ที่พักที่เปิดจองออนไลน์</span><small id="kNs"></small></div>
     <div class="kpi"><b class="l" id="kMed">0</b><span>ราคากลางต่อคืน (บาท)</span><small id="kMeds"></small></div>
     <div class="kpi"><b class="o" id="kSold">0</b><span>เต็มแล้วสำหรับคืนนั้น</span><small id="kSolds"></small></div>
-    <div class="kpi"><b id="kRoom">0</b><span>ห้องพักรวม (เท่าที่เว็บจองแสดง)</span><small id="kRooms"></small></div>
+    <div class="kpi"><b id="kRoom">0</b><span>ห้องพักรวม (ตามที่แสดงบน Agoda)</span><small id="kRooms"></small></div>
   </section>
 
   <div class="chips" id="bands" role="group" aria-label="ช่วงราคา"><span class="lbl">ช่วงราคาต่อคืน</span></div>
@@ -145,7 +146,7 @@ footer{color:var(--faint);font-size:13px;padding:36px 0 40px;text-align:center}
       <thead><tr><th data-sort="name"><button>ชื่อที่พัก</button></th><th data-sort="d"><button>อำเภอ</button></th><th data-sort="rooms" class="r"><button>ห้อง</button></th><th data-sort="star" class="r"><button>ดาว</button></th><th data-sort="price" class="r"><button>ราคา/คืน</button></th><th data-sort="score" class="r"><button>คะแนน</button></th><th data-sort="rev" class="r"><button>รีวิว</button></th><th data-sort="st"><button>สถานะ</button></th></tr></thead>
       <tbody id="rows"></tbody>
     </table><div class="more"><button class="btn" id="moreBtn">แสดงเพิ่มอีก 50 แห่ง</button></div></div>
-    <p class="note">ราคา = ห้องถูกที่สุดที่เปิดขาย สำหรับ 2 คน 1 ห้อง เช็คอิน 21 พ.ย. เช็คเอาท์ 22 พ.ย. 2569 รวมภาษีแล้ว เก็บข้อมูลวันที่ 27 ต.ค. 2569 ราคาจริงเปลี่ยนได้ทุกวัน นับเฉพาะที่พักที่ขายผ่านเว็บจองออนไลน์ จึงน้อยกว่าที่พักทั้งหมดในจังหวัด · จำนวนห้อง = ตัวเลขที่ที่พักแจ้งไว้บนหน้าเว็บจอง (Number of rooms) บางแห่งไม่ได้แจ้งไว้ · โซน "ในเมืองโคราช + รอบ 5 กม." = รัศมี 8.5 กม. จากอนุสาวรีย์ท้าวสุรนารี (เขตเทศบาลนครราว 3.5 กม. บวกรอบนอก 5 กม.)</p>
+    <p class="note">ราคา = ห้องถูกที่สุดที่เปิดขาย สำหรับ 2 คน 1 ห้อง เช็คอิน 21 พ.ย. เช็คเอาท์ 22 พ.ย. 2569 รวมภาษีแล้ว เก็บข้อมูลวันที่ 27 ต.ค. 2569 ราคาจริงเปลี่ยนได้ทุกวัน ที่มาข้อมูล Agoda.com นับเฉพาะที่พักที่ขายบน Agoda จึงน้อยกว่าที่พักทั้งหมดในจังหวัด · จำนวนห้อง = ตัวเลขที่ที่พักแจ้งไว้บนหน้า Agoda (Number of rooms) เก็บวันที่ 27–28 ต.ค. 2569 บางแห่งไม่ได้แจ้งไว้ · โซน "ในเมืองโคราช + รอบ 5 กม." = รัศมี 8.5 กม. จากอนุสาวรีย์ท้าวสุรนารี (เขตเทศบาลนครราว 3.5 กม. บวกรอบนอก 5 กม.)</p>
   </section>
 </main>
 <footer>พัฒนาข้อมูลโดย MIDI x KORAT</footer>

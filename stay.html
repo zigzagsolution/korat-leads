@@ -130,7 +130,7 @@ footer{color:var(--faint);font-size:13px;padding:36px 0 40px;text-align:center}
     <div class="festhd"><h3 id="festh"><em>K-BATTLE 2026</em> · จุดจัดงาน 20–29 พ.ย.</h3><p class="sub">แตะจุดจัดงานเพื่อดูกิจกรรม และที่พักในรัศมีเดิน 1 กม.</p></div>
     <div class="chips" id="fdays" role="group" aria-label="ช่วงวันงาน"></div>
     <div class="vlist" id="vlist" role="group" aria-label="จุดจัดงาน"></div>
-    <p class="note">จุดจัดงาน 7 จุดตามรายชื่อจากผู้จัด K-BATTLE · กิจกรรมและวันที่จากโปสเตอร์ทางการ · วิทยาลัยนาฏศิลปนครราชสีมายังไม่มีวันที่ Workshop · เส้นประเชื่อมจุดตามโปสเตอร์ ไม่ใช่เส้นถนนจริง · ตำแหน่ง KORAT City Recipe เป็นค่าประมาณ</p>
+    <p class="note">จุดจัดงาน 7 จุดตามรายชื่อจากผู้จัด K-BATTLE เลขจุดตามแผนที่บนโปสเตอร์ · กิจกรรมและวันที่จากโปสเตอร์ทางการ · กิจกรรมนอก 7 จุด: Craft Beer 27–29 พ.ย. ที่ Tin's Thing · เส้นประเชื่อมจุดตามโปสเตอร์ ไม่ใช่เส้นถนนจริง · ตำแหน่ง Korat Street Food (KORAT City Recipe) เป็นค่าประมาณ</p>
   </section>
 
   <section class="kpis">
@@ -179,15 +179,15 @@ footer{color:var(--faint);font-size:13px;padding:36px 0 40px;text-align:center}
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
 <script>
-// K-BATTLE 2026: the organiser's 7 venues (sent 31 Oct 2026); schedule from the official poster. Coordinates from Google Maps places in our scrape; City Recipe is placed on ถ.สุรนารี per the poster pin (approximate). e[0]==null = date not announced yet.
+// K-BATTLE 2026: the organiser's 7 venues (sent 31 Oct 2026); order = poster map pins 1–7; schedule from the official poster (updated 31 Oct 2026). Coordinates from Google Maps places in our scrape; City Recipe is placed on ถ.สุรนารี per the poster pin (approximate). e[0]==null = date not announced yet.
 const VEN=[
  {n:'สุรนารีสแควร์',s:'ลานย่าโม-อาร์ตแกลลอรี่',ll:[102.098141,14.9747607],ev:[[20,29,'สถาปนิก (Architect Showcase)'],[21,22,'Korat Artist Contest'],[23,23,'Wind Symphony Gala Concert'],[24,24,'Jennifer Kim x Siam Event Orchestra'],[25,25,'Jazz on Stage'],[27,27,'Javis Concert'],[27,27,'K-Battle Parade (ขบวนพาเหรด)'],[27,29,'K-Battle Competition'],[27,29,'แฟชั่น (Fashion)'],[28,28,'Maiyarap Concert'],[29,29,'Chinchinawut Concert']]},
- {n:'KORAT City Recipe',s:'Street Food · ถนนเส้นสุรนารี (ตำแหน่งโดยประมาณ)',ll:[102.0915,14.9772],ev:[[27,29,'Street Food']]},
+ {n:'Korat Street Food',s:'KORAT City Recipe · ถนนเส้นสุรนารี (ตำแหน่งโดยประมาณ)',ll:[102.0915,14.9772],ev:[[27,29,'Street Food (ถนนเส้นสุรนารี)']]},
  {n:'Terminal 21 Korat',s:'ห้างสรรพสินค้า · เทอร์มินอล 21',ll:[102.0900816,14.9818718],ev:[[28,29,'สตรีทบาส (Street Basketball)']]},
  {n:'Central Korat',s:'ห้างสรรพสินค้า · Expo Zone',ll:[102.1160881,14.996555],ev:[[21,22,'Dance Camp'],[27,27,'เปิดงาน KBAT X (Grand Opening)'],[27,29,'Expo: นวัตกรรม & ไลฟ์สไตล์, ครีเอทีฟ & อาร์ต, เอ็กซิบิชัน & เวิร์กชอป, ธุรกิจสร้างสรรค์, เทคโนโลยี, Business Matching, Brand Showcase']]},
  {n:'ม.ราชภัฏนครราชสีมา',s:'สถาบันการศึกษา · Workshop & Masterclass',ll:[102.113701,14.984639],ev:[[24,24,'Siam Event Orchestra Workshop'],[24,24,'Workshop & Masterclass: Andrea Giuffredi'],[25,25,'YUSU Workshop']]},
- {n:'วิทยาลัยนาฏศิลปนครราชสีมา',s:'สถาบันการศึกษา · Workshop',ll:[101.989584,14.931718],ev:[[null,null,'Workshop']]},
- {n:'ร.ร.สุรนารีวิทยา',s:'สถาบันการศึกษา · Band Master',ll:[102.102489,14.980495],ev:[[27,29,'Band Master']]}];
+ {n:'ร.ร.สุรนารีวิทยา',s:'สถาบันการศึกษา · Band Master',ll:[102.102489,14.980495],ev:[[27,29,'Band Master']]},
+ {n:'วิทยาลัยนาฏศิลปนครราชสีมา',s:'สถาบันการศึกษา · Workshop',ll:[101.989584,14.931718],ev:[[21,22,'Workshop: วิทยาลัยนาฏศิลปนครราชสีมา x Andrea Giuffredi']]}];
 const ROUTE=[[0,1],[1,2],[2,3],[0,4]],VR=1;// km walking radius
 const DAYS=[{k:'all',n:'ทุกวัน 20–29',a:20,b:29},{k:'w1',n:'สุดสัปดาห์แรก 20–22',a:20,b:22},{k:'wd',n:'วันธรรมดา 23–26',a:23,b:26},{k:'w2',n:'สุดสัปดาห์ที่ 2 · 27–29',a:27,b:29}];
 const evIn=(e,dk)=>{if(e[0]==null)return true;const D=DAYS.find(d=>d.k===dk);return e[0]<=D.b&&e[1]>=D.a};

@@ -564,16 +564,12 @@ if(API_URL){setInterval(()=>{if(!$("#mask").classList.contains("on")&&!document.
 // รหัสตรวจที่ Apps Script ฝั่ง Google ไม่มีรหัสหรือข้อมูลงานอยู่ในหน้าเว็บนี้
 function lockOut(){KEY="";tasks=[];try{localStorage.removeItem(GATE_KEY);localStorage.removeItem(LS)}catch(e){}
   if(started)location.reload();else{$("#gate").hidden=false;$("#gateErr").textContent="รหัสไม่ถูกต้อง";$("#gateIn").value="";$("#gateIn").focus()}}
-// รองรับช่วงที่ยังไม่ได้อัปเดตโค้ด Apps Script (ลบทิ้งได้เมื่ออัปเดตแล้ว)
-const OLD_H="0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c";
-async function sha(t){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
 async function tryKey(code){
-  if(!API_URL) return await sha(code)===OLD_H;
+  if(!API_URL) return true;
   const r=await fetch(API_URL+"?k="+encodeURIComponent(code),{cache:"no-store"});
   const j=await r.json();
   if(j.error==="auth") return false;
-  if(j.auth) return true;
-  return await sha(code)===OLD_H;
+  return !!j.auth;
 }
 let saved="";try{saved=localStorage.getItem(GATE_KEY)||""}catch(e){}
 try{localStorage.removeItem("korat-team-cal-v1-ok")}catch(e){}

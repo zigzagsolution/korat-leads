@@ -225,7 +225,7 @@ const MONTHS = ["มกราคม","กุมภาพันธ์","มีน
 const MSHORT = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
 const DOW = ["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัส","ศุกร์","เสาร์"];
 const DOWS = ["อา.","จ.","อ.","พ.","พฤ.","ศ.","ส."];
-const TYPES = ["ข่าว","อินโฟกราฟิก","วิดีโอ","ภาพ/โพสต์","สไลด์/เอกสาร","ประสานงาน","หน้างาน/อีเวนต์","อื่นๆ"];
+const TYPES = ["ข่าว","อินโฟกราฟิก","วิดีโอ","ไลฟ์สด","ภาพ/โพสต์","สไลด์/เอกสาร","ประสานงาน","หน้างาน/อีเวนต์","อื่นๆ"];
 const TOR = [
  ["6.1.1","Workshop หา 10 คุณค่าโคราช (≥100 คน)"],["6.1.2","แผน Milestone และ Timeline รายเดือน"],["6.1.3","แผนตัวชี้วัด Media Performance / ROI (≥200,000 คน)"],
  ["6.1.4","เก็บข้อมูลผู้ร่วมงานตาม PDPA"],["6.1.5","แผนและเอกสารนำเสนอ (Word/Canva)"],
@@ -237,7 +237,7 @@ const TOR = [
  ["6.4","หลังงาน: Highlight ≥3 นาที · Short ≥5 · ภาพ ≥300"],["6.4(1)","Highlight Video ≥3 นาที 1 ชิ้น"],["6.4(2)","Short ≤60 วิ ≥5 ชิ้น"],["6.4(3)","ภาพบรรยากาศ ≥300 ภาพ"],["6.5","ทีมบริหารโครงการ"],["6.6","Final Report"],["6.7","ข้อมูลส่วนบุคคล (PDPA)"]];
 const torOf = t => (t&&t.extra&&t.extra.tor)||"";
 const torTag = t => torOf(t)?`<span class="tor" title="TOR ข้อ ${esc(torOf(t))}">${esc(torOf(t))}</span>`:"";
-const CHANNELS = [["Facebook","FB","#1877f2"],["Instagram","IG","#c13584"],["Reels","RL","#d62976"],["TikTok","TT","#111"],["YouTube","YT","#e00"]];
+const CHANNELS = [["Facebook","FB","#1877f2"],["Instagram","IG","#c13584"],["Reels","RL","#d62976"],["TikTok","TT","#111"],["YouTube","YT","#e00"],["LINE","LN","#06c755"]];
 const chOf = t => (t&&t.extra&&Array.isArray(t.extra.channels))?t.extra.channels:[];
 const chBadges = t => chOf(t).map(c=>{const x=CHANNELS.find(k=>k[0]===c);return x?`<span class="cb" style="background:${x[2]}" title="${x[0]}">${x[1]}</span>`:""}).join("");
 const typeOf = t => (t.extra&&t.extra.type)||"";

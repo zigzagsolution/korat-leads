@@ -31,7 +31,7 @@ h1 span{font-weight:500;color:var(--mute)}
 .nav button:disabled{opacity:.35;cursor:default}
 .addbtn{background:var(--orange)!important;color:#fff;border:0!important;font-weight:600}
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 12px}
-.bar select{font:inherit;border:1px solid var(--line);border-radius:9px;padding:6px 10px;background:#fff}
+.bar select{max-width:190px;font:inherit;border:1px solid var(--line);border-radius:9px;padding:6px 10px;background:#fff}
 .legend{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--mute)}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 .sum{font-size:13px;color:var(--mute)}
@@ -118,6 +118,8 @@ h1 span{font-weight:500;color:var(--mute)}
 .f label{display:block;font-size:13px;color:var(--mute);margin-bottom:4px}
 .f input,.f textarea{width:100%;font:inherit;border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;color:var(--ink)}
 .f textarea{min-height:70px;resize:vertical}
+.f select{width:100%;font:inherit;border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;color:var(--ink)}
+.tor{display:inline-block;font-size:10.5px;font-weight:700;color:var(--orange);border:1px solid #ffc9a8;background:#fff6f0;border-radius:4px;padding:0 4px;margin-right:4px;vertical-align:1px}
 #fNote{min-height:56px}
 .types{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
 .types button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 11px;font-size:13px}
@@ -180,6 +182,7 @@ footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center}
   <div class="bar">
     <select id="who"><option value="">ทุกคน</option></select>
     <select id="typf"><option value="">ทุกประเภท</option></select>
+    <select id="torf"><option value="">ทุกข้อ TOR</option></select>
     <select id="stf"><option value="">ทุกสถานะ</option><option value="todo">ยังไม่ได้ทำ</option><option value="doing">กำลังทำ</option><option value="done">สำเร็จ</option></select>
     <div class="legend"><span><i style="background:var(--todo)"></i>ยังไม่ได้ทำ</span><span><i style="background:var(--doing)"></i>กำลังทำ</span><span><i style="background:var(--done)"></i>สำเร็จ</span><span><i style="background:var(--event)"></i>วันงานสำคัญ</span></div>
     <div class="sp"></div>
@@ -195,6 +198,7 @@ footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center}
     <h2 id="mTitle">เพิ่มงาน</h2>
     <div class="f"><label>ชื่อผู้รับผิดชอบ</label><input id="fName" list="names" placeholder="เช่น พี่หนึ่ง" autocomplete="off"><datalist id="names"></datalist></div>
     <div class="f"><label>ประเภทงาน</label><div class="types" id="fTypes"></div><input id="fType" list="typeList" placeholder="เลือกด้านบน หรือพิมพ์เอง" autocomplete="off"><datalist id="typeList"></datalist></div>
+    <div class="f"><label>ข้อ TOR</label><select id="fTor"><option value="">— ไม่ระบุ —</option></select></div>
     <div class="f"><label>ช่องทางเผยแพร่ (ติ๊กได้หลายช่อง)</label><div class="chs" id="fCh"></div></div>
     <div class="f"><label>งาน</label><textarea id="fTask" placeholder="ทำอะไร"></textarea></div>
     <div class="two">
@@ -222,6 +226,17 @@ const MSHORT = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","�
 const DOW = ["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัส","ศุกร์","เสาร์"];
 const DOWS = ["อา.","จ.","อ.","พ.","พฤ.","ศ.","ส."];
 const TYPES = ["ข่าว","อินโฟกราฟิก","วิดีโอ","ภาพ/โพสต์","สไลด์/เอกสาร","ประสานงาน","หน้างาน/อีเวนต์","อื่นๆ"];
+const TOR = [
+ ["6.1.1","Workshop หา 10 คุณค่าโคราช (≥100 คน)"],["6.1.2","แผน Milestone และ Timeline รายเดือน"],["6.1.3","แผนตัวชี้วัด Media Performance / ROI (≥200,000 คน)"],
+ ["6.1.4","เก็บข้อมูลผู้ร่วมงานตาม PDPA"],["6.1.5","แผนและเอกสารนำเสนอ (Word/Canva)"],
+ ["6.2.1","TVC/Thematic VDO 60 วิ + 30/15 วิ"],["6.2.2","วิดีโอออนไลน์ ≥30 วิ ≥3 เรื่อง"],["6.2.3","เว็บไซต์ + ระบบลงทะเบียน"],
+ ["6.2.4","โซเชียล: Short Video ≥60 · Infographic/Motion ≥20 · กิจกรรมออนไลน์ ≥3"],["6.2.5","Banner/Social Ads ≥50 ชิ้น"],
+ ["6.2.6","Onsite: Live ≥5 จุด · จุดเช็กอิน · Press Kit ≥400"],["6.2.7","ออกแบบป้าย 200++ จุด + OOH"],["6.2.8","สิ่งพิมพ์ ≥100,000 ชุด"],["6.2.9","ของที่ระลึก ≥300 ชุด"],
+ ["6.3.1","Press Tour (PR Value ≥3 เท่า / ≥200 ข่าว)"],["6.3.2","พัฒนาเนื้อหา PR ออนไลน์/ออฟไลน์"],["6.3.3","ออฟไลน์: ทีวี · ป้าย · Caravan · หนังสือพิมพ์"],
+ ["6.3.4","ออนไลน์: Thematic VDO · สำนักข่าว/KOL · Influencer ≥50"],
+ ["6.4","หลังงาน: Highlight ≥3 นาที · Short ≥5 · ภาพ ≥300"],["6.5","ทีมบริหารโครงการ"],["6.6","Final Report"],["6.7","ข้อมูลส่วนบุคคล (PDPA)"]];
+const torOf = t => (t&&t.extra&&t.extra.tor)||"";
+const torTag = t => torOf(t)?`<span class="tor" title="TOR ข้อ ${esc(torOf(t))}">${esc(torOf(t))}</span>`:"";
 const CHANNELS = [["Facebook","FB","#1877f2"],["Instagram","IG","#c13584"],["Reels","RL","#d62976"],["TikTok","TT","#111"],["YouTube","YT","#e00"]];
 const chOf = t => (t&&t.extra&&Array.isArray(t.extra.channels))?t.extra.channels:[];
 const chBadges = t => chOf(t).map(c=>{const x=CHANNELS.find(k=>k[0]===c);return x?`<span class="cb" style="background:${x[2]}" title="${x[0]}">${x[1]}</span>`:""}).join("");
@@ -308,8 +323,8 @@ async function send(body){
 
 // ---------- render ----------
 function filtered(){
-  const w=$("#who").value, s=$("#stf").value, ty=$("#typf").value;
-  return tasks.filter(t=>(!w||t.name===w)&&(!s||t.status===s)&&(!ty||typeOf(t)===ty));
+  const w=$("#who").value, s=$("#stf").value, ty=$("#typf").value, tr=$("#torf").value;
+  return tasks.filter(t=>(!w||t.name===w)&&(!s||t.status===s)&&(!ty||typeOf(t)===ty)&&(!tr||torOf(t)===tr||torOf(t).startsWith(tr+".")));
 }
 function render(){
   // people filter
@@ -344,7 +359,7 @@ function renderLong(ft){
   L.forEach(t=>{
     const s0=Math.max(0,dayN(t.date)-a), e0=Math.min(n-1,dayN(t.end)-a);
     const ty=typeOf(t);
-    h+=`<div class="lg ${t.status}" data-id="${esc(t.id)}"><div class="nm">${ty?`<span class="tag">${esc(ty)}</span>`:""}<b>${esc(t.name)}:</b> ${esc(t.task)}</div>
+    h+=`<div class="lg ${t.status}" data-id="${esc(t.id)}"><div class="nm">${torTag(t)}${ty?`<span class="tag">${esc(ty)}</span>`:""}<b>${esc(t.name)}:</b> ${esc(t.task)}</div>
       <div class="tl"><i style="left:${s0/n*100}%;width:${(e0-s0+1)/n*100}%"></i>${td>=a&&td<a+n?`<em style="left:${(td-a+.5)/n*100}%"></em>`:""}</div>
       <div class="dt">${sd(t.date)} – ${sd(t.end)}<span class="pill">${STL[t.status]}</span></div></div>`;
   });
@@ -391,7 +406,7 @@ function renderMonth(ft){
       if(x.ev){fg+=`<div class="ev bar${cl}${cr}" style="${pos}" title="${esc(x.label)}">${esc(x.label)}</div>`;return}
       const t=x.t, ty=typeOf(t);
       const range=t.end&&t.end>t.date?` <span class="rng">(${thDate(t.date).replace(/^\S+ /,"")} – ${thDate(t.end).replace(/^\S+ /,"")})</span>`:"";
-      fg+=`<div class="tk bar ${t.status}${cl}${cr}" data-id="${esc(t.id)}" style="${pos}" title="${esc((ty?"["+ty+"] ":"")+t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t">${x.mk?`<span class="mk${x.mk==="ส่ง"?" due":""}">${x.mk==="ส่ง"?"⚑ ส่ง":"▶ เริ่ม"}</span>`:""}${ty?`<span class="tag">${esc(ty)}</span>`:""}${chBadges(t)}<b>${esc(t.name)}:</b> ${esc(t.task)}${e>s?range:""}${linksOf(t.note).length?'<span class="ln">🔗</span>':''}${filesOf(t).length?'<span class="ln">📎</span>':''}</div></div>`;
+      fg+=`<div class="tk bar ${t.status}${cl}${cr}" data-id="${esc(t.id)}" style="${pos}" title="${esc((ty?"["+ty+"] ":"")+t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t">${x.mk?`<span class="mk${x.mk==="ส่ง"?" due":""}">${x.mk==="ส่ง"?"⚑ ส่ง":"▶ เริ่ม"}</span>`:""}${ty?`<span class="tag">${esc(ty)}</span>`:""}${torTag(t)}${chBadges(t)}<b>${esc(t.name)}:</b> ${esc(t.task)}${e>s?range:""}${linksOf(t.note).length?'<span class="ln">🔗</span>':''}${filesOf(t).length?'<span class="ln">📎</span>':''}</div></div>`;
     });
     hidden.forEach((n,c)=>{if(n)fg+=`<div class="more" data-day="${ds[c]}" style="grid-column:${c+1};grid-row:${LANES+1}">+ อีก ${n}</div>`});
     h+=`<div class="week"><div class="wbg">${bg}</div><div class="wfg">${fg}</div></div>`;
@@ -408,7 +423,7 @@ function renderList(list){
     h+=`<div class="lday"><h3>${thDate(d)}</h3>`;
     by[d].forEach(t=>{
       const rng=t.end&&t.end>t.date?` · ถึง ${thDate(t.end)}`:"";
-      h+=`<div class="lrow"><div class="who">${esc(t.name)}</div><div class="what${t.status==="done"?" done":""}" data-id="${esc(t.id)}">${typeOf(t)?`<span class="tag">${esc(typeOf(t))}</span>`:""}${chBadges(t)}${esc(t.task)}<small>${linkify(t.note||"")}${rng}</small>${filesOf(t).map(f=>`<a href="${esc(f.url)}" target="_blank" rel="noopener">📎 ${esc(f.name)}</a>`).join(" ")}</div>
+      h+=`<div class="lrow"><div class="who">${esc(t.name)}</div><div class="what${t.status==="done"?" done":""}" data-id="${esc(t.id)}">${typeOf(t)?`<span class="tag">${esc(typeOf(t))}</span>`:""}${torTag(t)}${chBadges(t)}${esc(t.task)}<small>${linkify(t.note||"")}${rng}</small>${filesOf(t).map(f=>`<a href="${esc(f.url)}" target="_blank" rel="noopener">📎 ${esc(f.name)}</a>`).join(" ")}</div>
       <div class="st" data-id="${esc(t.id)}">${["done","doing","todo"].map(s=>`<button data-s="${s}" class="${s}${t.status===s?" on":""}">${STL[s]}</button>`).join("")}</div></div>`;
     });
     h+='</div>';
@@ -420,6 +435,8 @@ function renderList(list){
 function syncTypes(){const v=$("#fType").value.trim();$("#fTypes").innerHTML=TYPES.map(x=>`<button type="button" class="${x===v?"on":""}">${esc(x)}</button>`).join("")}
 $("#fTypes").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;$("#fType").value=$("#fType").value===b.textContent?"":b.textContent;syncTypes()});
 $("#fType").addEventListener("input",syncTypes);
+$("#fTor").innerHTML+=TOR.map(x=>`<option value="${x[0]}">${x[0]} ${esc(x[1])}</option>`).join("");
+$("#fTor").addEventListener("change",()=>{const v=$("#fTor").value;if(v&&!$("#fTask").value.trim()){const x=TOR.find(k=>k[0]===v);$("#fTask").value="ข้อ "+v+" "+x[1]}});
 let fFiles=[];
 const filesOf=t=>(t&&t.extra&&Array.isArray(t.extra.files))?t.extra.files:[];
 function drawFiles(){$("#fFiles").innerHTML=fFiles.map((f,i)=>`<div><a href="${esc(f.url)}" target="_blank" rel="noopener">📄 ${esc(f.name)}</a><button type="button" data-i="${i}">เอาออก</button></div>`).join("")}
@@ -451,6 +468,7 @@ function openModal(t,day){
   $("#fName").value=t?t.name:me;
   $("#fTask").value=t?t.task:"";
   $("#fType").value=t?typeOf(t):"";syncTypes();
+  $("#fTor").value=torOf(t);
   const cs=chOf(t);$("#fCh").innerHTML=CHANNELS.map(c=>`<label><input type="checkbox" value="${c[0]}"${cs.includes(c[0])?" checked":""}>${c[0]}</label>`).join("");
   $("#fDate").value=t?t.date:(day||clampDay(todayISO()));
   $("#fEnd").value=t?(t.end||""):"";
@@ -467,7 +485,7 @@ function closeModal(){$("#mask").classList.remove("on");editing=null}
 async function saveModal(){
   const task={name:$("#fName").value.trim(),task:$("#fTask").value.trim(),date:$("#fDate").value,end:$("#fEnd").value,note:$("#fNote").value.trim(),status:fStatus};
   const old=editing?tasks.find(x=>x.id===editing):null;
-  task.extra={...((old&&old.extra)||{}),type:$("#fType").value.trim(),files:fFiles,channels:[...document.querySelectorAll("#fCh input:checked")].map(i=>i.value)};
+  task.extra={...((old&&old.extra)||{}),type:$("#fType").value.trim(),files:fFiles,tor:$("#fTor").value,channels:[...document.querySelectorAll("#fCh input:checked")].map(i=>i.value)};
   if(!task.name){toast("กรุณาใส่ชื่อ");$("#fName").focus();return}
   if(!task.task){toast("กรุณาใส่งาน");$("#fTask").focus();return}
   if(!task.date){toast("กรุณาเลือกวันที่");return}
@@ -503,6 +521,8 @@ $("#addBtn").onclick=()=>openModal(null);
 $("#prev").onclick=()=>{cur=clampMonth(new Date(cur.y,cur.m-1,1));render()};
 $("#next").onclick=()=>{cur=clampMonth(new Date(cur.y,cur.m+1,1));render()};
 $("#today").onclick=()=>{cur=clampMonth(new Date());render()};
+$("#torf").innerHTML+=[["6.1","แผนกลยุทธ์ (ทั้งหมด)"],["6.2","ผลิตสื่อ (ทั้งหมด)"],["6.3","เผยแพร่สื่อ (ทั้งหมด)"],...TOR].map(x=>`<option value="${x[0]}">${x[0]} ${esc(x[1].length>34?x[1].slice(0,32)+"…":x[1])}</option>`).join("");
+$("#torf").onchange=render;
 $("#who").onchange=render; $("#typf").onchange=render; $("#stf").onchange=render;
 function syncSeg(){document.querySelectorAll("#viewSeg button").forEach(b=>b.classList.toggle("on",b.dataset.v===view))}
 document.querySelectorAll("#viewSeg button").forEach(b=>b.onclick=()=>{view=b.dataset.v;syncSeg();render()});

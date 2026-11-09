@@ -42,7 +42,19 @@ function out_(obj) {
 
 function clean_(v, max) { return String(v == null ? '' : v).slice(0, max); }
 
-const VERSION = 1;
+const VERSION = 2;
+const FOLDER = 'ปฏิทินงานทีม-ไฟล์แนบ';
+
+// เก็บไฟล์แนบไว้ใน Google Drive ของเจ้าของชีต แล้วเปิดให้คนที่มีลิงก์ดูได้
+function upload_(b) {
+  const it = DriveApp.getFoldersByName(FOLDER);
+  const folder = it.hasNext() ? it.next() : DriveApp.createFolder(FOLDER);
+  const name = clean_(b.name || 'file', 200);
+  const blob = Utilities.newBlob(Utilities.base64Decode(b.data || ''), b.mime || 'application/octet-stream', name);
+  const f = folder.createFile(blob);
+  try { f.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW); } catch (e) {}
+  return { ok: true, file: { name: name, url: f.getUrl(), id: f.getId() } };
+}
 
 function doGet() {
   return out_({ ok: true, version: VERSION, tasks: rows_() });
@@ -53,6 +65,7 @@ function doPost(e) {
   lock.waitLock(20000);
   try {
     const b = JSON.parse(e.postData.contents || '{}');
+    if (b.action === 'upload') return out_(upload_(b));
     const sh = sheet_();
     const now = new Date().toISOString();
     const t = b.task || {};

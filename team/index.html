@@ -222,7 +222,7 @@ const MSHORT = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","�
 const DOW = ["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัส","ศุกร์","เสาร์"];
 const DOWS = ["อา.","จ.","อ.","พ.","พฤ.","ศ.","ส."];
 const TYPES = ["ข่าว","อินโฟกราฟิก","วิดีโอ","ภาพ/โพสต์","สไลด์/เอกสาร","ประสานงาน","หน้างาน/อีเวนต์","อื่นๆ"];
-const CHANNELS = [["Facebook","FB","#1877f2"],["Reels","RL","#d62976"],["TikTok","TT","#111"],["YouTube","YT","#e00"]];
+const CHANNELS = [["Facebook","FB","#1877f2"],["Instagram","IG","#c13584"],["Reels","RL","#d62976"],["TikTok","TT","#111"],["YouTube","YT","#e00"]];
 const chOf = t => (t&&t.extra&&Array.isArray(t.extra.channels))?t.extra.channels:[];
 const chBadges = t => chOf(t).map(c=>{const x=CHANNELS.find(k=>k[0]===c);return x?`<span class="cb" style="background:${x[2]}" title="${x[0]}">${x[1]}</span>`:""}).join("");
 const typeOf = t => (t.extra&&t.extra.type)||"";

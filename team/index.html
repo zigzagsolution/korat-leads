@@ -57,7 +57,8 @@ h1 span{font-weight:500;color:var(--mute)}
 .tk .t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .tk.doing{border-color:var(--doing);background:var(--doing-bg)}
 .tk.done{border-color:var(--done);background:var(--done-bg)}
-.tk.done .t{text-decoration:line-through;color:#4b6b55}
+.tk.done .t::before{content:"✓ ";color:var(--done);font-weight:700}
+.what.done::before{content:"✓ ";color:var(--done);font-weight:700}
 .tk:hover{filter:brightness(.96)}
 .more{font-size:12px;color:var(--mute);padding-left:4px}
 /* list view */
@@ -304,7 +305,7 @@ function renderList(list){
     h+=`<div class="lday"><h3>${thDate(d)}</h3>`;
     by[d].forEach(t=>{
       const rng=t.end&&t.end>t.date?` · ถึง ${thDate(t.end)}`:"";
-      h+=`<div class="lrow"><div class="who">${esc(t.name)}</div><div class="what" data-id="${esc(t.id)}">${esc(t.task)}<small>${linkify(t.note||"")}${rng}</small></div>
+      h+=`<div class="lrow"><div class="who">${esc(t.name)}</div><div class="what${t.status==="done"?" done":""}" data-id="${esc(t.id)}">${esc(t.task)}<small>${linkify(t.note||"")}${rng}</small></div>
       <div class="st" data-id="${esc(t.id)}">${["done","doing","todo"].map(s=>`<button data-s="${s}" class="${s}${t.status===s?" on":""}">${STL[s]}</button>`).join("")}</div></div>`;
     });
     h+='</div>';

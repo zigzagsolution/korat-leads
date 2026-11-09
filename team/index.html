@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ปฏิทินงานทีม อวดเมืองโคราช</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f5f8; --card:#fff; --ink:#15193a; --mute:#7a7f99; --line:#e4e6ee; --soft:#f7f8fb;
+  --navy:#1b1f5e; --orange:#ff6b1a; --today:#ef3b3b;
+  --done:#16a34a; --done-bg:#e3f6ea; --doing:#f59e0b; --doing-bg:#fff2d6; --todo:#8a8fa8; --todo-bg:#eef0f5;
+  --event:#a43fd1; --event-bg:#f1dcfb;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Thai",system-ui,sans-serif;font-size:15px}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1400px;margin:0 auto;padding:14px 16px 40px}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:10px}
+.brand{font-size:13px;color:var(--mute);width:100%}
+.brand b{color:var(--navy)}
+h1{margin:0;font-size:30px;font-weight:700;letter-spacing:-.3px}
+h1 span{font-weight:500;color:var(--mute)}
+.sp{flex:1}
+.seg{display:flex;background:#e9ebf2;border-radius:10px;padding:3px}
+.seg button{border:0;background:none;padding:6px 14px;border-radius:8px;color:var(--ink)}
+.seg button.on{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12);font-weight:600}
+.nav{display:flex;gap:6px;align-items:center}
+.nav button{border:1px solid var(--line);background:#fff;border-radius:9px;height:34px;min-width:34px;padding:0 10px}
+.nav button:disabled{opacity:.35;cursor:default}
+.addbtn{background:var(--orange)!important;color:#fff;border:0!important;font-weight:600}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 12px}
+.bar select{font:inherit;border:1px solid var(--line);border-radius:9px;padding:6px 10px;background:#fff}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--mute)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.sum{font-size:13px;color:var(--mute)}
+.sum b{color:var(--ink)}
+.sync{font-size:12px;color:var(--mute)}
+.sync.err{color:var(--today)}
+.cal{background:var(--card);border-radius:14px;border:1px solid var(--line);overflow:hidden}
+.dow,.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.dow div{padding:8px 10px;text-align:right;font-size:14px;color:var(--mute);border-bottom:1px solid var(--line)}
+.cell{min-height:128px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px 6px 8px;position:relative;cursor:pointer}
+.cell:nth-child(7n){border-right:0}
+.cell.wk{background:var(--soft)}
+.cell.out .dn{color:#c2c5d3}
+.cell:hover{background:#fbf7f3}
+.dn{text-align:right;font-size:17px;font-weight:500;height:26px;line-height:26px}
+.dn em{font-style:normal;font-size:13px;color:var(--mute);margin-right:4px}
+.dn.today span{display:inline-block;background:var(--today);color:#fff;border-radius:50%;width:28px;height:28px;line-height:28px;text-align:center}
+.items{display:flex;flex-direction:column;gap:3px;margin-top:2px}
+.ev{font-size:12px;background:var(--event-bg);color:#6a1f8c;border-radius:5px;padding:2px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev::before{content:"★ ";color:var(--event)}
+.tk{font-size:12.5px;border-radius:6px;padding:3px 6px 3px 8px;border-left:4px solid var(--todo);background:var(--todo-bg);line-height:1.3;overflow:hidden}
+.tk b{font-weight:600}
+.tk .t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tk.doing{border-color:var(--doing);background:var(--doing-bg)}
+.tk.done{border-color:var(--done);background:var(--done-bg)}
+.tk.done .t{text-decoration:line-through;color:#4b6b55}
+.tk:hover{filter:brightness(.96)}
+.more{font-size:12px;color:var(--mute);padding-left:4px}
+/* list view */
+.list{background:var(--card);border-radius:14px;border:1px solid var(--line);padding:4px 0}
+.lday{padding:10px 16px;border-bottom:1px solid var(--line)}
+.lday:last-child{border-bottom:0}
+.lday h3{margin:0 0 6px;font-size:14px;color:var(--mute);font-weight:600}
+.lrow{display:flex;gap:10px;align-items:center;padding:6px 0;flex-wrap:wrap}
+.lrow .who{font-weight:600;min-width:90px}
+.lrow .what{flex:1;min-width:180px;cursor:pointer}
+.lrow .what small{display:block;color:var(--mute)}
+.empty{padding:30px;text-align:center;color:var(--mute)}
+/* status buttons */
+.st{display:flex;gap:4px}
+.st button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:4px 9px;font-size:13px;color:var(--mute)}
+.st button.on.todo{background:var(--todo);border-color:var(--todo);color:#fff}
+.st button.on.doing{background:var(--doing);border-color:var(--doing);color:#fff}
+.st button.on.done{background:var(--done);border-color:var(--done);color:#fff}
+/* modal */
+.mask{position:fixed;inset:0;background:rgba(15,18,40,.45);display:none;align-items:flex-start;justify-content:center;padding:40px 16px;z-index:10;overflow:auto}
+.mask.on{display:flex}
+.modal{background:#fff;border-radius:16px;width:100%;max-width:460px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.modal h2{margin:0 0 14px;font-size:20px}
+.f{margin-bottom:12px}
+.f label{display:block;font-size:13px;color:var(--mute);margin-bottom:4px}
+.f input,.f textarea{width:100%;font:inherit;border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;color:var(--ink)}
+.f textarea{min-height:70px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.big.st button{flex:1;padding:10px 4px;font-size:15px;font-weight:600}
+.acts{display:flex;gap:8px;margin-top:16px}
+.acts button{border:0;border-radius:10px;padding:10px 16px;font-weight:600}
+.save{background:var(--orange);color:#fff;flex:1}
+.cancel{background:#eceef4;color:var(--ink)}
+.del{background:none;color:var(--today);margin-right:auto}
+.hint{font-size:12px;color:var(--mute);margin-top:8px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:9px 16px;border-radius:10px;font-size:14px;display:none;z-index:20}
+footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center}
+.demo{background:#fff4e5;border:1px solid #ffd59a;color:#8a4b00;border-radius:10px;padding:8px 12px;font-size:13px;margin-bottom:10px;display:none}
+@media (max-width:760px){
+  h1{font-size:24px}
+  .cell{min-height:86px;padding:3px}
+  .dn{font-size:14px}
+  .dn.today span{width:24px;height:24px;line-height:24px}
+  .dow div{padding:6px 4px;font-size:12px;text-align:center}
+  .tk{font-size:11px;padding:2px 3px 2px 5px;border-left-width:3px}
+  .tk b{display:none}
+  .ev{font-size:10px;padding:1px 3px}
+  .ev::before{content:""}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><b>อวดเมือง.โคราช</b> · ปฏิทินติดตามงานทีม</div>
+    <h1 id="title">พฤศจิกายน <span>2569</span></h1>
+    <div class="sp"></div>
+    <div class="seg" id="viewSeg"><button data-v="month" class="on">เดือน</button><button data-v="list">รายการ</button></div>
+    <div class="nav">
+      <button id="prev" aria-label="เดือนก่อน">‹</button>
+      <button id="today">วันนี้</button>
+      <button id="next" aria-label="เดือนถัดไป">›</button>
+      <button class="addbtn" id="addBtn">+ เพิ่มงาน</button>
+    </div>
+  </header>
+  <div class="demo" id="demo">ยังไม่ได้เชื่อมที่เก็บข้อมูลกลาง: ตอนนี้งานที่เพิ่มจะเห็นแค่ในเครื่องนี้</div>
+  <div class="bar">
+    <select id="who"><option value="">ทุกคน</option></select>
+    <select id="stf"><option value="">ทุกสถานะ</option><option value="todo">ยังไม่ได้ทำ</option><option value="doing">กำลังทำ</option><option value="done">สำเร็จ</option></select>
+    <div class="legend"><span><i style="background:var(--todo)"></i>ยังไม่ได้ทำ</span><span><i style="background:var(--doing)"></i>กำลังทำ</span><span><i style="background:var(--done)"></i>สำเร็จ</span><span><i style="background:var(--event)"></i>วันงานสำคัญ</span></div>
+    <div class="sp"></div>
+    <div class="sum" id="sum"></div>
+    <div class="sync" id="sync"></div>
+  </div>
+  <div id="view"></div>
+  <footer>กดที่ช่องวันเพื่อเพิ่มงาน · กดที่งานเพื่อแก้ไขหรือเปลี่ยนสถานะ · พัฒนาข้อมูลโดย MIDI x KORAT</footer>
+</div>
+
+<div class="mask" id="mask">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h2 id="mTitle">เพิ่มงาน</h2>
+    <div class="f"><label>ชื่อผู้รับผิดชอบ</label><input id="fName" list="names" placeholder="เช่น พี่หนึ่ง" autocomplete="off"><datalist id="names"></datalist></div>
+    <div class="f"><label>งาน</label><textarea id="fTask" placeholder="ทำอะไร"></textarea></div>
+    <div class="two">
+      <div class="f"><label>วันที่</label><input type="date" id="fDate" min="2026-10-01" max="2027-02-28"></div>
+      <div class="f"><label>ถึงวันที่ (ถ้ามีหลายวัน)</label><input type="date" id="fEnd" min="2026-10-01" max="2027-02-28"></div>
+    </div>
+    <div class="f"><label>สถานะ</label>
+      <div class="st big" id="fSt"><button data-s="done" class="done">สำเร็จ</button><button data-s="doing" class="doing">กำลังทำ</button><button data-s="todo" class="todo">ยังไม่ได้ทำ</button></div>
+    </div>
+    <div class="f"><label>หมายเหตุ (ถ้ามี)</label><input id="fNote" placeholder="ติดอะไร / ลิงก์งาน"></div>
+    <div class="acts"><button class="del" id="mDel">ลบ</button><button class="cancel" id="mCancel">ยกเลิก</button><button class="save" id="mSave">บันทึก</button></div>
+    <div class="hint" id="mHint"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ใส่ URL ของ Google Apps Script Web app ตรงนี้
+const API_URL = "";
+
+const MONTHS = ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
+const MSHORT = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+const DOW = ["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัส","ศุกร์","เสาร์"];
+const DOWS = ["อา.","จ.","อ.","พ.","พฤ.","ศ.","ส."];
+const STL = {todo:"ยังไม่ได้ทำ",doing:"กำลังทำ",done:"สำเร็จ"};
+const RANGE = [[2026,9],[2027,1]]; // ต.ค. 69 – ก.พ. 70 (เดือนเริ่มที่ 0)
+
+// วันงานสำคัญของโครงการ + วันหยุด
+const EVENTS = [
+  ["2026-10-16","2026-10-16","Workshop"],
+  ["2026-10-23","2026-10-23","วันปิยมหาราช"],
+  ["2026-11-12","2026-11-12","KICK OFF อวดเมือง.โคราช (Lido Connect)"],
+  ["2026-11-19","2026-11-20","Press Tour รอบ 1"],
+  ["2026-11-20","2026-11-22","เทศกาล สุดสัปดาห์ที่ 1"],
+  ["2026-11-27","2026-11-29","เทศกาล สุดสัปดาห์ที่ 2"],
+  ["2026-11-27","2026-11-29","Press Tour รอบ 2"],
+  ["2026-11-29","2026-11-29","วันสุดท้ายแลกแต้ม/ของที่ระลึก"],
+  ["2026-12-05","2026-12-05","วันพ่อแห่งชาติ"],
+  ["2026-12-07","2026-12-07","วันหยุดชดเชย"],
+  ["2026-12-10","2026-12-10","วันรัฐธรรมนูญ"],
+  ["2026-12-31","2026-12-31","วันสิ้นปี"],
+  ["2027-01-01","2027-01-01","วันขึ้นปีใหม่"],
+];
+
+let tasks = [];
+let cur = clampMonth(new Date());
+let view = "month";
+let editing = null; // id or null
+let fStatus = "todo";
+const LS = "korat-team-cal-v1";
+
+const $ = s => document.querySelector(s);
+const pad = n => String(n).padStart(2,"0");
+const iso = d => d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const todayISO = () => iso(new Date());
+function clampMonth(d){
+  let y=d.getFullYear(), m=d.getMonth();
+  const a=RANGE[0], b=RANGE[1];
+  if (y*12+m < a[0]*12+a[1]) [y,m]=a;
+  if (y*12+m > b[0]*12+b[1]) [y,m]=b;
+  return {y,m};
+}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function thDate(s){const [y,m,d]=s.split("-").map(Number);const w=new Date(y,m-1,d).getDay();return DOWS[w]+" "+d+" "+MSHORT[m-1]+" "+String(y+543).slice(2)}
+function covers(t,day){const e=t.end&&t.end>=t.date?t.end:t.date;return t.date<=day&&day<=e}
+
+// ---------- data ----------
+function toast(msg){const t=$("#toast");t.textContent=msg;t.style.display="block";clearTimeout(toast._t);toast._t=setTimeout(()=>t.style.display="none",2200)}
+function setSync(msg,err){const s=$("#sync");s.textContent=msg;s.className="sync"+(err?" err":"")}
+function loadLocal(){try{tasks=JSON.parse(localStorage.getItem(LS)||"[]")}catch(e){tasks=[]}}
+function saveLocal(){try{localStorage.setItem(LS,JSON.stringify(tasks))}catch(e){}}
+
+async function fetchAll(quiet){
+  if(!API_URL){loadLocal();render();return}
+  if(!quiet) setSync("กำลังโหลด…");
+  try{
+    const r=await fetch(API_URL,{cache:"no-store"});
+    const j=await r.json();
+    if(j.ok){tasks=j.tasks;saveLocal();render();setSync("อัปเดต "+new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"}))}
+    else throw new Error(j.error||"load");
+  }catch(e){loadLocal();render();setSync("โหลดข้อมูลกลางไม่ได้ (แสดงข้อมูลล่าสุดในเครื่อง)",true)}
+}
+async function send(body){
+  if(!API_URL){
+    if(body.action==="add") tasks.push({...body.task,id:Math.random().toString(36).slice(2,10)});
+    else if(body.action==="delete") tasks=tasks.filter(t=>t.id!==body.id);
+    else {const t=tasks.find(t=>t.id===body.id); if(t) Object.assign(t, body.action==="status"?{status:body.task.status}:body.task)}
+    saveLocal();render();return true;
+  }
+  setSync("กำลังบันทึก…");
+  try{
+    const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)});
+    const j=await r.json();
+    if(j.tasks){tasks=j.tasks;saveLocal();render()}
+    if(!j.ok) throw new Error(j.error);
+    setSync("บันทึกแล้ว "+new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"}));
+    return true;
+  }catch(e){setSync("บันทึกไม่สำเร็จ ลองอีกครั้ง",true);toast("บันทึกไม่สำเร็จ กรุณาลองใหม่");return false}
+}
+
+// ---------- render ----------
+function filtered(){
+  const w=$("#who").value, s=$("#stf").value;
+  return tasks.filter(t=>(!w||t.name===w)&&(!s||t.status===s));
+}
+function render(){
+  // people filter
+  const names=[...new Set(tasks.map(t=>t.name).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"th"));
+  const sel=$("#who"), keep=sel.value;
+  sel.innerHTML='<option value="">ทุกคน</option>'+names.map(n=>`<option${n===keep?" selected":""}>${esc(n)}</option>`).join("");
+  $("#names").innerHTML=names.map(n=>`<option value="${esc(n)}">`).join("");
+  $("#title").innerHTML=MONTHS[cur.m]+" <span>"+(cur.y+543)+"</span>";
+  $("#prev").disabled = cur.y*12+cur.m <= RANGE[0][0]*12+RANGE[0][1];
+  $("#next").disabled = cur.y*12+cur.m >= RANGE[1][0]*12+RANGE[1][1];
+  const ft=filtered();
+  const mStart=`${cur.y}-${pad(cur.m+1)}-01`, mEnd=`${cur.y}-${pad(cur.m+1)}-${pad(new Date(cur.y,cur.m+1,0).getDate())}`;
+  const inMonth=ft.filter(t=>t.date<=mEnd&&(t.end&&t.end>=t.date?t.end:t.date)>=mStart);
+  const c={todo:0,doing:0,done:0}; inMonth.forEach(t=>c[t.status]=(c[t.status]||0)+1);
+  $("#sum").innerHTML=`เดือนนี้ <b>${inMonth.length}</b> งาน · สำเร็จ <b>${c.done}</b> · กำลังทำ <b>${c.doing}</b> · ยังไม่ได้ทำ <b>${c.todo}</b>`;
+  $("#demo").style.display=API_URL?"none":"block";
+  view==="month"?renderMonth(ft):renderList(inMonth);
+}
+function renderMonth(ft){
+  const first=new Date(cur.y,cur.m,1);
+  const start=new Date(first); start.setDate(1-first.getDay());
+  const last=new Date(cur.y,cur.m+1,0);
+  const weeks=Math.ceil((first.getDay()+last.getDate())/7);
+  const td=todayISO();
+  const narrow=matchMedia("(max-width:760px)").matches;
+  const LIM=narrow?3:4;
+  let h='<div class="cal"><div class="dow">'+(narrow?DOWS:DOW).map(d=>`<div>${d}</div>`).join("")+'</div><div class="grid">';
+  for(let i=0;i<weeks*7;i++){
+    const d=new Date(start); d.setDate(start.getDate()+i);
+    const ds=iso(d), out=d.getMonth()!==cur.m, wk=d.getDay()===0||d.getDay()===6;
+    const lab=(d.getDate()===1?`<em>${MSHORT[d.getMonth()]}</em>`:"")+`<span>${d.getDate()}</span>`;
+    const evs=EVENTS.filter(e=>e[0]<=ds&&ds<=e[1]);
+    const ts=ft.filter(t=>covers(t,ds));
+    const order={doing:0,todo:1,done:2};
+    ts.sort((a,b)=>order[a.status]-order[b.status]);
+    let items=evs.map(e=>`<div class="ev" title="${esc(e[2])}">${esc(e[2])}</div>`).join("");
+    const room=Math.max(LIM-Math.min(evs.length,2),1);
+    items+=ts.slice(0,room).map(t=>`<div class="tk ${t.status}" data-id="${esc(t.id)}" title="${esc(t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t"><b>${esc(t.name)}:</b> ${esc(t.task)}</div></div>`).join("");
+    if(ts.length>room) items+=`<div class="more" data-day="${ds}">+ อีก ${ts.length-room} งาน</div>`;
+    h+=`<div class="cell${out?" out":""}${wk?" wk":""}" data-day="${ds}"><div class="dn${ds===td?" today":""}">${lab}</div><div class="items">${items}</div></div>`;
+  }
+  h+='</div></div>';
+  $("#view").innerHTML=h;
+}
+function renderList(list){
+  if(!list.length){$("#view").innerHTML='<div class="list"><div class="empty">ยังไม่มีงานในเดือนนี้ กด “+ เพิ่มงาน” ได้เลย</div></div>';return}
+  const by={};
+  list.slice().sort((a,b)=>a.date.localeCompare(b.date)||a.name.localeCompare(b.name,"th")).forEach(t=>(by[t.date]=by[t.date]||[]).push(t));
+  let h='<div class="list">';
+  for(const d in by){
+    h+=`<div class="lday"><h3>${thDate(d)}</h3>`;
+    by[d].forEach(t=>{
+      const rng=t.end&&t.end>t.date?` · ถึง ${thDate(t.end)}`:"";
+      h+=`<div class="lrow"><div class="who">${esc(t.name)}</div><div class="what" data-id="${esc(t.id)}">${esc(t.task)}<small>${esc(t.note||"")}${rng}</small></div>
+      <div class="st" data-id="${esc(t.id)}">${["done","doing","todo"].map(s=>`<button data-s="${s}" class="${s}${t.status===s?" on":""}">${STL[s]}</button>`).join("")}</div></div>`;
+    });
+    h+='</div>';
+  }
+  $("#view").innerHTML=h+'</div>';
+}
+
+// ---------- modal ----------
+function setFS(s){fStatus=s;document.querySelectorAll("#fSt button").forEach(b=>b.classList.toggle("on",b.dataset.s===s))}
+function openModal(t,day){
+  editing=t?t.id:null;
+  $("#mTitle").textContent=t?"แก้ไขงาน":"เพิ่มงาน";
+  let me=""; try{me=localStorage.getItem(LS+"-me")||""}catch(e){}
+  $("#fName").value=t?t.name:me;
+  $("#fTask").value=t?t.task:"";
+  $("#fDate").value=t?t.date:(day||clampDay(todayISO()));
+  $("#fEnd").value=t?(t.end||""):"";
+  $("#fNote").value=t?(t.note||""):"";
+  setFS(t?t.status:"todo");
+  $("#mDel").style.visibility=t?"visible":"hidden";
+  $("#mHint").textContent=t&&t.updated?"แก้ล่าสุด "+new Date(t.updated).toLocaleString("th-TH",{dateStyle:"medium",timeStyle:"short"}):"";
+  $("#mask").classList.add("on");
+  setTimeout(()=>($("#fName").value?$("#fTask"):$("#fName")).focus(),50);
+}
+function clampDay(d){return d<"2026-10-01"?"2026-10-01":d>"2027-02-28"?"2027-02-28":d}
+function closeModal(){$("#mask").classList.remove("on");editing=null}
+async function saveModal(){
+  const task={name:$("#fName").value.trim(),task:$("#fTask").value.trim(),date:$("#fDate").value,end:$("#fEnd").value,note:$("#fNote").value.trim(),status:fStatus};
+  if(!task.name){toast("กรุณาใส่ชื่อ");$("#fName").focus();return}
+  if(!task.task){toast("กรุณาใส่งาน");$("#fTask").focus();return}
+  if(!task.date){toast("กรุณาเลือกวันที่");return}
+  if(task.end&&task.end<task.date) task.end="";
+  if(task.end===task.date) task.end="";
+  try{localStorage.setItem(LS+"-me",task.name)}catch(e){}
+  $("#mSave").disabled=true;
+  const ok=await send(editing?{action:"update",id:editing,task}:{action:"add",task});
+  $("#mSave").disabled=false;
+  if(ok){closeModal();toast("บันทึกแล้ว")}
+}
+
+// ---------- events ----------
+$("#view").addEventListener("click",e=>{
+  const sb=e.target.closest(".st button");
+  if(sb){const id=sb.parentElement.dataset.id;const t=tasks.find(x=>x.id===id);if(t&&t.status!==sb.dataset.s){t.status=sb.dataset.s;render();send({action:"status",id,task:{status:sb.dataset.s}})}return}
+  const tk=e.target.closest("[data-id]");
+  if(tk){const t=tasks.find(x=>x.id===tk.dataset.id);if(t)openModal(t);return}
+  const more=e.target.closest(".more");
+  if(more){view="list";syncSeg();render();return}
+  const cell=e.target.closest(".cell");
+  if(cell) openModal(null,cell.dataset.day);
+});
+document.querySelectorAll("#fSt button").forEach(b=>b.onclick=()=>setFS(b.dataset.s));
+$("#mSave").onclick=saveModal;
+$("#mCancel").onclick=closeModal;
+$("#mDel").onclick=async()=>{if(editing&&confirm("ลบงานนี้?")){const id=editing;const ok=await send({action:"delete",id});if(ok){closeModal();toast("ลบแล้ว")}}};
+$("#mask").addEventListener("click",e=>{if(e.target.id==="mask")closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+$("#addBtn").onclick=()=>openModal(null);
+$("#prev").onclick=()=>{cur=clampMonth(new Date(cur.y,cur.m-1,1));render()};
+$("#next").onclick=()=>{cur=clampMonth(new Date(cur.y,cur.m+1,1));render()};
+$("#today").onclick=()=>{cur=clampMonth(new Date());render()};
+$("#who").onchange=render; $("#stf").onchange=render;
+function syncSeg(){document.querySelectorAll("#viewSeg button").forEach(b=>b.classList.toggle("on",b.dataset.v===view))}
+document.querySelectorAll("#viewSeg button").forEach(b=>b.onclick=()=>{view=b.dataset.v;syncSeg();render()});
+addEventListener("resize",()=>{clearTimeout(render._r);render._r=setTimeout(render,200)});
+
+fetchAll();
+if(API_URL){setInterval(()=>{if(!$("#mask").classList.contains("on")&&!document.hidden)fetchAll(true)},30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)fetchAll(true)})}
+</script>
+</body>
+</html>

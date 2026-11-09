@@ -61,6 +61,21 @@ h1 span{font-weight:500;color:var(--mute)}
 .what.done::before{content:"✓ ";color:var(--done);font-weight:700}
 .tk:hover{filter:brightness(.96)}
 .more{font-size:12px;color:var(--mute);padding-left:4px}
+
+.week{position:relative;min-height:128px;border-bottom:1px solid var(--line)}
+.week:last-child{border-bottom:0}
+.wbg{position:absolute;inset:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.wbg .cell{min-height:0;border-bottom:0}
+.wfg{position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-auto-rows:min-content;row-gap:3px;padding:34px 0 8px;pointer-events:none}
+.wfg .bar{align-self:start;display:block;box-sizing:border-box;height:22px;line-height:16px;padding-top:3px;padding-bottom:3px;margin:0 5px;pointer-events:auto;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wfg .bar .t{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wfg .ev.bar{pointer-events:none}
+.wfg .bar.cl{margin-left:0;border-top-left-radius:0;border-bottom-left-radius:0}
+.wfg .bar.cr{margin-right:0;border-top-right-radius:0;border-bottom-right-radius:0}
+.wfg .tk.bar.cl{border-left-width:0;padding-left:8px}
+.wfg .more{pointer-events:auto;cursor:pointer;margin:0 6px}
+.rng{color:var(--mute);font-weight:400}
+@media (max-width:760px){.week{min-height:86px}.wfg{padding-top:28px}.wfg .bar{margin:0 2px;height:18px;line-height:14px;padding-top:2px;padding-bottom:2px}.wfg .tag{display:none}}
 /* list view */
 .list{background:var(--card);border-radius:14px;border:1px solid var(--line);padding:4px 0}
 .lday{padding:10px 16px;border-bottom:1px solid var(--line)}
@@ -290,23 +305,45 @@ function renderMonth(ft){
   const weeks=Math.ceil((first.getDay()+last.getDate())/7);
   const td=todayISO();
   const narrow=matchMedia("(max-width:760px)").matches;
-  const LIM=narrow?3:4;
-  let h='<div class="cal"><div class="dow">'+(narrow?DOWS:DOW).map(d=>`<div>${d}</div>`).join("")+'</div><div class="grid">';
-  for(let i=0;i<weeks*7;i++){
-    const d=new Date(start); d.setDate(start.getDate()+i);
-    const ds=iso(d), out=d.getMonth()!==cur.m, wk=d.getDay()===0||d.getDay()===6;
-    const lab=(d.getDate()===1?`<em>${MSHORT[d.getMonth()]}</em>`:"")+`<span>${d.getDate()}</span>`;
-    const evs=EVENTS.filter(e=>e[0]<=ds&&ds<=e[1]);
-    const ts=ft.filter(t=>covers(t,ds));
-    const order={doing:0,todo:1,done:2};
-    ts.sort((a,b)=>order[a.status]-order[b.status]);
-    let items=evs.map(e=>`<div class="ev" title="${esc(e[2])}">${esc(e[2])}</div>`).join("");
-    const room=Math.max(LIM-Math.min(evs.length,2),1);
-    items+=ts.slice(0,room).map(t=>`<div class="tk ${t.status}" data-id="${esc(t.id)}" title="${esc((typeOf(t)?"["+typeOf(t)+"] ":"")+t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t">${typeOf(t)?`<span class="tag">${esc(typeOf(t))}</span>`:""}<b>${esc(t.name)}:</b> ${esc(t.task)}${linksOf(t.note).length?'<span class="ln">🔗</span>':''}</div></div>`).join("");
-    if(ts.length>room) items+=`<div class="more" data-day="${ds}">+ อีก ${ts.length-room} งาน</div>`;
-    h+=`<div class="cell${out?" out":""}${wk?" wk":""}" data-day="${ds}"><div class="dn${ds===td?" today":""}">${lab}</div><div class="items">${items}</div></div>`;
+  const LANES=narrow?4:5;
+  const order={doing:0,todo:1,done:2};
+  const endOf=t=>t.end&&t.end>t.date?t.end:t.date;
+  let h='<div class="cal"><div class="dow">'+(narrow?DOWS:DOW).map(d=>`<div>${d}</div>`).join("")+'</div>';
+  for(let w=0;w<weeks;w++){
+    const days=[...Array(7)].map((_,i)=>{const d=new Date(start);d.setDate(start.getDate()+w*7+i);return d});
+    const ds=days.map(iso), ws=ds[0], we=ds[6];
+    // background cells
+    let bg='';
+    days.forEach((d,i)=>{
+      const out=d.getMonth()!==cur.m, wk=d.getDay()===0||d.getDay()===6;
+      const lab=(d.getDate()===1?`<em>${MSHORT[d.getMonth()]}</em>`:"")+`<span>${d.getDate()}</span>`;
+      bg+=`<div class="cell${out?" out":""}${wk?" wk":""}" data-day="${ds[i]}"><div class="dn${ds[i]===td?" today":""}">${lab}</div></div>`;
+    });
+    // items for this week: events, then multi-day tasks (longest first), then single-day tasks
+    const items=[];
+    EVENTS.forEach(e=>{if(e[0]<=we&&e[1]>=ws)items.push({ev:1,a:e[0],b:e[1],label:e[2]})});
+    ft.filter(t=>t.date<=we&&endOf(t)>=ws).forEach(t=>items.push({t,a:t.date,b:endOf(t)}));
+    const len=x=>(new Date(x.b)-new Date(x.a));
+    items.sort((x,y)=>(y.ev||0)-(x.ev||0)||((y.a!==y.b)-(x.a!==x.b))||len(y)-len(x)||(x.t&&y.t?order[x.t.status]-order[y.t.status]:0)||x.a.localeCompare(y.a));
+    const lanes=[]; const hidden=Array(7).fill(0);
+    let fg='';
+    items.forEach(x=>{
+      const s=Math.max(0,ds.indexOf(x.a<ws?ws:x.a)), e=ds.indexOf(x.b>we?we:x.b);
+      let L=lanes.findIndex(l=>l.every(c=>c<s||c>e));
+      if(L<0){lanes.push([]);L=lanes.length-1}
+      if(L>=LANES){for(let c=s;c<=e;c++)hidden[c]++;return}
+      for(let c=s;c<=e;c++)lanes[L].push(c);
+      const cl=x.a<ws?" cl":"", cr=x.b>we?" cr":"";
+      const pos=`grid-column:${s+1}/${e+2};grid-row:${L+1}`;
+      if(x.ev){fg+=`<div class="ev bar${cl}${cr}" style="${pos}" title="${esc(x.label)}">${esc(x.label)}</div>`;return}
+      const t=x.t, ty=typeOf(t);
+      const range=t.end&&t.end>t.date?` <span class="rng">(${thDate(t.date).replace(/^\S+ /,"")} – ${thDate(t.end).replace(/^\S+ /,"")})</span>`:"";
+      fg+=`<div class="tk bar ${t.status}${cl}${cr}" data-id="${esc(t.id)}" style="${pos}" title="${esc((ty?"["+ty+"] ":"")+t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t">${ty?`<span class="tag">${esc(ty)}</span>`:""}<b>${esc(t.name)}:</b> ${esc(t.task)}${e>s?range:""}${linksOf(t.note).length?'<span class="ln">🔗</span>':''}</div></div>`;
+    });
+    hidden.forEach((n,c)=>{if(n)fg+=`<div class="more" data-day="${ds[c]}" style="grid-column:${c+1};grid-row:${LANES+1}">+ อีก ${n}</div>`});
+    h+=`<div class="week"><div class="wbg">${bg}</div><div class="wfg">${fg}</div></div>`;
   }
-  h+='</div></div>';
+  h+='</div>';
   $("#view").innerHTML=h;
 }
 function renderList(list){

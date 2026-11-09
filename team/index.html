@@ -130,6 +130,11 @@ h1 span{font-weight:500;color:var(--mute)}
 .files button{border:0;background:none;color:var(--today);font-size:12px;padding:0}
 .upbtn{display:inline-block;border:1px dashed #b9bdd0;border-radius:10px;padding:7px 14px;font-size:14px;cursor:pointer;color:var(--ink)!important;background:var(--soft)}
 .uphint{font-size:12px;color:var(--mute)}
+.chs{display:flex;flex-wrap:wrap;gap:8px}
+.chs label{display:inline-flex!important;align-items:center;gap:6px;border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-size:14px;color:var(--ink)!important;margin:0!important;cursor:pointer;user-select:none}
+.chs input{width:16px;height:16px;accent-color:var(--navy);margin:0}
+.chs label:has(input:checked){border-color:var(--navy);background:#eef0fb}
+.cb{display:inline-block;font-size:10px;font-weight:700;color:#fff;border-radius:3px;padding:0 3px;margin-right:2px;vertical-align:1px}
 .links{display:flex;flex-direction:column;gap:4px;margin-top:6px}
 .links a,.lrow a{color:#1d4ed8;word-break:break-all;font-size:13px}
 .tk .ln{font-size:11px;margin-left:3px}
@@ -190,6 +195,7 @@ footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center}
     <h2 id="mTitle">เพิ่มงาน</h2>
     <div class="f"><label>ชื่อผู้รับผิดชอบ</label><input id="fName" list="names" placeholder="เช่น พี่หนึ่ง" autocomplete="off"><datalist id="names"></datalist></div>
     <div class="f"><label>ประเภทงาน</label><div class="types" id="fTypes"></div><input id="fType" list="typeList" placeholder="เลือกด้านบน หรือพิมพ์เอง" autocomplete="off"><datalist id="typeList"></datalist></div>
+    <div class="f"><label>ช่องทางที่ลง (ติ๊กได้หลายช่อง)</label><div class="chs" id="fCh"></div></div>
     <div class="f"><label>งาน</label><textarea id="fTask" placeholder="ทำอะไร"></textarea></div>
     <div class="two">
       <div class="f"><label>วันที่</label><input type="date" id="fDate" min="2026-10-01" max="2027-02-28"></div>
@@ -216,6 +222,9 @@ const MSHORT = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","�
 const DOW = ["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัส","ศุกร์","เสาร์"];
 const DOWS = ["อา.","จ.","อ.","พ.","พฤ.","ศ.","ส."];
 const TYPES = ["ข่าว","อินโฟกราฟิก","วิดีโอ","ภาพ/โพสต์","สไลด์/เอกสาร","ประสานงาน","หน้างาน/อีเวนต์","อื่นๆ"];
+const CHANNELS = [["Facebook","FB","#1877f2"],["Reels","RL","#d62976"],["TikTok","TT","#111"],["YouTube","YT","#e00"]];
+const chOf = t => (t&&t.extra&&Array.isArray(t.extra.channels))?t.extra.channels:[];
+const chBadges = t => chOf(t).map(c=>{const x=CHANNELS.find(k=>k[0]===c);return x?`<span class="cb" style="background:${x[2]}" title="${x[0]}">${x[1]}</span>`:""}).join("");
 const typeOf = t => (t.extra&&t.extra.type)||"";
 const STL = {todo:"ยังไม่ได้ทำ",doing:"กำลังทำ",done:"สำเร็จ"};
 const RANGE = [[2026,9],[2027,1]]; // ต.ค. 69 – ก.พ. 70 (เดือนเริ่มที่ 0)
@@ -382,7 +391,7 @@ function renderMonth(ft){
       if(x.ev){fg+=`<div class="ev bar${cl}${cr}" style="${pos}" title="${esc(x.label)}">${esc(x.label)}</div>`;return}
       const t=x.t, ty=typeOf(t);
       const range=t.end&&t.end>t.date?` <span class="rng">(${thDate(t.date).replace(/^\S+ /,"")} – ${thDate(t.end).replace(/^\S+ /,"")})</span>`:"";
-      fg+=`<div class="tk bar ${t.status}${cl}${cr}" data-id="${esc(t.id)}" style="${pos}" title="${esc((ty?"["+ty+"] ":"")+t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t">${x.mk?`<span class="mk${x.mk==="ส่ง"?" due":""}">${x.mk==="ส่ง"?"⚑ ส่ง":"▶ เริ่ม"}</span>`:""}${ty?`<span class="tag">${esc(ty)}</span>`:""}<b>${esc(t.name)}:</b> ${esc(t.task)}${e>s?range:""}${linksOf(t.note).length?'<span class="ln">🔗</span>':''}${filesOf(t).length?'<span class="ln">📎</span>':''}</div></div>`;
+      fg+=`<div class="tk bar ${t.status}${cl}${cr}" data-id="${esc(t.id)}" style="${pos}" title="${esc((ty?"["+ty+"] ":"")+t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t">${x.mk?`<span class="mk${x.mk==="ส่ง"?" due":""}">${x.mk==="ส่ง"?"⚑ ส่ง":"▶ เริ่ม"}</span>`:""}${ty?`<span class="tag">${esc(ty)}</span>`:""}${chBadges(t)}<b>${esc(t.name)}:</b> ${esc(t.task)}${e>s?range:""}${linksOf(t.note).length?'<span class="ln">🔗</span>':''}${filesOf(t).length?'<span class="ln">📎</span>':''}</div></div>`;
     });
     hidden.forEach((n,c)=>{if(n)fg+=`<div class="more" data-day="${ds[c]}" style="grid-column:${c+1};grid-row:${LANES+1}">+ อีก ${n}</div>`});
     h+=`<div class="week"><div class="wbg">${bg}</div><div class="wfg">${fg}</div></div>`;
@@ -399,7 +408,7 @@ function renderList(list){
     h+=`<div class="lday"><h3>${thDate(d)}</h3>`;
     by[d].forEach(t=>{
       const rng=t.end&&t.end>t.date?` · ถึง ${thDate(t.end)}`:"";
-      h+=`<div class="lrow"><div class="who">${esc(t.name)}</div><div class="what${t.status==="done"?" done":""}" data-id="${esc(t.id)}">${typeOf(t)?`<span class="tag">${esc(typeOf(t))}</span>`:""}${esc(t.task)}<small>${linkify(t.note||"")}${rng}</small>${filesOf(t).map(f=>`<a href="${esc(f.url)}" target="_blank" rel="noopener">📎 ${esc(f.name)}</a>`).join(" ")}</div>
+      h+=`<div class="lrow"><div class="who">${esc(t.name)}</div><div class="what${t.status==="done"?" done":""}" data-id="${esc(t.id)}">${typeOf(t)?`<span class="tag">${esc(typeOf(t))}</span>`:""}${chBadges(t)}${esc(t.task)}<small>${linkify(t.note||"")}${rng}</small>${filesOf(t).map(f=>`<a href="${esc(f.url)}" target="_blank" rel="noopener">📎 ${esc(f.name)}</a>`).join(" ")}</div>
       <div class="st" data-id="${esc(t.id)}">${["done","doing","todo"].map(s=>`<button data-s="${s}" class="${s}${t.status===s?" on":""}">${STL[s]}</button>`).join("")}</div></div>`;
     });
     h+='</div>';
@@ -442,6 +451,7 @@ function openModal(t,day){
   $("#fName").value=t?t.name:me;
   $("#fTask").value=t?t.task:"";
   $("#fType").value=t?typeOf(t):"";syncTypes();
+  const cs=chOf(t);$("#fCh").innerHTML=CHANNELS.map(c=>`<label><input type="checkbox" value="${c[0]}"${cs.includes(c[0])?" checked":""}>${c[0]}</label>`).join("");
   $("#fDate").value=t?t.date:(day||clampDay(todayISO()));
   $("#fEnd").value=t?(t.end||""):"";
   $("#fNote").value=t?(t.note||""):"";showLinks();
@@ -457,7 +467,7 @@ function closeModal(){$("#mask").classList.remove("on");editing=null}
 async function saveModal(){
   const task={name:$("#fName").value.trim(),task:$("#fTask").value.trim(),date:$("#fDate").value,end:$("#fEnd").value,note:$("#fNote").value.trim(),status:fStatus};
   const old=editing?tasks.find(x=>x.id===editing):null;
-  task.extra={...((old&&old.extra)||{}),type:$("#fType").value.trim(),files:fFiles};
+  task.extra={...((old&&old.extra)||{}),type:$("#fType").value.trim(),files:fFiles,channels:[...document.querySelectorAll("#fCh input:checked")].map(i=>i.value)};
   if(!task.name){toast("กรุณาใส่ชื่อ");$("#fName").focus();return}
   if(!task.task){toast("กรุณาใส่งาน");$("#fTask").focus();return}
   if(!task.date){toast("กรุณาเลือกวันที่");return}

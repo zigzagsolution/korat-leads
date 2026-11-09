@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>ปฏิทินงานทีม อวดเมืองโคราช</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -317,8 +318,9 @@ async function fetchAll(quiet){
   if(!API_URL){loadLocal();render();return}
   if(!quiet) setSync("กำลังโหลด…");
   try{
-    const r=await fetch(API_URL,{cache:"no-store"});
+    const r=await fetch(API_URL+"?k="+encodeURIComponent(KEY),{cache:"no-store"});
     const j=await r.json();
+    if(j.error==="auth"){lockOut();return}
     if(j.ok){tasks=j.tasks;saveLocal();render();setSync("อัปเดต "+new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"}))}
     else throw new Error(j.error||"load");
   }catch(e){loadLocal();render();setSync("โหลดข้อมูลกลางไม่ได้ (แสดงข้อมูลล่าสุดในเครื่อง)",true)}
@@ -332,8 +334,9 @@ async function send(body){
   }
   setSync("กำลังบันทึก…");
   try{
-    const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)});
+    const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({...body,k:KEY})});
     const j=await r.json();
+    if(j.error==="auth"){lockOut();return false}
     if(j.tasks){tasks=j.tasks;saveLocal();render()}
     if(!j.ok) throw new Error(j.error);
     setSync("บันทึกแล้ว "+new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"}));
@@ -471,7 +474,7 @@ $("#fUp").addEventListener("change",async e=>{
     uploading++;$("#fUpMsg").textContent=`กำลังอัปโหลด ${f.name}…`;$("#mSave").disabled=true;
     try{
       const data=await toB64(f);
-      const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"upload",name:f.name,mime:f.type,data})});
+      const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"upload",k:KEY,name:f.name,mime:f.type,data})});
       const j=await r.json();
       if(!j.file||!j.file.url) throw new Error("old");
       fFiles.push({name:j.file.name,url:j.file.url});drawFiles();
@@ -549,19 +552,40 @@ function syncSeg(){document.querySelectorAll("#viewSeg button").forEach(b=>b.cla
 document.querySelectorAll("#viewSeg button").forEach(b=>b.onclick=()=>{view=b.dataset.v;syncSeg();render()});
 addEventListener("resize",()=>{clearTimeout(render._r);render._r=setTimeout(render,200)});
 
-const GATE_KEY="korat-team-cal-v1-ok";
+const GATE_KEY="korat-team-cal-v1-key";
+let KEY="";
+
 let started=false;
 function startApp(){
 if(started)return;started=true;$("#gate").hidden=true;
 fetchAll();
 if(API_URL){setInterval(()=>{if(!$("#mask").classList.contains("on")&&!document.hidden)fetchAll(true)},30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)fetchAll(true)})}
 }
-let gateOk=false;try{gateOk=localStorage.getItem(GATE_KEY)==="1"}catch(e){}
-if(gateOk)startApp();
+// รหัสตรวจที่ Apps Script ฝั่ง Google ไม่มีรหัสหรือข้อมูลงานอยู่ในหน้าเว็บนี้
+function lockOut(){KEY="";tasks=[];try{localStorage.removeItem(GATE_KEY);localStorage.removeItem(LS)}catch(e){}
+  if(started)location.reload();else{$("#gate").hidden=false;$("#gateErr").textContent="รหัสไม่ถูกต้อง";$("#gateIn").value="";$("#gateIn").focus()}}
+// รองรับช่วงที่ยังไม่ได้อัปเดตโค้ด Apps Script (ลบทิ้งได้เมื่ออัปเดตแล้ว)
+const OLD_H="0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c";
+async function sha(t){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
+async function tryKey(code){
+  if(!API_URL) return await sha(code)===OLD_H;
+  const r=await fetch(API_URL+"?k="+encodeURIComponent(code),{cache:"no-store"});
+  const j=await r.json();
+  if(j.error==="auth") return false;
+  if(j.auth) return true;
+  return await sha(code)===OLD_H;
+}
+let saved="";try{saved=localStorage.getItem(GATE_KEY)||""}catch(e){}
+try{localStorage.removeItem("korat-team-cal-v1-ok")}catch(e){}
+if(saved){KEY=saved;startApp()}
 else{setTimeout(()=>$("#gateIn").focus(),50);
-$("#gateF").onsubmit=e=>{e.preventDefault();
-if($("#gateIn").value.trim()==="1111"){try{localStorage.setItem(GATE_KEY,"1")}catch(e){}startApp()}
-else{$("#gateErr").textContent="รหัสไม่ถูกต้อง";$("#gateIn").value="";$("#gateIn").focus()}}}
+$("#gateF").onsubmit=async e=>{e.preventDefault();
+  const code=$("#gateIn").value.trim();if(!code)return;
+  const btn=$("#gate button");btn.disabled=true;$("#gateErr").textContent="กำลังตรวจรหัส…";
+  let ok=false;try{ok=await tryKey(code)}catch(err){$("#gateErr").textContent="เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง";btn.disabled=false;return}
+  btn.disabled=false;
+  if(ok){KEY=code;try{localStorage.setItem(GATE_KEY,code)}catch(e){}$("#gateErr").textContent="";startApp()}
+  else{$("#gateErr").textContent="รหัสไม่ถูกต้อง";$("#gateIn").value="";$("#gateIn").focus()}}}
 </script>
 </body>
 </html>

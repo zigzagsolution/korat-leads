@@ -3,6 +3,11 @@
  * วางโค้ดนี้ใน Google Sheet > ส่วนขยาย > Apps Script แล้ว Deploy เป็น Web app
  * (Execute as: Me, Who has access: Anyone)
  */
+
+// ===== รหัสเข้าปฏิทิน: เปลี่ยนตรงนี้ได้เลย (คนเปิดเว็บมองไม่เห็นโค้ดนี้) =====
+// แนะนำให้ยาว 6 ตัวขึ้นไป เปลี่ยนแล้วทุกคนต้องกรอกรหัสใหม่
+const PASSCODE = '1111';
+
 const SHEET = 'tasks';
 const HEAD = ['id', 'date', 'end', 'name', 'task', 'status', 'note', 'created', 'updated', 'extra'];
 // คอลัมน์ extra เก็บข้อมูลเพิ่มของฟังก์ชันใหม่ในอนาคต (JSON) จึงไม่ต้องแก้โค้ดนี้บ่อย
@@ -42,7 +47,7 @@ function out_(obj) {
 
 function clean_(v, max) { return String(v == null ? '' : v).slice(0, max); }
 
-const VERSION = 2;
+const VERSION = 3;
 const FOLDER = 'ปฏิทินงานทีม-ไฟล์แนบ';
 
 // เก็บไฟล์แนบไว้ใน Google Drive ของเจ้าของชีต แล้วเปิดให้คนที่มีลิงก์ดูได้
@@ -56,8 +61,19 @@ function upload_(b) {
   return { ok: true, file: { name: name, url: f.getUrl(), id: f.getId() } };
 }
 
-function doGet() {
-  return out_({ ok: true, version: VERSION, tasks: rows_() });
+// ตรวจรหัส: ถ้าผิดเกิน 20 ครั้งใน 10 นาที จะล็อกชั่วคราว กันการเดารหัส
+function auth_(k) {
+  const c = CacheService.getScriptCache();
+  const fails = Number(c.get('fails') || 0);
+  if (fails >= 20) return false;
+  if (String(k || '') === PASSCODE) return true;
+  c.put('fails', String(fails + 1), 600);
+  return false;
+}
+
+function doGet(e) {
+  if (!auth_(e && e.parameter && e.parameter.k)) return out_({ ok: false, error: 'auth' });
+  return out_({ ok: true, auth: true, version: VERSION, tasks: rows_() });
 }
 
 function doPost(e) {
@@ -65,6 +81,7 @@ function doPost(e) {
   lock.waitLock(20000);
   try {
     const b = JSON.parse(e.postData.contents || '{}');
+    if (!auth_(b.k)) return out_({ ok: false, error: 'auth' });
     if (b.action === 'upload') return out_(upload_(b));
     const sh = sheet_();
     const now = new Date().toISOString();

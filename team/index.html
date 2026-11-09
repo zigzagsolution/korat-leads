@@ -85,6 +85,10 @@ h1 span{font-weight:500;color:var(--mute)}
 .f label{display:block;font-size:13px;color:var(--mute);margin-bottom:4px}
 .f input,.f textarea{width:100%;font:inherit;border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;color:var(--ink)}
 .f textarea{min-height:70px;resize:vertical}
+#fNote{min-height:56px}
+.links{display:flex;flex-direction:column;gap:4px;margin-top:6px}
+.links a,.lrow a{color:#1d4ed8;word-break:break-all;font-size:13px}
+.tk .ln{font-size:11px;margin-left:3px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .big.st button{flex:1;padding:10px 4px;font-size:15px;font-weight:600}
 .acts{display:flex;gap:8px;margin-top:16px}
@@ -148,7 +152,7 @@ footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center}
     <div class="f"><label>สถานะ</label>
       <div class="st big" id="fSt"><button data-s="done" class="done">สำเร็จ</button><button data-s="doing" class="doing">กำลังทำ</button><button data-s="todo" class="todo">ยังไม่ได้ทำ</button></div>
     </div>
-    <div class="f"><label>หมายเหตุ (ถ้ามี)</label><input id="fNote" placeholder="ติดอะไร / ลิงก์งาน"></div>
+    <div class="f"><label>หมายเหตุ / ลิงก์ (ถ้ามี)</label><textarea id="fNote" placeholder="ติดอะไร หรือวางลิงก์งาน เช่น https://canva.com/..."></textarea><div class="links" id="fLinks"></div></div>
     <div class="acts"><button class="del" id="mDel">ลบ</button><button class="cancel" id="mCancel">ยกเลิก</button><button class="save" id="mSave">บันทึก</button></div>
     <div class="hint" id="mHint"></div>
   </div>
@@ -203,6 +207,10 @@ function clampMonth(d){
 }
 function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function thDate(s){const [y,m,d]=s.split("-").map(Number);const w=new Date(y,m-1,d).getDay();return DOWS[w]+" "+d+" "+MSHORT[m-1]+" "+String(y+543).slice(2)}
+const URL_RE=/https?:\/\/[^\s<>"']+/g;
+function linksOf(s){return (String(s||"").match(URL_RE)||[]).map(u=>u.replace(/[).,]+$/,""))}
+function linkify(s){return esc(s).replace(/https?:\/\/[^\s<>"']+/g,u=>{const c=u.replace(/[).,]+$/,"");const rest=u.slice(c.length);return `<a href="${c}" target="_blank" rel="noopener">${c.length>60?c.slice(0,57)+"…":c}</a>${rest}`})}
+function showLinks(){const l=linksOf($("#fNote").value);$("#fLinks").innerHTML=l.map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">🔗 เปิดลิงก์: ${esc(u.length>60?u.slice(0,57)+"…":u)}</a>`).join("")}
 function covers(t,day){const e=t.end&&t.end>=t.date?t.end:t.date;return t.date<=day&&day<=e}
 
 // ---------- data ----------
@@ -280,7 +288,7 @@ function renderMonth(ft){
     ts.sort((a,b)=>order[a.status]-order[b.status]);
     let items=evs.map(e=>`<div class="ev" title="${esc(e[2])}">${esc(e[2])}</div>`).join("");
     const room=Math.max(LIM-Math.min(evs.length,2),1);
-    items+=ts.slice(0,room).map(t=>`<div class="tk ${t.status}" data-id="${esc(t.id)}" title="${esc(t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t"><b>${esc(t.name)}:</b> ${esc(t.task)}</div></div>`).join("");
+    items+=ts.slice(0,room).map(t=>`<div class="tk ${t.status}" data-id="${esc(t.id)}" title="${esc(t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t"><b>${esc(t.name)}:</b> ${esc(t.task)}${linksOf(t.note).length?'<span class="ln">🔗</span>':''}</div></div>`).join("");
     if(ts.length>room) items+=`<div class="more" data-day="${ds}">+ อีก ${ts.length-room} งาน</div>`;
     h+=`<div class="cell${out?" out":""}${wk?" wk":""}" data-day="${ds}"><div class="dn${ds===td?" today":""}">${lab}</div><div class="items">${items}</div></div>`;
   }
@@ -296,7 +304,7 @@ function renderList(list){
     h+=`<div class="lday"><h3>${thDate(d)}</h3>`;
     by[d].forEach(t=>{
       const rng=t.end&&t.end>t.date?` · ถึง ${thDate(t.end)}`:"";
-      h+=`<div class="lrow"><div class="who">${esc(t.name)}</div><div class="what" data-id="${esc(t.id)}">${esc(t.task)}<small>${esc(t.note||"")}${rng}</small></div>
+      h+=`<div class="lrow"><div class="who">${esc(t.name)}</div><div class="what" data-id="${esc(t.id)}">${esc(t.task)}<small>${linkify(t.note||"")}${rng}</small></div>
       <div class="st" data-id="${esc(t.id)}">${["done","doing","todo"].map(s=>`<button data-s="${s}" class="${s}${t.status===s?" on":""}">${STL[s]}</button>`).join("")}</div></div>`;
     });
     h+='</div>';
@@ -314,7 +322,7 @@ function openModal(t,day){
   $("#fTask").value=t?t.task:"";
   $("#fDate").value=t?t.date:(day||clampDay(todayISO()));
   $("#fEnd").value=t?(t.end||""):"";
-  $("#fNote").value=t?(t.note||""):"";
+  $("#fNote").value=t?(t.note||""):"";showLinks();
   setFS(t?t.status:"todo");
   $("#mDel").style.visibility=t?"visible":"hidden";
   $("#mHint").textContent=t&&t.updated?"แก้ล่าสุด "+new Date(t.updated).toLocaleString("th-TH",{dateStyle:"medium",timeStyle:"short"}):"";
@@ -339,6 +347,7 @@ async function saveModal(){
 
 // ---------- events ----------
 $("#view").addEventListener("click",e=>{
+  if(e.target.closest("a"))return;
   const sb=e.target.closest(".st button");
   if(sb){const id=sb.parentElement.dataset.id;const t=tasks.find(x=>x.id===id);if(t&&t.status!==sb.dataset.s){t.status=sb.dataset.s;render();send({action:"status",id,task:{status:sb.dataset.s}})}return}
   const tk=e.target.closest("[data-id]");
@@ -349,6 +358,7 @@ $("#view").addEventListener("click",e=>{
   if(cell) openModal(null,cell.dataset.day);
 });
 document.querySelectorAll("#fSt button").forEach(b=>b.onclick=()=>setFS(b.dataset.s));
+$("#fNote").addEventListener("input",showLinks);
 $("#mSave").onclick=saveModal;
 $("#mCancel").onclick=closeModal;
 $("#mDel").onclick=async()=>{if(editing&&confirm("ลบงานนี้?")){const id=editing;const ok=await send({action:"delete",id});if(ok){closeModal();toast("ลบแล้ว")}}};

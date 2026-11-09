@@ -198,6 +198,7 @@ footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center}
     <h2 id="mTitle">เพิ่มงาน</h2>
     <div class="f"><label>ชื่อผู้รับผิดชอบ</label><input id="fName" list="names" placeholder="เช่น พี่หนึ่ง" autocomplete="off"><datalist id="names"></datalist></div>
     <div class="f"><label>ประเภทงาน</label><div class="types" id="fTypes"></div><input id="fType" list="typeList" placeholder="เลือกด้านบน หรือพิมพ์เอง" autocomplete="off"><datalist id="typeList"></datalist></div>
+    <div class="f" id="fAxisBox" style="display:none"><label>สายของอินฟลู (ติ๊กได้หลายสาย)</label><div class="chs" id="fAxis"></div></div>
     <div class="f"><label>ข้อ TOR</label><select id="fTor"><option value="">— ไม่ระบุ —</option></select></div>
     <div class="f"><label>ช่องทางเผยแพร่ (ติ๊กได้หลายช่อง)</label><div class="chs" id="fCh"></div></div>
     <div class="f"><label>งาน</label><textarea id="fTask" placeholder="ทำอะไร"></textarea></div>
@@ -225,7 +226,7 @@ const MONTHS = ["มกราคม","กุมภาพันธ์","มีน
 const MSHORT = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
 const DOW = ["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัส","ศุกร์","เสาร์"];
 const DOWS = ["อา.","จ.","อ.","พ.","พฤ.","ศ.","ส."];
-const TYPES = ["ข่าว","อินโฟกราฟิก","วิดีโอ","ไลฟ์สด","ภาพ/โพสต์","สไลด์/เอกสาร","ประสานงาน","หน้างาน/อีเวนต์","อื่นๆ"];
+const TYPES = ["ข่าว","อินฟลู","อินโฟกราฟิก","วิดีโอ","ไลฟ์สด","ภาพ/โพสต์","สไลด์/เอกสาร","ประสานงาน","หน้างาน/อีเวนต์","อื่นๆ"];
 const TOR = [
  ["6.1.1","Workshop หา 10 คุณค่าโคราช (≥100 คน)"],["6.1.2","แผน Milestone และ Timeline รายเดือน"],["6.1.3","แผนตัวชี้วัด Media Performance / ROI (≥200,000 คน)"],
  ["6.1.4","เก็บข้อมูลผู้ร่วมงานตาม PDPA"],["6.1.5","แผนและเอกสารนำเสนอ (Word/Canva)"],
@@ -237,6 +238,9 @@ const TOR = [
  ["6.4","หลังงาน: Highlight ≥3 นาที · Short ≥5 · ภาพ ≥300"],["6.4(1)","Highlight Video ≥3 นาที 1 ชิ้น"],["6.4(2)","Short ≤60 วิ ≥5 ชิ้น"],["6.4(3)","ภาพบรรยากาศ ≥300 ภาพ"],["6.5","ทีมบริหารโครงการ"],["6.6","Final Report"],["6.7","ข้อมูลส่วนบุคคล (PDPA)"]];
 const torOf = t => (t&&t.extra&&t.extra.tor)||"";
 const torTag = t => torOf(t)?`<span class="tor" title="TOR ข้อ ${esc(torOf(t))}">${esc(torOf(t))}</span>`:"";
+const AXES = [["น่าอยู่","#0e7490"],["น่าลงทุน","#b45309"],["น่าเที่ยว","#15803d"]];
+const axOf = t => (t&&t.extra&&Array.isArray(t.extra.axis))?t.extra.axis:[];
+const axTags = t => axOf(t).map(a=>{const x=AXES.find(k=>k[0]===a);return x?`<span class="cb" style="background:${x[1]}">${a}</span>`:""}).join("");
 const CHANNELS = [["Facebook","FB","#1877f2"],["Instagram","IG","#c13584"],["Reels","RL","#d62976"],["TikTok","TT","#111"],["YouTube","YT","#e00"],["LINE","LN","#06c755"]];
 const chOf = t => (t&&t.extra&&Array.isArray(t.extra.channels))?t.extra.channels:[];
 const chBadges = t => chOf(t).map(c=>{const x=CHANNELS.find(k=>k[0]===c);return x?`<span class="cb" style="background:${x[2]}" title="${x[0]}">${x[1]}</span>`:""}).join("");
@@ -406,7 +410,7 @@ function renderMonth(ft){
       if(x.ev){fg+=`<div class="ev bar${cl}${cr}" style="${pos}" title="${esc(x.label)}">${esc(x.label)}</div>`;return}
       const t=x.t, ty=typeOf(t);
       const range=t.end&&t.end>t.date?` <span class="rng">(${thDate(t.date).replace(/^\S+ /,"")} – ${thDate(t.end).replace(/^\S+ /,"")})</span>`:"";
-      fg+=`<div class="tk bar ${t.status}${cl}${cr}" data-id="${esc(t.id)}" style="${pos}" title="${esc((ty?"["+ty+"] ":"")+t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t">${x.mk?`<span class="mk${x.mk==="ส่ง"?" due":""}">${x.mk==="ส่ง"?"⚑ ส่ง":"▶ เริ่ม"}</span>`:""}${ty?`<span class="tag">${esc(ty)}</span>`:""}${torTag(t)}${chBadges(t)}<b>${esc(t.name)}:</b> ${esc(t.task)}${e>s?range:""}${linksOf(t.note).length?'<span class="ln">🔗</span>':''}${filesOf(t).length?'<span class="ln">📎</span>':''}</div></div>`;
+      fg+=`<div class="tk bar ${t.status}${cl}${cr}" data-id="${esc(t.id)}" style="${pos}" title="${esc((ty?"["+ty+"] ":"")+t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t">${x.mk?`<span class="mk${x.mk==="ส่ง"?" due":""}">${x.mk==="ส่ง"?"⚑ ส่ง":"▶ เริ่ม"}</span>`:""}${ty?`<span class="tag">${esc(ty)}</span>`:""}${torTag(t)}${axTags(t)}${chBadges(t)}<b>${esc(t.name)}:</b> ${esc(t.task)}${e>s?range:""}${linksOf(t.note).length?'<span class="ln">🔗</span>':''}${filesOf(t).length?'<span class="ln">📎</span>':''}</div></div>`;
     });
     hidden.forEach((n,c)=>{if(n)fg+=`<div class="more" data-day="${ds[c]}" style="grid-column:${c+1};grid-row:${LANES+1}">+ อีก ${n}</div>`});
     h+=`<div class="week"><div class="wbg">${bg}</div><div class="wfg">${fg}</div></div>`;
@@ -423,7 +427,7 @@ function renderList(list){
     h+=`<div class="lday"><h3>${thDate(d)}</h3>`;
     by[d].forEach(t=>{
       const rng=t.end&&t.end>t.date?` · ถึง ${thDate(t.end)}`:"";
-      h+=`<div class="lrow"><div class="who">${esc(t.name)}</div><div class="what${t.status==="done"?" done":""}" data-id="${esc(t.id)}">${typeOf(t)?`<span class="tag">${esc(typeOf(t))}</span>`:""}${torTag(t)}${chBadges(t)}${esc(t.task)}<small>${linkify(t.note||"")}${rng}</small>${filesOf(t).map(f=>`<a href="${esc(f.url)}" target="_blank" rel="noopener">📎 ${esc(f.name)}</a>`).join(" ")}</div>
+      h+=`<div class="lrow"><div class="who">${esc(t.name)}</div><div class="what${t.status==="done"?" done":""}" data-id="${esc(t.id)}">${typeOf(t)?`<span class="tag">${esc(typeOf(t))}</span>`:""}${torTag(t)}${axTags(t)}${chBadges(t)}${esc(t.task)}<small>${linkify(t.note||"")}${rng}</small>${filesOf(t).map(f=>`<a href="${esc(f.url)}" target="_blank" rel="noopener">📎 ${esc(f.name)}</a>`).join(" ")}</div>
       <div class="st" data-id="${esc(t.id)}">${["done","doing","todo"].map(s=>`<button data-s="${s}" class="${s}${t.status===s?" on":""}">${STL[s]}</button>`).join("")}</div></div>`;
     });
     h+='</div>';
@@ -432,7 +436,7 @@ function renderList(list){
 }
 
 // ---------- modal ----------
-function syncTypes(){const v=$("#fType").value.trim();$("#fTypes").innerHTML=TYPES.map(x=>`<button type="button" class="${x===v?"on":""}">${esc(x)}</button>`).join("")}
+function syncTypes(){const v=$("#fType").value.trim();$("#fAxisBox").style.display=v==="อินฟลู"?"block":"none";$("#fTypes").innerHTML=TYPES.map(x=>`<button type="button" class="${x===v?"on":""}">${esc(x)}</button>`).join("")}
 $("#fTypes").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;$("#fType").value=$("#fType").value===b.textContent?"":b.textContent;syncTypes()});
 $("#fType").addEventListener("input",syncTypes);
 $("#fTor").innerHTML+=TOR.map(x=>`<option value="${x[0]}">${x[0].includes("(")?"\u00a0\u00a0\u00a0└ ":""}${x[0]} ${esc(x[1])}</option>`).join("");
@@ -469,6 +473,7 @@ function openModal(t,day){
   $("#fTask").value=t?t.task:"";
   $("#fType").value=t?typeOf(t):"";syncTypes();
   $("#fTor").value=torOf(t);
+  const ax=axOf(t);$("#fAxis").innerHTML=AXES.map(a=>`<label><input type="checkbox" value="${a[0]}"${ax.includes(a[0])?" checked":""}>${a[0]}</label>`).join("");
   const cs=chOf(t);$("#fCh").innerHTML=CHANNELS.map(c=>`<label><input type="checkbox" value="${c[0]}"${cs.includes(c[0])?" checked":""}>${c[0]}</label>`).join("");
   $("#fDate").value=t?t.date:(day||clampDay(todayISO()));
   $("#fEnd").value=t?(t.end||""):"";
@@ -485,7 +490,7 @@ function closeModal(){$("#mask").classList.remove("on");editing=null}
 async function saveModal(){
   const task={name:$("#fName").value.trim(),task:$("#fTask").value.trim(),date:$("#fDate").value,end:$("#fEnd").value,note:$("#fNote").value.trim(),status:fStatus};
   const old=editing?tasks.find(x=>x.id===editing):null;
-  task.extra={...((old&&old.extra)||{}),type:$("#fType").value.trim(),files:fFiles,tor:$("#fTor").value,channels:[...document.querySelectorAll("#fCh input:checked")].map(i=>i.value)};
+  task.extra={...((old&&old.extra)||{}),type:$("#fType").value.trim(),files:fFiles,tor:$("#fTor").value,axis:$("#fType").value.trim()==="อินฟลู"?[...document.querySelectorAll("#fAxis input:checked")].map(i=>i.value):[],channels:[...document.querySelectorAll("#fCh input:checked")].map(i=>i.value)};
   if(!task.name){toast("กรุณาใส่ชื่อ");$("#fName").focus();return}
   if(!task.task){toast("กรุณาใส่งาน");$("#fTask").focus();return}
   if(!task.date){toast("กรุณาเลือกวันที่");return}

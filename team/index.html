@@ -50,16 +50,18 @@ h1 span{font-weight:500;color:var(--mute)}
 .dn em{font-style:normal;font-size:13px;color:var(--mute);margin-right:4px}
 .dn.today span{display:inline-block;background:var(--today);color:#fff;border-radius:50%;width:28px;height:28px;line-height:28px;text-align:center}
 .items{display:flex;flex-direction:column;gap:3px;margin-top:2px}
-.ev{font-size:12px;background:var(--event-bg);color:#6a1f8c;border-radius:5px;padding:2px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev{font-size:11.5px;background:#faf3fd;color:#8a3fb0;border-radius:4px;padding:2px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ev::before{content:"★ ";color:var(--event)}
-.tk{font-size:12.5px;border-radius:6px;padding:3px 6px 3px 8px;border-left:4px solid var(--todo);background:var(--todo-bg);line-height:1.3;overflow:hidden}
+.tk{font-size:12.5px;border-radius:5px;padding:3px 6px 3px 7px;border:1px solid var(--line);border-left:3px solid var(--todo);background:#fff;line-height:1.3;overflow:hidden}
 .tk b{font-weight:600}
 .tk .t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.tk.doing{border-color:var(--doing);background:var(--doing-bg)}
-.tk.done{border-color:var(--done);background:var(--done-bg)}
+.tk.doing{border-left-color:var(--doing);background:#fffaf0}
+.tk.done{border-left-color:var(--done);background:#fff;opacity:.62}
 .tk.done .t::before{content:"✓ ";color:var(--done);font-weight:700}
 .what.done::before{content:"✓ ";color:var(--done);font-weight:700}
-.tk:hover{filter:brightness(.96)}
+.tk:hover{filter:brightness(.97);opacity:1}
+.mk{font-size:10.5px;font-weight:700;margin-right:3px;color:var(--mute)}
+.mk.due{color:var(--today)}
 .more{font-size:12px;color:var(--mute);padding-left:4px}
 
 .week{position:relative;min-height:128px;border-bottom:1px solid var(--line)}
@@ -76,6 +78,21 @@ h1 span{font-weight:500;color:var(--mute)}
 .wfg .more{pointer-events:auto;cursor:pointer;margin:0 6px}
 .rng{color:var(--mute);font-weight:400}
 @media (max-width:760px){.week{min-height:86px}.wfg{padding-top:28px}.wfg .bar{margin:0 2px;height:18px;line-height:14px;padding-top:2px;padding-bottom:2px}.wfg .tag{display:none}}
+.long{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:12px}
+.long h3{margin:0 0 8px;font-size:14px;font-weight:600;color:var(--ink)}
+.long h3 small{font-weight:400;color:var(--mute);margin-left:6px}
+.lg{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr) auto;gap:4px 14px;align-items:center;padding:7px 0;border-top:1px solid var(--line);cursor:pointer}
+.lg:first-of-type{border-top:0}
+.lg .nm{font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lg .nm b{font-weight:600}
+.lg .tl{position:relative;height:8px;background:#eef0f5;border-radius:99px}
+.lg .tl i{position:absolute;top:0;bottom:0;border-radius:99px;background:var(--todo)}
+.lg.doing .tl i{background:var(--doing)} .lg.done .tl i{background:var(--done)}
+.lg .tl em{position:absolute;top:-3px;width:2px;height:14px;background:var(--today);border-radius:1px}
+.lg .dt{font-size:12px;color:var(--mute);white-space:nowrap}
+.lg .pill{display:inline-block;font-size:11px;font-weight:600;border-radius:99px;padding:1px 8px;margin-left:6px;color:#fff;background:var(--todo)}
+.lg.doing .pill{background:var(--doing)} .lg.done .pill{background:var(--done)}
+@media (max-width:760px){.lg{grid-template-columns:1fr auto}.lg .tl{grid-column:1/3;grid-row:2}}
 /* list view */
 .list{background:var(--card);border-radius:14px;border:1px solid var(--line);padding:4px 0}
 .lday{padding:10px 16px;border-bottom:1px solid var(--line)}
@@ -298,6 +315,24 @@ function render(){
   $("#demo").style.display=API_URL?"none":"block";
   view==="month"?renderMonth(ft):renderList(inMonth);
 }
+const dayN=s=>{const [y,m,d]=s.split("-").map(Number);return Date.UTC(y,m-1,d)/864e5};
+function isLong(t){return !!(t.end&&t.end>t.date&&dayN(t.end)-dayN(t.date)>=7)}
+function renderLong(ft){
+  const mS=`${cur.y}-${pad(cur.m+1)}-01`, mE=`${cur.y}-${pad(cur.m+1)}-${pad(new Date(cur.y,cur.m+1,0).getDate())}`;
+  const L=ft.filter(t=>isLong(t)&&t.date<=mE&&t.end>=mS).sort((a,b)=>a.end.localeCompare(b.end));
+  if(!L.length) return "";
+  const a=dayN(mS), n=dayN(mE)-a+1, td=dayN(todayISO());
+  const sd=x=>thDate(x).replace(/^\S+ /,"");
+  let h=`<div class="long"><h3>งานระยะยาว <small>ทำต่อเนื่องหลายสัปดาห์ · แถบคือช่วงเวลาในเดือนนี้ เส้นแดงคือวันนี้</small></h3>`;
+  L.forEach(t=>{
+    const s0=Math.max(0,dayN(t.date)-a), e0=Math.min(n-1,dayN(t.end)-a);
+    const ty=typeOf(t);
+    h+=`<div class="lg ${t.status}" data-id="${esc(t.id)}"><div class="nm">${ty?`<span class="tag">${esc(ty)}</span>`:""}<b>${esc(t.name)}:</b> ${esc(t.task)}</div>
+      <div class="tl"><i style="left:${s0/n*100}%;width:${(e0-s0+1)/n*100}%"></i>${td>=a&&td<a+n?`<em style="left:${(td-a+.5)/n*100}%"></em>`:""}</div>
+      <div class="dt">${sd(t.date)} – ${sd(t.end)}<span class="pill">${STL[t.status]}</span></div></div>`;
+  });
+  return h+"</div>";
+}
 function renderMonth(ft){
   const first=new Date(cur.y,cur.m,1);
   const start=new Date(first); start.setDate(1-first.getDay());
@@ -308,7 +343,7 @@ function renderMonth(ft){
   const LANES=narrow?4:5;
   const order={doing:0,todo:1,done:2};
   const endOf=t=>t.end&&t.end>t.date?t.end:t.date;
-  let h='<div class="cal"><div class="dow">'+(narrow?DOWS:DOW).map(d=>`<div>${d}</div>`).join("")+'</div>';
+  let h=renderLong(ft)+'<div class="cal"><div class="dow">'+(narrow?DOWS:DOW).map(d=>`<div>${d}</div>`).join("")+'</div>';
   for(let w=0;w<weeks;w++){
     const days=[...Array(7)].map((_,i)=>{const d=new Date(start);d.setDate(start.getDate()+w*7+i);return d});
     const ds=days.map(iso), ws=ds[0], we=ds[6];
@@ -322,7 +357,8 @@ function renderMonth(ft){
     // items for this week: events, then multi-day tasks (longest first), then single-day tasks
     const items=[];
     EVENTS.forEach(e=>{if(e[0]<=we&&e[1]>=ws)items.push({ev:1,a:e[0],b:e[1],label:e[2]})});
-    ft.filter(t=>t.date<=we&&endOf(t)>=ws).forEach(t=>items.push({t,a:t.date,b:endOf(t)}));
+    ft.filter(t=>!isLong(t)&&t.date<=we&&endOf(t)>=ws).forEach(t=>items.push({t,a:t.date,b:endOf(t)}));
+    ft.filter(isLong).forEach(t=>{if(t.date>=ws&&t.date<=we)items.push({t,a:t.date,b:t.date,mk:"เริ่ม"});if(t.end>=ws&&t.end<=we)items.push({t,a:t.end,b:t.end,mk:"ส่ง"})});
     const len=x=>(new Date(x.b)-new Date(x.a));
     items.sort((x,y)=>(y.ev||0)-(x.ev||0)||((y.a!==y.b)-(x.a!==x.b))||len(y)-len(x)||(x.t&&y.t?order[x.t.status]-order[y.t.status]:0)||x.a.localeCompare(y.a));
     const lanes=[]; const hidden=Array(7).fill(0);
@@ -338,7 +374,7 @@ function renderMonth(ft){
       if(x.ev){fg+=`<div class="ev bar${cl}${cr}" style="${pos}" title="${esc(x.label)}">${esc(x.label)}</div>`;return}
       const t=x.t, ty=typeOf(t);
       const range=t.end&&t.end>t.date?` <span class="rng">(${thDate(t.date).replace(/^\S+ /,"")} – ${thDate(t.end).replace(/^\S+ /,"")})</span>`:"";
-      fg+=`<div class="tk bar ${t.status}${cl}${cr}" data-id="${esc(t.id)}" style="${pos}" title="${esc((ty?"["+ty+"] ":"")+t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t">${ty?`<span class="tag">${esc(ty)}</span>`:""}<b>${esc(t.name)}:</b> ${esc(t.task)}${e>s?range:""}${linksOf(t.note).length?'<span class="ln">🔗</span>':''}</div></div>`;
+      fg+=`<div class="tk bar ${t.status}${cl}${cr}" data-id="${esc(t.id)}" style="${pos}" title="${esc((ty?"["+ty+"] ":"")+t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t">${x.mk?`<span class="mk${x.mk==="ส่ง"?" due":""}">${x.mk==="ส่ง"?"⚑ ส่ง":"▶ เริ่ม"}</span>`:""}${ty?`<span class="tag">${esc(ty)}</span>`:""}<b>${esc(t.name)}:</b> ${esc(t.task)}${e>s?range:""}${linksOf(t.note).length?'<span class="ln">🔗</span>':''}</div></div>`;
     });
     hidden.forEach((n,c)=>{if(n)fg+=`<div class="more" data-day="${ds[c]}" style="grid-column:${c+1};grid-row:${LANES+1}">+ อีก ${n}</div>`});
     h+=`<div class="week"><div class="wbg">${bg}</div><div class="wfg">${fg}</div></div>`;

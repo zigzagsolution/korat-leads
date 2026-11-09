@@ -162,9 +162,25 @@ footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center}
   .ev{font-size:10px;padding:1px 3px}
   .ev::before{content:""}
 }
+#gate{position:fixed;inset:0;z-index:999;background:#f6f7fb;display:flex;align-items:center;justify-content:center;padding:16px}
+#gate[hidden]{display:none}
+#gate form{background:#fff;border:1px solid #e3e6ee;border-radius:16px;padding:28px 24px;width:100%;max-width:340px;text-align:center;box-shadow:0 8px 30px rgba(20,30,60,.08)}
+#gate .gb{font-size:13px;color:#6b7280;margin-bottom:4px}
+#gate h2{font-size:20px;margin:0 0 18px}
+#gate input{width:100%;box-sizing:border-box;font-size:22px;letter-spacing:8px;text-align:center;padding:10px;border:1px solid #cfd4e0;border-radius:10px}
+#gate button{margin-top:12px;width:100%;padding:11px;font-size:16px;border:0;border-radius:10px;background:#4f46e5;color:#fff;cursor:pointer}
+#gate input::placeholder{letter-spacing:normal;font-size:16px}
+#gate .ge{color:#dc2626;font-size:13px;min-height:18px;margin-top:8px}
 </style>
 </head>
 <body>
+<div id="gate"><form id="gateF" autocomplete="off">
+  <div class="gb">อวดเมือง.โคราช</div>
+  <h2>ปฏิทินติดตามงานทีม</h2>
+  <input id="gateIn" type="password" inputmode="numeric" placeholder="กรอกรหัส" aria-label="รหัสเข้าใช้งาน" autofocus>
+  <button type="submit">เข้าใช้งาน</button>
+  <div class="ge" id="gateErr"></div>
+</form></div>
 <div class="wrap">
   <header>
     <div class="brand"><b>อวดเมือง.โคราช</b> · ปฏิทินติดตามงานทีม</div>
@@ -533,8 +549,19 @@ function syncSeg(){document.querySelectorAll("#viewSeg button").forEach(b=>b.cla
 document.querySelectorAll("#viewSeg button").forEach(b=>b.onclick=()=>{view=b.dataset.v;syncSeg();render()});
 addEventListener("resize",()=>{clearTimeout(render._r);render._r=setTimeout(render,200)});
 
+const GATE_KEY="korat-team-cal-v1-ok";
+let started=false;
+function startApp(){
+if(started)return;started=true;$("#gate").hidden=true;
 fetchAll();
 if(API_URL){setInterval(()=>{if(!$("#mask").classList.contains("on")&&!document.hidden)fetchAll(true)},30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)fetchAll(true)})}
+}
+let gateOk=false;try{gateOk=localStorage.getItem(GATE_KEY)==="1"}catch(e){}
+if(gateOk)startApp();
+else{setTimeout(()=>$("#gateIn").focus(),50);
+$("#gateF").onsubmit=e=>{e.preventDefault();
+if($("#gateIn").value.trim()==="1111"){try{localStorage.setItem(GATE_KEY,"1")}catch(e){}startApp()}
+else{$("#gateErr").textContent="รหัสไม่ถูกต้อง";$("#gateIn").value="";$("#gateIn").focus()}}}
 </script>
 </body>
 </html>

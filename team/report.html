@@ -102,7 +102,7 @@ td a{color:#1155cc;word-break:break-all}
 <div class="tabs" id="tabs"></div>
 <div class="tw"><div id="prev"></div></div>
 </section>
-<div class="hint" style="text-align:center">พัฒนาข้อมูลโดย MIDI x KORAT</div>
+<div class="hint" style="text-align:center">พัฒนาข้อมูลโดย MIDI Digital</div>
 </div>
 
 <script>
@@ -232,7 +232,7 @@ async function download(){
       [],["สถานะ","จำนวน"],["สำเร็จ",c.done],["กำลังทำ",c.doing],["ยังไม่ได้ทำ",c.todo],["รวม",f.length],
       [],["ประเภทงาน","สำเร็จ","กำลังทำ","ยังไม่ได้ทำ"],...Object.entries(byType).map(([k,v])=>[k,v.done,v.doing,v.todo]),
       [],["ข้อ TOR","สำเร็จ","กำลังทำ","ยังไม่ได้ทำ"],...Object.entries(byTor).sort((x,y)=>x[0].localeCompare(y[0],undefined,{numeric:true})).map(([k,v])=>[k,v.done,v.doing,v.todo]),
-      [],["รายละเอียดและวันที่อาจปรับตามหน้างาน · พัฒนาข้อมูลโดย MIDI x KORAT"]];
+      [],["รายละเอียดและวันที่อาจปรับตามหน้างาน · พัฒนาข้อมูลโดย MIDI Digital"]];
     const ws0=XLSX.utils.aoa_to_sheet(sum);ws0["!cols"]=[{wch:28},{wch:30},{wch:12},{wch:12}];
     XLSX.utils.book_append_sheet(wb,ws0,"สรุป");
     S.forEach(s=>{const rows=s.rows.map((t,i)=>s.cols.map(c=>c[1](t,i)));

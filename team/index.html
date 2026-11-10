@@ -354,7 +354,7 @@ async function fetchAll(quiet){
   try{
     const r=await fetch(API_URL+"?k="+encodeURIComponent(KEY),{cache:"no-store"});
     const j=await r.json();
-    if(j.error==="auth"){lockOut();return}
+    if(j.error==="auth"||j.view){lockOut();return}
     if(j.ok){tasks=j.tasks;saveLocal();render();setSync("อัปเดต "+new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"}))}
     else throw new Error(j.error||"load");
   }catch(e){loadLocal();render();setSync("โหลดข้อมูลกลางไม่ได้ (แสดงข้อมูลล่าสุดในเครื่อง)",true)}
@@ -649,7 +649,7 @@ async function tryKey(code){
   if(!API_URL) return true;
   const r=await fetch(API_URL+"?k="+encodeURIComponent(code),{cache:"no-store"});
   const j=await r.json();
-  if(j.error==="auth") return false;
+  if(j.error==="auth"||j.view) return false; // รหัสลูกค้า (ดูอย่างเดียว) เข้าหน้าทีมไม่ได้
   return !!j.auth;
 }
 let saved="";try{saved=localStorage.getItem(GATE_KEY)||""}catch(e){}

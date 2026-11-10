@@ -65,6 +65,25 @@ h1{margin:2px 0 4px;font-size:26px;font-weight:700}
 .tk.done{border-left-color:var(--done);background:var(--done-bg)}
 .tk.doing{border-left-color:var(--doing);background:var(--doing-bg)}
 .more{font-size:11.5px;color:var(--mute);padding-left:4px}
+/* long-running tasks */
+.long{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden}
+.long h3{margin:0;font-size:15px;padding:10px 16px;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:baseline}
+.long h3 small{font-weight:400;color:var(--mute);font-size:12.5px}
+.lr{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px;align-items:center;padding:7px 16px;border-bottom:1px solid var(--line);cursor:pointer}
+.lr:last-of-type{border-bottom:0}
+.lr:hover{background:#f7f8fc}
+.lr .n{font-size:13.5px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lr .n i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.lr .n small{color:var(--mute);margin-left:6px;font-size:12px}
+.track{position:relative;height:8px;background:#eef0f5;border-radius:99px}
+.track b{position:absolute;top:0;bottom:0;border-radius:99px;background:var(--todo)}
+.track b.done{background:var(--done)} .track b.doing{background:var(--doing)}
+.track em{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--today);border-radius:2px}
+.tor{display:inline-block;font-size:11px;font-weight:500;color:#4a4f6e;background:#eef0f6;border-radius:4px;padding:0 5px;margin-right:4px;vertical-align:1px}
+.ck{color:var(--done);font-weight:700;margin-right:4px}
+.tk.done{color:#2f6b45}
+.tk .due{color:#b45309;font-weight:600}
+.daybox{display:none}
 /* list */
 .list{display:flex;flex-direction:column;gap:16px}
 .sec{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -94,7 +113,7 @@ h1{margin:2px 0 4px;font-size:26px;font-weight:700}
 .st.done{background:var(--done-bg);color:var(--done)}
 .st.doing{background:var(--doing-bg);color:#b77400}
 .st.todo{background:var(--todo-bg);color:#565b78}
-.st.ev{background:var(--event-bg);color:#7d2fa3}
+.st.evt{background:var(--event-bg);color:#7d2fa3}
 footer{margin-top:22px;text-align:center;font-size:12.5px;color:var(--mute)}
 /* gate */
 #gate{position:fixed;inset:0;z-index:999;background:#f6f7fb;display:flex;align-items:center;justify-content:center;padding:16px}
@@ -116,6 +135,14 @@ footer{margin-top:22px;text-align:center;font-size:12.5px;color:var(--mute)}
   .dn.today span{width:22px;height:22px;line-height:22px}
   .its{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:3px}
   .ev,.tk{font-size:0;padding:0;width:8px;height:8px;border-radius:50%;border:0}
+  .cell.sel{background:#eef1ff}
+  .daybox{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;margin-top:12px;padding:4px 14px 6px}
+  .daybox h4{margin:10px 0 2px;font-size:15px}
+  .lr{grid-template-columns:1fr;gap:5px;padding:8px 14px}
+  .long h3{padding:10px 14px}
+  .long h3 small{display:none}
+  #calView{display:flex;flex-direction:column}
+  .long{order:3;margin:12px 0 0}
   .ev{background:var(--event)} .ev.hol{background:#c5c8d6}
   .tk{background:var(--todo)} .tk.done{background:var(--done)} .tk.doing{background:var(--doing)}
   .more{display:none}
@@ -151,12 +178,16 @@ footer{margin-top:22px;text-align:center;font-size:12.5px;color:var(--mute)}
   </div>
   <div class="legend" id="legend">
     <span><i style="background:var(--event)"></i>กิจกรรมหลัก</span>
-    <span><i style="background:var(--done)"></i>เสร็จแล้ว</span>
+    <span><i style="background:var(--done)"></i>✓ เสร็จแล้ว</span>
     <span><i style="background:var(--doing)"></i>กำลังดำเนินการ</span>
     <span><i style="background:var(--todo)"></i>กำหนดการ</span>
   </div>
 
-  <div id="calView" class="cal"><div class="dow" id="dow"></div><div class="grid" id="grid"></div></div>
+  <div id="calView">
+    <div class="long" id="long"></div>
+    <div class="cal"><div class="dow" id="dow"></div><div class="grid" id="grid"></div></div>
+    <div class="daybox" id="daybox"></div>
+  </div>
   <div id="listView" class="list" hidden></div>
 
   <footer>พัฒนาข้อมูลโดย MIDI x KORAT</footer>
@@ -211,7 +242,8 @@ let KEY="", rows=[], cur=clampMonth(new Date()), view="month";
 // แปลงข้อมูลให้เหลือเฉพาะที่ลูกค้าควรเห็น (ไม่มีชื่อผู้รับผิดชอบ ไม่มีโน้ตภายใน มีแค่ลิงก์ผลงาน)
 const isEv = r => !!(r&&r.extra&&r.extra.kind==="event");
 function tasks(){return rows.filter(r=>!isEv(r)&&r.date&&r.task&&!(r.extra&&(r.extra.hidden||r.extra.private))).map(r=>{const x=r.extra||{};
-  return {id:r.id,a:r.date,b:r.end&&r.end>r.date?r.end:r.date,task:r.task,status:STL[r.status]?r.status:"todo",type:x.type||"",
+  const mm=String(r.task).match(TOR_RE), a=r.date, b=r.end&&r.end>r.date?r.end:r.date;
+  return {id:r.id,a,b,long:days(a,b)>=3,task:mm?r.task.slice(mm[0].length).trim()||r.task:r.task,tor:x.tor||(mm?mm[1]:""),status:STL[r.status]?r.status:"todo",type:x.type||"",
     channels:Array.isArray(x.channels)?x.channels:[],links:linksOf(r.note),files:(Array.isArray(x.files)?x.files:[]).filter(f=>f&&f.url)}})}
 function events(){const ev=rows.filter(isEv),byRef={};ev.forEach(r=>{if(r.extra.ref)byRef[r.extra.ref]=r});const out=[];
   EVENTS.forEach((e,i)=>{const id="d"+(i+1),r=byRef[id];
@@ -220,6 +252,15 @@ function events(){const ev=rows.filter(isEv),byRef={};ev.forEach(r=>{if(r.extra.
   ev.filter(r=>!r.extra.ref&&!r.extra.hidden).forEach(r=>out.push({id:r.id,a:r.date,b:r.end&&r.end>r.date?r.end:r.date,label:r.task,hol:false,links:linksOf(r.note)}));
   return out}
 const covers=(t,d)=>t.a<=d&&d<=t.b;
+// "ข้อ 6.2.3 สร้างเว็บไซต์" -> ชื่อ "สร้างเว็บไซต์" + ป้าย 6.2.3
+const TOR_RE=/^\s*(?:ข้อ|TOR)\s*([0-9][0-9.()]*)\s*[:\-–.]?\s*/;
+const pd=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const days=(a,b)=>Math.round((pd(b)-pd(a))/864e5)+1;
+const ck=t=>t.status==="done"?'<span class="ck">✓</span>':"";
+const torTag=t=>t.tor?`<span class="tor">${esc(t.tor)}</span>`:"";
+// งานสั้นโชว์ทุกวันที่ทำ งานต่อเนื่องโชว์แค่วันส่ง (ส่วนช่วงเวลาอยู่ในแถบด้านบน)
+const onDay=(t,d)=>t.long?t.b===d:covers(t,d);
+let sel="";
 const ORDER={done:0,doing:1,todo:2};
 
 function render(){
@@ -246,14 +287,37 @@ function renderMonth(T){
   let h="";
   for(let i=0;i<weeks*7;i++){
     const d=new Date(start);d.setDate(start.getDate()+i);const ds=iso(d),out=d.getMonth()!==m,wk=d.getDay()===0||d.getDay()===6;
-    const ev=E.filter(e=>covers(e,ds)), tk=T.filter(t=>covers(t,ds)).sort((a,b)=>ORDER[a.status]-ORDER[b.status]);
+    const ev=E.filter(e=>covers(e,ds)), tk=T.filter(t=>onDay(t,ds)).sort((a,b)=>ORDER[a.status]-ORDER[b.status]);
     const items=[...ev.map(e=>`<div class="ev${e.hol?" hol":""}" title="${esc(e.label)}">${esc(e.label)}</div>`),
-      ...tk.map(t=>`<div class="tk ${t.status}" title="${esc(t.task)}">${esc(t.task)}</div>`)];
+      ...tk.map(t=>`<div class="tk ${t.status}" title="${esc((t.long?"ส่ง: ":"")+t.task)}">${ck(t)}${t.long?'<span class="due">ส่ง</span> ':""}${esc(t.task)}</div>`)];
     const shown=items.slice(0,MAX), more=items.length-shown.length;
-    h+=`<div class="cell${wk?" wk":""}${out?" out":""}${items.length?"":" empty"}" data-d="${ds}"><div class="dn${ds===today()?" today":""}"><span>${d.getDate()}</span></div><div class="its">${shown.join("")}${more>0?`<div class="more">+ อีก ${more}</div>`:""}</div></div>`;
+    h+=`<div class="cell${wk?" wk":""}${out?" out":""}${items.length?"":" empty"}${mobile&&ds===sel?" sel":""}" data-d="${ds}"><div class="dn${ds===today()?" today":""}"><span>${d.getDate()}</span></div><div class="its">${shown.join("")}${more>0?`<div class="more">+ อีก ${more}</div>`:""}</div></div>`;
   }
   $("#grid").innerHTML=h;
+  renderLong(T);
+  if(mobile){const box=$("#daybox");const mk=iso(new Date(y,m,1)).slice(0,7);if(!sel||sel.slice(0,7)!==mk)sel=today().slice(0,7)===mk?today():"";
+    box.innerHTML=sel?`<h4>${thLong(sel)}</h4>`+(dayHTML(sel)||'<div class="none" style="padding:8px 0">ไม่มีรายการในวันนี้</div>'):'<div class="none" style="padding:10px 0">แตะวันที่ในปฏิทินเพื่อดูรายละเอียดของวันนั้น</div>'}
 }
+function renderLong(T){
+  const {y,m}=cur, ms=iso(new Date(y,m,1)), me=iso(new Date(y,m+1,0)), n=days(ms,me), td=today();
+  const L=T.filter(t=>t.long&&t.a<=me&&t.b>=ms).sort((a,b)=>ORDER[a.status]-ORDER[b.status]||a.b.localeCompare(b.b));
+  if(!L.length){$("#long").style.display="none";return}
+  $("#long").style.display="";
+  const LN=matchMedia("(max-width:700px)").matches?3:6, all=!!opened.long, show=all?L:L.slice(0,LN);
+  const pos=d=>Math.max(0,Math.min(n,days(ms,d)-1))/n*100;
+  const tdm=td>=ms&&td<=me?`<em style="left:${(days(ms,td)-0.5)/n*100}%"></em>`:"";
+  $("#long").innerHTML=`<h3>งานต่อเนื่องในเดือนนี้ <small>${L.length} รายการ · แถบคือช่วงเวลาในเดือน เส้นแดงคือวันนี้</small></h3>`+
+    show.map(t=>{const l=t.a<ms?0:pos(t.a), r=t.b>me?100:(days(ms,t.b))/n*100;
+      return `<div class="lr" data-id="${esc(t.id)}"><div class="n"><i style="background:var(--${t.status})"></i>${ck(t)}${torTag(t)}${esc(t.task)}<small>${thRange(t.a,t.b)}</small></div><div class="track"><b class="${t.status}" style="left:${l}%;width:${Math.max(2,r-l)}%"></b>${tdm}</div></div>`}).join("")+
+    (L.length>LN?`<button class="showall" data-k="long">${all?"ย่อรายการ":"ดูทั้งหมด "+L.length+" รายการ"}</button>`:"");
+}
+function thLong(ds){const [y,m,d]=ds.split("-").map(Number);return DOWL[new Date(y,m-1,d).getDay()]+" "+d+" "+MONTHS[m-1]+" "+(y+543)}
+function dayHTML(ds){
+  const E=events().filter(e=>covers(e,ds)), T=tasks().filter(t=>onDay(t,ds)).sort((a,b)=>ORDER[a.status]-ORDER[b.status]);
+  return E.map(e=>`<div class="pi"><span class="st evt">${e.hol?"วันหยุด":"กิจกรรมหลัก"}</span><b>${esc(e.label)}</b><div class="meta">${thRange(e.a,e.b)}</div>${e.links.length?`<div class="lk">${e.links.map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">🔗 ${esc(linkName(u))}</a>`).join("")}</div>`:""}</div>`).join("")+
+    T.map(taskHTML).join("");
+}
+function taskHTML(t){return `<div class="pi"><span class="st ${t.status}">${t.status==="done"?"✓ ":""}${STL[t.status]}</span>${torTag(t)}<b>${esc(t.task)}</b>${t.b>t.a?`<div class="meta">${t.long?"ช่วงเวลา ":""}${thRange(t.a,t.b)}</div>`:""}${itemHTML(t)}</div>`}
 
 function itemHTML(t){
   const meta=[t.type,...t.channels].filter(Boolean).map(s=>`<span class="chip">${esc(s)}</span>`).join("");
@@ -275,21 +339,19 @@ function renderList(T){
   secs.forEach(([k,label,c,list])=>{
     const all=!!opened[k], show=all?list:list.slice(0,LIMIT);
     h+=`<div class="sec" id="sec-${k}"><h2><i style="background:${c}"></i>${label} <small>${list.length} รายการ</small></h2>`+
-      (list.length?show.map(t=>`<div class="row"><div class="d">${thRange(t.a,t.b)}</div><div class="w"><b>${esc(t.task)}</b>${itemHTML(t)}</div></div>`).join(""):`<div class="none">ยังไม่มีรายการ</div>`)+
+      (list.length?show.map(t=>`<div class="row"><div class="d">${thRange(t.a,t.b)}</div><div class="w">${ck(t)}${torTag(t)}<b>${esc(t.task)}</b>${itemHTML(t)}</div></div>`).join(""):`<div class="none">ยังไม่มีรายการ</div>`)+
       (list.length>LIMIT?`<button class="showall" data-k="${k}">${all?"ย่อรายการ":"ดูทั้งหมด "+list.length+" รายการ"}</button>`:"")+`</div>`;
   });
   $("#listView").innerHTML=h;
 }
 
 function openDay(ds){
-  const E=events().filter(e=>covers(e,ds)), T=tasks().filter(t=>covers(t,ds)).sort((a,b)=>ORDER[a.status]-ORDER[b.status]);
-  if(!E.length&&!T.length) return;
-  const [y,m,d]=ds.split("-").map(Number);
-  $("#pTitle").textContent=DOWL[new Date(y,m-1,d).getDay()]+" "+d+" "+MONTHS[m-1]+" "+(y+543);
-  $("#pBody").innerHTML=E.map(e=>`<div class="pi"><span class="st ev">${e.hol?"วันหยุด":"กิจกรรมหลัก"}</span><b>${esc(e.label)}</b><div class="meta">${thRange(e.a,e.b)}</div>${e.links.length?`<div class="lk">${e.links.map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">🔗 ${esc(linkName(u))}</a>`).join("")}</div>`:""}</div>`).join("")+
-    T.map(t=>`<div class="pi"><span class="st ${t.status}">${STL[t.status]}</span><b>${esc(t.task)}</b>${t.b>t.a?`<div class="meta">${thRange(t.a,t.b)}</div>`:""}${itemHTML(t)}</div>`).join("");
-  $("#mask").classList.add("on");
+  if(matchMedia("(max-width:700px)").matches){sel=ds;render();$("#daybox").scrollIntoView({behavior:"smooth",block:"nearest"});return}
+  const h=dayHTML(ds); if(!h) return;
+  $("#pTitle").textContent=thLong(ds); $("#pBody").innerHTML=h; $("#mask").classList.add("on");
 }
+function openTask(id){const t=tasks().find(x=>String(x.id)===String(id));if(!t)return;
+  $("#pTitle").textContent="งานต่อเนื่อง"; $("#pBody").innerHTML=taskHTML(t); $("#mask").classList.add("on")}
 const closeP=()=>$("#mask").classList.remove("on");
 
 async function load(quiet){
@@ -309,6 +371,7 @@ $("#prev").onclick=()=>{let {y,m}=cur;m--;if(m<0){m=11;y--}cur={y,m};render()};
 $("#next").onclick=()=>{let {y,m}=cur;m++;if(m>11){m=0;y++}cur={y,m};render()};
 $("#mSel").onchange=e=>{const [y,m]=e.target.value.split("-").map(Number);cur={y,m};render()};
 $("#grid").addEventListener("click",e=>{const c=e.target.closest(".cell");if(c)openDay(c.dataset.d)});
+$("#long").addEventListener("click",e=>{const b=e.target.closest(".showall");if(b){opened.long=!opened.long;render();return}const r=e.target.closest(".lr");if(r)openTask(r.dataset.id)});
 $("#listView").addEventListener("click",e=>{const b=e.target.closest(".showall");if(b){opened[b.dataset.k]=!opened[b.dataset.k];render()}});
 document.querySelectorAll(".stat").forEach(b=>b.onclick=()=>{view="list";render();const s=$("#sec-"+b.dataset.go);if(s)s.scrollIntoView({behavior:"smooth",block:"start"})});
 $("#pClose").onclick=closeP; $("#mask").addEventListener("click",e=>{if(e.target.id==="mask")closeP()});

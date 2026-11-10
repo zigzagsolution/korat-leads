@@ -72,7 +72,11 @@ h1 span{font-weight:500;color:var(--mute)}
 .wfg{position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-auto-rows:min-content;row-gap:3px;padding:34px 0 8px;pointer-events:none}
 .wfg .bar{align-self:start;display:block;box-sizing:border-box;height:22px;line-height:16px;padding-top:3px;padding-bottom:3px;margin:0 5px;pointer-events:auto;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wfg .bar .t{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.wfg .ev.bar{pointer-events:none}
+.wfg .ev.bar{cursor:pointer}
+.ev .nt{opacity:.7;margin-left:3px}
+.addev{background:#faf3fd;color:#8a3fb0;border:1px solid #ecd9f6;border-radius:10px;padding:8px 12px;font:inherit;font-size:14px;cursor:pointer}
+.lev{background:#faf3fd;color:#8a3fb0;border-radius:8px;padding:6px 10px;margin:4px 0;cursor:pointer;font-size:14px}
+.lev small{display:block;color:#6b5a78}
 .wfg .bar.cl{margin-left:0;border-top-left-radius:0;border-bottom-left-radius:0}
 .wfg .bar.cr{margin-right:0;border-top-right-radius:0;border-bottom-right-radius:0}
 .wfg .tk.bar.cl{border-left-width:0;padding-left:8px}
@@ -192,6 +196,7 @@ footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center}
       <button id="prev" aria-label="เดือนก่อน">‹</button>
       <button id="today">วันนี้</button>
       <button id="next" aria-label="เดือนถัดไป">›</button>
+      <button class="addev" id="addEv" title="เพิ่มกิจกรรมสำคัญ (แถบสีม่วง)">★ กิจกรรม</button>
       <button class="addbtn" id="addBtn">+ เพิ่มงาน</button>
     </div>
   </header>
@@ -210,6 +215,19 @@ footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center}
   <footer>กดที่ช่องวันเพื่อเพิ่มงาน · กดที่งานเพื่อแก้ไขหรือเปลี่ยนสถานะ · พัฒนาข้อมูลโดย MIDI x KORAT</footer>
 </div>
 
+<div class="mask" id="evMask">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h2 id="eTitle">กิจกรรมสำคัญ</h2>
+    <div class="f"><label>ชื่อกิจกรรม (แถบสีม่วง)</label><input id="eName" placeholder="เช่น KICK OFF อวดเมือง.โคราช" autocomplete="off"></div>
+    <div class="two">
+      <div class="f"><label>วันที่</label><input type="date" id="eDate" min="2026-10-01" max="2027-02-28"></div>
+      <div class="f"><label>ถึงวันที่ (ถ้ามีหลายวัน)</label><input type="date" id="eEnd" min="2026-10-01" max="2027-02-28"></div>
+    </div>
+    <div class="f"><label>รายละเอียด / สถานที่ / ลิงก์ (ถ้ามี)</label><textarea id="eNote" placeholder="เช่น เวลา 16.00–19.00 น. ที่ Lido Connect"></textarea><div class="links" id="eLinks"></div></div>
+    <div class="acts"><button class="del" id="eDel">ลบ</button><button class="cancel" id="eCancel">ยกเลิก</button><button class="save" id="eSave">บันทึก</button></div>
+    <div class="hint" id="eHint"></div>
+  </div>
+</div>
 <div class="mask" id="mask">
   <div class="modal" role="dialog" aria-modal="true">
     <h2 id="mTitle">เพิ่มงาน</h2>
@@ -282,6 +300,19 @@ const EVENTS = [
   ["2027-01-01","2027-01-01","วันขึ้นปีใหม่"],
 ];
 
+// กิจกรรมเก็บในชีตเดียวกับงาน (extra.kind="event") ส่วนกิจกรรมตั้งต้นด้านบนแก้/ลบได้ผ่านแถวที่อ้าง extra.ref
+const isEv=t=>!!(t&&t.extra&&t.extra.kind==="event");
+const realTasks=()=>tasks.filter(t=>!isEv(t));
+function evList(){
+  const rows=tasks.filter(isEv), byRef={};
+  rows.forEach(r=>{if(r.extra.ref)byRef[r.extra.ref]=r});
+  const out=[];
+  EVENTS.forEach((e,i)=>{const id="d"+(i+1),r=byRef[id];
+    if(!r) out.push({id,a:e[0],b:e[1],label:e[2],note:""});
+    else if(!r.extra.hidden) out.push({id,row:r,a:r.date,b:r.end&&r.end>r.date?r.end:r.date,label:r.task,note:r.note||""});});
+  rows.filter(r=>!r.extra.ref&&!r.extra.hidden).forEach(r=>out.push({id:r.id,row:r,a:r.date,b:r.end&&r.end>r.date?r.end:r.date,label:r.task,note:r.note||""}));
+  return out;
+}
 let tasks = [];
 let cur = clampMonth(new Date());
 let view = "month";
@@ -347,14 +378,14 @@ async function send(body){
 // ---------- render ----------
 function filtered(){
   const w=$("#who").value, s=$("#stf").value, ty=$("#typf").value, tr=$("#torf").value;
-  return tasks.filter(t=>(!w||t.name===w)&&(!s||t.status===s)&&(!ty||typeOf(t)===ty)&&(!tr||torOf(t)===tr||torOf(t).startsWith(tr+".")||torOf(t).startsWith(tr+"(")));
+  return realTasks().filter(t=>(!w||t.name===w)&&(!s||t.status===s)&&(!ty||typeOf(t)===ty)&&(!tr||torOf(t)===tr||torOf(t).startsWith(tr+".")||torOf(t).startsWith(tr+"(")));
 }
 function render(){
   // people filter
-  const names=[...new Set(tasks.map(t=>t.name).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"th"));
+  const names=[...new Set(realTasks().map(t=>t.name).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"th"));
   const sel=$("#who"), keep=sel.value;
   sel.innerHTML='<option value="">ทุกคน</option>'+names.map(n=>`<option${n===keep?" selected":""}>${esc(n)}</option>`).join("");
-  const tys=[...new Set([...TYPES,...tasks.map(typeOf).filter(Boolean)])];
+  const tys=[...new Set([...TYPES,...realTasks().map(typeOf).filter(Boolean)])];
   const tsel=$("#typf"), tkeep=tsel.value;
   tsel.innerHTML='<option value="">ทุกประเภท</option>'+tys.map(n=>`<option${n===tkeep?" selected":""}>${esc(n)}</option>`).join("");
   $("#typeList").innerHTML=tys.map(n=>`<option value="${esc(n)}">`).join("");
@@ -411,7 +442,7 @@ function renderMonth(ft){
     });
     // items for this week: events, then multi-day tasks (longest first), then single-day tasks
     const items=[];
-    EVENTS.forEach(e=>{if(e[0]<=we&&e[1]>=ws)items.push({ev:1,a:e[0],b:e[1],label:e[2]})});
+    evList().forEach(e=>{if(e.a<=we&&e.b>=ws)items.push({ev:e,a:e.a,b:e.b,label:e.label})});
     ft.filter(t=>!isLong(t)&&t.date<=we&&endOf(t)>=ws).forEach(t=>items.push({t,a:t.date,b:endOf(t)}));
     ft.filter(isLong).forEach(t=>{if(t.date>=ws&&t.date<=we)items.push({t,a:t.date,b:t.date,mk:"เริ่ม"});if(t.end>=ws&&t.end<=we)items.push({t,a:t.end,b:t.end,mk:"ส่ง"})});
     const len=x=>(new Date(x.b)-new Date(x.a));
@@ -426,7 +457,7 @@ function renderMonth(ft){
       for(let c=s;c<=e;c++)lanes[L].push(c);
       const cl=x.a<ws?" cl":"", cr=x.b>we?" cr":"";
       const pos=`grid-column:${s+1}/${e+2};grid-row:${L+1}`;
-      if(x.ev){fg+=`<div class="ev bar${cl}${cr}" style="${pos}" title="${esc(x.label)}">${esc(x.label)}</div>`;return}
+      if(x.ev){fg+=`<div class="ev bar${cl}${cr}" data-ev="${esc(x.ev.id)}" style="${pos}" title="${esc(x.label+(x.ev.note?"\n"+x.ev.note:""))}">${esc(x.label)}${x.ev.note?'<span class="nt">📝</span>':''}</div>`;return}
       const t=x.t, ty=typeOf(t);
       const range=t.end&&t.end>t.date?` <span class="rng">(${thDate(t.date).replace(/^\S+ /,"")} – ${thDate(t.end).replace(/^\S+ /,"")})</span>`:"";
       fg+=`<div class="tk bar ${t.status}${cl}${cr}" data-id="${esc(t.id)}" style="${pos}" title="${esc((ty?"["+ty+"] ":"")+t.name+": "+t.task+" ("+STL[t.status]+")")}"><div class="t">${x.mk?`<span class="mk${x.mk==="ส่ง"?" due":""}">${x.mk==="ส่ง"?"⚑ ส่ง":"▶ เริ่ม"}</span>`:""}${ty?`<span class="tag">${esc(ty)}</span>`:""}${torTag(t)}${axTags(t)}${chBadges(t)}<b>${esc(t.name)}:</b> ${esc(t.task)}${e>s?range:""}${linksOf(t.note).length?'<span class="ln">🔗</span>':''}${filesOf(t).length?'<span class="ln">📎</span>':''}</div></div>`;
@@ -522,11 +553,57 @@ async function saveModal(){
   if(ok){closeModal();toast("บันทึกแล้ว")}
 }
 
+// ---------- กิจกรรม (แถบสีม่วง) ----------
+let evEditing=null;
+function openEv(id,day){
+  const e=id?evList().find(x=>x.id===id):null;
+  evEditing=e;
+  $("#eTitle").textContent=e?"แก้ไขกิจกรรม":"เพิ่มกิจกรรม";
+  $("#eName").value=e?e.label:"";
+  $("#eDate").value=e?e.a:(day||clampDay(todayISO()));
+  $("#eEnd").value=e&&e.b>e.a?e.b:"";
+  $("#eNote").value=e?e.note:"";showEvLinks();
+  $("#eDel").style.visibility=e?"visible":"hidden";
+  $("#eHint").textContent=e&&e.row&&e.row.updated?"แก้ล่าสุด "+new Date(e.row.updated).toLocaleString("th-TH",{dateStyle:"medium",timeStyle:"short"}):"";
+  $("#evMask").classList.add("on");
+  setTimeout(()=>$("#eName").focus(),50);
+}
+function showEvLinks(){$("#eLinks").innerHTML=linksOf($("#eNote").value).map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a>`).join("")}
+$("#eNote").addEventListener("input",showEvLinks);
+function closeEv(){$("#evMask").classList.remove("on");evEditing=null}
+function evTask(hidden){
+  const e=evEditing, ref=e&&!e.row&&e.id[0]==="d"?e.id:(e&&e.row&&e.row.extra.ref)||"";
+  const extra={kind:"event"};if(ref)extra.ref=ref;if(hidden)extra.hidden=true;
+  return {name:"กิจกรรม",task:$("#eName").value.trim()||(e?e.label:""),date:$("#eDate").value||(e?e.a:""),end:$("#eEnd").value,note:$("#eNote").value.trim(),status:"todo",extra};
+}
+async function saveEv(hidden){
+  const t=evTask(hidden);
+  if(!hidden){
+    if(!t.task){toast("กรุณาใส่ชื่อกิจกรรม");$("#eName").focus();return}
+    if(!t.date){toast("กรุณาเลือกวันที่");return}
+  }
+  if(t.end&&t.end<=t.date)t.end="";
+  const e=evEditing;
+  let body;
+  if(hidden&&e&&e.row&&!e.row.extra.ref) body={action:"delete",id:e.row.id};
+  else if(e&&e.row) body={action:"update",id:e.row.id,task:t};
+  else body={action:"add",task:t};
+  $("#eSave").disabled=true;const ok=await send(body);$("#eSave").disabled=false;
+  if(ok){closeEv();toast(hidden?"ลบกิจกรรมแล้ว":"บันทึกแล้ว")}
+}
+$("#eSave").onclick=()=>saveEv(false);
+$("#eCancel").onclick=closeEv;
+$("#eDel").onclick=()=>{if(evEditing&&confirm("ลบกิจกรรมนี้ออกจากปฏิทิน?"))saveEv(true)};
+$("#evMask").addEventListener("click",e=>{if(e.target.id==="evMask")closeEv()});
+$("#addEv").onclick=()=>openEv(null);
+
 // ---------- events ----------
 $("#view").addEventListener("click",e=>{
   if(e.target.closest("a"))return;
   const sb=e.target.closest(".st button");
   if(sb){const id=sb.parentElement.dataset.id;const t=tasks.find(x=>x.id===id);if(t&&t.status!==sb.dataset.s){t.status=sb.dataset.s;render();send({action:"status",id,task:{status:sb.dataset.s}})}return}
+  const evb=e.target.closest("[data-ev]");
+  if(evb){openEv(evb.dataset.ev);return}
   const tk=e.target.closest("[data-id]");
   if(tk){const t=tasks.find(x=>x.id===tk.dataset.id);if(t)openModal(t);return}
   const more=e.target.closest(".more");
@@ -559,7 +636,7 @@ let started=false;
 function startApp(){
 if(started)return;started=true;$("#gate").hidden=true;
 fetchAll();
-if(API_URL){setInterval(()=>{if(!$("#mask").classList.contains("on")&&!document.hidden)fetchAll(true)},30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)fetchAll(true)})}
+if(API_URL){setInterval(()=>{if(!document.querySelector(".mask.on")&&!document.hidden)fetchAll(true)},30000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)fetchAll(true)})}
 }
 // รหัสตรวจที่ Apps Script ฝั่ง Google ไม่มีรหัสหรือข้อมูลงานอยู่ในหน้าเว็บนี้
 function lockOut(){KEY="";tasks=[];try{localStorage.removeItem(GATE_KEY);localStorage.removeItem(LS)}catch(e){}

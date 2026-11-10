@@ -18,7 +18,7 @@
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Thai",system-ui,sans-serif;font-size:15px}
 button{font:inherit;cursor:pointer}
 a{color:#1d4ed8}
-.wrap{max-width:1180px;margin:0 auto;padding:18px 16px 40px}
+.wrap{max-width:1320px;margin:0 auto;padding:18px 16px 40px}
 .brand{font-size:13px;color:var(--mute)}
 .brand b{color:var(--navy)}
 h1{margin:2px 0 4px;font-size:26px;font-weight:700}
@@ -48,7 +48,7 @@ h1{margin:2px 0 4px;font-size:26px;font-weight:700}
 .cal{background:var(--card);border-radius:14px;border:1px solid var(--line);overflow:hidden}
 .dow,.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
 .dow div{padding:8px;text-align:center;font-size:13px;color:var(--mute);border-bottom:1px solid var(--line)}
-.cell{min-height:112px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:5px 5px 7px;cursor:pointer;min-width:0}
+.cell{min-height:130px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:5px 5px 7px;cursor:pointer;min-width:0}
 .cell:nth-child(7n){border-right:0}
 .cell.wk{background:var(--soft)}
 .cell.out{background:#fbfbfd}
@@ -59,12 +59,12 @@ h1{margin:2px 0 4px;font-size:26px;font-weight:700}
 .dn{text-align:right;font-size:15px;font-weight:500;height:24px;line-height:24px;padding-right:2px}
 .dn.today span{display:inline-block;background:var(--today);color:#fff;border-radius:50%;width:26px;height:26px;line-height:26px;text-align:center}
 .its{display:flex;flex-direction:column;gap:3px;margin-top:2px}
-.ev{font-size:11.5px;background:var(--event-bg);color:#7d2fa3;border-radius:4px;padding:2px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.ev{font-size:12px;line-height:1.35;background:var(--event-bg);color:#7d2fa3;border-radius:4px;padding:3px 6px;font-weight:500;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .ev.hol{background:#f1f2f6;color:var(--mute);font-weight:400}
-.tk{font-size:12px;border-radius:5px;padding:2px 6px;border-left:3px solid var(--todo);background:var(--todo-bg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tk{font-size:12px;line-height:1.35;border-radius:5px;padding:3px 6px;border-left:3px solid var(--todo);background:var(--todo-bg);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .tk.done{border-left-color:var(--done);background:var(--done-bg)}
 .tk.doing{border-left-color:var(--doing);background:var(--doing-bg)}
-.more{font-size:11.5px;color:var(--mute);padding-left:4px}
+.more{font-size:12px;color:#1d4ed8;padding-left:4px}
 /* long-running tasks */
 .long{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden}
 .long h3{margin:0;font-size:15px;padding:10px 16px;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:baseline}

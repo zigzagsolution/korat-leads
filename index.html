@@ -318,7 +318,7 @@ th button:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-
     </table><div class="more"><button class="btn" id="moreBtn">แสดงเพิ่มอีก 50 ร้าน</button></div></div>
   </section>
 
-  <p class="note">พัฒนาข้อมูลโดย MIDI x KORAT</p>
+  <p class="note">พัฒนาข้อมูลโดย MIDI Digital</p>
 </main>
 <dialog class="xdlg" id="xdlg" aria-labelledby="xh">
   <div class="xin">
@@ -770,7 +770,7 @@ async function xgo(){const go=document.getElementById('xgo'),lbl=go.textContent;
   try{const X=await xload(),wb=X.utils.book_new(),cols=XCOLS.filter(c=>xsel.cols.has(c.k)),sets=XSETS.filter(s=>xsel.sets.has(s.k)),cnt=[];
     sets.forEach(s=>{const R=s.rows();cnt.push([s.n,R.length]);const ws=X.utils.aoa_to_sheet([cols.map(xcolName),...R.map(p=>cols.map(c=>c.f(p)))]);
       ws['!cols']=cols.map(c=>({wch:c.w}));ws['!autofilter']={ref:ws['!ref']};X.utils.book_append_sheet(wb,ws,s.sh)});
-    const z=new Date(),info=[['ข้อมูลไฟล์นี้',''],['ดาวน์โหลดเมื่อ',z.toLocaleString('th-TH')],['ที่มา',location.href.split('#')[0]],['',''],['ตัวกรองที่ใช้',''],...xfilters(),['',''],['จำนวนแถวในแต่ละแผ่นงาน',''],...cnt,['',''],['หมายเหตุ','ข้อมูลรวบรวมจากแหล่งข้อมูลสาธารณะออนไลน์ อาจมีร้านเปิด/ปิดหรือเปลี่ยนเบอร์หลังวันที่รวบรวม'],['','พัฒนาข้อมูลโดย MIDI x KORAT']];
+    const z=new Date(),info=[['ข้อมูลไฟล์นี้',''],['ดาวน์โหลดเมื่อ',z.toLocaleString('th-TH')],['ที่มา',location.href.split('#')[0]],['',''],['ตัวกรองที่ใช้',''],...xfilters(),['',''],['จำนวนแถวในแต่ละแผ่นงาน',''],...cnt,['',''],['หมายเหตุ','ข้อมูลรวบรวมจากแหล่งข้อมูลสาธารณะออนไลน์ อาจมีร้านเปิด/ปิดหรือเปลี่ยนเบอร์หลังวันที่รวบรวม'],['','พัฒนาข้อมูลโดย MIDI Digital']];
     const wi=X.utils.aoa_to_sheet(info);wi['!cols']=[{wch:26},{wch:60}];X.utils.book_append_sheet(wb,wi,'ข้อมูลไฟล์นี้');
     const bl=new Blob([X.write(wb,{bookType:'xlsx',type:'array'})],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),u=URL.createObjectURL(bl),a=document.createElement('a');a.href=u;a.download=xfname();document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);go.textContent='ดาวน์โหลดแล้ว ✓';setTimeout(()=>{go.textContent=lbl;go.disabled=false},1800)}
   catch(e){go.textContent='โหลดไม่สำเร็จ ลองอีกครั้ง';go.disabled=false}}

@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ดึงรายงาน Excel · ปฏิทินงานทีม</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f5f8;--card:#fff;--ink:#15193a;--mute:#7a7f99;--line:#e4e6ee;--soft:#f7f8fb;--navy:#1b1f5e;--orange:#ff6b1a;
+--done:#16a34a;--done-bg:#e3f6ea;--doing:#b7791f;--doing-bg:#fff2d6;--todo:#6b7090;--todo-bg:#eef0f5;--event:#a43fd1;--event-bg:#f1dcfb}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Thai",system-ui,sans-serif;font-size:15px}
+button,input,select{font:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:14px 16px 48px}
+.brand{font-size:13px;color:var(--mute)}.brand b{color:var(--navy)}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:2px 0 14px}
+h1{margin:0;font-size:28px;font-weight:700}
+.sp{flex:1}
+a.back{color:var(--navy);text-decoration:none;border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.card h2{margin:0 0 10px;font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px 14px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--mute)}
+label.f input,label.f select{border:1px solid var(--line);border-radius:9px;padding:7px 10px;background:#fff;color:var(--ink);min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips label{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:20px;padding:5px 12px;background:var(--soft);cursor:pointer;font-size:14px}
+.chips input{margin:0}
+.quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.quick button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:4px 12px;cursor:pointer;font-size:13px}
+.stats{display:flex;flex-wrap:wrap;gap:10px}
+.st{flex:1;min-width:120px;border-radius:12px;padding:10px 14px}
+.st b{display:block;font-size:26px;line-height:1.2}
+.st.done{background:var(--done-bg);color:var(--done)}.st.doing{background:var(--doing-bg);color:var(--doing)}.st.todo{background:var(--todo-bg);color:var(--todo)}.st.ev{background:var(--event-bg);color:var(--event)}
+.dl{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{border:0;border-radius:10px;padding:10px 18px;font-weight:600;cursor:pointer}
+.btn.main{background:var(--orange);color:#fff}
+.btn:disabled{opacity:.5;cursor:default}
+.hint{font-size:13px;color:var(--mute)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tabs button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px;cursor:pointer}
+.tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px;background:#fff}
+th{background:var(--navy);color:#fff;text-align:left;padding:7px 9px;white-space:nowrap;position:sticky;top:0}
+td{border-top:1px solid var(--line);padding:6px 9px;vertical-align:top}
+td a{color:#1155cc;word-break:break-all}
+.pill{display:inline-block;border-radius:10px;padding:0 8px;font-size:12px;font-weight:600;white-space:nowrap}
+.pill.done{background:var(--done-bg);color:var(--done)}.pill.doing{background:var(--doing-bg);color:var(--doing)}.pill.todo{background:var(--todo-bg);color:var(--todo)}
+.empty{padding:20px;text-align:center;color:var(--mute)}
+.sync{font-size:12px;color:var(--mute)}.sync.err{color:#c62828}
+#gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:50}
+#gate[hidden]{display:none}
+#gate form{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;width:min(340px,92vw);text-align:center}
+#gate input{width:100%;font-size:22px;text-align:center;letter-spacing:6px;border:1px solid var(--line);border-radius:10px;padding:10px;margin:12px 0}
+#gate button{width:100%}
+#gateErr{color:#c62828;font-size:13px;min-height:18px}
+@media(max-width:600px){h1{font-size:22px}.st b{font-size:22px}}
+</style>
+</head>
+<body>
+<div id="gate"><form id="gateF"><div class="brand"><b>อวดเมืองโคราช</b> · ปฏิทินงานทีม</div><h2 style="margin:8px 0 0">ใส่รหัสเพื่อดึงรายงาน</h2>
+<input id="gateIn" type="password" inputmode="numeric" autocomplete="off" aria-label="รหัส"><div id="gateErr"></div>
+<button class="btn main" type="submit">เข้าใช้งาน</button></form></div>
+
+<div class="wrap">
+<div class="brand"><b>อวดเมืองโคราช</b> · ปฏิทินงานทีม</div>
+<header><h1>ดึงรายงาน Excel</h1><span class="sp"></span><span class="sync" id="sync"></span><a class="back" href="./">← กลับไปปฏิทิน</a></header>
+
+<section class="card">
+<h2>1. เลือกข้อมูลที่จะดึง</h2>
+<div class="grid">
+<label class="f">ตั้งแต่วันที่<input type="date" id="from"></label>
+<label class="f">ถึงวันที่<input type="date" id="to"></label>
+<label class="f">ผู้รับผิดชอบ<select id="who"><option value="">ทุกคน</option></select></label>
+<label class="f">ประเภทงาน<select id="typ"><option value="">ทุกประเภท</option></select></label>
+<label class="f">ข้อ TOR<select id="tor"><option value="">ทุกข้อ</option></select></label>
+</div>
+<div class="quick" id="quick">
+<button data-q="all">ทั้งโครงการ</button><button data-q="month">เดือนนี้</button><button data-q="past">ถึงวันนี้ (ที่ผ่านมา)</button><button data-q="next14">อีก 14 วันข้างหน้า</button>
+</div>
+<div style="margin-top:12px" class="chips">
+<label><input type="checkbox" id="hideName" checked> ซ่อนชื่อผู้รับผิดชอบ (ฉบับส่งลูกค้า)</label>
+<label><input type="checkbox" id="withEv" checked> ใส่กิจกรรมหลัก (สีม่วง)</label>
+</div>
+</section>
+
+<section class="card">
+<h2>2. ตัวเลขสรุป</h2>
+<div class="stats" id="stats"></div>
+</section>
+
+<section class="card">
+<h2>3. ดาวน์โหลด</h2>
+<div class="dl"><button class="btn main" id="dlBtn" disabled>ดาวน์โหลด Excel</button><span class="hint" id="dlHint">กำลังโหลดข้อมูล…</span></div>
+<p class="hint" style="margin:10px 0 0">ไฟล์มี 6 ชีต: สรุป · งานที่ทำแล้ว (มีลิงก์ชิ้นงาน และ Next Step) · กำลังทำ · Next Step · กิจกรรมหลัก · ทั้งหมด<br>Next Step ของแต่ละงาน = งานถัดไปในปฏิทินที่ยังไม่เสร็จ ในข้อ TOR เดียวกัน (ถ้าไม่มี TOR ใช้ประเภทงานเดียวกัน)</p>
+</section>
+
+<section class="card">
+<h2>4. ดูตัวอย่างก่อนดาวน์โหลด</h2>
+<div class="tabs" id="tabs"></div>
+<div class="tw"><div id="prev"></div></div>
+</section>
+<div class="hint" style="text-align:center">พัฒนาข้อมูลโดย MIDI x KORAT</div>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbzmACbKcj2fOT5RpsJZQ78IgS_HY95O-fv0GUcMGACwgUTC_llCvI-52uzieJWLq5D4/exec";
+const GATE_KEY="korat-team-cal-v1-key";
+const MSHORT=["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+const STL={todo:"ยังไม่ได้ทำ",doing:"กำลังทำ",done:"สำเร็จ"};
+const RANGE_A="2026-10-01", RANGE_B="2027-02-28";
+// กิจกรรมตั้งต้น ต้องตรงกับ EVENTS ในหน้าปฏิทิน (id d1..d13 ตามลำดับ)
+const EVENTS=[["2026-10-16","2026-10-16","Workshop"],["2026-10-23","2026-10-23","วันปิยมหาราช"],["2026-11-12","2026-11-12","KICK OFF อวดเมือง.โคราช (Lido Connect)"],["2026-11-19","2026-11-20","Press Tour รอบ 1"],["2026-11-20","2026-11-22","เทศกาล สุดสัปดาห์ที่ 1"],["2026-11-27","2026-11-29","เทศกาล สุดสัปดาห์ที่ 2"],["2026-11-27","2026-11-29","Press Tour รอบ 2"],["2026-11-29","2026-11-29","วันสุดท้ายแลกแต้ม/ของที่ระลึก"],["2026-12-05","2026-12-05","วันพ่อแห่งชาติ"],["2026-12-07","2026-12-07","วันหยุดชดเชย"],["2026-12-10","2026-12-10","วันรัฐธรรมนูญ"],["2026-12-31","2026-12-31","วันสิ้นปี"],["2027-01-01","2027-01-01","วันขึ้นปีใหม่"]];
+const $=s=>document.querySelector(s);
+const pad=n=>String(n).padStart(2,"0");
+const iso=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const today=iso(new Date());
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const thd=s=>{if(!s)return"";const[y,m,d]=s.split("-").map(Number);return d+" "+MSHORT[m-1]+" "+String(y+543).slice(2)};
+const URL_RE=/https?:\/\/[^\s<>"']+/g;
+const linksOf=s=>(String(s||"").match(URL_RE)||[]).map(u=>u.replace(/[).,]+$/,""));
+const noteText=s=>String(s||"").replace(URL_RE,"").replace(/\s+/g," ").trim();
+const X=t=>(t&&t.extra)||{};
+const isEv=t=>X(t).kind==="event";
+const endOf=t=>t.end&&t.end>=t.date?t.end:t.date;
+let KEY="", tasks=[], cur="done";
+
+function evList(){
+  const rows=tasks.filter(isEv),byRef={};rows.forEach(r=>{if(X(r).ref)byRef[X(r).ref]=r});
+  const HOL=[2,9,10,11,12,13]; // วันหยุดราชการ ไม่ใช่กิจกรรมโครงการ
+  const out=[];EVENTS.forEach((e,i)=>{const r=byRef["d"+(i+1)];if(HOL.includes(i+1))return;
+    if(!r)out.push({date:e[0],end:e[1],task:e[2],note:""});else if(!X(r).hidden)out.push(r)});
+  rows.filter(r=>!X(r).ref&&!X(r).hidden).forEach(r=>out.push(r));
+  return out.sort((a,b)=>a.date.localeCompare(b.date));
+}
+function real(){return tasks.filter(t=>!isEv(t)&&t.date)}
+function inRange(t,a,b){return t.date<=b&&endOf(t)>=a}
+function filtered(){
+  const a=$("#from").value||RANGE_A,b=$("#to").value||RANGE_B,w=$("#who").value,ty=$("#typ").value,tr=$("#tor").value;
+  return real().filter(t=>inRange(t,a,b)&&(!w||t.name===w)&&(!ty||X(t).type===ty)&&(!tr||(X(t).tor||"")===tr||(X(t).tor||"").startsWith(tr+".")||(X(t).tor||"").startsWith(tr+"(")))
+    .sort((x,y)=>x.date.localeCompare(y.date)||endOf(x).localeCompare(endOf(y)));
+}
+// Next Step = งานถัดไปที่ยังไม่เสร็จ ข้อ TOR เดียวกัน (ไม่มี TOR ใช้ประเภทเดียวกัน)
+function nextOf(t){
+  const all=real().filter(x=>x.id!==t.id&&x.status!=="done"&&x.date>=t.date).sort((a,b)=>a.date.localeCompare(b.date));
+  const tor=X(t).tor||"", main=tor.split("(")[0];
+  let n=tor?all.find(x=>(X(x).tor||"")===tor)||all.find(x=>(X(x).tor||"").split("(")[0]===main):null;
+  if(!n&&X(t).type) n=all.find(x=>X(x).type===X(t).type);
+  return n?thd(n.date)+" · "+n.task:"";
+}
+function cols(kind){
+  const hide=$("#hideName").checked;
+  const base=[["ลำดับ",(t,i)=>i+1,6],["วันที่เริ่ม",t=>thd(t.date),11],["วันที่จบ",t=>t.end&&t.end!==t.date?thd(t.end):"",11],
+    ["ประเภทงาน",t=>X(t).type||"",14],["งาน",t=>t.task,46],["ข้อ TOR",t=>X(t).tor||"",10],
+    ["แกน",t=>(X(t).axis||[]).join(", "),14],["ช่องทาง",t=>(X(t).channels||[]).join(", "),20]];
+  if(!hide) base.push(["ผู้รับผิดชอบ",t=>t.name,14]);
+  if(kind==="all") base.push(["สถานะ",t=>STL[t.status]||t.status,11]);
+  base.push(["ลิงก์ชิ้นงาน",t=>linksOf(t.note).join("\n"),40,"link"],["ไฟล์แนบ",t=>(X(t).files||[]).map(f=>f.url).join("\n"),30,"link"],["หมายเหตุ",t=>noteText(t.note),30]);
+  if(kind==="done"||kind==="doing") base.push(["Next Step ตามแผน",t=>nextOf(t),40]);
+  return base;
+}
+function sheets(){
+  const f=filtered();
+  const a=$("#from").value||RANGE_A,b=$("#to").value||RANGE_B;
+  const nextRows=f.filter(t=>t.status!=="done"&&endOf(t)>=today);
+  const S=[
+    {key:"done",name:"งานที่ทำแล้ว",rows:f.filter(t=>t.status==="done"),cols:cols("done")},
+    {key:"doing",name:"กำลังทำ",rows:f.filter(t=>t.status==="doing"),cols:cols("doing")},
+    {key:"next",name:"Next Step",rows:nextRows,cols:cols("all")},
+  ];
+  if($("#withEv").checked) S.push({key:"ev",name:"กิจกรรมหลัก",rows:evList().filter(e=>inRange(e,a,b)),cols:[["ลำดับ",(t,i)=>i+1,6],["วันที่เริ่ม",t=>thd(t.date),11],["วันที่จบ",t=>t.end&&t.end!==t.date?thd(t.end):"",11],["กิจกรรม",t=>t.task,50],["รายละเอียด",t=>t.note||"",50]]});
+  S.push({key:"all",name:"ทั้งหมด",rows:f,cols:cols("all")});
+  return S;
+}
+function counts(f){const c={done:0,doing:0,todo:0};f.forEach(t=>c[t.status]=(c[t.status]||0)+1);return c}
+function renderStats(){
+  const f=filtered(),c=counts(f);
+  const a=$("#from").value||RANGE_A,b=$("#to").value||RANGE_B;
+  const ev=$("#withEv").checked?evList().filter(e=>inRange(e,a,b)).length:0;
+  $("#stats").innerHTML=`<div class="st done"><b>${c.done}</b>สำเร็จ</div><div class="st doing"><b>${c.doing}</b>กำลังทำ</div><div class="st todo"><b>${c.todo}</b>ยังไม่ได้ทำ</div>${$("#withEv").checked?`<div class="st ev"><b>${ev}</b>กิจกรรมหลัก</div>`:""}`;
+  $("#dlHint").textContent=f.length?`งาน ${f.length} รายการ · ${thd(a)} ถึง ${thd(b)}`:"ไม่มีงานในช่วงที่เลือก";
+  $("#dlBtn").disabled=!tasks.length;
+}
+function renderPrev(){
+  const S=sheets();if(!S.find(s=>s.key===cur))cur=S[0].key;
+  $("#tabs").innerHTML=S.map(s=>`<button data-k="${s.key}" class="${s.key===cur?"on":""}">${esc(s.name)} (${s.rows.length})</button>`).join("");
+  const s=S.find(x=>x.key===cur);
+  if(!s.rows.length){$("#prev").innerHTML='<div class="empty">ไม่มีรายการ</div>';return}
+  $("#prev").innerHTML='<table><tr>'+s.cols.map(c=>`<th>${esc(c[0])}</th>`).join("")+'</tr>'+s.rows.slice(0,200).map((t,i)=>'<tr>'+s.cols.map(c=>{
+    const v=c[1](t,i);if(c[3]==="link")return`<td>${String(v).split("\n").filter(Boolean).map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.length>50?u.slice(0,47)+"…":u)}</a>`).join("<br>")}</td>`;
+    if(c[0]==="สถานะ")return`<td><span class="pill ${t.status}">${esc(v)}</span></td>`;return`<td>${esc(v)}</td>`}).join("")+'</tr>').join("")+'</table>';
+}
+function render(){renderStats();renderPrev()}
+$("#tabs").onclick=e=>{const b=e.target.closest("button");if(b){cur=b.dataset.k;renderPrev()}};
+["from","to","who","typ","tor","hideName","withEv"].forEach(id=>$("#"+id).onchange=render);
+$("#quick").onclick=e=>{const b=e.target.closest("button");if(!b)return;const q=b.dataset.q,d=new Date();
+  if(q==="all"){$("#from").value=RANGE_A;$("#to").value=RANGE_B}
+  if(q==="month"){$("#from").value=iso(new Date(d.getFullYear(),d.getMonth(),1));$("#to").value=iso(new Date(d.getFullYear(),d.getMonth()+1,0))}
+  if(q==="past"){$("#from").value=RANGE_A;$("#to").value=today}
+  if(q==="next14"){$("#from").value=today;const e2=new Date(d);e2.setDate(e2.getDate()+14);$("#to").value=iso(e2)}
+  render()};
+function fillSelects(){
+  const r=real(),opt=(sel,vals,all)=>{const k=sel.value;sel.innerHTML=`<option value="">${all}</option>`+vals.map(v=>`<option>${esc(v)}</option>`).join("");sel.value=vals.includes(k)?k:""};
+  opt($("#who"),[...new Set(r.map(t=>t.name).filter(Boolean))].sort(),"ทุกคน");
+  opt($("#typ"),[...new Set(r.map(t=>X(t).type).filter(Boolean))].sort(),"ทุกประเภท");
+  opt($("#tor"),[...new Set(r.map(t=>(X(t).tor||"").split("(")[0]).filter(Boolean))].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})),"ทุกข้อ");
+}
+
+// ---------- Excel ----------
+let xlsxP=null;
+function loadXLSX(){if(window.XLSX)return Promise.resolve();if(xlsxP)return xlsxP;
+  xlsxP=new Promise((ok,no)=>{const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";s.onload=ok;s.onerror=()=>{xlsxP=null;no(new Error("lib"))};document.head.appendChild(s)});return xlsxP}
+function aoaSheet(head,rows,widths,linkIdx){
+  const ws=XLSX.utils.aoa_to_sheet([head,...rows]);
+  ws["!cols"]=widths.map(w=>({wch:w}));
+  (linkIdx||[]).forEach(ci=>rows.forEach((r,ri)=>{const v=r[ci];if(v&&/^https?:/.test(v)){const a=XLSX.utils.encode_cell({r:ri+1,c:ci});ws[a].l={Target:v.split("\n")[0]}}}));
+  ws["!autofilter"]={ref:XLSX.utils.encode_range({s:{r:0,c:0},e:{r:rows.length,c:head.length-1}})};
+  return ws;
+}
+async function download(){
+  const btn=$("#dlBtn");btn.disabled=true;btn.textContent="กำลังสร้างไฟล์…";
+  try{
+    await loadXLSX();
+    const wb=XLSX.utils.book_new(),S=sheets(),f=filtered(),c=counts(f);
+    const a=$("#from").value||RANGE_A,b=$("#to").value||RANGE_B;
+    const byType={},byTor={};f.forEach(t=>{const ty=X(t).type||"(ไม่ระบุ)",tr=(X(t).tor||"").split("(")[0]||"(ไม่ระบุ)";
+      (byType[ty]=byType[ty]||{done:0,doing:0,todo:0})[t.status]++;(byTor[tr]=byTor[tr]||{done:0,doing:0,todo:0})[t.status]++});
+    const sum=[["สรุปงาน อวดเมืองโคราช (จากปฏิทินงานทีม)"],["ดึงข้อมูลเมื่อ",new Date().toLocaleString("th-TH")],["ช่วงวันที่",thd(a)+" ถึง "+thd(b)],
+      ["ตัวกรอง",[$("#who").value&&"ผู้รับผิดชอบ: "+$("#who").value,$("#typ").value&&"ประเภท: "+$("#typ").value,$("#tor").value&&"TOR: "+$("#tor").value].filter(Boolean).join(" · ")||"ไม่มี"],
+      [],["สถานะ","จำนวน"],["สำเร็จ",c.done],["กำลังทำ",c.doing],["ยังไม่ได้ทำ",c.todo],["รวม",f.length],
+      [],["ประเภทงาน","สำเร็จ","กำลังทำ","ยังไม่ได้ทำ"],...Object.entries(byType).map(([k,v])=>[k,v.done,v.doing,v.todo]),
+      [],["ข้อ TOR","สำเร็จ","กำลังทำ","ยังไม่ได้ทำ"],...Object.entries(byTor).sort((x,y)=>x[0].localeCompare(y[0],undefined,{numeric:true})).map(([k,v])=>[k,v.done,v.doing,v.todo]),
+      [],["รายละเอียดและวันที่อาจปรับตามหน้างาน · พัฒนาข้อมูลโดย MIDI x KORAT"]];
+    const ws0=XLSX.utils.aoa_to_sheet(sum);ws0["!cols"]=[{wch:28},{wch:30},{wch:12},{wch:12}];
+    XLSX.utils.book_append_sheet(wb,ws0,"สรุป");
+    S.forEach(s=>{const rows=s.rows.map((t,i)=>s.cols.map(c=>c[1](t,i)));
+      XLSX.utils.book_append_sheet(wb,aoaSheet(s.cols.map(c=>c[0]),rows,s.cols.map(c=>c[2]),s.cols.map((c,i)=>c[3]==="link"?i:-1).filter(i=>i>=0)),s.name.slice(0,31))});
+    XLSX.writeFile(wb,"korat-team-report_"+today+".xlsx");
+  }catch(e){alert("สร้างไฟล์ไม่สำเร็จ ลองอีกครั้ง")}
+  btn.disabled=false;btn.textContent="ดาวน์โหลด Excel";
+}
+$("#dlBtn").onclick=download;
+
+// ---------- data + passcode (ใช้รหัสเดียวกับหน้าปฏิทิน) ----------
+function setSync(m,err){const s=$("#sync");s.textContent=m;s.className="sync"+(err?" err":"")}
+async function load(){
+  setSync("กำลังโหลด…");
+  try{const r=await fetch(API_URL+"?k="+encodeURIComponent(KEY),{cache:"no-store"});const j=await r.json();
+    if(j.error==="auth"){lockOut();return}
+    if(!j.ok)throw new Error(j.error||"load");
+    tasks=j.tasks||[];fillSelects();render();setSync("ข้อมูลล่าสุด "+new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"}));
+  }catch(e){setSync("โหลดข้อมูลไม่ได้ ลองรีเฟรชหน้า",true);$("#dlHint").textContent="โหลดข้อมูลไม่ได้"}
+}
+function lockOut(){KEY="";try{localStorage.removeItem(GATE_KEY)}catch(e){}$("#gate").hidden=false;$("#gateErr").textContent="รหัสไม่ถูกต้อง";$("#gateIn").focus()}
+$("#from").value=RANGE_A;$("#to").value=RANGE_B;
+let saved="";try{saved=localStorage.getItem(GATE_KEY)||""}catch(e){}
+if(saved){KEY=saved;$("#gate").hidden=true;load()}else setTimeout(()=>$("#gateIn").focus(),50);
+$("#gateF").onsubmit=async e=>{e.preventDefault();const code=$("#gateIn").value.trim();if(!code)return;
+  $("#gateErr").textContent="กำลังตรวจรหัส…";
+  try{const r=await fetch(API_URL+"?k="+encodeURIComponent(code),{cache:"no-store"});const j=await r.json();
+    if(j.error==="auth"||!j.auth){$("#gateErr").textContent="รหัสไม่ถูกต้อง";$("#gateIn").value="";return}
+    KEY=code;try{localStorage.setItem(GATE_KEY,code)}catch(err){}$("#gate").hidden=true;$("#gateErr").textContent="";load();
+  }catch(err){$("#gateErr").textContent="เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง"}};
+</script>
+</body>
+</html>

@@ -191,7 +191,6 @@ footer{margin-top:22px;text-align:center;font-size:12.5px;color:var(--mute)}
     <button class="stat doing" data-go="doing"><b id="nDoing">0</b><span>กำลังดำเนินการ</span></button>
     <button class="stat todo" data-go="todo"><b id="nTodo">0</b><span>กำหนดการถัดไป</span></button>
   </div>
-  <div class="media" id="media"></div>
 
   <div class="tools">
     <div class="seg" id="seg"><button data-v="month" class="on">ปฏิทิน</button><button data-v="list">รายการ</button></div>
@@ -346,7 +345,7 @@ function openOutlet(o){
   $("#mask").classList.add("on");
 }
 function render(){
-  const T=tasks(); lastT=T; renderMedia(T);
+  const T=tasks(); lastT=T;
   $("#nDone").textContent=T.filter(t=>t.status==="done").length;
   $("#nDoing").textContent=T.filter(t=>t.status==="doing").length;
   $("#nTodo").textContent=T.filter(t=>t.status==="todo").length;
@@ -454,9 +453,6 @@ $("#next").onclick=()=>{let {y,m}=cur;m++;if(m>11){m=0;y++}cur={y,m};render()};
 $("#mSel").onchange=e=>{const [y,m]=e.target.value.split("-").map(Number);cur={y,m};render()};
 $("#grid").addEventListener("click",e=>{const c=e.target.closest(".cell");if(c)openDay(c.dataset.d)});
 $("#long").addEventListener("click",e=>{const b=e.target.closest(".showall");if(b){opened.long=!opened.long;render();return}const r=e.target.closest(".lr");if(r)openTask(r.dataset.id)});
-$("#media").addEventListener("click",e=>{const b=e.target.closest(".mc");if(b)return openOutlet(b.dataset.o);
-  const t=e.target.closest(".mt");if(t){mediaSel=t.dataset.k;renderMedia(lastT)}});
-$("#media").addEventListener("input",e=>{if(e.target.id!=="mq")return;mediaQ=e.target.value;const pos=e.target.selectionStart;renderMedia(lastT);const i=$("#mq");i.focus();i.setSelectionRange(pos,pos)});
 $("#listView").addEventListener("click",e=>{const b=e.target.closest(".showall");if(b){opened[b.dataset.k]=!opened[b.dataset.k];render()}});
 document.querySelectorAll(".stat").forEach(b=>b.onclick=()=>{view="list";render();const s=$("#sec-"+b.dataset.go);if(s)s.scrollIntoView({behavior:"smooth",block:"start"})});
 $("#pClose").onclick=closeP; $("#mask").addEventListener("click",e=>{if(e.target.id==="mask")closeP()});

@@ -82,6 +82,7 @@ h1{margin:2px 0 4px;font-size:26px;font-weight:700}
 .tor{display:inline-block;font-size:11px;font-weight:500;color:#4a4f6e;background:#eef0f6;border-radius:4px;padding:0 5px;margin-right:4px;vertical-align:1px}
 .ck{color:var(--done);font-weight:700;margin-right:4px}
 .tk.done{color:#2f6b45}
+.cnt{font-weight:700;color:#1b1f5e}
 .tk .due{color:#b45309;font-weight:600}
 .daybox{display:none}
 /* list */
@@ -261,6 +262,9 @@ const torTag=t=>t.tor?`<span class="tor">${esc(t.tor)}</span>`:"";
 // งานสั้นโชว์ทุกวันที่ทำ งานต่อเนื่องโชว์แค่วันส่ง (ส่วนช่วงเวลาอยู่ในแถบด้านบน)
 const onDay=(t,d)=>t.long?t.b===d:covers(t,d);
 let sel="";
+// งานชื่อเดียวกันในวันเดียวกันรวมเป็นบรรทัดเดียว เช่น "พัฒนาเนื้อหา PR ×4"
+function group(list){const m=new Map();list.forEach(t=>{const k=(t.long?"L":"S")+t.task;const g=m.get(k);
+  if(!g)m.set(k,{...t,n:1});else{g.n++;if(g.status!==t.status)g.status=(g.status==="doing"||t.status==="doing")?"doing":"todo"}});return [...m.values()]}
 const ORDER={done:0,doing:1,todo:2};
 
 function render(){
@@ -283,13 +287,13 @@ function renderMonth(T){
   $("#dow").innerHTML=DOWS.map(d=>`<div>${d}</div>`).join("");
   const first=new Date(y,m,1), start=new Date(y,m,1-first.getDay());
   const weeks=Math.ceil((first.getDay()+new Date(y,m+1,0).getDate())/7);
-  const mobile=matchMedia("(max-width:700px)").matches, MAX=mobile?6:3;
+  const mobile=matchMedia("(max-width:700px)").matches, MAX=mobile?6:5;
   let h="";
   for(let i=0;i<weeks*7;i++){
     const d=new Date(start);d.setDate(start.getDate()+i);const ds=iso(d),out=d.getMonth()!==m,wk=d.getDay()===0||d.getDay()===6;
-    const ev=E.filter(e=>covers(e,ds)), tk=T.filter(t=>onDay(t,ds)).sort((a,b)=>ORDER[a.status]-ORDER[b.status]);
+    const ev=E.filter(e=>covers(e,ds)), tk=group(T.filter(t=>onDay(t,ds))).sort((a,b)=>ORDER[a.status]-ORDER[b.status]);
     const items=[...ev.map(e=>`<div class="ev${e.hol?" hol":""}" title="${esc(e.label)}">${esc(e.label)}</div>`),
-      ...tk.map(t=>`<div class="tk ${t.status}" title="${esc((t.long?"ส่ง: ":"")+t.task)}">${ck(t)}${t.long?'<span class="due">ส่ง</span> ':""}${esc(t.task)}</div>`)];
+      ...tk.map(t=>`<div class="tk ${t.status}" title="${esc((t.long?"ส่ง: ":"")+t.task)}">${ck(t)}${t.long?'<span class="due">ส่ง</span> ':""}${esc(t.task)}${t.n>1?` <b class="cnt">×${t.n}</b>`:""}</div>`)];
     const shown=items.slice(0,MAX), more=items.length-shown.length;
     h+=`<div class="cell${wk?" wk":""}${out?" out":""}${items.length?"":" empty"}${mobile&&ds===sel?" sel":""}" data-d="${ds}"><div class="dn${ds===today()?" today":""}"><span>${d.getDate()}</span></div><div class="its">${shown.join("")}${more>0?`<div class="more">+ อีก ${more}</div>`:""}</div></div>`;
   }

@@ -81,6 +81,7 @@ h1{margin:2px 0 4px;font-size:26px;font-weight:700}
 .track em{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--today);border-radius:2px}
 .tor{display:inline-block;font-size:11px;font-weight:500;color:#4a4f6e;background:#eef0f6;border-radius:4px;padding:0 5px;margin-right:4px;vertical-align:1px}
 .ck{color:var(--done);font-weight:700;margin-right:4px}
+.wt{color:#8a8fa8;font-weight:700;margin-right:4px}
 .tk.done{color:#2f6b45}
 .cnt{font-weight:700;color:#1b1f5e}
 .tk .due{color:#b45309;font-weight:600}
@@ -272,7 +273,11 @@ let KEY="", rows=[], cur=clampMonth(new Date()), view="month";
 const isEv = r => !!(r&&r.extra&&r.extra.kind==="event");
 function tasks(){return rows.filter(r=>!isEv(r)&&r.date&&r.task&&!(r.extra&&(r.extra.hidden||r.extra.private))).map(r=>{const x=r.extra||{};
   const mm=String(r.task).match(TOR_RE), a=r.date, b=r.end&&r.end>r.date?r.end:r.date;
-  return {id:r.id,a,b,long:days(a,b)>=3,task:mm?r.task.slice(mm[0].length).trim()||r.task:r.task,tor:x.tor||(mm?mm[1]:""),status:STL[r.status]?r.status:"todo",type:x.type||"",
+  let name=mm?r.task.slice(mm[0].length).trim()||r.task:r.task;
+  // งานข่าวที่มีชื่อสื่อในวงเล็บท้ายชื่อ แสดงแค่ชื่อสื่อ เช่น "6.3.2 ไทยรัฐ"
+  const om=x.type==="ข่าว"&&String(r.task).match(/\(([^()]{2,60})\)\s*$/), outlet=om?om[1].trim():"";
+  if(outlet) name=outlet;
+  return {id:r.id,a,b,long:days(a,b)>=3,task:name,outlet,tor:x.tor||(mm?mm[1]:""),status:STL[r.status]?r.status:"todo",type:x.type||"",
     channels:Array.isArray(x.channels)?x.channels:[],links:linksOf(r.note),files:(Array.isArray(x.files)?x.files:[]).filter(f=>f&&f.url)}})}
 function events(){const ev=rows.filter(isEv),byRef={};ev.forEach(r=>{if(r.extra.ref)byRef[r.extra.ref]=r});const out=[];
   EVENTS.forEach((e,i)=>{const id="d"+(i+1),r=byRef[id];
@@ -285,7 +290,8 @@ const covers=(t,d)=>t.a<=d&&d<=t.b;
 const TOR_RE=/^\s*(?:ข้อ|TOR)\s*([0-9][0-9.()]*)\s*[:\-–.]?\s*/;
 const pd=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
 const days=(a,b)=>Math.round((pd(b)-pd(a))/864e5)+1;
-const ck=t=>t.status==="done"?'<span class="ck">✓</span>':"";
+// ข่าว: ลงแล้ว = ✓ · ยังไม่ลง = ○
+const ck=t=>t.status==="done"?'<span class="ck">✓</span>':(t.outlet?'<span class="wt" title="ยังไม่ลง">○</span>':"");
 const torTag=t=>t.tor?`<span class="tor">${esc(t.tor)}</span>`:"";
 // งานสั้นโชว์ทุกวันที่ทำ งานต่อเนื่องโชว์แค่วันส่ง (ส่วนช่วงเวลาอยู่ในแถบด้านบน)
 const onDay=(t,d)=>t.long?t.b===d:covers(t,d);
@@ -297,15 +303,16 @@ const ORDER={done:0,doing:1,todo:2};
 
 // สื่อที่อยู่ในแผนข่าวแต่ยังไม่มีลิงก์ = ชื่อในวงเล็บท้ายงานประเภท "ข่าว" เช่น "พัฒนาเนื้อหา PR (ไทยรัฐ)"
 function renderMedia(T){
-  const outOf=t=>((t.task.match(/\(([^()]{2,40})\)\s*$/)||[])[1]||"").trim();
-  const NT=T.filter(t=>t.type==="ข่าว"&&outOf(t)&&!/\d/.test(outOf(t)));
+  const outOf=t=>t.outlet.replace(/\s*(ประเด็น|ครั้ง|รอบ)\s*ที่.*$/,"").trim();
+  const NT=T.filter(t=>t.outlet);
   const done=[...new Set([...NEWS.map(n=>n[0]),...NT.filter(t=>t.status==="done").map(outOf)])], dn=new Set(done.map(normOut));
   const plan=[...new Set(NT.filter(t=>t.status!=="done").map(outOf))].filter(x=>!dn.has(normOut(x)));
+  const torFor=o=>{const t=NT.find(t=>outOf(t)===o&&t.tor);return t?`<span class="tor">${esc(t.tor)}</span>`:""};
   const cnt=o=>NEWS.filter(n=>n[0]===o).length+NT.filter(t=>t.status==="done"&&outOf(t)===o).length;
   mediaTasks=NT; mediaOut=outOf;
   $("#media").innerHTML=`<h3>สื่อที่ลงข่าวแล้ว<small>${done.length} สื่อ · กดชื่อสื่อเพื่อดูข่าว</small></h3>`+
-    `<div class="mrow"><span>ลงแล้ว</span>${done.map(o=>`<button class="mc on" data-o="${esc(o)}">${esc(o)}${cnt(o)>1?`<small>×${cnt(o)}</small>`:""}</button>`).join("")}</div>`+
-    (plan.length?`<div class="mrow"><span>ในแผน รอลง</span>${plan.map(o=>`<button class="mc off" data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div>`:"");
+    `<div class="mrow"><span>ลงแล้ว</span>${done.map(o=>`<button class="mc on" data-o="${esc(o)}">${torFor(o)}${esc(o)}${cnt(o)>1?`<small>×${cnt(o)}</small>`:""}</button>`).join("")}</div>`+
+    (plan.length?`<div class="mrow"><span>ในแผน รอลง</span>${plan.map(o=>`<button class="mc off" data-o="${esc(o)}">${torFor(o)}${esc(o)}</button>`).join("")}</div>`:"");
 }
 let mediaTasks=[], mediaOut=()=>"";
 function openOutlet(o){
@@ -340,7 +347,7 @@ function renderMonth(T){
     const d=new Date(start);d.setDate(start.getDate()+i);const ds=iso(d),out=d.getMonth()!==m,wk=d.getDay()===0||d.getDay()===6;
     const ev=E.filter(e=>covers(e,ds)), tk=group(T.filter(t=>onDay(t,ds))).sort((a,b)=>ORDER[a.status]-ORDER[b.status]);
     const items=[...ev.map(e=>`<div class="ev${e.hol?" hol":""}" title="${esc(e.label)}">${esc(e.label)}</div>`),
-      ...tk.map(t=>`<div class="tk ${t.status}" title="${esc((t.long?"ส่ง: ":"")+t.task)}">${ck(t)}${t.long?'<span class="due">ส่ง</span> ':""}${esc(t.task)}${t.n>1?` <b class="cnt">×${t.n}</b>`:""}</div>`)];
+      ...tk.map(t=>`<div class="tk ${t.status}" title="${esc((t.long?"ส่ง: ":"")+t.task)}">${ck(t)}${t.long?'<span class="due">ส่ง</span> ':""}${t.outlet?torTag(t):""}${esc(t.task)}${t.n>1?` <b class="cnt">×${t.n}</b>`:""}</div>`)];
     const shown=items.slice(0,MAX), more=items.length-shown.length;
     h+=`<div class="cell${wk?" wk":""}${out?" out":""}${items.length?"":" empty"}${mobile&&ds===sel?" sel":""}" data-d="${ds}"><div class="dn${ds===today()?" today":""}"><span>${d.getDate()}</span></div><div class="its">${shown.join("")}${more>0?`<div class="more">+ อีก ${more}</div>`:""}</div></div>`;
   }
@@ -368,7 +375,7 @@ function dayHTML(ds){
   return E.map(e=>`<div class="pi"><span class="st evt">${e.hol?"วันหยุด":"กิจกรรมหลัก"}</span><b>${esc(e.label)}</b><div class="meta">${thRange(e.a,e.b)}</div>${e.links.length?`<div class="lk">${e.links.map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">🔗 ${esc(linkName(u))}</a>`).join("")}</div>`:""}</div>`).join("")+
     T.map(taskHTML).join("");
 }
-function taskHTML(t){return `<div class="pi"><span class="st ${t.status}">${t.status==="done"?"✓ ":""}${STL[t.status]}</span>${torTag(t)}<b>${esc(t.task)}</b>${t.b>t.a?`<div class="meta">${t.long?"ช่วงเวลา ":""}${thRange(t.a,t.b)}</div>`:""}${itemHTML(t)}</div>`}
+function taskHTML(t){return `<div class="pi"><span class="st ${t.status}">${t.status==="done"?"✓ ":""}${t.outlet?(t.status==="done"?"ลงแล้ว":"○ ยังไม่ลง"):STL[t.status]}</span>${torTag(t)}<b>${esc(t.task)}</b>${t.b>t.a?`<div class="meta">${t.long?"ช่วงเวลา ":""}${thRange(t.a,t.b)}</div>`:""}${itemHTML(t)}</div>`}
 
 function itemHTML(t){
   const meta=[t.type,...t.channels].filter(Boolean).map(s=>`<span class="chip">${esc(s)}</span>`).join("");

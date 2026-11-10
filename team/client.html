@@ -85,6 +85,18 @@ h1{margin:2px 0 4px;font-size:26px;font-weight:700}
 .cnt{font-weight:700;color:#1b1f5e}
 .tk .due{color:#b45309;font-weight:600}
 .daybox{display:none}
+/* media checklist */
+.media{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin:-4px 0 16px}
+.media h3{margin:0 0 8px;font-size:15px}
+.media h3 small{font-weight:400;color:var(--mute);font-size:12.5px;margin-left:6px}
+.mrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px}
+.mrow > span{font-size:12.5px;color:var(--mute);min-width:84px}
+.mc{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 11px;font-size:13px;color:var(--ink)}
+.mc.on{border-color:#bfe5cc;background:var(--done-bg);color:#1f6b3d;font-weight:500}
+.mc.on::before{content:"✓ ";font-weight:700}
+.mc.off{color:var(--mute)}
+.mc.off::before{content:"○ "}
+.mc small{color:var(--mute);font-weight:400;margin-left:3px}
 /* list */
 .list{display:flex;flex-direction:column;gap:16px}
 .sec{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -171,6 +183,7 @@ footer{margin-top:22px;text-align:center;font-size:12.5px;color:var(--mute)}
     <button class="stat doing" data-go="doing"><b id="nDoing">0</b><span>กำลังดำเนินการ</span></button>
     <button class="stat todo" data-go="todo"><b id="nTodo">0</b><span>กำหนดการถัดไป</span></button>
   </div>
+  <div class="media" id="media"></div>
 
   <div class="tools">
     <div class="seg" id="seg"><button data-v="month" class="on">ปฏิทิน</button><button data-v="list">รายการ</button></div>
@@ -221,6 +234,21 @@ const EVENTS = [
   ["2026-12-31","2026-12-31","วันสิ้นปี"],
   ["2027-01-01","2027-01-01","วันขึ้นปีใหม่"],
 ];
+// ข่าวที่ลงแล้ว (จากชีต "รวมลิ้งค์อวดเมือง" แท็บ Link ข่าว · อัปเดต 10 พ.ย. 69)
+const NEWS = [
+  ["Thai PBS","16 ต.ค. 69","รวมพลัง 100 คนโคราช เฟ้นหา 10 ของดีเมืองย่าโม ต่อยอด “แคมเปญอวดเมือง”",["https://csite.thaipbs.or.th/newsdetail/58027","https://www.facebook.com/share/p/1DteB8WsDK/"]],
+  ["SPRiNG","18 ต.ค. 69","‘ทีเส็บ’ เปิดกิจกรรม 'อวดเมืองโคราช ค้นของดี ที่เมืองมีให้อวด'",["https://www.springnews.co.th/news/hot-issue/865461","https://www.facebook.com/share/p/14taShwx8wA/","https://www.instagram.com/p/Den_ULXDJud/"]],
+  ["Nation Online","18 ต.ค. 69","‘ทีเส็บ’ รวมพลัง ‘โคราช’ เปิดกิจกรรม “อวดเมืองโคราช : ค้นของดี ที่เมืองมีให้อวด”",["https://www.nationtv.tv/pr-news/business/pr-news/378984984","https://www.facebook.com/watch/?v=1131008209447900","https://www.instagram.com/reel/DeocofbDjjn/","https://www.tiktok.com/@nationonlineth/video/7697942769003678997"]],
+  ["PostToday","18 ต.ค. 69","โคราชงัด 10 ของดีสร้างแบรนด์เมือง! ทีเส็บชูเมืองน่าเที่ยว ดันเทศกาล K-BATTLE",["https://www.posttoday.com/smart-city/750584"]],
+  ["สยามรัฐ","18 ต.ค. 69","ทีเส็บชวนคนโคราช “อวดเมือง” ค้น 10 ของดี ต่อยอดพลังสร้างสรรค์",["https://www.siamrath.co.th/regional/329521"]],
+  ["กรุงเทพธุรกิจ","19 ต.ค. 69","‘ทีเส็บ’ รวมพลัง ‘โคราช’ เปิดกิจกรรม ‘อวดเมืองโคราช : ค้นของดี ที่เมืองมีให้อวด’",["https://www.bangkokbiznews.com/pr-news/news/prnews/1256903"]],
+  ["ฐานเศรษฐกิจ","20 ต.ค. 69","เจาะลึก Tourism & Cultural IP ต่อยอดทุนวัฒนธรรมสร้างมูลค่าท่องเที่ยวไทย",["https://www.thansettakij.com/business/tourism/671862","https://www.facebook.com/share/p/14wcQvc8bXm/"]],
+  ["The Nation","20 ต.ค. 69","Thailand tourism leaders put culture and local gains first",["https://www.nationthailand.com/news/tourism/40072540","https://www.facebook.com/share/p/19XH7qyM7S/"]],
+  ["กรุงเทพธุรกิจ","21 ต.ค. 69","เร่งทรานส์ฟอร์มท่องเที่ยว กางยุทธศาสตร์ย่านการค้า ชูศักยภาพซอฟต์พาวเวอร์",["https://www.bangkokbiznews.com/business/1257179"]],
+  ["SPRiNG","21 ต.ค. 69","ทรานส์ฟอร์มท่องเที่ยวไทย ชู ‘วัฒนธรรม-Soft Power’ สู่เวทีโลก",["https://www.springnews.co.th/news/hot-issue/865487","https://www.facebook.com/share/p/1bkPWL2zzj","https://www.instagram.com/p/DevqQeYCQsA/"]],
+  ["PostToday","21 ต.ค. 69","เลิกแข่งขายของถูก ปั้นย่านการค้าไทยสู่จุดหมายท่องเที่ยวโลก",["https://www.posttoday.com/smart-city/750713"]],
+];
+const normOut = s => String(s).toLowerCase().replace(/\s+/g,"").replace("posttoday","posttoday");
 const HOL = new Set(["d2","d9","d10","d11","d12","d13"]);
 
 const $ = s => document.querySelector(s);
@@ -267,8 +295,27 @@ function group(list){const m=new Map();list.forEach(t=>{const k=(t.long?"L":"S")
   if(!g)m.set(k,{...t,n:1});else{g.n++;if(g.status!==t.status)g.status=(g.status==="doing"||t.status==="doing")?"doing":"todo"}});return [...m.values()]}
 const ORDER={done:0,doing:1,todo:2};
 
+// สื่อที่อยู่ในแผนข่าวแต่ยังไม่มีลิงก์ = ชื่อในวงเล็บท้ายงานประเภท "ข่าว" เช่น "พัฒนาเนื้อหา PR (ไทยรัฐ)"
+function renderMedia(T){
+  const outOf=t=>((t.task.match(/\(([^()]{2,40})\)\s*$/)||[])[1]||"").trim();
+  const NT=T.filter(t=>t.type==="ข่าว"&&outOf(t)&&!/\d/.test(outOf(t)));
+  const done=[...new Set([...NEWS.map(n=>n[0]),...NT.filter(t=>t.status==="done").map(outOf)])], dn=new Set(done.map(normOut));
+  const plan=[...new Set(NT.filter(t=>t.status!=="done").map(outOf))].filter(x=>!dn.has(normOut(x)));
+  const cnt=o=>NEWS.filter(n=>n[0]===o).length+NT.filter(t=>t.status==="done"&&outOf(t)===o).length;
+  mediaTasks=NT; mediaOut=outOf;
+  $("#media").innerHTML=`<h3>สื่อที่ลงข่าวแล้ว<small>${done.length} สื่อ · กดชื่อสื่อเพื่อดูข่าว</small></h3>`+
+    `<div class="mrow"><span>ลงแล้ว</span>${done.map(o=>`<button class="mc on" data-o="${esc(o)}">${esc(o)}${cnt(o)>1?`<small>×${cnt(o)}</small>`:""}</button>`).join("")}</div>`+
+    (plan.length?`<div class="mrow"><span>ในแผน รอลง</span>${plan.map(o=>`<button class="mc off" data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div>`:"");
+}
+let mediaTasks=[], mediaOut=()=>"";
+function openOutlet(o){
+  $("#pTitle").textContent=o;
+  $("#pBody").innerHTML=NEWS.filter(n=>n[0]===o).map(n=>`<div class="pi"><span class="st done">✓ ลงแล้ว</span><b>${esc(n[2])}</b><div class="meta">${esc(n[1])}</div><div class="lk">${n[3].map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">🔗 ${esc(linkName(u))}</a>`).join("")}</div></div>`).join("")+
+    mediaTasks.filter(t=>mediaOut(t)===o).map(taskHTML).join("");
+  $("#mask").classList.add("on");
+}
 function render(){
-  const T=tasks();
+  const T=tasks(); renderMedia(T);
   $("#nDone").textContent=T.filter(t=>t.status==="done").length;
   $("#nDoing").textContent=T.filter(t=>t.status==="doing").length;
   $("#nTodo").textContent=T.filter(t=>t.status==="todo").length;
@@ -376,6 +423,7 @@ $("#next").onclick=()=>{let {y,m}=cur;m++;if(m>11){m=0;y++}cur={y,m};render()};
 $("#mSel").onchange=e=>{const [y,m]=e.target.value.split("-").map(Number);cur={y,m};render()};
 $("#grid").addEventListener("click",e=>{const c=e.target.closest(".cell");if(c)openDay(c.dataset.d)});
 $("#long").addEventListener("click",e=>{const b=e.target.closest(".showall");if(b){opened.long=!opened.long;render();return}const r=e.target.closest(".lr");if(r)openTask(r.dataset.id)});
+$("#media").addEventListener("click",e=>{const b=e.target.closest(".mc");if(b)openOutlet(b.dataset.o)});
 $("#listView").addEventListener("click",e=>{const b=e.target.closest(".showall");if(b){opened[b.dataset.k]=!opened[b.dataset.k];render()}});
 document.querySelectorAll(".stat").forEach(b=>b.onclick=()=>{view="list";render();const s=$("#sec-"+b.dataset.go);if(s)s.scrollIntoView({behavior:"smooth",block:"start"})});
 $("#pClose").onclick=closeP; $("#mask").addEventListener("click",e=>{if(e.target.id==="mask")closeP()});

@@ -7,6 +7,8 @@
 // ===== รหัสเข้าปฏิทิน: เปลี่ยนตรงนี้ได้เลย (คนเปิดเว็บมองไม่เห็นโค้ดนี้) =====
 // แนะนำให้ยาว 6 ตัวขึ้นไป เปลี่ยนแล้วทุกคนต้องกรอกรหัสใหม่
 const PASSCODE = '1111';
+// รหัสสำหรับลูกค้า: ดูได้อย่างเดียว แก้ไม่ได้ (ต้องไม่ซ้ำกับรหัสทีม) ไม่เห็นชื่อคนและข้อความหมายเหตุ
+const VIEW_PASSCODE = '2222';
 
 const SHEET = 'tasks';
 const HEAD = ['id', 'date', 'end', 'name', 'task', 'status', 'note', 'created', 'updated', 'extra'];
@@ -47,7 +49,7 @@ function out_(obj) {
 
 function clean_(v, max) { return String(v == null ? '' : v).slice(0, max); }
 
-const VERSION = 3;
+const VERSION = 4;
 const FOLDER = 'ปฏิทินงานทีม-ไฟล์แนบ';
 
 // เก็บไฟล์แนบไว้ใน Google Drive ของเจ้าของชีต แล้วเปิดให้คนที่มีลิงก์ดูได้
@@ -72,8 +74,22 @@ function auth_(k) {
 }
 
 function doGet(e) {
-  if (!auth_(e && e.parameter && e.parameter.k)) return out_({ ok: false, error: 'auth' });
+  const k = e && e.parameter && e.parameter.k;
+  if (VIEW_PASSCODE && VIEW_PASSCODE !== PASSCODE && String(k || '') === VIEW_PASSCODE)
+    return out_({ ok: true, auth: true, view: true, version: VERSION, tasks: viewRows_() });
+  if (!auth_(k)) return out_({ ok: false, error: 'auth' });
   return out_({ ok: true, auth: true, version: VERSION, tasks: rows_() });
+}
+
+// ข้อมูลฉบับลูกค้า: ตัดชื่อคน ตัดข้อความหมายเหตุ (เหลือเฉพาะลิงก์) ตัดงานที่ติ๊กซ่อนจากลูกค้า
+function viewRows_() {
+  // ซ่อนงานที่ตั้งเป็น private/hidden แต่เก็บแถวกิจกรรมที่อ้าง ref ไว้ (เพื่อให้กิจกรรมตั้งต้นที่ซ่อน/แก้ไว้ แสดงตรงกับปฏิทินทีม)
+  return rows_().filter(r => { const x = r.extra || {}; if (x.private) return false; if (x.hidden) return x.kind === 'event' && !!x.ref; return true; }).map(r => {
+    const links = String(r.note || '').match(/https?:\/\/[^\s<>"']+/g) || [];
+    const x = r.extra || {};
+    return { id: r.id, date: r.date, end: r.end, task: r.task, status: r.status, note: links.join(' '),
+      extra: { kind: x.kind, ref: x.ref, hidden: x.hidden, type: x.type, tor: x.tor, axis: x.axis, channels: x.channels, files: x.files } };
+  });
 }
 
 function doPost(e) {

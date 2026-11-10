@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>รายงานความคืบหน้า อวดเมืองโคราช</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f5f8; --card:#fff; --ink:#15193a; --mute:#7a7f99; --line:#e4e6ee; --soft:#f9fafc;
+  --navy:#1b1f5e; --today:#ef3b3b;
+  --done:#16a34a; --done-bg:#e8f7ee; --doing:#f59e0b; --doing-bg:#fff5df; --todo:#8a8fa8; --todo-bg:#f0f1f6;
+  --event:#a43fd1; --event-bg:#f6ebfc;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Thai",system-ui,sans-serif;font-size:15px}
+button{font:inherit;cursor:pointer}
+a{color:#1d4ed8}
+.wrap{max-width:1180px;margin:0 auto;padding:18px 16px 40px}
+.brand{font-size:13px;color:var(--mute)}
+.brand b{color:var(--navy)}
+h1{margin:2px 0 4px;font-size:26px;font-weight:700}
+.upd{font-size:12.5px;color:var(--mute)}
+.upd.err{color:var(--today)}
+/* summary */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;text-align:left;border-top:4px solid var(--todo);color:inherit}
+.stat b{display:block;font-size:30px;line-height:1.1}
+.stat span{font-size:14px;color:var(--mute)}
+.stat.done{border-top-color:var(--done)} .stat.done b{color:var(--done)}
+.stat.doing{border-top-color:var(--doing)} .stat.doing b{color:#b77400}
+.stat.todo b{color:#565b78}
+/* tools */
+.tools{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px}
+.seg{display:flex;background:#e9ebf2;border-radius:10px;padding:3px}
+.seg button{border:0;background:none;padding:6px 16px;border-radius:8px;color:var(--ink)}
+.seg button.on{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12);font-weight:600}
+.sp{flex:1}
+.mnav{display:flex;align-items:center;gap:6px}
+.mnav button{border:1px solid var(--line);background:#fff;border-radius:9px;height:34px;min-width:34px}
+.mnav button:disabled{opacity:.35;cursor:default}
+.mnav select{height:34px;border:1px solid var(--line);border-radius:9px;background:#fff;font:inherit;font-weight:600;font-size:16px;padding:0 8px;cursor:pointer}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--mute);margin:0 0 10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+/* calendar */
+.cal{background:var(--card);border-radius:14px;border:1px solid var(--line);overflow:hidden}
+.dow,.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.dow div{padding:8px;text-align:center;font-size:13px;color:var(--mute);border-bottom:1px solid var(--line)}
+.cell{min-height:112px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:5px 5px 7px;cursor:pointer;min-width:0}
+.cell:nth-child(7n){border-right:0}
+.cell.wk{background:var(--soft)}
+.cell.out{background:#fbfbfd}
+.cell.out .dn{color:#c9ccd8}
+.cell:hover{background:#f5f6fb}
+.cell.empty{cursor:default}
+.cell.empty:hover{background:inherit}
+.dn{text-align:right;font-size:15px;font-weight:500;height:24px;line-height:24px;padding-right:2px}
+.dn.today span{display:inline-block;background:var(--today);color:#fff;border-radius:50%;width:26px;height:26px;line-height:26px;text-align:center}
+.its{display:flex;flex-direction:column;gap:3px;margin-top:2px}
+.ev{font-size:11.5px;background:var(--event-bg);color:#7d2fa3;border-radius:4px;padding:2px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.ev.hol{background:#f1f2f6;color:var(--mute);font-weight:400}
+.tk{font-size:12px;border-radius:5px;padding:2px 6px;border-left:3px solid var(--todo);background:var(--todo-bg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tk.done{border-left-color:var(--done);background:var(--done-bg)}
+.tk.doing{border-left-color:var(--doing);background:var(--doing-bg)}
+.more{font-size:11.5px;color:var(--mute);padding-left:4px}
+/* list */
+.list{display:flex;flex-direction:column;gap:16px}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.sec h2{margin:0;font-size:16px;padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.sec h2 i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.sec h2 small{font-weight:400;color:var(--mute);font-size:13px}
+.row{display:grid;grid-template-columns:118px 1fr;gap:4px 14px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row .d{font-size:13px;color:var(--mute);padding-top:1px}
+.row .w{min-width:0}
+.row .w b{font-weight:500}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;font-size:12px;color:var(--mute)}
+.chip{background:#eef0f6;border-radius:999px;padding:1px 8px;color:#4a4f6e}
+.lk{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:4px;font-size:13px}
+.lk a{word-break:break-all}
+.none{padding:14px 16px;color:var(--mute);font-size:14px}
+.showall{display:block;width:100%;border:0;border-top:1px solid var(--line);background:#fafbfd;padding:9px;color:#1d4ed8;font-size:14px}
+/* popup */
+.mask{position:fixed;inset:0;background:rgba(15,18,40,.45);display:none;align-items:flex-start;justify-content:center;padding:40px 16px;z-index:10;overflow:auto}
+.mask.on{display:flex}
+.modal{background:#fff;border-radius:16px;width:100%;max-width:480px;padding:18px 18px 8px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.modal .hd{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.modal h3{margin:0;font-size:18px;flex:1}
+.x{border:0;background:#f0f1f6;border-radius:50%;width:32px;height:32px;font-size:18px;line-height:1}
+.pi{padding:10px 0;border-top:1px solid var(--line)}
+.st{display:inline-block;font-size:12px;border-radius:999px;padding:1px 9px;margin-right:6px;font-weight:600}
+.st.done{background:var(--done-bg);color:var(--done)}
+.st.doing{background:var(--doing-bg);color:#b77400}
+.st.todo{background:var(--todo-bg);color:#565b78}
+.st.ev{background:var(--event-bg);color:#7d2fa3}
+footer{margin-top:22px;text-align:center;font-size:12.5px;color:var(--mute)}
+/* gate */
+#gate{position:fixed;inset:0;z-index:999;background:#f6f7fb;display:flex;align-items:center;justify-content:center;padding:16px}
+#gate[hidden]{display:none}
+#gate form{background:#fff;border:1px solid #e3e6ee;border-radius:16px;padding:28px 24px;width:100%;max-width:340px;text-align:center;box-shadow:0 8px 30px rgba(20,30,60,.08)}
+#gate .gb{font-size:13px;color:#6b7280;margin-bottom:4px}
+#gate h2{font-size:20px;margin:0 0 18px}
+#gate input{width:100%;font-size:22px;letter-spacing:8px;text-align:center;padding:10px;border:1px solid #cfd4e0;border-radius:10px}
+#gate input::placeholder{letter-spacing:normal;font-size:16px}
+#gate button{margin-top:12px;width:100%;padding:11px;font-size:16px;border:0;border-radius:10px;background:var(--navy);color:#fff}
+#gate .ge{color:#dc2626;font-size:13px;min-height:18px;margin-top:8px}
+@media (max-width:700px){
+  h1{font-size:21px}
+  .stat{padding:10px 12px}
+  .stat b{font-size:24px}
+  .stat span{font-size:12.5px}
+  .cell{min-height:58px;padding:3px}
+  .dn{font-size:13px;text-align:center;padding:0}
+  .dn.today span{width:22px;height:22px;line-height:22px}
+  .its{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:3px}
+  .ev,.tk{font-size:0;padding:0;width:8px;height:8px;border-radius:50%;border:0}
+  .ev{background:var(--event)} .ev.hol{background:#c5c8d6}
+  .tk{background:var(--todo)} .tk.done{background:var(--done)} .tk.doing{background:var(--doing)}
+  .more{display:none}
+  .mnav select{font-size:14px}
+  .row{grid-template-columns:1fr;gap:2px}
+}
+</style>
+</head>
+<body>
+<div id="gate"><form id="gateF" autocomplete="off">
+  <div class="gb">อวดเมือง.โคราช</div>
+  <h2>รายงานความคืบหน้างาน</h2>
+  <input id="gateIn" type="password" inputmode="numeric" placeholder="กรอกรหัส" aria-label="รหัสเข้าดูรายงาน" autofocus>
+  <button type="submit">เข้าดู</button>
+  <div class="ge" id="gateErr"></div>
+</form></div>
+
+<div class="wrap">
+  <div class="brand"><b>อวดเมือง.โคราช</b> · Korat City Expo 2026</div>
+  <h1>รายงานความคืบหน้างาน</h1>
+  <div class="upd" id="upd">กำลังโหลด…</div>
+
+  <div class="stats">
+    <button class="stat done" data-go="done"><b id="nDone">0</b><span>เสร็จแล้ว</span></button>
+    <button class="stat doing" data-go="doing"><b id="nDoing">0</b><span>กำลังดำเนินการ</span></button>
+    <button class="stat todo" data-go="todo"><b id="nTodo">0</b><span>กำหนดการถัดไป</span></button>
+  </div>
+
+  <div class="tools">
+    <div class="seg" id="seg"><button data-v="month" class="on">ปฏิทิน</button><button data-v="list">รายการ</button></div>
+    <div class="sp"></div>
+    <div class="mnav" id="mnav"><button id="prev" aria-label="เดือนก่อน">‹</button><select id="mSel" aria-label="เลือกเดือน"></select><button id="next" aria-label="เดือนถัดไป">›</button></div>
+  </div>
+  <div class="legend" id="legend">
+    <span><i style="background:var(--event)"></i>กิจกรรมหลัก</span>
+    <span><i style="background:var(--done)"></i>เสร็จแล้ว</span>
+    <span><i style="background:var(--doing)"></i>กำลังดำเนินการ</span>
+    <span><i style="background:var(--todo)"></i>กำหนดการ</span>
+  </div>
+
+  <div id="calView" class="cal"><div class="dow" id="dow"></div><div class="grid" id="grid"></div></div>
+  <div id="listView" class="list" hidden></div>
+
+  <footer>พัฒนาข้อมูลโดย MIDI x KORAT</footer>
+</div>
+
+<div class="mask" id="mask"><div class="modal" role="dialog" aria-modal="true"><div class="hd"><h3 id="pTitle"></h3><button class="x" id="pClose" aria-label="ปิด">×</button></div><div id="pBody"></div></div></div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbzmACbKcj2fOT5RpsJZQ78IgS_HY95O-fv0GUcMGACwgUTC_llCvI-52uzieJWLq5D4/exec";
+const GATE_KEY = "korat-client-view-v1-key";
+const MONTHS = ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
+const MSHORT = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+const DOWS = ["อา.","จ.","อ.","พ.","พฤ.","ศ.","ส."];
+const DOWL = ["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัสบดี","ศุกร์","เสาร์"];
+const STL = {done:"เสร็จแล้ว",doing:"กำลังดำเนินการ",todo:"กำหนดการ"};
+const RANGE = [[2026,9],[2027,1]];
+// กิจกรรมหลักชุดเดียวกับปฏิทินทีม (ลำดับต้องตรงกัน เพราะอ้างด้วย d1, d2, …)
+const EVENTS = [
+  ["2026-10-16","2026-10-16","Workshop"],
+  ["2026-10-23","2026-10-23","วันปิยมหาราช"],
+  ["2026-11-12","2026-11-12","KICK OFF อวดเมือง.โคราช (Lido Connect)"],
+  ["2026-11-19","2026-11-20","Press Tour รอบ 1"],
+  ["2026-11-20","2026-11-22","เทศกาล สุดสัปดาห์ที่ 1"],
+  ["2026-11-27","2026-11-29","เทศกาล สุดสัปดาห์ที่ 2"],
+  ["2026-11-27","2026-11-29","Press Tour รอบ 2"],
+  ["2026-11-29","2026-11-29","วันสุดท้ายแลกแต้ม/ของที่ระลึก"],
+  ["2026-12-05","2026-12-05","วันพ่อแห่งชาติ"],
+  ["2026-12-07","2026-12-07","วันหยุดชดเชย"],
+  ["2026-12-10","2026-12-10","วันรัฐธรรมนูญ"],
+  ["2026-12-31","2026-12-31","วันสิ้นปี"],
+  ["2027-01-01","2027-01-01","วันขึ้นปีใหม่"],
+];
+const HOL = new Set(["d2","d9","d10","d11","d12","d13"]);
+
+const $ = s => document.querySelector(s);
+const pad = n => String(n).padStart(2,"0");
+const iso = d => d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const today = () => iso(new Date());
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function thDate(s){const [y,m,d]=s.split("-").map(Number);return d+" "+MSHORT[m-1]+" "+String(y+543).slice(2)}
+function thRange(a,b){return b&&b>a?thDate(a)+" – "+thDate(b):thDate(a)}
+const linksOf = s => (String(s||"").match(/https?:\/\/[^\s<>"']+/g)||[]).map(u=>u.replace(/[).,]+$/,""));
+function linkName(u){try{const h=new URL(u).hostname.replace(/^www\.|^m\./,"");
+  const map={"facebook.com":"Facebook","fb.watch":"Facebook","instagram.com":"Instagram","tiktok.com":"TikTok","youtube.com":"YouTube","youtu.be":"YouTube","line.me":"LINE","drive.google.com":"Google Drive","docs.google.com":"Google Docs","canva.com":"Canva","x.com":"X","twitter.com":"X"};
+  for(const k in map) if(h===k||h.endsWith("."+k)) return map[k];
+  return h}catch(e){return "ลิงก์"}}
+function clampMonth(d){let y=d.getFullYear(),m=d.getMonth();const a=RANGE[0],b=RANGE[1];
+  if(y*12+m<a[0]*12+a[1])[y,m]=a; if(y*12+m>b[0]*12+b[1])[y,m]=b; return {y,m}}
+
+let KEY="", rows=[], cur=clampMonth(new Date()), view="month";
+
+// แปลงข้อมูลให้เหลือเฉพาะที่ลูกค้าควรเห็น (ไม่มีชื่อผู้รับผิดชอบ ไม่มีโน้ตภายใน มีแค่ลิงก์ผลงาน)
+const isEv = r => !!(r&&r.extra&&r.extra.kind==="event");
+function tasks(){return rows.filter(r=>!isEv(r)&&r.date&&r.task&&!(r.extra&&(r.extra.hidden||r.extra.private))).map(r=>{const x=r.extra||{};
+  return {id:r.id,a:r.date,b:r.end&&r.end>r.date?r.end:r.date,task:r.task,status:STL[r.status]?r.status:"todo",type:x.type||"",
+    channels:Array.isArray(x.channels)?x.channels:[],links:linksOf(r.note),files:(Array.isArray(x.files)?x.files:[]).filter(f=>f&&f.url)}})}
+function events(){const ev=rows.filter(isEv),byRef={};ev.forEach(r=>{if(r.extra.ref)byRef[r.extra.ref]=r});const out=[];
+  EVENTS.forEach((e,i)=>{const id="d"+(i+1),r=byRef[id];
+    if(!r) out.push({id,a:e[0],b:e[1],label:e[2],hol:HOL.has(id),links:[]});
+    else if(!r.extra.hidden) out.push({id,a:r.date,b:r.end&&r.end>r.date?r.end:r.date,label:r.task,hol:HOL.has(id),links:linksOf(r.note)})});
+  ev.filter(r=>!r.extra.ref&&!r.extra.hidden).forEach(r=>out.push({id:r.id,a:r.date,b:r.end&&r.end>r.date?r.end:r.date,label:r.task,hol:false,links:linksOf(r.note)}));
+  return out}
+const covers=(t,d)=>t.a<=d&&d<=t.b;
+const ORDER={done:0,doing:1,todo:2};
+
+function render(){
+  const T=tasks();
+  $("#nDone").textContent=T.filter(t=>t.status==="done").length;
+  $("#nDoing").textContent=T.filter(t=>t.status==="doing").length;
+  $("#nTodo").textContent=T.filter(t=>t.status==="todo").length;
+  $("#calView").hidden=view!=="month"; $("#listView").hidden=view!=="list";
+  $("#mnav").style.display=view==="month"?"flex":"none";
+  $("#legend").style.display=view==="month"?"flex":"none";
+  document.querySelectorAll("#seg button").forEach(b=>b.classList.toggle("on",b.dataset.v===view));
+  view==="month"?renderMonth(T):renderList(T);
+}
+
+function renderMonth(T){
+  const E=events(), {y,m}=cur;
+  {const ms=$("#mSel");if(!ms.options.length){let o="";for(let k=RANGE[0][0]*12+RANGE[0][1];k<=RANGE[1][0]*12+RANGE[1][1];k++){const yy=Math.floor(k/12),mm=k%12;o+=`<option value="${yy}-${mm}">${MONTHS[mm]} ${yy+543}</option>`}ms.innerHTML=o}ms.value=y+"-"+m}
+  $("#prev").disabled=y*12+m<=RANGE[0][0]*12+RANGE[0][1];
+  $("#next").disabled=y*12+m>=RANGE[1][0]*12+RANGE[1][1];
+  $("#dow").innerHTML=DOWS.map(d=>`<div>${d}</div>`).join("");
+  const first=new Date(y,m,1), start=new Date(y,m,1-first.getDay());
+  const weeks=Math.ceil((first.getDay()+new Date(y,m+1,0).getDate())/7);
+  const mobile=matchMedia("(max-width:700px)").matches, MAX=mobile?6:3;
+  let h="";
+  for(let i=0;i<weeks*7;i++){
+    const d=new Date(start);d.setDate(start.getDate()+i);const ds=iso(d),out=d.getMonth()!==m,wk=d.getDay()===0||d.getDay()===6;
+    const ev=E.filter(e=>covers(e,ds)), tk=T.filter(t=>covers(t,ds)).sort((a,b)=>ORDER[a.status]-ORDER[b.status]);
+    const items=[...ev.map(e=>`<div class="ev${e.hol?" hol":""}" title="${esc(e.label)}">${esc(e.label)}</div>`),
+      ...tk.map(t=>`<div class="tk ${t.status}" title="${esc(t.task)}">${esc(t.task)}</div>`)];
+    const shown=items.slice(0,MAX), more=items.length-shown.length;
+    h+=`<div class="cell${wk?" wk":""}${out?" out":""}${items.length?"":" empty"}" data-d="${ds}"><div class="dn${ds===today()?" today":""}"><span>${d.getDate()}</span></div><div class="its">${shown.join("")}${more>0?`<div class="more">+ อีก ${more}</div>`:""}</div></div>`;
+  }
+  $("#grid").innerHTML=h;
+}
+
+function itemHTML(t){
+  const meta=[t.type,...t.channels].filter(Boolean).map(s=>`<span class="chip">${esc(s)}</span>`).join("");
+  const lk=[...t.links.map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">🔗 ${esc(linkName(u))}</a>`),
+    ...t.files.map(f=>`<a href="${esc(f.url)}" target="_blank" rel="noopener">📎 ${esc(f.name||"ไฟล์")}</a>`)].join("");
+  return `${meta?`<div class="meta">${meta}</div>`:""}${lk?`<div class="lk">${lk}</div>`:""}`;
+}
+const LIMIT=8, opened={};
+function renderList(T){
+  const td=today();
+  const secs=[
+    ["done","เสร็จแล้ว","var(--done)",T.filter(t=>t.status==="done").sort((a,b)=>b.b.localeCompare(a.b))],
+    ["doing","กำลังดำเนินการ","var(--doing)",T.filter(t=>t.status==="doing").sort((a,b)=>a.b.localeCompare(b.b))],
+    ["todo","กำหนดการถัดไป","var(--todo)",T.filter(t=>t.status==="todo").sort((a,b)=>a.a.localeCompare(b.a))],
+  ];
+  const evs=events().filter(e=>!e.hol&&e.b>=td).sort((a,b)=>a.a.localeCompare(b.a));
+  let h="";
+  if(evs.length) h+=`<div class="sec"><h2><i style="background:var(--event)"></i>กิจกรรมหลักที่จะมาถึง <small>${evs.length} รายการ</small></h2>${evs.map(e=>`<div class="row"><div class="d">${thRange(e.a,e.b)}</div><div class="w"><b>${esc(e.label)}</b></div></div>`).join("")}</div>`;
+  secs.forEach(([k,label,c,list])=>{
+    const all=!!opened[k], show=all?list:list.slice(0,LIMIT);
+    h+=`<div class="sec" id="sec-${k}"><h2><i style="background:${c}"></i>${label} <small>${list.length} รายการ</small></h2>`+
+      (list.length?show.map(t=>`<div class="row"><div class="d">${thRange(t.a,t.b)}</div><div class="w"><b>${esc(t.task)}</b>${itemHTML(t)}</div></div>`).join(""):`<div class="none">ยังไม่มีรายการ</div>`)+
+      (list.length>LIMIT?`<button class="showall" data-k="${k}">${all?"ย่อรายการ":"ดูทั้งหมด "+list.length+" รายการ"}</button>`:"")+`</div>`;
+  });
+  $("#listView").innerHTML=h;
+}
+
+function openDay(ds){
+  const E=events().filter(e=>covers(e,ds)), T=tasks().filter(t=>covers(t,ds)).sort((a,b)=>ORDER[a.status]-ORDER[b.status]);
+  if(!E.length&&!T.length) return;
+  const [y,m,d]=ds.split("-").map(Number);
+  $("#pTitle").textContent=DOWL[new Date(y,m-1,d).getDay()]+" "+d+" "+MONTHS[m-1]+" "+(y+543);
+  $("#pBody").innerHTML=E.map(e=>`<div class="pi"><span class="st ev">${e.hol?"วันหยุด":"กิจกรรมหลัก"}</span><b>${esc(e.label)}</b><div class="meta">${thRange(e.a,e.b)}</div>${e.links.length?`<div class="lk">${e.links.map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">🔗 ${esc(linkName(u))}</a>`).join("")}</div>`:""}</div>`).join("")+
+    T.map(t=>`<div class="pi"><span class="st ${t.status}">${STL[t.status]}</span><b>${esc(t.task)}</b>${t.b>t.a?`<div class="meta">${thRange(t.a,t.b)}</div>`:""}${itemHTML(t)}</div>`).join("");
+  $("#mask").classList.add("on");
+}
+const closeP=()=>$("#mask").classList.remove("on");
+
+async function load(quiet){
+  if(!quiet) $("#upd").textContent="กำลังโหลด…";
+  try{
+    const r=await fetch(API_URL+"?k="+encodeURIComponent(KEY),{cache:"no-store"}); const j=await r.json();
+    if(j.error==="auth"){lockOut();return}
+    if(!j.ok) throw new Error(j.error||"load");
+    rows=Array.isArray(j.tasks)?j.tasks:[]; render();
+    $("#upd").className="upd"; $("#upd").textContent="ข้อมูลล่าสุด "+new Date().toLocaleString("th-TH",{day:"numeric",month:"short",year:"2-digit",hour:"2-digit",minute:"2-digit"})+" น.";
+  }catch(e){$("#upd").className="upd err";$("#upd").textContent="โหลดข้อมูลไม่สำเร็จ ลองรีเฟรชหน้าอีกครั้ง"}
+}
+
+// events
+$("#seg").addEventListener("click",e=>{const b=e.target.closest("button");if(b){view=b.dataset.v;render()}});
+$("#prev").onclick=()=>{let {y,m}=cur;m--;if(m<0){m=11;y--}cur={y,m};render()};
+$("#next").onclick=()=>{let {y,m}=cur;m++;if(m>11){m=0;y++}cur={y,m};render()};
+$("#mSel").onchange=e=>{const [y,m]=e.target.value.split("-").map(Number);cur={y,m};render()};
+$("#grid").addEventListener("click",e=>{const c=e.target.closest(".cell");if(c)openDay(c.dataset.d)});
+$("#listView").addEventListener("click",e=>{const b=e.target.closest(".showall");if(b){opened[b.dataset.k]=!opened[b.dataset.k];render()}});
+document.querySelectorAll(".stat").forEach(b=>b.onclick=()=>{view="list";render();const s=$("#sec-"+b.dataset.go);if(s)s.scrollIntoView({behavior:"smooth",block:"start"})});
+$("#pClose").onclick=closeP; $("#mask").addEventListener("click",e=>{if(e.target.id==="mask")closeP()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeP()});
+let lastMobile=matchMedia("(max-width:700px)").matches;
+addEventListener("resize",()=>{const mb=matchMedia("(max-width:700px)").matches;if(mb!==lastMobile){lastMobile=mb;render()}});
+
+// gate
+function lockOut(){KEY="";rows=[];try{localStorage.removeItem(GATE_KEY)}catch(e){}$("#gate").hidden=false;$("#gateErr").textContent="รหัสไม่ถูกต้อง หรือหมดอายุ";}
+async function check(code){const r=await fetch(API_URL+"?k="+encodeURIComponent(code),{cache:"no-store"});const j=await r.json();return j.ok?j:null}
+let started=false;
+function start(j){$("#gate").hidden=true;rows=Array.isArray(j.tasks)?j.tasks:[];render();
+  $("#upd").textContent="ข้อมูลล่าสุด "+new Date().toLocaleString("th-TH",{day:"numeric",month:"short",year:"2-digit",hour:"2-digit",minute:"2-digit"})+" น.";
+  if(!started){started=true;setInterval(()=>{if(!document.hidden&&!$("#mask").classList.contains("on"))load(true)},60000)}}
+$("#gateF").addEventListener("submit",async e=>{e.preventDefault();const code=$("#gateIn").value.trim();if(!code)return;
+  const btn=$("#gate button");btn.disabled=true;$("#gateErr").textContent="กำลังตรวจรหัส…";
+  try{const j=await check(code);if(j){KEY=code;try{localStorage.setItem(GATE_KEY,code)}catch(e){}$("#gateErr").textContent="";start(j)}else $("#gateErr").textContent="รหัสไม่ถูกต้อง"}
+  catch(err){$("#gateErr").textContent="เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง"}
+  btn.disabled=false});
+(async()=>{let saved="";try{saved=localStorage.getItem(GATE_KEY)||""}catch(e){}
+  if(saved){try{const j=await check(saved);if(j){KEY=saved;start(j);return}}catch(e){}}
+  $("#gateIn").focus()})();
+</script>
+</body>
+</html>

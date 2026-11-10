@@ -30,6 +30,7 @@ h1 span{font-weight:500;color:var(--mute)}
 .nav{display:flex;gap:6px;align-items:center}
 .nav button{border:1px solid var(--line);background:#fff;border-radius:9px;height:34px;min-width:34px;padding:0 10px}
 .nav button:disabled{opacity:.35;cursor:default}
+.msel{height:34px;border:1px solid var(--line);border-radius:9px;background:#fff;font:inherit;font-weight:600;padding:0 8px;cursor:pointer}
 .addbtn{background:var(--orange)!important;color:#fff;border:0!important;font-weight:600}
 .xlsbtn{display:inline-flex;align-items:center;height:34px;padding:0 12px;border-radius:9px;background:#1d6f42;color:#fff;text-decoration:none;font-weight:600;white-space:nowrap}
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 12px}
@@ -195,7 +196,7 @@ footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center}
     <div class="seg" id="viewSeg"><button data-v="month" class="on">เดือน</button><button data-v="list">รายการ</button></div>
     <div class="nav">
       <button id="prev" aria-label="เดือนก่อน">‹</button>
-      <button id="today">วันนี้</button>
+      <select id="mSel" class="msel" aria-label="เลือกเดือน"></select>
       <button id="next" aria-label="เดือนถัดไป">›</button>
       <button class="addev" id="addEv" title="เพิ่มกิจกรรมสำคัญ (แถบสีม่วง)">★ กิจกรรม</button>
       <button class="addbtn" id="addBtn">+ เพิ่มงาน</button>
@@ -395,6 +396,7 @@ function render(){
   $("#title").innerHTML=MONTHS[cur.m]+" <span>"+(cur.y+543)+"</span>";
   $("#prev").disabled = cur.y*12+cur.m <= RANGE[0][0]*12+RANGE[0][1];
   $("#next").disabled = cur.y*12+cur.m >= RANGE[1][0]*12+RANGE[1][1];
+  {const ms=$("#mSel");if(!ms.options.length){let o="";for(let k=RANGE[0][0]*12+RANGE[0][1];k<=RANGE[1][0]*12+RANGE[1][1];k++){const y=Math.floor(k/12),m=k%12;o+=`<option value="${y}-${m}">${MONTHS[m]} ${y+543}</option>`}ms.innerHTML=o}ms.value=cur.y+"-"+cur.m}
   const ft=filtered();
   const mStart=`${cur.y}-${pad(cur.m+1)}-01`, mEnd=`${cur.y}-${pad(cur.m+1)}-${pad(new Date(cur.y,cur.m+1,0).getDate())}`;
   const inMonth=ft.filter(t=>t.date<=mEnd&&(t.end&&t.end>=t.date?t.end:t.date)>=mStart);
@@ -623,7 +625,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
 $("#addBtn").onclick=()=>openModal(null);
 $("#prev").onclick=()=>{cur=clampMonth(new Date(cur.y,cur.m-1,1));render()};
 $("#next").onclick=()=>{cur=clampMonth(new Date(cur.y,cur.m+1,1));render()};
-$("#today").onclick=()=>{cur=clampMonth(new Date());render()};
+$("#mSel").onchange=e=>{const [y,m]=e.target.value.split("-").map(Number);cur={y,m};render()};
 $("#torf").innerHTML+=[["6.1","แผนกลยุทธ์ (ทั้งหมด)"],["6.2","ผลิตสื่อ (ทั้งหมด)"],["6.3","เผยแพร่สื่อ (ทั้งหมด)"],...TOR].map(x=>`<option value="${x[0]}">${x[0]} ${esc(x[1].length>34?x[1].slice(0,32)+"…":x[1])}</option>`).join("");
 $("#torf").onchange=render;
 $("#who").onchange=render; $("#typf").onchange=render; $("#stf").onchange=render;

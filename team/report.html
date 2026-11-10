@@ -248,7 +248,7 @@ function setSync(m,err){const s=$("#sync");s.textContent=m;s.className="sync"+(e
 async function load(){
   setSync("กำลังโหลด…");
   try{const r=await fetch(API_URL+"?k="+encodeURIComponent(KEY),{cache:"no-store"});const j=await r.json();
-    if(j.error==="auth"){lockOut();return}
+    if(j.error==="auth"||j.view){lockOut();return}
     if(!j.ok)throw new Error(j.error||"load");
     tasks=j.tasks||[];fillSelects();render();setSync("ข้อมูลล่าสุด "+new Date().toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit"}));
   }catch(e){setSync("โหลดข้อมูลไม่ได้ ลองรีเฟรชหน้า",true);$("#dlHint").textContent="โหลดข้อมูลไม่ได้"}
@@ -260,7 +260,7 @@ if(saved){KEY=saved;$("#gate").hidden=true;load()}else setTimeout(()=>$("#gateIn
 $("#gateF").onsubmit=async e=>{e.preventDefault();const code=$("#gateIn").value.trim();if(!code)return;
   $("#gateErr").textContent="กำลังตรวจรหัส…";
   try{const r=await fetch(API_URL+"?k="+encodeURIComponent(code),{cache:"no-store"});const j=await r.json();
-    if(j.error==="auth"||!j.auth){$("#gateErr").textContent="รหัสไม่ถูกต้อง";$("#gateIn").value="";return}
+    if(j.error==="auth"||!j.auth||j.view){$("#gateErr").textContent="รหัสไม่ถูกต้อง";$("#gateIn").value="";return}
     KEY=code;try{localStorage.setItem(GATE_KEY,code)}catch(err){}$("#gate").hidden=true;$("#gateErr").textContent="";load();
   }catch(err){$("#gateErr").textContent="เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง"}};
 </script>

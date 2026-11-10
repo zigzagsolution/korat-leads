@@ -98,6 +98,13 @@ h1{margin:2px 0 4px;font-size:26px;font-weight:700}
 .mc.off{color:var(--mute)}
 .mc.off::before{content:"○ "}
 .mc small{color:var(--mute);font-weight:400;margin-left:3px}
+.mbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin:4px 0 6px}
+.mtabs{display:flex;flex-wrap:wrap;gap:4px}
+.mt{border:1px solid var(--line);background:#fff;border-radius:8px;padding:4px 10px;font-size:13px;color:var(--ink)}
+.mt.on{background:#1b1f5e;border-color:#1b1f5e;color:#fff}
+#mq{border:1px solid var(--line);border-radius:8px;padding:5px 10px;font:inherit;font-size:13px;min-width:180px}
+.mrow > span.mk{font-weight:600;color:#1b1f5e;min-width:96px}
+.mk em{font-style:normal;font-weight:400;color:var(--mute);font-size:12px;margin-left:6px}
 /* list */
 .list{display:flex;flex-direction:column;gap:16px}
 .sec{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -249,6 +256,10 @@ const NEWS = [
   ["SPRiNG","21 ต.ค. 69","ทรานส์ฟอร์มท่องเที่ยวไทย ชู ‘วัฒนธรรม-Soft Power’ สู่เวทีโลก",["https://www.springnews.co.th/news/hot-issue/865487","https://www.facebook.com/share/p/1bkPWL2zzj","https://www.instagram.com/p/DevqQeYCQsA/"]],
   ["PostToday","21 ต.ค. 69","เลิกแข่งขายของถูก ปั้นย่านการค้าไทยสู่จุดหมายท่องเที่ยวโลก",["https://www.posttoday.com/smart-city/750713"]],
 ];
+// สื่อเพิ่มเติมในแผนที่ไม่มีในปฏิทิน [ข้อ, ชื่อสื่อ, จำนวน]
+const EXTRA_MEDIA = [
+  ["6.3.3","เนชั่น (แถม)",10],
+];
 const normOut = s => String(s).toLowerCase().replace(/\s+/g,"").replace("posttoday","posttoday");
 const HOL = new Set(["d2","d9","d10","d11","d12","d13"]);
 
@@ -305,15 +316,28 @@ const ORDER={done:0,doing:1,todo:2};
 function renderMedia(T){
   const outOf=t=>t.outlet.replace(/\s*(ประเด็น|ครั้ง|รอบ)\s*ที่.*$/,"").trim();
   const NT=T.filter(t=>t.outlet);
-  const done=[...new Set([...NEWS.map(n=>n[0]),...NT.filter(t=>t.status==="done").map(outOf)])], dn=new Set(done.map(normOut));
-  const plan=[...new Set(NT.filter(t=>t.status!=="done").map(outOf))].filter(x=>!dn.has(normOut(x)));
-  const torFor=o=>{const t=NT.find(t=>outOf(t)===o&&t.tor);return t?`<span class="tor">${esc(t.tor)}</span>`:""};
-  const cnt=o=>NEWS.filter(n=>n[0]===o).length+NT.filter(t=>t.status==="done"&&outOf(t)===o).length;
   mediaTasks=NT; mediaOut=outOf;
-  $("#media").innerHTML=`<h3>สื่อที่ลงข่าวแล้ว<small>${done.length} สื่อ · กดชื่อสื่อเพื่อดูข่าว</small></h3>`+
-    `<div class="mrow"><span>ลงแล้ว</span>${done.map(o=>`<button class="mc on" data-o="${esc(o)}">${torFor(o)}${esc(o)}${cnt(o)>1?`<small>×${cnt(o)}</small>`:""}</button>`).join("")}</div>`+
-    (plan.length?`<div class="mrow"><span>ในแผน รอลง</span>${plan.map(o=>`<button class="mc off" data-o="${esc(o)}">${torFor(o)}${esc(o)}</button>`).join("")}</div>`:"");
+  // จัดกลุ่มตามข้อ TOR; ข่าวจากชีต Link ข่าว (ไม่มีเลขข้อ) อยู่กลุ่ม "ข่าว PR"
+  const G=new Map(), add=(k,o,done,n)=>{if(!G.has(k))G.set(k,new Map());const m=G.get(k),key=normOut(o),c=m.get(key)||{o,done:false,n:0};c.done=c.done||done;c.n+=n;m.set(key,c)};
+  NEWS.forEach(n=>add("PR",n[0],true,1));
+  NT.forEach(t=>add(t.tor||"PR",outOf(t),t.status==="done",t.status==="done"?1:0));
+  EXTRA_MEDIA.forEach(([k,o,n])=>{add(k,o,false,0);G.get(k).get(normOut(o)).plan=n});
+  const keys=[...G.keys()].sort((x,y)=>x==="PR"?1:y==="PR"?-1:x.localeCompare(y,undefined,{numeric:true}));
+  const lab=k=>k==="PR"?"ข่าว PR":"ข้อ "+k;
+  const all=[...G.values()].flatMap(m=>[...m.values()]), nd=all.filter(c=>c.done).length;
+  if(!keys.includes(mediaSel))mediaSel="all";
+  const q=mediaQ.trim().toLowerCase();
+  const rows=keys.filter(k=>mediaSel==="all"||mediaSel===k).map(k=>{
+    const L=[...G.get(k).values()].filter(c=>!q||c.o.toLowerCase().includes(q)).sort((x,y)=>(y.done-x.done));
+    if(!L.length)return "";
+    const d=L.filter(c=>c.done).length;
+    return `<div class="mrow"><span class="mk">${esc(lab(k))}<em>${d}/${L.length}</em></span>${L.map(c=>`<button class="mc ${c.done?"on":"off"}" data-o="${esc(c.o)}">${esc(c.o)}${c.n>1?`<small>×${c.n}</small>`:c.plan?`<small>${c.plan} ชิ้น</small>`:""}</button>`).join("")}</div>`}).join("");
+  $("#media").innerHTML=`<h3>สื่อที่ลงข่าว<small>ลงแล้ว ${nd} / ${all.length} สื่อ · ✓ ลงแล้ว · ○ ยังไม่ลง · กดชื่อสื่อเพื่อดูข่าว</small></h3>`+
+    `<div class="mbar"><div class="mtabs">${["all",...keys].map(k=>`<button class="mt${mediaSel===k?" on":""}" data-k="${esc(k)}">${k==="all"?"ทั้งหมด":esc(lab(k))}</button>`).join("")}</div>`+
+    `<input id="mq" type="search" placeholder="ค้นหาชื่อสื่อ" value="${esc(mediaQ)}"></div>`+
+    (rows||`<div class="mrow"><span class="mk">ไม่พบสื่อที่ค้นหา</span></div>`);
 }
+let mediaSel="all", mediaQ="", lastT=[];
 let mediaTasks=[], mediaOut=()=>"";
 function openOutlet(o){
   $("#pTitle").textContent=o;
@@ -322,7 +346,7 @@ function openOutlet(o){
   $("#mask").classList.add("on");
 }
 function render(){
-  const T=tasks(); renderMedia(T);
+  const T=tasks(); lastT=T; renderMedia(T);
   $("#nDone").textContent=T.filter(t=>t.status==="done").length;
   $("#nDoing").textContent=T.filter(t=>t.status==="doing").length;
   $("#nTodo").textContent=T.filter(t=>t.status==="todo").length;
@@ -430,7 +454,9 @@ $("#next").onclick=()=>{let {y,m}=cur;m++;if(m>11){m=0;y++}cur={y,m};render()};
 $("#mSel").onchange=e=>{const [y,m]=e.target.value.split("-").map(Number);cur={y,m};render()};
 $("#grid").addEventListener("click",e=>{const c=e.target.closest(".cell");if(c)openDay(c.dataset.d)});
 $("#long").addEventListener("click",e=>{const b=e.target.closest(".showall");if(b){opened.long=!opened.long;render();return}const r=e.target.closest(".lr");if(r)openTask(r.dataset.id)});
-$("#media").addEventListener("click",e=>{const b=e.target.closest(".mc");if(b)openOutlet(b.dataset.o)});
+$("#media").addEventListener("click",e=>{const b=e.target.closest(".mc");if(b)return openOutlet(b.dataset.o);
+  const t=e.target.closest(".mt");if(t){mediaSel=t.dataset.k;renderMedia(lastT)}});
+$("#media").addEventListener("input",e=>{if(e.target.id!=="mq")return;mediaQ=e.target.value;const pos=e.target.selectionStart;renderMedia(lastT);const i=$("#mq");i.focus();i.setSelectionRange(pos,pos)});
 $("#listView").addEventListener("click",e=>{const b=e.target.closest(".showall");if(b){opened[b.dataset.k]=!opened[b.dataset.k];render()}});
 document.querySelectorAll(".stat").forEach(b=>b.onclick=()=>{view="list";render();const s=$("#sec-"+b.dataset.go);if(s)s.scrollIntoView({behavior:"smooth",block:"start"})});
 $("#pClose").onclick=closeP; $("#mask").addEventListener("click",e=>{if(e.target.id==="mask")closeP()});

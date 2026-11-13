@@ -238,7 +238,7 @@ footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center}
     <div class="f"><label>ประเภทงาน</label><div class="types" id="fTypes"></div><input id="fType" list="typeList" placeholder="เลือกด้านบน หรือพิมพ์เอง" autocomplete="off"><datalist id="typeList"></datalist></div>
     <div class="f" id="fAxisBox" style="display:none"><label>สายของอินฟลู (ติ๊กได้หลายสาย)</label><div class="chs" id="fAxis"></div></div>
     <div class="f"><label>ข้อ TOR</label><select id="fTor"><option value="">— ไม่ระบุ —</option></select></div>
-    <div class="f"><label>ช่องทางเผยแพร่ (ติ๊กได้หลายช่อง)</label><div class="chs" id="fCh"></div></div>
+    <div class="f"><label>ช่องทางเผยแพร่ (ติ๊กได้หลายช่อง)</label><div class="chs" id="fCh"></div><input id="fChOther" placeholder="อื่นๆ คือช่องทางไหน เช่น X, Lemon8, ป้ายโฆษณา" autocomplete="off" style="display:none;margin-top:8px"></div>
     <div class="f"><label>งาน</label><textarea id="fTask" placeholder="ทำอะไร"></textarea></div>
     <div class="two">
       <div class="f"><label>วันที่</label><input type="date" id="fDate" min="2026-10-01" max="2027-02-28"></div>
@@ -279,9 +279,9 @@ const torTag = t => torOf(t)?`<span class="tor" title="TOR ข้อ ${esc(torOf
 const AXES = [["น่าอยู่","#0e7490"],["น่าลงทุน","#b45309"],["น่าเที่ยว","#15803d"]];
 const axOf = t => (t&&t.extra&&Array.isArray(t.extra.axis))?t.extra.axis:[];
 const axTags = t => axOf(t).map(a=>{const x=AXES.find(k=>k[0]===a);return x?`<span class="cb" style="background:${x[1]}">${a}</span>`:""}).join("");
-const CHANNELS = [["Facebook","FB","#1877f2"],["Instagram","IG","#c13584"],["Reels","RL","#d62976"],["TikTok","TT","#111"],["YouTube","YT","#e00"],["LINE","LN","#06c755"]];
+const CHANNELS = [["Facebook","FB","#1877f2"],["Instagram","IG","#c13584"],["Reels","RL","#d62976"],["TikTok","TT","#111"],["YouTube","YT","#e00"],["LINE","LN","#06c755"],["Website","WEB","#2563eb"],["อื่นๆ","อื่น","#6b7280"]];
 const chOf = t => (t&&t.extra&&Array.isArray(t.extra.channels))?t.extra.channels:[];
-const chBadges = t => chOf(t).map(c=>{const x=CHANNELS.find(k=>k[0]===c);return x?`<span class="cb" style="background:${x[2]}" title="${x[0]}">${x[1]}</span>`:""}).join("");
+const chBadges = t => chOf(t).map(c=>{const x=CHANNELS.find(k=>k[0]===c);if(!x)return "";const o=c==="อื่นๆ"&&t.extra.chOther?t.extra.chOther:"";return `<span class="cb" style="background:${x[2]}" title="${esc(o?"อื่นๆ: "+o:x[0])}">${esc(o?(o.length>8?o.slice(0,7)+"…":o):x[1])}</span>`}).join("");
 const typeOf = t => (t.extra&&t.extra.type)||"";
 const STL = {todo:"ยังไม่ได้ทำ",doing:"กำลังทำ",done:"สำเร็จ"};
 const RANGE = [[2026,9],[2027,1]]; // ต.ค. 69 – ก.พ. 70 (เดือนเริ่มที่ 0)
@@ -528,7 +528,7 @@ function openModal(t,day){
   $("#fType").value=t?typeOf(t):"";syncTypes();
   $("#fTor").value=torOf(t);
   const ax=axOf(t);$("#fAxis").innerHTML=AXES.map(a=>`<label><input type="checkbox" value="${a[0]}"${ax.includes(a[0])?" checked":""}>${a[0]}</label>`).join("");
-  const cs=chOf(t);$("#fCh").innerHTML=CHANNELS.map(c=>`<label><input type="checkbox" value="${c[0]}"${cs.includes(c[0])?" checked":""}>${c[0]}</label>`).join("");
+  const cs=chOf(t);$("#fCh").innerHTML=CHANNELS.map(c=>`<label><input type="checkbox" value="${c[0]}"${cs.includes(c[0])?" checked":""}>${c[0]}</label>`).join("");$("#fChOther").value=(t&&t.extra&&t.extra.chOther)||"";syncChOther();
   $("#fDate").value=t?t.date:(day||clampDay(todayISO()));
   $("#fEnd").value=t?(t.end||""):"";
   $("#fNote").value=t?(t.note||""):"";showLinks();
@@ -539,12 +539,15 @@ function openModal(t,day){
   $("#mask").classList.add("on");
   setTimeout(()=>($("#fName").value?$("#fTask"):$("#fName")).focus(),50);
 }
+function syncChOther(){const on=!!document.querySelector('#fCh input[value="อื่นๆ"]:checked');$("#fChOther").style.display=on?"block":"none"}
+$("#fCh").addEventListener("change",e=>{syncChOther();if(e.target.value==="อื่นๆ"&&e.target.checked)$("#fChOther").focus()});
 function clampDay(d){return d<"2026-10-01"?"2026-10-01":d>"2027-02-28"?"2027-02-28":d}
 function closeModal(){$("#mask").classList.remove("on");editing=null}
 async function saveModal(){
   const task={name:$("#fName").value.trim(),task:$("#fTask").value.trim(),date:$("#fDate").value,end:$("#fEnd").value,note:$("#fNote").value.trim(),status:fStatus};
   const old=editing?tasks.find(x=>x.id===editing):null;
   task.extra={...((old&&old.extra)||{}),type:$("#fType").value.trim(),files:fFiles,tor:$("#fTor").value,axis:$("#fType").value.trim()==="อินฟลู"?[...document.querySelectorAll("#fAxis input:checked")].map(i=>i.value):[],channels:[...document.querySelectorAll("#fCh input:checked")].map(i=>i.value)};
+  task.extra.chOther=task.extra.channels.includes("อื่นๆ")?$("#fChOther").value.trim():"";
   if(!task.name){toast("กรุณาใส่ชื่อ");$("#fName").focus();return}
   if(!task.task){toast("กรุณาใส่งาน");$("#fTask").focus();return}
   if(!task.date){toast("กรุณาเลือกวันที่");return}

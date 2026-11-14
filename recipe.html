@@ -79,7 +79,10 @@ a.item{text-decoration:none}
 .venbox p{margin:0 0 10px;font-size:14px;line-height:1.55}
 .venbox .big{font-family:var(--display);font-weight:800;font-size:20px;color:var(--orange)}
 .vlist{display:flex;flex-wrap:wrap;gap:6px}
-.vlist span{font-size:13px;border:1.5px solid var(--navy);border-radius:999px;padding:3px 10px;font-weight:600}
+.vlist button{font:inherit;font-size:13px;border:1.5px solid var(--navy);border-radius:999px;padding:4px 11px;font-weight:600;background:#fff;color:var(--navy);cursor:pointer}
+.vlist button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.vlist button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.venbox .hint{font-size:13px;margin:8px 0 0;opacity:.75}
 .near{display:block;font-size:12px;color:var(--lime);margin-top:2px}
 footer{border-top:1px solid var(--line);padding:16px 0 28px;color:var(--faint);font-size:13px;text-align:center}
 @media (max-width:860px){.grid{grid-template-columns:1fr}#map{height:58vh;min-height:360px}.list{max-height:none}.legend{margin-left:0}}
@@ -96,6 +99,7 @@ footer{border-top:1px solid var(--line);padding:16px 0 28px;color:var(--faint);f
     <h2 id="vh">ร้านอยู่ใกล้จุดจัดงาน K-BATTLE แค่ไหน</h2>
     <p id="vsum"></p>
     <div class="vlist" id="vlist"></div>
+    <p class="hint">กดชื่อจุดจัดงานเพื่อซูมแผนที่ไปที่จุดนั้น และดูร้านในระยะ 1 กม. เรียงจากใกล้ไปไกล</p>
   </section>
   <section class="routes" aria-labelledby="rt">
     <h2 id="rt">รูทเดินตามร้าน</h2>
@@ -143,7 +147,9 @@ S.forEach(s=>{if(s.lat==null)return;let b=null;VEN.forEach((v,i)=>{const m=dm([s
 const nearTxt=s=>s.nv?`<span class="near">★ ใกล้จุด ${s.nv.i+1} ${esc(VEN[s.nv.i][0])} ราว ${fd(s.nv.m)}</span>`:'';
 (()=>{const P=S.filter(s=>s.nv),a=P.filter(s=>s.nv.m<=500).length,b=P.filter(s=>s.nv.m<=1000).length;
 document.getElementById('vsum').innerHTML=`จาก ${P.length} ร้านที่ปักหมุด มี <span class="big">${a} ร้าน</span> อยู่ห่างจุดจัดงานไม่เกิน 500 ม. และ <span class="big">${b} ร้าน</span> ไม่เกิน 1 กม. (เดินถึงได้) · ระยะวัดเป็นเส้นตรงถึงจุดจัดงานที่ใกล้ที่สุด`;
-document.getElementById('vlist').innerHTML=VEN.map((v,i)=>`<span>★${i+1} ${esc(v[0])}</span>`).join('');})();
+})();
+function vRender(){document.getElementById('vlist').innerHTML=VEN.map((v,i)=>`<button data-v="${i}" aria-pressed="${route==='v'+i}">★${i+1} ${esc(v[0])}</button>`).join('');
+ document.querySelectorAll('.vlist button').forEach(b=>b.onclick=()=>{route='v'+b.dataset.v;apply();document.querySelector('.bar').scrollIntoView({behavior:'smooth'});});}
 const MYMAP='https://www.google.com/maps/d/embed?mid=1Hoh90fQrzEzJPU4jhRZs7wABCoWTjRA&ll=14.9790,102.1000&z=14';
 const MYMAPV='https://www.google.com/maps/d/viewer?mid=1Hoh90fQrzEzJPU4jhRZs7wABCoWTjRA&ll=14.9790,102.1000&z=14';
 const ROUTES=[
@@ -167,7 +173,17 @@ function rRender(){
   g.querySelectorAll('.rbtn').forEach(b=>b.onclick=()=>{route=b.dataset.r;apply();});
 }
 function apply(){
-  rRender();
+  rRender();vRender();
+  const map0=document.getElementById('map');
+  if(route[0]==='v'){const vi=+route.slice(1),v=VEN[vi],info=document.getElementById('rinfo'),full=document.getElementById('full');
+    if(map0.dataset.k!==route){map0.src=MYMAP.replace(/&ll=[^&]*&z=\d+/,`&ll=${v[1]},${v[2]}&z=16`);map0.dataset.k=route;}
+    full.href=MYMAPV.replace(/&ll=[^&]*&z=\d+/,`&ll=${v[1]},${v[2]}&z=16`);full.textContent='เปิดแผนที่เต็มจอ';
+    const all=S.filter(s=>s.lat!=null).map(s=>({s,m:dm([s.lat,s.lng],[v[1],v[2]])})).sort((a,b)=>a.m-b.m);
+    let near=all.filter(x=>x.m<=1000),far=false;if(!near.length){near=all.slice(0,5);far=true;}
+    const shown=near.filter(x=>cur==='all'||x.s.g===cur);
+    info.className='rinfo on';info.innerHTML=`<b>★${vi+1} ${esc(v[0])}</b> · `+(far?`ไม่มีร้านในระยะ 1 กม. แสดง 5 ร้านที่ใกล้ที่สุด`:`มีร้านในระยะ 1 กม. ${near.length} ร้าน`)+`<br><a class="go" href="https://www.google.com/maps/search/?api=1&query=${v[1]},${v[2]}" target="_blank" rel="noopener">เปิดจุดจัดงานนี้ใน Google</a>`;
+    document.getElementById('list').innerHTML=`<h2>ร้านใกล้ ★${vi+1}<span>${shown.length} ร้าน</span></h2>`+shown.map(({s,m})=>`<a class="item" href="${esc(s.u)}" target="_blank" rel="noopener"><span class="num ${s.g}">${s.i}</span><span><b>${esc(s.n)}</b><small><i class="dot ${s.g}"></i> ${GN[s.g]} · ${esc(s.a)}</small><span class="near">★ ห่างจุดนี้ราว ${fd(m)}</span>${s.s!=='ok'?`<span class="tag ${s.s}">${TAG[s.s]}</span>`:''}</span></a>`).join('');
+    return;}
   const r=ROUTES.find(x=>x.k===route), map=document.getElementById('map'), full=document.getElementById('full'), info=document.getElementById('rinfo');
   const same=map.dataset.k===route;map.dataset.k=route;
   if(!r.ids){if(!same)map.src=MYMAP;full.href=MYMAPV;full.textContent='เปิดแผนที่เต็มจอ';info.className='rinfo';render();return;}
@@ -184,6 +200,7 @@ function apply(){
 const tot=S.length, pin=S.filter(s=>s.lat!=null).length;
 document.getElementById('sum').textContent=`ปักหมุดได้ ${pin} จาก ${tot} ร้าน · ตำแหน่งค้นจากแผนที่ออนไลน์ วันที่ 14 พ.ย. 2569 ร้านที่มีป้าย "มีหลายสาขา" หรือ "ควรเช็ก" ควรยืนยันกับร้านอีกครั้ง · ร้านลุงมีอยู่นอกเมืองราว 11 กม. จึงไม่ได้ใส่ในรูท · ดาวจุดจัดงานแสดงตอนเลือก "ร้านทั้งหมด" · ตำแหน่งจุดที่ 2 (KORAT City Recipe ถ.สุรนารี) เป็นค่าประมาณตามโปสเตอร์`;
 rRender();
+vRender();
 render();
 </script>
 </body>

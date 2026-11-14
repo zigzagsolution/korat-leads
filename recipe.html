@@ -74,6 +74,13 @@ a.item{text-decoration:none}
 .rinfo.on{display:block}
 .rinfo a.go{display:inline-block;margin-top:8px;background:var(--orange);color:#fff;text-decoration:none;border-radius:999px;padding:7px 14px;font-weight:600;font-size:14px}
 .bar.hide{display:none}
+.venbox{margin:16px 0 0;padding:14px 16px;border-radius:14px;background:#fff;color:var(--navy)}
+.venbox h2{font-family:var(--display);font-weight:700;font-size:18px;margin:0 0 6px}
+.venbox p{margin:0 0 10px;font-size:14px;line-height:1.55}
+.venbox .big{font-family:var(--display);font-weight:800;font-size:20px;color:var(--orange)}
+.vlist{display:flex;flex-wrap:wrap;gap:6px}
+.vlist span{font-size:13px;border:1.5px solid var(--navy);border-radius:999px;padding:3px 10px;font-weight:600}
+.near{display:block;font-size:12px;color:var(--lime);margin-top:2px}
 footer{border-top:1px solid var(--line);padding:16px 0 28px;color:var(--faint);font-size:13px;text-align:center}
 @media (max-width:860px){.grid{grid-template-columns:1fr}#map{height:58vh;min-height:360px}.list{max-height:none}.legend{margin-left:0}}
 </style>
@@ -82,9 +89,14 @@ footer{border-top:1px solid var(--line);padding:16px 0 28px;color:var(--faint);f
 <header class="band"><div class="wrap">
   <small>K-BATTLE · KORAT CITY RECIPE</small>
   <h1>แผนที่ร้าน KORAT CITY RECIPE</h1>
-  <p>ร้านอาหาร 20 ร้าน (หมุดส้ม) และร้านนม ของหวาน เครื่องดื่ม 20 ร้าน (หมุดเขียว) แตะหมุดบนแผนที่เพื่อดูรายละเอียด หรือแตะชื่อร้านเพื่อเปิดนำทาง</p>
+  <p>ร้านอาหาร 20 ร้าน (หมุดส้ม) และร้านนม ของหวาน เครื่องดื่ม 20 ร้าน (หมุดเขียว) เทียบกับจุดจัดงาน K-BATTLE 7 จุด (ดาวสีน้ำเงิน) แตะหมุดบนแผนที่เพื่อดูรายละเอียด หรือแตะชื่อร้านเพื่อเปิดนำทาง</p>
 </div></header>
 <main class="wrap">
+  <section class="venbox" aria-labelledby="vh">
+    <h2 id="vh">ร้านอยู่ใกล้จุดจัดงาน K-BATTLE แค่ไหน</h2>
+    <p id="vsum"></p>
+    <div class="vlist" id="vlist"></div>
+  </section>
   <section class="routes" aria-labelledby="rt">
     <h2 id="rt">รูทเดินตามร้าน</h2>
     <p class="hint">แบ่งร้านที่อยู่ใกล้กันเป็น 5 รูท เลือกรูทเพื่อดูเส้นทางบนแผนที่และลำดับร้าน · มีเวลาน้อยเลือกรูท 2 · อยากเริ่มใกล้ลานย่าโมเลือกรูท 3 · รูท 4–5 ร้านอยู่ห่างกัน ควรขับรถ</p>
@@ -98,7 +110,7 @@ footer{border-top:1px solid var(--line);padding:16px 0 28px;color:var(--faint);f
     <div class="legend"><span>แตะชื่อร้านในรายการเพื่อเปิดนำทาง</span></div>
   </div>
   <div class="grid">
-    <div class="mapbox"><iframe id="map" title="แผนที่ร้าน KORAT CITY RECIPE" src="https://www.google.com/maps/d/embed?mid=1Hoh90fQrzEzJPU4jhRZs7wABCoWTjRA&ll=14.9752,102.0960&z=15" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe><a class="full" id="full" href="https://www.google.com/maps/d/viewer?mid=1Hoh90fQrzEzJPU4jhRZs7wABCoWTjRA&ll=14.9752,102.0960&z=15" target="_blank" rel="noopener">เปิดแผนที่เต็มจอ</a></div>
+    <div class="mapbox"><iframe id="map" title="แผนที่ร้าน KORAT CITY RECIPE" src="https://www.google.com/maps/d/embed?mid=1Hoh90fQrzEzJPU4jhRZs7wABCoWTjRA&ll=14.9790,102.1000&z=14" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe><a class="full" id="full" href="https://www.google.com/maps/d/viewer?mid=1Hoh90fQrzEzJPU4jhRZs7wABCoWTjRA&ll=14.9790,102.1000&z=14" target="_blank" rel="noopener">เปิดแผนที่เต็มจอ</a></div>
     <aside class="list" id="list"></aside>
   </div>
   <p class="note" id="sum"></p>
@@ -118,17 +130,25 @@ function render(){
     el.insertAdjacentHTML('beforeend',`<h2><i class="dot ${g}"></i>${GN[g]}<span>ปักหมุด ${pinned}/${arr.length}</span></h2>`);
     arr.forEach(s=>{
       const inner=`<span class="num ${s.lat==null?'x':g}">${s.i}</span><span><b>${esc(s.n)}</b>`+
-        `<small>${s.lat==null?esc(s.note):esc(s.a)+(s.note?' · '+esc(s.note):'')}</small>`+(s.s!=='ok'?`<span class="tag ${s.s}">${TAG[s.s]}</span>`:'')+`</span>`;
+        `<small>${s.lat==null?esc(s.note):esc(s.a)+(s.note?' · '+esc(s.note):'')}</small>`+nearTxt(s)+(s.s!=='ok'?`<span class="tag ${s.s}">${TAG[s.s]}</span>`:'')+`</span>`;
       el.insertAdjacentHTML('beforeend', s.u?`<a class="item" href="${esc(s.u)}" target="_blank" rel="noopener">${inner}</a>`:`<div class="item">${inner}</div>`);
     });
   });
 }
-document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{cur=c.dataset.g;document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));render();});
-const MYMAP='https://www.google.com/maps/d/embed?mid=1Hoh90fQrzEzJPU4jhRZs7wABCoWTjRA&ll=14.9752,102.0960&z=15';
-const MYMAPV='https://www.google.com/maps/d/viewer?mid=1Hoh90fQrzEzJPU4jhRZs7wABCoWTjRA&ll=14.9752,102.0960&z=15';
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{cur=c.dataset.g;document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));(route==='all'?render():apply());});
+const VEN=[["สุรนารีสแควร์ (ลานย่าโม-อาร์ตแกลลอรี่)", 14.9747607, 102.098141], ["KORAT City Recipe (Street Food ถ.สุรนารี)", 14.9772, 102.0915], ["Terminal 21 Korat", 14.9818718, 102.0900816], ["Central Korat", 14.996555, 102.1160881], ["ม.ราชภัฏนครราชสีมา", 14.984639, 102.113701], ["ร.ร.สุรนารีวิทยา", 14.980495, 102.102489], ["วิทยาลัยนาฏศิลปนครราชสีมา", 14.931718, 101.989584]];
+const dm=(a,b)=>{const R=6371000,r=Math.PI/180,p1=a[0]*r,p2=b[0]*r,dp=p2-p1,dl=(b[1]-a[1])*r,x=Math.sin(dp/2)**2+Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)**2;return 2*R*Math.asin(Math.sqrt(x));};
+const fd=m=>m<1000?`${Math.max(10,Math.round(m/10)*10)} ม.`:`${(m/1000).toFixed(1)} กม.`;
+S.forEach(s=>{if(s.lat==null)return;let b=null;VEN.forEach((v,i)=>{const m=dm([s.lat,s.lng],[v[1],v[2]]);if(!b||m<b.m)b={i,m};});s.nv=b;});
+const nearTxt=s=>s.nv?`<span class="near">★ ใกล้จุด ${s.nv.i+1} ${esc(VEN[s.nv.i][0])} ราว ${fd(s.nv.m)}</span>`:'';
+(()=>{const P=S.filter(s=>s.nv),a=P.filter(s=>s.nv.m<=500).length,b=P.filter(s=>s.nv.m<=1000).length;
+document.getElementById('vsum').innerHTML=`จาก ${P.length} ร้านที่ปักหมุด มี <span class="big">${a} ร้าน</span> อยู่ห่างจุดจัดงานไม่เกิน 500 ม. และ <span class="big">${b} ร้าน</span> ไม่เกิน 1 กม. (เดินถึงได้) · ระยะวัดเป็นเส้นตรงถึงจุดจัดงานที่ใกล้ที่สุด`;
+document.getElementById('vlist').innerHTML=VEN.map((v,i)=>`<span>★${i+1} ${esc(v[0])}</span>`).join('');})();
+const MYMAP='https://www.google.com/maps/d/embed?mid=1Hoh90fQrzEzJPU4jhRZs7wABCoWTjRA&ll=14.9790,102.1000&z=14';
+const MYMAPV='https://www.google.com/maps/d/viewer?mid=1Hoh90fQrzEzJPU4jhRZs7wABCoWTjRA&ll=14.9790,102.1000&z=14';
 const ROUTES=[
  {k:'all',n:'ร้านทั้งหมด',d:'ดูหมุดทุกร้านบนแผนที่'},
- {k:'1',n:'รูท 1 · เมืองเก่าฝั่งเหนือ',d:'ถ.จันทน์–ถ.สุรนารี',walk:true,km:'2.2',min:30,ids:['f5','d20','d18','d12','d10','f1','f18','d2','f17']},
+ {k:'1',n:'รูท 1 · เมืองเก่าฝั่งเหนือ',d:'ถ.จันทน์–ถ.สุรนารี',walk:true,km:'2.5',min:35,ids:['f5','d20','d18','d12','d10','f1','f18','d2','f17']},
  {k:'2',n:'รูท 2 · ถ.จอมสุรางค์ยาตร์',d:'รูทสั้นสุด ร้านติดกัน',walk:true,km:'0.9',min:12,ids:['f7','d1','d15','f6','d14','d6','d3','f8']},
  {k:'3',n:'รูท 3 · รอบลานย่าโม',d:'เริ่มที่ตลาดแม่กิมเฮง ใกล้ลานย่าโม ไปทาง ถ.อัษฎางค์',walk:true,km:'2.9',min:38,ids:['f15','d16','d19','f9','d4','d7','d8','f2','f4']},
  {k:'4',n:'รูท 4 · นอกคูเมืองฝั่งตะวันตก',d:'ถ.มุขมนตรี–City Link–บ้านฮอซอน',walk:false,km:'10',ids:['d13','f10','f19','f14','d5','d9','f20']},
@@ -137,30 +157,32 @@ const ROUTES=[
 const BY={};S.forEach(s=>BY[s.g+s.i]=s);
 const ll=s=>s.lat+','+s.lng;
 let route='all';
+function rNear(r){const vs=[...new Set(r.ids.map(i=>BY[i]).filter(s=>s.nv&&s.nv.m<=500).map(s=>s.nv.i))].sort();return vs.length?`<span class="near">ใกล้จุดจัดงาน ${vs.map(i=>'★'+(i+1)).join(' ')}</span>`:'';}
 function cnt(ids){const f=ids.filter(i=>i[0]==='f').length;return `อาหาร ${f} · ของหวาน/เครื่องดื่ม ${ids.length-f}`;}
 function rRender(){
   const g=document.getElementById('rgrid');
   g.innerHTML=ROUTES.map(r=>`<button class="rbtn" data-r="${r.k}" aria-pressed="${r.k===route}">`+
     (r.ids?`<span class="mode${r.walk?'':' car'}">${r.walk?'เดิน':'ขับรถ'}</span>`:'')+
-    `<b>${esc(r.n)}</b><small>${r.ids?`${r.ids.length} ร้าน · ${cnt(r.ids)}<br>${r.walk?`เดินราว ${r.km} กม. (~${r.min} นาที ไม่รวมเวลานั่งกิน)`:`ระยะทางราว ${r.km} กม.`}<br>`:''}${esc(r.d)}</small></button>`).join('');
+    `<b>${esc(r.n)}</b><small>${r.ids?`${r.ids.length} ร้าน · ${cnt(r.ids)}<br>${r.walk?`เดินราว ${r.km} กม. (~${r.min} นาที ไม่รวมเวลานั่งกิน)`:`ระยะทางราว ${r.km} กม.`}<br>`:''}${esc(r.d)}${r.ids?rNear(r):''}</small></button>`).join('');
   g.querySelectorAll('.rbtn').forEach(b=>b.onclick=()=>{route=b.dataset.r;apply();});
 }
 function apply(){
   rRender();
   const r=ROUTES.find(x=>x.k===route), map=document.getElementById('map'), full=document.getElementById('full'), info=document.getElementById('rinfo');
-  document.querySelector('.bar').classList.toggle('hide',route!=='all');
-  if(!r.ids){map.src=MYMAP;full.href=MYMAPV;full.textContent='เปิดแผนที่เต็มจอ';info.className='rinfo';render();return;}
+  const same=map.dataset.k===route;map.dataset.k=route;
+  if(!r.ids){if(!same)map.src=MYMAP;full.href=MYMAPV;full.textContent='เปิดแผนที่เต็มจอ';info.className='rinfo';render();return;}
   const st=r.ids.map(i=>BY[i]);
-  map.src='https://maps.google.com/maps?saddr='+ll(st[0])+'&daddr='+st.slice(1).map(ll).join('+to:')+'&dirflg='+(r.walk?'w':'d')+'&output=embed&hl=th';
+  if(!same)map.src='https://maps.google.com/maps?saddr='+ll(st[0])+'&daddr='+st.slice(1).map(ll).join('+to:')+'&dirflg='+(r.walk?'w':'d')+'&output=embed&hl=th';
   const nav='https://www.google.com/maps/dir/?api=1&origin='+ll(st[0])+'&destination='+ll(st[st.length-1])+'&waypoints='+encodeURIComponent(st.slice(1,-1).map(ll).join('|'))+'&travelmode='+(r.walk?'walking':'driving');
   full.href=nav;full.textContent='เปิดเส้นทางเต็มจอ';
   info.className='rinfo on';
   info.innerHTML=`<b>${esc(r.n)}</b> · ${st.length} ร้าน เดินตามลำดับเลข 1 → ${st.length} ในรายการด้านข้าง`+(r.walk?'':' (ร้านอยู่ห่างกัน แนะนำขับรถหรือนั่งรถ)')+`<br><a class="go" href="${nav}" target="_blank" rel="noopener">เปิดนำทางรูทนี้ใน Google</a>`;
   const el=document.getElementById('list');
-  el.innerHTML=`<h2>${esc(r.n)}<span>${st.length} ร้าน</span></h2>`+st.map((s,j)=>`<a class="item" href="${esc(s.u)}" target="_blank" rel="noopener"><span class="num ${s.g}">${j+1}</span><span><b>${esc(s.n)}</b><small><i class="dot ${s.g}"></i> ${GN[s.g]} · ${esc(s.a)}${s.note?' · '+esc(s.note):''}</small>${s.s!=='ok'?`<span class="tag ${s.s}">${TAG[s.s]}</span>`:''}</span></a>`).join('');
+  const shown=st.map((s,j)=>[s,j]).filter(([s])=>cur==='all'||s.g===cur);
+  el.innerHTML=`<h2>${esc(r.n)}<span>${cur==='all'?st.length+' ร้าน':'แสดง '+shown.length+' จาก '+st.length+' ร้าน'}</span></h2>`+shown.map(([s,j])=>`<a class="item" href="${esc(s.u)}" target="_blank" rel="noopener"><span class="num ${s.g}">${j+1}</span><span><b>${esc(s.n)}</b><small><i class="dot ${s.g}"></i> ${GN[s.g]} · ${esc(s.a)}${s.note?' · '+esc(s.note):''}</small>${nearTxt(s)}${s.s!=='ok'?`<span class="tag ${s.s}">${TAG[s.s]}</span>`:''}</span></a>`).join('');
 }
 const tot=S.length, pin=S.filter(s=>s.lat!=null).length;
-document.getElementById('sum').textContent=`ปักหมุดได้ ${pin} จาก ${tot} ร้าน · ตำแหน่งค้นจากแผนที่ออนไลน์ วันที่ 14 พ.ย. 2569 ร้านที่มีป้าย "มีหลายสาขา" หรือ "ควรเช็ก" ควรยืนยันกับร้านอีกครั้ง · ร้านลุงมีอยู่นอกเมืองราว 11 กม. จึงไม่ได้ใส่ในรูท`;
+document.getElementById('sum').textContent=`ปักหมุดได้ ${pin} จาก ${tot} ร้าน · ตำแหน่งค้นจากแผนที่ออนไลน์ วันที่ 14 พ.ย. 2569 ร้านที่มีป้าย "มีหลายสาขา" หรือ "ควรเช็ก" ควรยืนยันกับร้านอีกครั้ง · ร้านลุงมีอยู่นอกเมืองราว 11 กม. จึงไม่ได้ใส่ในรูท · ดาวจุดจัดงานแสดงตอนเลือก "ร้านทั้งหมด" · ตำแหน่งจุดที่ 2 (KORAT City Recipe ถ.สุรนารี) เป็นค่าประมาณตามโปสเตอร์`;
 rRender();
 render();
 </script>

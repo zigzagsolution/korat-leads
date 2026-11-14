@@ -89,7 +89,7 @@ footer{border-top:1px solid var(--line);padding:16px 0 28px;color:var(--faint);f
 const S=JSON.parse(document.getElementById('data').textContent);
 const YAMO=[14.97495,102.09785];
 const map=L.map('map',{scrollWheelZoom:true}).setView(YAMO,14);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd',attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
 L.marker(YAMO,{icon:L.divIcon({className:'',html:'<div class="home">★</div>',iconSize:[34,34],iconAnchor:[17,17]}),zIndexOffset:1000})
  .addTo(map).bindPopup('<div class="pp"><b>ลานย่าโม (สุรนารีสแควร์)</b><span class="k">จุดอ้างอิงกลางเมือง</span></div>');
 const GN={f:'ร้านอาหาร',d:'ร้านนม ของหวาน เครื่องดื่ม'};
@@ -124,10 +124,13 @@ function render(){
   });
   const vis=Object.entries(mk).filter(([k])=>cur==='all'||k[0]===cur).map(([,m])=>m.getLatLng());
   vis.push(L.latLng(YAMO));
-  // fit to the city-centre cluster; skip far outliers so the core stays readable
-  const core=vis.filter(p=>p.distanceTo(L.latLng(YAMO))<3500);
-  map.fitBounds(L.latLngBounds(core),{padding:[30,30],maxZoom:16});
+  // fit to the city-centre cluster; far shops stay reachable by zooming out or tapping the list
+  lastCore=vis.filter(p=>p.distanceTo(L.latLng(YAMO))<2000);
+  fit();
 }
+let lastCore=[];
+function fit(){map.invalidateSize();map.fitBounds(L.latLngBounds(lastCore),{padding:[24,24],maxZoom:16});}
+addEventListener('load',fit);
 document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{cur=c.dataset.g;document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));render();});
 const tot=S.length, pin=S.filter(s=>s.lat!=null).length;
 document.getElementById('sum').textContent=`ปักหมุดได้ ${pin} จาก ${tot} ร้าน · ตำแหน่งค้นจากแผนที่ออนไลน์ วันที่ 14 พ.ย. 2569 ร้านที่มีป้าย "มีหลายสาขา" หรือ "ควรเช็ก" ควรยืนยันกับร้านอีกครั้ง`;

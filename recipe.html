@@ -140,7 +140,7 @@ function render(){
   });
 }
 document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{cur=c.dataset.g;document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));(route==='all'?render():apply());});
-const VEN=[["สุรนารีสแควร์ (ลานย่าโม-อาร์ตแกลลอรี่)", 14.9747607, 102.098141], ["KORAT City Recipe (Street Food ถ.สุรนารี)", 14.9772, 102.0915], ["Terminal 21 Korat", 14.9818718, 102.0900816], ["Central Korat", 14.996555, 102.1160881], ["ม.ราชภัฏนครราชสีมา", 14.984639, 102.113701], ["ร.ร.สุรนารีวิทยา", 14.980495, 102.102489], ["วิทยาลัยนาฏศิลปนครราชสีมา", 14.931718, 101.989584]];
+const VEN=[["สุรนารีสแควร์ (ลานย่าโม-อาร์ตแกลลอรี่)", 14.9747607, 102.098141], ["Street Food ถ.สุรนารี", 14.9772, 102.0915], ["Terminal 21 Korat", 14.9818718, 102.0900816], ["Central Korat", 14.996555, 102.1160881], ["ม.ราชภัฏนครราชสีมา", 14.984639, 102.113701], ["ร.ร.สุรนารีวิทยา", 14.980495, 102.102489], ["วิทยาลัยนาฏศิลปนครราชสีมา", 14.931718, 101.989584]];
 const dm=(a,b)=>{const R=6371000,r=Math.PI/180,p1=a[0]*r,p2=b[0]*r,dp=p2-p1,dl=(b[1]-a[1])*r,x=Math.sin(dp/2)**2+Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)**2;return 2*R*Math.asin(Math.sqrt(x));};
 const fd=m=>m<1000?`${Math.max(10,Math.round(m/10)*10)} ม.`:`${(m/1000).toFixed(1)} กม.`;
 S.forEach(s=>{if(s.lat==null)return;let b=null;VEN.forEach((v,i)=>{const m=dm([s.lat,s.lng],[v[1],v[2]]);if(!b||m<b.m)b={i,m};});s.nv=b;});
@@ -198,7 +198,7 @@ function apply(){
   el.innerHTML=`<h2>${esc(r.n)}<span>${cur==='all'?st.length+' ร้าน':'แสดง '+shown.length+' จาก '+st.length+' ร้าน'}</span></h2>`+shown.map(([s,j])=>`<a class="item" href="${esc(s.u)}" target="_blank" rel="noopener"><span class="num ${s.g}">${j+1}</span><span><b>${esc(s.n)}</b><small><i class="dot ${s.g}"></i> ${GN[s.g]} · ${esc(s.a)}${s.note?' · '+esc(s.note):''}</small>${nearTxt(s)}${s.s!=='ok'?`<span class="tag ${s.s}">${TAG[s.s]}</span>`:''}</span></a>`).join('');
 }
 const tot=S.length, pin=S.filter(s=>s.lat!=null).length;
-document.getElementById('sum').textContent=`ปักหมุดได้ ${pin} จาก ${tot} ร้าน · ตำแหน่งค้นจากแผนที่ออนไลน์ วันที่ 14 พ.ย. 2569 ร้านที่มีป้าย "มีหลายสาขา" หรือ "ควรเช็ก" ควรยืนยันกับร้านอีกครั้ง · ร้านลุงมีอยู่นอกเมืองราว 11 กม. จึงไม่ได้ใส่ในรูท · ดาวจุดจัดงานแสดงตอนเลือก "ร้านทั้งหมด" · ตำแหน่งจุดที่ 2 (KORAT City Recipe ถ.สุรนารี) เป็นค่าประมาณตามโปสเตอร์`;
+document.getElementById('sum').textContent=`ปักหมุดได้ ${pin} จาก ${tot} ร้าน · ตำแหน่งค้นจากแผนที่ออนไลน์ วันที่ 14 พ.ย. 2569 ร้านที่มีป้าย "มีหลายสาขา" หรือ "ควรเช็ก" ควรยืนยันกับร้านอีกครั้ง · ร้านลุงมีอยู่นอกเมืองราว 11 กม. จึงไม่ได้ใส่ในรูท · ดาวจุดจัดงานแสดงตอนเลือก "ร้านทั้งหมด" · ตำแหน่งจุดที่ 2 (Street Food ถ.สุรนารี) เป็นค่าประมาณตามโปสเตอร์`;
 rRender();
 vRender();
 render();

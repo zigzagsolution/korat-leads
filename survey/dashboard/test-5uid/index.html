@@ -167,6 +167,48 @@ code{font-size:12.5px}
 .qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
 .qc{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}
 .qc.wide{grid-column:1/-1}
+.tgrid.c3{grid-template-columns:repeat(3,1fr)}.tgrid.c4{grid-template-columns:repeat(4,1fr)}.tgrid.c6{grid-template-columns:repeat(3,1fr)}
+.tt .ti{position:relative}.tt .ti em{position:absolute;right:-4px;bottom:-4px;background:var(--lime);color:#003674;font-style:normal;font-size:11px;font-weight:700;border-radius:999px;padding:0 6px;line-height:18px}
+.agec{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;align-items:end;margin-top:6px}
+.agec .col{display:flex;flex-direction:column-reverse;align-items:center;gap:2px;min-height:120px;justify-content:flex-start}
+.agec .col svg{width:20px;height:26px}
+.agec .ax{text-align:center;font-size:12.5px;color:var(--muted);border-top:2px solid var(--line);padding-top:6px}
+.agec .cv{font-family:var(--display);font-weight:700;font-size:20px;text-align:center}
+.agec .cv.z{color:var(--muted);font-weight:500;font-size:15px}
+@media (max-width:760px){.tgrid.c3,.tgrid.c4,.tgrid.c6{grid-template-columns:repeat(2,1fr)}.agec .col svg{width:16px;height:21px}}
+
+/* respondent-type pictogram + origin map */
+.tgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.tt{border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.tt .ti{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff}
+.tt .ti svg{width:24px;height:24px}
+.tt .tl{font-size:13px;line-height:1.35;min-height:2.7em}
+.tt .tv{font-family:var(--display);font-weight:700;font-size:28px;line-height:1}
+.tt .tv small{font-size:13px;font-weight:500;color:var(--muted);margin-left:4px}
+.tt.z{opacity:.55}
+.ppl{display:flex;flex-wrap:wrap;gap:2px}
+.ppl svg{width:14px;height:18px}
+.leg{font-size:12px;color:var(--muted);margin-top:10px}
+.mapw{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+.mapw svg.th{width:100%;max-height:560px;display:block}
+.th .land{fill:var(--soft);stroke:var(--line);stroke-width:1.2}
+.th .flow{fill:none;stroke:var(--orange);stroke-width:1.6;stroke-dasharray:4 4;opacity:.8}
+.th .pin{fill:var(--orange);stroke:#fff;stroke-width:2}
+.th .home{fill:var(--navy);stroke:var(--lime);stroke-width:3}
+.th text{font-family:var(--body);font-size:12px;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+.th text.b{font-weight:700;font-size:13px}
+.orl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.orl li{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+.orl li .d{width:12px;height:12px;border-radius:50%;flex:none}
+.orl li .nm{flex:1;min-width:0}
+.orl li .nm small{display:block;color:var(--muted);font-size:12px}
+.orl li b{font-family:var(--display);font-size:18px}
+.abroad{margin-top:12px;border-radius:12px;background:var(--navy);color:#fff;padding:12px 14px}
+.abroad .h{font-size:12.5px;opacity:.85;margin-bottom:6px}
+.abroad .c{display:flex;flex-wrap:wrap;gap:6px}
+.abroad .c span{background:rgba(255,255,255,.14);border-radius:999px;padding:3px 10px;font-size:13px}
+@media (max-width:760px){.tgrid{grid-template-columns:repeat(2,1fr)}.mapw{grid-template-columns:1fr}.mapw svg.th{max-height:460px}}
+
 .qc .qn{font-size:12.5px;font-weight:600;color:var(--orange)}
 .qc h3{font-size:15.5px;font-weight:600;margin:2px 0 4px;line-height:1.4}
 .qc .meta{font-size:12.5px;color:var(--muted);margin-bottom:12px}
@@ -1164,7 +1206,100 @@ function bars(rows,base,color){ // rows [label,count]
   return `<div class="hb">${rows.map(([t,v])=>`<div class="t" title="${esc(t)}">${esc(t)}</div><div class="tr"><i style="width:${base?v/base*100:0}%;background:${color}"></i></div><div class="n ${v?'':'z'}">${v}</div>`).join('')}</div>`;}
 function others(list){return list.length?`<ul class="ol">${list.map(([t,u])=>`<li>${esc(t)}<small>UID ${mask(u)}</small></li>`).join('')}</ul>`:'';}
 const answered=id=>R.filter(r=>{const a=r[id];return a&&a.v!==undefined&&a.v!==''&&!(Array.isArray(a.v)&&!a.v.length)});
+
+// ---- 1.1 pictogram ----
+const TICON={
+ thai:'<path d="M4 8h3l2-2h6l2 2h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+ foreign:'<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c3 3.2 3 13.8 0 17M12 3.5c-3 3.2-3 13.8 0 17"/>',
+ biz:'<rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="M9 7.5V5.5h6v2M3.5 12.5h17"/>',
+ partner:'<path d="M4 20h16M6 20v-8M10 20v-8M14 20v-8M18 20v-8M3.5 10 12 4.5l8.5 5.5z"/>',
+ media:'<rect x="9" y="3.5" width="6" height="11" rx="3"/><path d="M6 11.5a6 6 0 0 0 12 0M12 17.5v3M9 20.5h6"/>'};
+const TCOL={thai:'#E95429',foreign:'#00A79D',biz:'#003674',partner:'#B98AF0',media:'#FF999A'};
+const PERSON=c=>`<svg viewBox="0 0 14 18"><circle cx="7" cy="4" r="3.2" fill="${c}"/><path d="M1.5 17.5v-4.2A4.3 4.3 0 0 1 5.8 9h2.4a4.3 4.3 0 0 1 4.3 4.3v4.2z" fill="${c}"/></svg>`;
+function typeCard(s){
+  const ans=answered(s.id), n=ans.length, unit=Math.max(1,Math.ceil(n/20));
+  let h=`<div class="qn">ข้อ 1.1</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน</div><div class="tgrid">`;
+  s.opts.forEach(op=>{const v=ans.filter(r=>r[s.id].v===op.v).length, c=TCOL[op.v]||'#003674', k=Math.round(v/unit);
+    h+=`<div class="tt ${v?'':'z'}"><div class="ti" style="background:${c}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${TICON[op.v]||''}</svg></div>
+    <div class="tl">${esc(tx(op.t))}</div><div class="tv">${v}<small>คน · ${n?Math.round(v/n*100):0}%</small></div>
+    <div class="ppl">${PERSON(c).repeat(k)||'<span class="meta" style="margin:0">ยังไม่มี</span>'}</div></div>`;});
+  return `<div class="qc wide">${h}</div><div class="leg">1 ไอคอนคน = ${unit} คน</div></div>`;
+}
+// ---- 1.2 origin map ----
+const PROV={'กรุงเทพมหานคร':[13.75,100.5],'นนทบุรี':[13.86,100.51],'ปทุมธานี':[14.02,100.53],'สมุทรปราการ':[13.6,100.6],'นครปฐม':[13.82,100.06],'สมุทรสาคร':[13.55,100.27],'สมุทรสงคราม':[13.41,100.0],
+'พระนครศรีอยุธยา':[14.35,100.57],'อ่างทอง':[14.59,100.45],'ลพบุรี':[14.8,100.65],'สิงห์บุรี':[14.89,100.4],'ชัยนาท':[15.19,100.13],'สระบุรี':[14.53,100.91],'นครนายก':[14.2,101.21],'ปราจีนบุรี':[14.05,101.37],'สระแก้ว':[13.82,102.07],
+'ฉะเชิงเทรา':[13.69,101.07],'ชลบุรี':[13.36,100.98],'ระยอง':[12.68,101.28],'จันทบุรี':[12.61,102.1],'ตราด':[12.24,102.52],
+'กาญจนบุรี':[14.02,99.53],'ราชบุรี':[13.54,99.81],'เพชรบุรี':[13.11,99.94],'ประจวบคีรีขันธ์':[11.81,99.8],'สุพรรณบุรี':[14.47,100.12],
+'นครสวรรค์':[15.7,100.12],'อุทัยธานี':[15.38,100.02],'กำแพงเพชร':[16.48,99.52],'ตาก':[16.88,99.13],'สุโขทัย':[17.01,99.82],'พิษณุโลก':[16.82,100.26],'พิจิตร':[16.44,100.35],'เพชรบูรณ์':[16.42,101.16],'อุตรดิตถ์':[17.62,100.1],
+'เชียงใหม่':[18.79,98.98],'เชียงราย':[19.91,99.83],'ลำพูน':[18.58,99.01],'ลำปาง':[18.29,99.49],'แพร่':[18.14,100.14],'น่าน':[18.78,100.78],'พะเยา':[19.17,99.9],'แม่ฮ่องสอน':[19.3,97.97],
+'นครราชสีมา':[14.97,102.1],'บุรีรัมย์':[14.99,103.1],'สุรินทร์':[14.88,103.49],'ศรีสะเกษ':[15.12,104.32],'อุบลราชธานี':[15.24,104.85],'ยโสธร':[15.79,104.15],'อำนาจเจริญ':[15.86,104.63],'ชัยภูมิ':[15.81,102.03],
+'ขอนแก่น':[16.43,102.83],'มหาสารคาม':[16.18,103.3],'ร้อยเอ็ด':[16.05,103.65],'กาฬสินธุ์':[16.43,103.51],'มุกดาหาร':[16.54,104.72],'นครพนม':[17.39,104.78],'สกลนคร':[17.16,104.15],'อุดรธานี':[17.41,102.79],'หนองบัวลำภู':[17.2,102.44],'เลย':[17.49,101.72],'หนองคาย':[17.88,102.74],'บึงกาฬ':[18.36,103.65],
+'ชุมพร':[10.49,99.18],'ระนอง':[9.96,98.64],'สุราษฎร์ธานี':[9.14,99.33],'พังงา':[8.45,98.53],'ภูเก็ต':[7.88,98.39],'กระบี่':[8.09,98.91],'นครศรีธรรมราช':[8.43,99.96],'ตรัง':[7.56,99.61],'พัทลุง':[7.62,100.08],'สงขลา':[7.19,100.6],'สตูล':[6.62,100.07],'ปัตตานี':[6.87,101.25],'ยะลา':[6.54,101.28],'นราธิวาส':[6.43,101.82]};
+const TH_OUT=[[20.45,99.88],[20.35,100.08],[20.2,100.5],[19.6,100.55],[19.5,101.2],[18.5,101.1],[17.9,101.2],[17.6,101.8],[18.0,102.6],[17.9,103.3],[18.35,103.95],[18.0,104.5],[17.4,104.8],[16.6,104.75],[15.9,105.4],[15.3,105.6],[14.4,105.2],[14.35,104.5],[14.4,103.0],[14.0,102.8],[13.6,102.5],[12.8,102.3],[12.2,102.7],[11.65,102.9],[12.0,102.55],[12.6,101.9],[12.65,100.95],[13.1,100.9],[13.5,100.95],[13.5,100.3],[13.2,100.0],[12.6,99.95],[11.8,99.8],[10.9,99.5],[10.2,99.2],[9.3,99.4],[8.6,100.0],[7.8,100.35],[7.2,100.6],[6.9,101.3],[6.5,101.8],[6.2,102.1],[5.8,101.8],[5.9,101.0],[6.4,100.8],[6.5,100.2],[6.6,100.1],[7.0,99.7],[7.6,99.3],[8.1,98.8],[8.0,98.35],[8.8,98.3],[9.6,98.5],[10.0,98.6],[10.8,99.0],[11.8,99.5],[12.6,99.3],[13.3,99.1],[14.0,98.6],[14.8,98.4],[15.3,98.3],[16.0,98.6],[16.6,98.6],[17.5,97.9],[18.2,97.6],[18.9,97.4],[19.6,97.8],[19.9,98.4],[20.1,99.0]];
+const PJ=([la,lo])=>[((lo-97.1)*38).toFixed(1),((20.8-la)*38).toFixed(1)];
+function mapCard(s){
+  const ans=answered(s.id), n=ans.length, cnt={}, ab={};
+  ans.forEach(r=>{const a=r[s.id];
+    if(a.v==='korat') cnt['นครราชสีมา']=(cnt['นครราชสีมา']||0)+1;
+    else if(a.v==='other_prov'){const p=(a.province||'ไม่ระบุจังหวัด').trim();cnt[p]=(cnt[p]||0)+1;}
+    else if(a.v==='abroad'){const c=(a.country||a.nationality||'ไม่ระบุ').trim();ab[c]=(ab[c]||0)+1;}});
+  const K=PJ(PROV['นครราชสีมา']), mx=Math.max(1,...Object.values(cnt));
+  let flows='',pins='',labs='',placed=[];
+  Object.entries(cnt).sort((a,b)=>a[1]-b[1]).forEach(([p,v])=>{const ll=PROV[p]; if(!ll) return; const [x,y]=PJ(ll), rr=(6+10*Math.sqrt(v/mx)).toFixed(1);
+    if(p!=='นครราชสีมา'){const mx2=((+x+ +K[0])/2-20).toFixed(1), my2=((+y+ +K[1])/2-24).toFixed(1); flows+=`<path class="flow" d="M${x} ${y} Q${mx2} ${my2} ${K[0]} ${K[1]}"/>`;
+      pins+=`<circle class="pin" cx="${x}" cy="${y}" r="${rr}"/>`;
+      const near=placed.filter(([a,b])=>Math.hypot(a-x,b-y)<26).length; placed.push([+x,+y]);
+      labs+=near?`<text text-anchor="end" x="${(+x- +rr-4).toFixed(1)}" y="${(+y+4+near*14).toFixed(1)}">${esc(p)} ${v}</text>`:`<text x="${(+x+ +rr+4).toFixed(1)}" y="${(+y+4).toFixed(1)}">${esc(p)} ${v}</text>`;}});
+  const kv=cnt['นครราชสีมา']||0;
+  pins+=`<circle class="home" cx="${K[0]}" cy="${K[1]}" r="11"/>`; labs+=`<text class="b" x="${+K[0]+16}" y="${+K[1]+5}">โคราช (ที่ตั้งงาน)${kv?' · คนในพื้นที่ '+kv:''}</text>`;
+  const abT=Object.values(ab).reduce((a,b)=>a+b,0);
+  const svg=`<svg class="th" viewBox="-6 -6 350 600" role="img" aria-label="แผนที่ประเทศไทยแสดงจังหวัดที่ผู้ตอบมา"><path class="land" d="M${TH_OUT.map(PJ).map(p=>p.join(' ')).join('L')}Z"/>${flows}${pins}${labs}
+   ${abT?`<path class="flow" d="M${K[0]} ${K[1]} Q300 420 330 560"/><text class="b" x="230" y="585">ต่างประเทศ ${abT} →</text>`:''}</svg>`;
+  const rows=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).map(([p,v])=>`<li><span class="d" style="background:${p==='นครราชสีมา'?'#003674':'#E95429'}"></span><span class="nm">${esc(p)}<small>${p==='นครราชสีมา'?'คนในพื้นที่':'มาจากจังหวัดอื่น'}${PROV[p]?'':' · ไม่พบพิกัด'}</small></span><b>${v}</b><span class="meta" style="margin:0">${Math.round(v/n*100)}%</span></li>`).join('');
+  const abBox=abT?`<div class="abroad"><div class="h">มาจากต่างประเทศ ${abT} คน</div><div class="c">${Object.entries(ab).map(([c,v])=>`<span>${esc(c)} · ${v}</span>`).join('')}</div></div>`:'';
+  const tv=Object.entries(cnt).filter(([p])=>p!=='นครราชสีมา').reduce((a,[,v])=>a+v,0);
+  return `<div class="qc wide"><div class="qn">ข้อ 1.2</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน · ในโคราช ${kv} · จังหวัดอื่น ${tv} · ต่างประเทศ ${abT}</div>
+   <div class="mapw"><div>${svg}</div><div><ul class="orl">${rows}</ul>${abBox}<div class="leg">วงกลมใหญ่ตามจำนวนคน · เส้นประคือเส้นทางมาโคราช</div></div></div></div>`;
+}
+// ICONCARDS
+
+// ---- part 1 icon tiles ----
+const DOTS='<circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/>';
+const CAP='<path d="M2.5 9.5 12 5l9.5 4.5L12 14z"/><path d="M6.5 11.5V16c3 2.5 8 2.5 11 0v-4.5M21.5 9.5v5"/>';
+const coins=k=>{let p='';for(let i=0;i<Math.max(1,k);i++){const y=19-i*2.6;p+=`<ellipse cx="12" cy="${y}" rx="6.5" ry="2"/>`;}return k?p:'<circle cx="12" cy="12" r="7"/><path d="M7 17 17 7"/>';};
+const ICONSET={
+ p1_3:{m:'<circle cx="10" cy="14" r="5.5"/><path d="M14 10l6-6M15 4h5v5"/>',f:'<circle cx="12" cy="9" r="5.5"/><path d="M12 14.5v7M8.5 18h7"/>',lgbt:'<path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/>',na:'<circle cx="12" cy="12" r="8.5"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.6v.6M12 17h.01"/>'},
+ p1_5:{single:'<circle cx="12" cy="7.5" r="3.5"/><path d="M5.5 20.5v-2a6.5 6.5 0 0 1 13 0v2"/>',married:'<circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/><path d="M10.5 5.5 12 3.5l1.5 2"/>',other:DOTS},
+ p1_6:{gov:'<path d="M4 20h16M6 20v-8M10 20v-8M14 20v-8M18 20v-8M3.5 10 12 4.5l8.5 5.5z"/>',private:'<rect x="5" y="3.5" width="14" height="17" rx="1.5"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M10.5 20.5v-4h3v4"/>',own:'<path d="M3.5 9.5 5 4.5h14l1.5 5M4 9.5h16v0a3 3 0 0 1-5.3 1.8A3 3 0 0 1 12 12.5a3 3 0 0 1-2.7-1.2A3 3 0 0 1 4 9.5zM5 12v8.5h14V12M10 20.5v-5h4v5"/>',student:'<path d="M4 5.5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4zM20 5.5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"/>',retired:'<circle cx="12" cy="13" r="4"/><path d="M3 20.5h18M12 4v2M5 7l1.4 1.4M19 7l-1.4 1.4M3 13h2M19 13h2"/>',other:DOTS},
+ p1_7:{below:CAP,ba:CAP,ma:CAP,phd:CAP,other:DOTS},
+ p1_8:{none:coins(0),'<10k':coins(1),'10-15k':coins(2),'15-30k':coins(3),'30-45k':coins(4),'>45k':coins(5)}};
+const BADGE={p1_7:{below:'',ba:'ตรี',ma:'โท',phd:'เอก'}};
+const TPAL=['#E95429','#00A79D','#003674','#B98AF0','#FF999A','#6b7fa8'];
+function iconCard(s){
+  const ans=answered(s.id), n=ans.length, unit=Math.max(1,Math.ceil(n/20)), ic=ICONSET[s.id], cls=s.opts.length>=6?'c6':s.opts.length===4?'c4':'c3';
+  let h=`<div class="qn">ข้อ ${s.part}.${s.no}</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน</div><div class="tgrid ${cls}">`, extra=[];
+  s.opts.forEach((op,i)=>{const rs=ans.filter(r=>r[s.id].v===op.v), v=rs.length, c=TPAL[i%TPAL.length], k=Math.round(v/unit), b=(BADGE[s.id]||{})[op.v];
+    rs.forEach(r=>{if(op.text&&r[s.id].text) extra.push([tx(op.t)+': '+r[s.id].text,r._uid]);});
+    h+=`<div class="tt ${v?'':'z'}"><div class="ti" style="background:${c}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ic[op.v]||DOTS}</svg>${b?`<em>${b}</em>`:''}</div>
+    <div class="tl">${esc(tx(op.t))}</div><div class="tv">${v}<small>คน · ${n?Math.round(v/n*100):0}%</small></div><div class="ppl">${PERSON(c).repeat(k)}</div></div>`;});
+  h+=`</div>${others(extra)}<div class="leg">1 ไอคอนคน = ${unit} คน</div>`;
+  return `<div class="qc wide">${h}</div>`;
+}
+function ageCard(s){
+  const ans=answered(s.id), vs=ans.map(r=>+r[s.id].v).filter(v=>!isNaN(v)), unit=Math.max(1,Math.ceil(vs.length/12));
+  const B=[['ต่ำกว่า 20',0,19],['20–29',20,29],['30–39',30,39],['40–49',40,49],['50–59',50,59],['60 ขึ้นไป',60,200]];
+  let h=`<div class="qn">ข้อ 1.4</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${vs.length} จาก ${N} คน</div>`;
+  h+=`<div class="stat3"><div><b>${vs.length?avg(vs).toFixed(1):'-'}</b><span>อายุเฉลี่ย (ปี)</span></div><div><b>${vs.length?Math.min(...vs):'-'}</b><span>อายุน้อยสุด</span></div><div><b>${vs.length?Math.max(...vs):'-'}</b><span>อายุมากสุด</span></div></div>`;
+  const cnt=B.map(([,lo,hi])=>vs.filter(v=>v>=lo&&v<=hi).length);
+  h+=`<div class="agec">${cnt.map((v,i)=>`<div class="cv ${v?'':'z'}">${v}</div>`).join('')}${cnt.map((v,i)=>`<div class="col">${PERSON(v?'#E95429':'var(--bar-bg)').repeat(Math.max(0,Math.round(v/unit)))}</div>`).join('')}${B.map(b=>`<div class="ax">${b[0]}</div>`).join('')}</div>`;
+  h+=`<div class="leg">1 ไอคอนคน = ${unit} คน</div>`;
+  return `<div class="qc wide">${h}</div>`;
+}
 function card(s){
+  if(s.id==='p1_4') return ageCard(s);
+  if(ICONSET[s.id]) return iconCard(s);
+  if(s.id==='p1_1') return typeCard(s);
+  if(s.id==='p1_2') return mapCard(s);
   const c=PC[s.part]; const ans=answered(s.id); const n=ans.length;
   let h=`<div class="qn">ข้อ ${s.part}.${s.no||'-'}</div><h3>${esc(tx(s.q))}</h3>`;
   const elig=s.show?R.filter(r=>s.show(r)).length:N;

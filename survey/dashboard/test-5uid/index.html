@@ -167,6 +167,54 @@ code{font-size:12.5px}
 .qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
 .qc{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}
 .qc.wide{grid-column:1/-1}
+/* part 6 city branding */
+.rc{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center}
+.gauge{width:150px;height:150px;position:relative}
+.gauge>svg{width:100%;height:100%;transform:rotate(-90deg)}
+.gauge .bg{fill:none;stroke:var(--bar-bg);stroke-width:12}
+.gauge .v{fill:none;stroke-width:12;stroke-linecap:round;stroke-dasharray:var(--len);stroke-dashoffset:var(--off)}
+.qc.in .gauge .v{animation:gaugeIn 1.3s cubic-bezier(.2,.8,.2,1) both}
+@keyframes gaugeIn{from{stroke-dashoffset:var(--len)}}
+.gauge .c{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.gauge .c b{font-family:var(--display);font-weight:800;font-size:38px;line-height:1;display:block}
+.gauge .c small{font-size:12px;color:var(--muted)}
+.gauge .ic6{position:absolute;top:-4px;right:-4px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.gauge .ic6 svg{width:20px;height:20px}
+.stars{position:relative;display:inline-block;font-size:22px;letter-spacing:2px;line-height:1;color:var(--bar-bg)}
+.stars .f{position:absolute;inset:0;overflow:hidden;white-space:nowrap;color:#FFB400;width:var(--w)}
+.qc.in .stars .f{animation:starIn 1.3s ease-out both}
+@keyframes starIn{from{width:0}}
+.t2b{display:inline-block;margin-left:10px;background:var(--lime);color:#003674;font-weight:700;font-size:12.5px;border-radius:999px;padding:2px 10px;vertical-align:middle}
+.faces{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.face{display:grid;grid-template-columns:28px 74px 1fr 26px;gap:8px;align-items:center;font-size:13px}
+.face svg.fc{width:26px;height:26px}
+.face .ppl svg{width:12px;height:16px}
+.face b{font-family:var(--display);text-align:right}
+.face.z{opacity:.35}
+.radarw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:center}
+.radar{width:100%;max-width:420px;margin:0 auto;display:block;overflow:visible}
+.radar .ring{fill:none;stroke:var(--line)}
+.radar .ax{stroke:var(--line)}
+.radar .poly{fill:rgba(233,84,41,.22);stroke:var(--orange);stroke-width:2.5;stroke-linejoin:round;transform-origin:210px 200px}
+.qc.in .radar .poly{animation:radarIn 1.2s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes radarIn{from{transform:scale(0);opacity:0}}
+.radar .dot{fill:#fff;stroke-width:3}
+.radar text{font-family:var(--body);font-size:13px;fill:var(--ink)}
+.radar text.n{font-family:var(--display);font-weight:800;font-size:20px}
+.radar text.s{font-size:10.5px;fill:var(--muted)}
+.rank{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.rank li{display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.rank li .r{font-family:var(--display);font-weight:800;font-size:22px;color:var(--muted)}
+.rank li:first-child{border-color:var(--orange);box-shadow:0 0 0 3px rgba(233,84,41,.12)}
+.rank li:first-child .r{color:var(--orange)}
+.rank li .hs{font-weight:700}
+.rank li .hs small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.rank li .sc{font-family:var(--display);font-weight:800;font-size:24px}
+.rank li .sc small{font-size:12px;color:var(--muted);font-weight:500}
+.tagb{display:inline-block;font-size:11.5px;font-weight:700;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:middle;color:#fff}
+@media (prefers-reduced-motion:reduce){.qc.in .gauge .v,.qc.in .stars .f,.qc.in .radar .poly{animation:none}}
+@media (max-width:760px){.rc{grid-template-columns:1fr;justify-items:center}.radarw{grid-template-columns:1fr}.face{grid-template-columns:28px 70px 1fr 24px}}
+
 .tgrid.c5{grid-template-columns:repeat(5,1fr)}
 .tt .ti.brand svg{width:24px;height:24px}
 .grp2{font-size:13px;font-weight:700;color:var(--navy);margin:14px 0 8px;display:flex;align-items:center;gap:8px}
@@ -1476,7 +1524,44 @@ function multiIconCard(s){
   h+=others(extra)+`<div class="leg">${s.groups.some(([,ops])=>ops.some(op=>BRAND[op.v]))?'โลโก้แพลตฟอร์มจาก Simple Icons (CC0) · ':''}ไอคอนคน = จำนวนผู้เลือก</div>`;
   return `<div class="qc wide">${h}</div>`;
 }
+// PART6
+
+// ---- part 6: city branding ----
+const AX6={p6_livable:['#น่าอยู่','#00A79D',IC.house],p6_tour:['#น่าเที่ยว','#E95429',IC.palm],p6_invest:['#น่าลงทุน','#003674',IC.chart],p6_identity:['อัตลักษณ์','#B98AF0',IC.lotus]};
+const FACEC=['#d64545','#f08a3c','#f2c230','#7cc65b','#1f9a5f'];
+const FACE=(k,c)=>{const m={1:'M8 16.5q4-3 8 0',2:'M8.5 16q3.5-1.6 7 0',3:'M8.5 15.5h7',4:'M8.5 14.5q3.5 2 7 0',5:'M7.5 14q4.5 4.5 9 0'}[k];
+ return `<svg class="fc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5" fill="${c}"/><circle cx="8.6" cy="9.6" r="1.3" fill="#fff"/><circle cx="15.4" cy="9.6" r="1.3" fill="#fff"/><path d="${m}" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>`;};
+const rAvg=id=>{const v=answered(id).map(r=>+r[id].v);return v.length?avg(v):0;};
+function rateCard6(s){
+  const ans=answered(s.id), n=ans.length, vs=ans.map(r=>+r[s.id].v), a=n?avg(vs):0, t2=vs.filter(v=>v>=4).length, [tag,col,ic]=AX6[s.id];
+  const R=60,L=2*Math.PI*R, off=L*(1-a/5);
+  let h=`<div class="qn">ข้อ 6.${s.no}</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน</div><div class="rc">
+  <div class="gauge"><svg viewBox="0 0 150 150"><circle class="bg" cx="75" cy="75" r="${R}"/><circle class="v" cx="75" cy="75" r="${R}" style="stroke:${col};--len:${L.toFixed(1)};--off:${off.toFixed(1)}"/></svg>
+   <div class="c"><div><b>${cu(a.toFixed(2),2)}</b><small>คะแนนเฉลี่ย / 5</small></div></div><div class="ic6" style="background:${col}">${SV(ic)}</div></div><div>
+  <div><span class="stars">★★★★★<span class="f" style="--w:${(a/5*100).toFixed(1)}%">★★★★★</span></span><span class="t2b">${n?Math.round(t2/n*100):0}% ให้ 4–5</span></div><div class="faces">`;
+  [5,4,3,2,1].forEach((k,i)=>{const c=vs.filter(v=>v===k).length;
+    h+=`<div class="face ${c?'':'z'}">${FACE(k,FACEC[k-1])}<span>${k} ${esc(tx(RL5[k-1]))}</span><span class="ppl">${PERSON(FACEC[k-1]).repeat(Math.min(c,20))}</span><b>${c}</b></div>`;});
+  return `<div class="qc">${h}</div></div></div></div>`;
+}
+function brandSummary(){
+  const ids=Object.keys(AX6), vals=ids.map(rAvg), cx=210, cy=200, Rm=140;
+  const pt=(i,v)=>{const ang=-Math.PI/2+i*2*Math.PI/ids.length, r=Rm*v/5;return [cx+r*Math.cos(ang),cy+r*Math.sin(ang)];};
+  let g='';[1,2,3,4,5].forEach(k=>{g+=`<polygon class="ring" points="${ids.map((_,i)=>pt(i,k).map(x=>x.toFixed(1)).join(',')).join(' ')}"/>`;});
+  ids.forEach((_,i)=>{const [x,y]=pt(i,5);g+=`<line class="ax" x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`;});
+  g+=`<polygon class="poly" points="${vals.map((v,i)=>pt(i,v).map(x=>x.toFixed(1)).join(',')).join(' ')}"/>`;
+  ids.forEach((id,i)=>{const [x,y]=pt(i,vals[i]);g+=`<circle class="dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6" style="stroke:${AX6[id][1]}"/>`;
+    const [lx,ly]=pt(i,6.1), anc=Math.abs(lx-cx)<5?'middle':(lx>cx?'start':'end');
+    g+=`<text text-anchor="${anc}" x="${lx.toFixed(1)}" y="${(ly-6).toFixed(1)}" style="fill:${AX6[id][1]};font-weight:700">${AX6[id][0]}</text><text class="n" text-anchor="${anc}" x="${lx.toFixed(1)}" y="${(ly+16).toFixed(1)}">${vals[i].toFixed(2)}</text>`;});
+  [1,3,5].forEach(k=>{g+=`<text class="s" x="${cx+4}" y="${(cy-Rm*k/5+12).toFixed(1)}">${k}</text>`;});
+  const order=ids.map((id,i)=>[id,vals[i]]).sort((a,b)=>b[1]-a[1]);
+  const rows=order.map(([id,v],i)=>{const t2=answered(id).filter(r=>+r[id].v>=4).length, n=answered(id).length, s=S.find(x=>x.id===id);
+    return `<li><span class="r">${i+1}</span><span class="hs">${esc(tx(s.q).replace('โคราชเป็นเมืองที่ ','').replace('โคราชมี',''))}<span class="tagb" style="background:${AX6[id][1]}">${AX6[id][0]}</span><small>${i===0?'จุดแข็งที่สุดของภาพลักษณ์ · ':''}${n?Math.round(t2/n*100):0}% ให้ 4–5 คะแนน</small></span><span class="sc">${v.toFixed(2)}<small>/5</small></span></li>`;}).join('');
+  const all=avg(vals);
+  return `<div class="qc wide"><div class="qn">ส่วนที่ 6 ภาพรวม</div><h3>ภาพลักษณ์โคราช 4 ด้าน</h3><div class="meta">ค่าเฉลี่ยรวม ${all.toFixed(2)} / 5 · ยิ่งพื้นที่สีส้มกว้าง ภาพลักษณ์ยิ่งแข็งแรง</div>
+   <div class="radarw"><svg class="radar" viewBox="0 0 420 400" role="img" aria-label="กราฟเรดาร์ภาพลักษณ์ 4 ด้าน">${g}</svg><ul class="rank">${rows}</ul></div></div>`;
+}
 function card(s){
+  if(s.part===6&&s.type==='rate') return (s.id==='p6_livable'?brandSummary():'')+rateCard6(s);
   if(s.id==='p3_1'||s.id==='p3_3') return multiIconCard(s);
   if(s.id==='p2_3') return daysCard(s);
   if(s.id==='p2_4') return nightsCard(s);

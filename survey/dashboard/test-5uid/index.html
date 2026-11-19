@@ -167,6 +167,46 @@ code{font-size:12.5px}
 .qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
 .qc{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}
 .qc.wide{grid-column:1/-1}
+/* part 7 satisfaction */
+.satw{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:24px;align-items:center}
+.speedo{width:100%;max-width:360px;display:block;margin:0 auto;overflow:visible}
+.speedo .nd{transform-origin:180px 180px;transform:rotate(var(--rot));transition:none}
+.qc.in .speedo .nd{animation:needle 1.6s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes needle{from{transform:rotate(-90deg)}}
+.speedo text{font-family:var(--body);font-size:12px;fill:var(--muted)}
+.speedo .big{font-family:var(--display);font-weight:800;font-size:54px;fill:var(--ink)}
+.lvl{display:inline-block;border-radius:999px;padding:3px 12px;font-weight:700;font-size:13px;color:#fff}
+.lead{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.lead li{display:grid;grid-template-columns:30px 34px minmax(0,1fr) 120px 52px;gap:10px;align-items:center;padding:6px 10px;border-radius:12px}
+.lead li:nth-child(odd){background:var(--soft)}
+.lead .md{font-size:20px;text-align:center;font-family:var(--display);font-weight:800;color:var(--muted)}
+.lead .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff}
+.lead .ic svg{width:18px;height:18px}
+.lead .nm{font-size:13.5px;line-height:1.3}
+.lead .nm small{display:block;color:var(--muted);font-size:11.5px}
+.lead .lp{position:relative;height:20px}
+.lead .lp:before{content:"";position:absolute;left:0;right:0;top:9px;height:2px;background:var(--line)}
+.lead .lp i{position:absolute;top:9px;left:0;height:2px;width:var(--w)}
+.lead .lp b{position:absolute;top:3px;left:calc(var(--w) - 7px);width:14px;height:14px;border-radius:50%;border:3px solid var(--surface);box-shadow:0 0 0 2px currentColor;background:currentColor}
+.qc.in .lead .lp i{animation:lpw 1.1s ease-out both;animation-delay:var(--d)}
+.qc.in .lead .lp b{animation:lpb 1.1s ease-out both;animation-delay:var(--d)}
+@keyframes lpw{from{width:0}}@keyframes lpb{from{left:-7px}}
+.lead .sc{font-family:var(--display);font-weight:800;font-size:19px;text-align:right}
+.flag{white-space:nowrap;display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+.flag.top{background:var(--lime);color:#003674}.flag.low{background:#ffe1d6;color:#b33a12}
+.s7{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;margin-bottom:10px}
+.s7 .ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;color:#fff}
+.s7 .ic svg{width:28px;height:28px}
+.s7 .v{font-family:var(--display);font-weight:800;font-size:40px;line-height:1}
+.s7 .v small{font-size:14px;color:var(--muted);font-weight:500}
+.fw{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 8px}
+.fw svg{width:30px;height:30px}
+.qc.in .fw svg{animation:pop .4s cubic-bezier(.3,1.6,.6,1) both;animation-delay:var(--d)}
+.sat2{display:flex;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+.sat2 b{color:var(--ink);font-family:var(--display)}
+@media (prefers-reduced-motion:reduce){.qc.in .speedo .nd,.qc.in .lead .lp i,.qc.in .lead .lp b{animation:none}}
+@media (max-width:760px){.satw{grid-template-columns:1fr}.lead li{grid-template-columns:24px 30px minmax(0,1fr) 44px;}.lead .lp{grid-column:3/5;grid-row:2}}
+
 /* part 6 city branding */
 .rc{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center}
 .gauge{width:150px;height:150px;position:relative}
@@ -1560,7 +1600,42 @@ function brandSummary(){
   return `<div class="qc wide"><div class="qn">ส่วนที่ 6 ภาพรวม</div><h3>ภาพลักษณ์โคราช 4 ด้าน</h3><div class="meta">ค่าเฉลี่ยรวม ${all.toFixed(2)} / 5 · ยิ่งพื้นที่สีส้มกว้าง ภาพลักษณ์ยิ่งแข็งแรง</div>
    <div class="radarw"><svg class="radar" viewBox="0 0 420 400" role="img" aria-label="กราฟเรดาร์ภาพลักษณ์ 4 ด้าน">${g}</svg><ul class="rank">${rows}</ul></div></div>`;
 }
+// PART7
+
+// ---- part 7: satisfaction ----
+IC.mega='<path d="M3.5 10v4h3l7 4.5V5.5l-7 4.5zM17 9a4 4 0 0 1 0 6M19.5 6.5a7.5 7.5 0 0 1 0 11"/>';
+IC.pin='<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/>';
+IC.clock='<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>';
+IC.web='<rect x="3" y="4.5" width="18" height="13" rx="2"/><path d="M3 8.5h18M8 21h8M12 17.5V21M7.5 12.5l2 2 4-4"/>';
+const A7={pr:[IC.mega,'#E95429'],venue:[IC.pin,'#00A79D'],time:[IC.clock,'#003674'],act:[IC.trophy,'#B98AF0'],perf:[IC.music,'#FF999A'],points:[IC.gift,'#e0a100'],web:[IC.web,'#6b7fa8'],overall:[IC.star,'#1f9a5f']};
+const LV=a=>a>=4.21?['มากที่สุด','#1f9a5f']:a>=3.41?['มาก','#7cc65b']:a>=2.61?['ปานกลาง','#e0a100']:a>=1.81?['น้อย','#f08a3c']:['น้อยที่สุด','#d64545'];
+const short=s=>tx(s.q).replace(/\s*\(.*\)/,'');
+function satSummary(){
+  const ov=rAvg('p7_overall'), [lt,lc]=LV(ov), asp=S.filter(s=>s.part===7&&s.id!=='p7_overall').map(s=>[s,rAvg(s.id)]).sort((a,b)=>b[1]-a[1]);
+  // speedometer 1..5 over 180deg
+  const cx=180,cy=180,R=140, ang=v=>Math.PI*(1-(v-1)/4), P=(v,r)=>[cx+r*Math.cos(ang(v)),cy-r*Math.sin(ang(v))];
+  const zones=[[1,1.8,'#d64545'],[1.81,2.6,'#f08a3c'],[2.61,3.4,'#f2c230'],[3.41,4.2,'#7cc65b'],[4.21,5,'#1f9a5f']];
+  let g=zones.map(([a,b,c])=>{const [x1,y1]=P(a,R),[x2,y2]=P(b,R);return `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} A${R} ${R} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="${c}" stroke-width="26"/>`;}).join('');
+  [1,2,3,4,5].forEach(k=>{const [x,y]=P(k,R+26);g+=`<text text-anchor="middle" x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}">${k}</text>`;});
+  const rot=(ov-1)/4*180-90;
+  g+=`<g class="nd" style="--rot:${rot.toFixed(1)}deg"><path d="M${cx-7} ${cy} L${cx} ${cy-R+18} L${cx+7} ${cy}z" fill="var(--ink)"/></g><circle cx="${cx}" cy="${cy}" r="14" fill="var(--ink)"/><circle cx="${cx}" cy="${cy}" r="5" fill="var(--lime)"/>`;
+  g+=`<text class="big" text-anchor="middle" x="${cx}" y="${cy+66}">${ov.toFixed(2)}</text>`;
+  const rows=asp.map(([s,a],i)=>{const [ic,c]=A7[s.id.slice(3)], [l,lc2]=LV(a);
+    return `<li><span class="md">${['🥇','🥈','🥉'][i]||i+1}</span><span class="ic" style="background:${c}">${SV(ic)}</span><span class="nm">${esc(short(s))}${a===asp[0][1]?'<span class="flag top">ดีที่สุด</span>':''}${a===asp[asp.length-1][1]&&a<asp[0][1]?'<span class="flag low">ควรพัฒนา</span>':''}<small>ระดับ${l} · ${a>=ov?'+':''}${(a-ov).toFixed(2)} จากภาพรวม</small></span><span class="lp" style="color:${lc2};--w:${((a-1)/4*100).toFixed(1)}%;--d:${(i*.12).toFixed(2)}s"><i style="background:${lc2}"></i><b></b></span><span class="sc">${a.toFixed(2)}</span></li>`;}).join('');
+  return `<div class="qc wide"><div class="qn">ส่วนที่ 7 ภาพรวม</div><h3>ความพึงพอใจต่อการจัดงาน</h3><div class="meta">เกณฑ์แปลผล: 4.21–5.00 มากที่สุด · 3.41–4.20 มาก · 2.61–3.40 ปานกลาง · 1.81–2.60 น้อย · 1.00–1.80 น้อยที่สุด</div>
+  <div class="satw"><div style="text-align:center"><svg class="speedo" viewBox="0 0 360 260" role="img" aria-label="มาตรวัดความพึงพอใจภาพรวม">${g}</svg><div style="margin-top:-6px">ภาพรวมของงาน <span class="lvl" style="background:${lc}">พึงพอใจ${lt}</span></div></div>
+  <ul class="lead">${rows}</ul></div></div>`;
+}
+function rateCard7(s){
+  const ans=answered(s.id), n=ans.length, vs=ans.map(r=>+r[s.id].v).sort((a,b)=>b-a), a=n?avg(vs):0, [ic,c]=A7[s.id.slice(3)], [l,lc]=LV(a), t2=vs.filter(v=>v>=4).length;
+  let h=`<div class="qn">ข้อ 7.${s.no}</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน</div>`;
+  h+=`<div class="s7"><span class="ic" style="background:${c}">${SV(ic)}</span><div><div class="v">${cu(a.toFixed(2),2)}<small> / 5</small></div><span class="lvl" style="background:${lc};margin-top:6px">พึงพอใจ${l}</span></div></div>`;
+  h+=`<div class="fw">${vs.map((v,i)=>FACE(v,FACEC[v-1]).replace('<svg ',`<svg style="--d:${(i*.08).toFixed(2)}s" `)).join('')}</div>`;
+  h+=`<div class="sat2"><span>พอใจ (4–5) <b>${t2}</b> คน · ${n?Math.round(t2/n*100):0}%</span><span>เฉยๆ (3) <b>${vs.filter(v=>v===3).length}</b></span><span>ไม่พอใจ (1–2) <b>${vs.filter(v=>v<=2).length}</b></span></div><div class="leg">หน้า 1 หน้า = ผู้ตอบ 1 คน เรียงจากพอใจมากไปน้อย</div>`;
+  return `<div class="qc">${h}</div>`;
+}
 function card(s){
+  if(s.part===7&&s.type==='rate') return (s.id==='p7_pr'?satSummary():'')+rateCard7(s);
   if(s.part===6&&s.type==='rate') return (s.id==='p6_livable'?brandSummary():'')+rateCard6(s);
   if(s.id==='p3_1'||s.id==='p3_3') return multiIconCard(s);
   if(s.id==='p2_3') return daysCard(s);

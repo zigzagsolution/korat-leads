@@ -255,6 +255,10 @@ const S=[
 
 let L='th', A={}, i=0, err='';
 try{const s=JSON.parse(localStorage.getItem('kce-survey-v2')||'null'); if(s){A=s.A||{};i=s.i||0;L=s.L||'th';}}catch(e){}
+let UID='';try{UID=new URLSearchParams(location.search).get('uid')||'';}catch(e){}
+if(UID&&!/^U[0-9a-f]{32}$/.test(UID))UID='';
+if(UID&&A._uid&&A._uid!==UID){A={};i=0;}
+if(UID)A._uid=UID;
 const save=()=>{try{localStorage.setItem('kce-survey-v2',JSON.stringify({A,i,L}))}catch(e){}};
 const tx=x=>x?x[L]:'';
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -362,7 +366,7 @@ function render(){
   $('stage').innerHTML=h;
   $('stage').querySelectorAll('[data-cons]').forEach(b=>b.onclick=()=>{A.consent=A.consent||{};const k=b.dataset.cons;A.consent[k]=!A.consent[k];err='';render();});
   $('stage').querySelectorAll('section[data-q]').forEach(el=>bindQ(S.find(x=>x.id===el.dataset.q),el));
-  const ag=$('again'); if(ag) ag.onclick=()=>{A={};i=0;render();window.scrollTo(0,0);};
+  const ag=$('again'); if(ag) ag.onclick=()=>{A=UID?{_uid:UID}:{};i=0;render();window.scrollTo(0,0);};
   save();
 }
 function rerender(){const y=window.scrollY;S.forEach(x=>{if(x.show&&!x.show(A))delete A[x.id];});render();window.scrollTo(0,y);}
@@ -393,7 +397,7 @@ function bindQ(s,st){
 }
 function go(){
   if(PAGES[i]===0&&!(A.consent&&A.consent.agree)){err=tx(UI.needc);render();return;}
-  if(i<PAGES.length-1){i++;render();window.scrollTo(0,0);}
+  if(i<PAGES.length-1){i++;if(PAGES[i]===9)A._submitted=new Date().toISOString();render();window.scrollTo(0,0);}
 }
 $('next').onclick=go;
 $('back').onclick=()=>{if(i>0){i--;render();window.scrollTo(0,0);}};

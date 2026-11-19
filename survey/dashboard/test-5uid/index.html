@@ -167,6 +167,81 @@ code{font-size:12.5px}
 .qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
 .qc{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}
 .qc.wide{grid-column:1/-1}
+.vact{margin-top:14px;display:grid;gap:6px}.va{display:grid;grid-template-columns:minmax(110px,34%) 1fr 74px 70px;gap:10px;align-items:center;font-size:13px}
+.va .t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.va .b{height:10px;background:var(--bar-bg);border-radius:5px;overflow:hidden}.va .b i{display:block;height:100%;background:#E95429;border-radius:5px}
+.va .c{color:var(--muted);font-size:12px;text-align:right}.va b{font-family:var(--display);text-align:right;font-size:16px}.va.z{opacity:.45}
+.va.tot{border-top:2px solid var(--line);padding-top:8px;margin-top:2px}.va.tot b{font-size:22px;color:#E95429}.va.tot .t{font-weight:600}
+@media (max-width:760px){.va{grid-template-columns:1fr 64px 60px}.va .b{display:none}}
+.cbw{display:grid;grid-template-columns:1fr 1fr;gap:6px 28px}
+.cbg{display:flex;flex-direction:column;gap:7px}
+.cb{display:grid;grid-template-columns:30px minmax(110px,40%) 1fr 74px;gap:10px;align-items:center;font-size:13.5px}
+.cb .ci{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff}.cb .ci svg{width:17px;height:17px}
+.cb .cl{min-width:0;line-height:1.25}
+.cb .ct{height:14px;background:var(--bar-bg);border-radius:7px;overflow:hidden}.cb .ct i{display:block;height:100%;border-radius:7px;transform-origin:left}
+.cb .cn{text-align:right;white-space:nowrap}.cb .cn b{font-family:var(--display);font-size:17px}.cb .cn small{color:var(--muted);font-size:12px;margin-left:4px}
+.cb.top .cl{font-weight:600}.cb.z{opacity:.45}
+.qc.in .cb .ct i,.qc.in .ml .mb i,.qc.in .nr2 .ct i,.qc.in .tr2 i{animation:grow .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.inv{display:grid;gap:16px}
+.ivh{position:relative;overflow:hidden;background:linear-gradient(135deg,#003674,#0a4f9e);color:#fff;border-radius:16px;padding:18px 20px 16px}
+.ivk{font-size:13px;opacity:.85}.ivb{font-family:var(--display);font-weight:700;font-size:46px;line-height:1.1;color:#D3FF34;position:relative;z-index:1}
+.ivs{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13.5px;position:relative;z-index:1}.ivs b{font-family:var(--display)}
+.ivl{position:absolute;right:0;bottom:0;width:55%;height:70%;opacity:.9}
+.ivr{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ivp{display:grid;gap:6px}.ivp div{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;background:var(--soft);border-radius:12px;padding:7px 12px;font-size:13.5px}
+.ivp i{width:34px;height:34px;border-radius:10px;background:#003674;color:#D3FF34;display:grid;place-items:center}.ivp i svg{width:19px;height:19px}
+.ivp b{font-family:var(--display);font-size:19px}.ivp .z{opacity:.45}
+.ivt{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;height:190px;align-items:end}
+.ivt div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;text-align:center}
+.ivt i{width:70%;background:linear-gradient(180deg,#00A79D,#003674);border-radius:8px 8px 2px 2px;min-height:4px;transform-origin:bottom}
+.qc.in .ivt i,.qc.in .hist i{animation:rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+@keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.ivt b{font-family:var(--display);font-size:14px}.ivt span{font-size:12px;color:var(--muted);line-height:1.2}.ivt small{font-size:11.5px;color:var(--muted)}
+.fun{display:flex;flex-direction:column;align-items:center;gap:6px}
+.fs{width:100%;display:flex;flex-direction:column;align-items:center}
+.fb{box-sizing:border-box;width:var(--w);background:var(--c);color:#fff;border-radius:12px;padding:10px 12px;display:flex;justify-content:center;align-items:baseline;gap:8px;transform-origin:center}
+.qc.in .fb{animation:fw .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}@keyframes fw{from{transform:scaleX(.2);opacity:0}to{transform:none;opacity:1}}
+.fb b{font-family:var(--display);font-size:24px}.fb span{font-size:13px;opacity:.85}.ft{font-size:12.5px;color:var(--muted);margin-top:2px}
+.tx{display:grid;gap:8px}
+.tr2{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center}
+.tr2 .rk{width:28px;height:28px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:13px;color:var(--muted)}
+.tr2.t1 .rk{background:#E95429;color:#fff}.tr2.t2 .rk{background:#00A79D;color:#fff}.tr2.t3 .rk{background:#B98AF0;color:#fff}
+.tr2 .tt2{font-size:13.5px;line-height:1.3;display:flex;flex-direction:column;gap:5px;min-width:0}
+.tr2 .tt2 i{display:block;height:6px;border-radius:3px;background:var(--bar-bg);transform-origin:left}
+.tr2.t1 .tt2 i{background:#E95429}.tr2.t2 .tt2 i{background:#00A79D}.tr2.t3 .tt2 i{background:#B98AF0}.tr2:not(.t1):not(.t2):not(.t3) .tt2 i{background:#9aa6c2}
+.tr2.t1 .tt2{font-weight:600}
+.tr2>b{font-family:var(--display);font-size:18px;white-space:nowrap}.tr2>b small{font-size:12px;color:var(--muted);font-weight:500;margin-left:3px}
+.ng{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.nk{display:flex;gap:12px;align-items:center;background:var(--soft);border-radius:14px;padding:12px 14px}
+.nk>span{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;flex:none}.nk>span svg{width:22px;height:22px}
+.nk b{font-family:var(--display);font-size:30px;line-height:1;display:block}.nk b small{font-size:13px;margin-left:4px;color:var(--muted);font-weight:500}
+.nk em{font-style:normal;font-size:12.5px;color:var(--muted)}
+.nsplit{display:flex;height:12px;border-radius:6px;overflow:hidden;margin-top:12px;gap:2px}
+.nr2{display:grid;grid-template-columns:78px 130px 1fr 80px;gap:10px;align-items:center;padding:6px 0;font-size:13.5px}
+.nr2 .mo{display:flex;gap:3px;color:#B98AF0}.nr2 .mo svg{width:20px;height:20px}
+.nr2 .ct{height:12px;background:var(--bar-bg);border-radius:6px;overflow:hidden}.nr2 .ct i{display:block;height:100%;background:#B98AF0;border-radius:6px;transform-origin:left}
+.nr2>b{font-family:var(--display);font-size:18px;text-align:right}.nr2>b small{font-size:12px;color:var(--muted);font-weight:500;margin-left:3px}
+.cmp{display:grid;grid-template-columns:minmax(160px,240px) 1fr;gap:14px;align-items:stretch}
+.cmh{background:linear-gradient(135deg,#00A79D,#007f77);color:#fff;border-radius:16px;padding:16px;display:flex;flex-direction:column;justify-content:center}
+.cmh b{font-family:var(--display);font-size:52px;line-height:1}.cmh>span{font-size:14px}.cmh em{font-style:normal;font-size:12px;opacity:.85;margin-top:6px}
+.cmk{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cmk div{border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.cmk span{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff}.cmk span svg{width:22px;height:22px}
+.cmk b{font-family:var(--display);font-size:28px;line-height:1.05}.cmk em{font-style:normal;font-size:13px}.cmk small{color:var(--muted);font-size:12px}
+.hist{display:grid;grid-template-columns:repeat(9,1fr);gap:8px;height:170px;align-items:end}
+.hist div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px}
+.hist i{width:72%;border-radius:8px 8px 2px 2px;transform-origin:bottom}.hist b{font-family:var(--display);font-size:14px}.hist span{font-size:12px;color:var(--muted);border-top:2px solid var(--line);width:100%;text-align:center;padding-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.chips span{background:var(--soft);border-radius:999px;padding:5px 12px;font-size:13px}.chips b{font-family:var(--display);margin-left:4px}
+.mlad{display:grid;gap:7px}
+.ml{display:grid;grid-template-columns:96px 1fr 74px;gap:10px;align-items:center;font-size:13px}
+.ml .r{color:var(--muted)}.ml .mb{position:relative;height:16px;background:var(--bar-bg);border-radius:8px}
+.ml .mb i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#48c088,#1f9a5f);border-radius:8px;transform-origin:left}
+.ml .mb em{position:absolute;right:-6px;top:50%;transform:translateY(-50%);font-style:normal;width:22px;height:22px;border-radius:50%;background:#1f9a5f;color:#fff;display:grid;place-items:center;font-weight:700;font-size:12px;box-shadow:0 0 0 3px var(--surface)}
+.ml.b .r{color:var(--ink);font-weight:600}.ml .v{text-align:right;font-family:var(--display);font-weight:700;font-size:16px}.ml .v small{font-size:11.5px;color:var(--muted);font-weight:500;margin-left:4px}
+.ml.z{opacity:.4}
+.agec .col{position:relative}.agec .col .cv{order:99;margin-bottom:2px}
+@media (max-width:760px){.cbw,.ivr,.cmp{grid-template-columns:1fr}.cb{grid-template-columns:28px minmax(84px,36%) 1fr 64px;gap:8px}.ng{grid-template-columns:1fr}.cmk{grid-template-columns:repeat(3,1fr)}.cmk b{font-size:22px}.hist{gap:4px}.hist span{font-size:10.5px}.nr2{grid-template-columns:62px 84px 1fr 62px;gap:6px}.nr2 .mo svg{width:15px;height:15px}.ivb{font-size:34px}.ivt{height:160px}}
+
 /* part 7 satisfaction */
 .satw{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:24px;align-items:center}
 .speedo{width:100%;max-width:360px;display:block;margin:0 auto;overflow:visible}
@@ -410,7 +485,7 @@ code{font-size:12.5px}
 </section>
   <nav class="toc" id="toc"></nav>
   <h2><span class="dot" style="background:var(--teal)"></span>รายชื่อผู้ตอบ</h2>
-  <p class="lead">ยืนยันตัวตนด้วย LINE UID · จำนวนวันที่มา (ข้อ 2.3) และกิจกรรมที่เข้าร่วม (ข้อ 3.3)</p>
+  <p class="lead">ยืนยันตัวตนด้วย LINE UID (1 UID = 1 แบบสอบถาม ตอบซ้ำเก็บครั้งล่าสุด) · จำนวนวันที่มา (ข้อ 2.3) · จำนวนคนในกลุ่ม รวมผู้ตอบ (ข้อ 2.7) · งานที่เข้าร่วม (ข้อ 4.1)</p>
   <div class="card"><div class="tw"><table id="chk"></table></div></div>
   <div id="parts"></div>
 </div></main>
@@ -969,7 +1044,7 @@ const R=[
    "v": [
     "kbatx",
     "kbattle",
-    "forum",
+    "workshop",
     "market"
    ]
   },
@@ -1299,7 +1374,7 @@ const S=[
  // Part 4
  {id:'p4_1',part:4,no:'1',type:'multi',q:T('งานเทศกาลที่ท่านเข้าร่วม','Which festival programs/zones did you attend?'),groups:[[null,[
   o('kbattle','K-Battle International Street Culture Festival','K-Battle International Street Culture Festival'),o('kbatx','KBATx (K-Battle International Expo)','KBATx (K-Battle International Expo)'),
-  o('sounder','SOUNDER','SOUNDER'),o('forum','เวทีประชาชน/เวิร์กช็อป “10 คุณค่าของโคราช”','Public Forum / Workshop “10 Values of Korat”'),
+  o('sounder','SOUNDER','SOUNDER'),o('workshop','เวิร์กช็อป','Workshop'),
   o('perf','การแสดง/ดนตรี','Performances / Live Music'),o('market','ตลาด/สินค้าท้องถิ่น','Local Market / Products'),o('exhibit','นิทรรศการเมือง','City Exhibition'),OTHER()]]]},
  {id:'p4_2',part:4,no:'2',type:'multi',q:T('จุดประสงค์หลักที่เข้าร่วมงาน','What were your main objectives for attending the event?'),groups:[[null,[
   o('show','ชมการแสดง/ความบันเทิง','Watch performances / entertainment'),o('culture','ศึกษาวัฒนธรรม/อัตลักษณ์โคราช','Explore Korat’s culture and identity'),o('buy','ซื้อสินค้าท้องถิ่น','Purchase local products'),
@@ -1349,6 +1424,7 @@ function visBlock(o){
   $('gNote').textContent=o.note;
 }
 
+(function(){const m=new Map();R.forEach(r=>{const p=m.get(r._uid);if(!p||String(r._submitted)>String(p._submitted))m.set(r._uid,r);});const keep=new Set(m.values());window.DUP=R.length-keep.size;for(let i=R.length-1;i>=0;i--)if(!keep.has(R[i]))R.splice(i,1);})();
 const L='th';const tx=x=>x?x.th:'';
 const $=id=>document.getElementById(id), N=R.length;
 const esc=v=>String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -1436,6 +1512,7 @@ function iconCard(s){
     rs.forEach(r=>{const a=r[s.id];if(op.text&&a.text) extra.push([tx(op.t)+': '+a.text,r._uid]); if(a.people) extra.push([tx(op.t)+' · '+a.people+' คน'+(a.gtype&&op.subq?' ('+tx((op.subq.opts.find(x=>x.v===a.gtype)||{t:{th:a.gtype}}).t)+')':''),r._uid]);});
     h+=`<div class="tt ${v?'':'z'} ${VEH[s.id]?'veh':''}" style="--d:${(i*.08).toFixed(2)}s"><div class="ti" style="background:${c}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ic[op.v]||DOTS}</svg>${b?`<em>${b}</em>`:''}</div>
     <div class="tl">${esc(tx(op.t))}</div><div class="tv">${v}<small>คน · ${n?Math.round(v/n*100):0}%</small></div><div class="ppl">${PERSON(c).repeat(k)}</div></div>`;});
+  if(s.id==='p2_2'){const y=ans.filter(r=>r[s.id].v==='yes').length;h+=`</div><div class="stat3" style="margin-top:12px"><div><b>${pct(y,N)}%</b><span>ของผู้ตอบทั้งหมด ${N} คน ท่องเที่ยวในโคราชต่อด้วย</span></div></div><div>`;}
   h+=`</div>${others(extra)}<div class="leg">1 ไอคอนคน = ${unit} คน</div>`;
   return `<div class="qc wide">${h}</div>`;
 }
@@ -1445,7 +1522,7 @@ function ageCard(s){
   let h=`<div class="qn">ข้อ 1.4</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${vs.length} จาก ${N} คน</div>`;
   h+=`<div class="stat3"><div><b>${vs.length?avg(vs).toFixed(1):'-'}</b><span>อายุเฉลี่ย (ปี)</span></div><div><b>${vs.length?Math.min(...vs):'-'}</b><span>อายุน้อยสุด</span></div><div><b>${vs.length?Math.max(...vs):'-'}</b><span>อายุมากสุด</span></div></div>`;
   const cnt=B.map(([,lo,hi])=>vs.filter(v=>v>=lo&&v<=hi).length);
-  h+=`<div class="agec">${cnt.map((v,i)=>`<div class="cv ${v?'':'z'}">${v}</div>`).join('')}${cnt.map((v,i)=>`<div class="col">${PERSON(v?'#E95429':'var(--bar-bg)').repeat(Math.max(0,Math.round(v/unit)))}</div>`).join('')}${B.map(b=>`<div class="ax">${b[0]}</div>`).join('')}</div>`;
+  h+=`<div class="agec">${cnt.map((v,i)=>`<div class="col">${PERSON(v?'#E95429':'var(--bar-bg)').repeat(Math.max(0,Math.round(v/unit)))}<div class="cv ${v?'':'z'}">${v}</div></div>`).join('')}${B.map(b=>`<div class="ax">${b[0]}</div>`).join('')}</div>`;
   h+=`<div class="leg">1 ไอคอนคน = ${unit} คน</div>`;
   return `<div class="qc wide">${h}</div>`;
 }
@@ -1634,13 +1711,111 @@ function rateCard7(s){
   h+=`<div class="sat2"><span>พอใจ (4–5) <b>${t2}</b> คน · ${n?Math.round(t2/n*100):0}%</span><span>เฉยๆ (3) <b>${vs.filter(v=>v===3).length}</b></span><span>ไม่พอใจ (1–2) <b>${vs.filter(v=>v<=2).length}</b></span></div><div class="leg">หน้า 1 หน้า = ผู้ตอบ 1 คน เรียงจากพอใจมากไปน้อย</div>`;
   return `<div class="qc">${h}</div>`;
 }
+// ---- v2 designs (20 Nov) ----
+const fmtN=v=>Math.round(v).toLocaleString('en-US');
+const pct=(v,n)=>n?Math.round(v/n*100):0;
+function chanCard(s){ // 3.1 bars with real icons
+  const ans=answered(s.id), n=ans.length; let h=`<div class="qn">ข้อ ${s.part}.${s.no}</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน · ตอบได้หลายข้อ · เรียงจากมากไปน้อย</div>`, extra=[], k=0;
+  const mx=Math.max(1,...s.groups.flatMap(([,ops])=>ops.map(op=>ans.filter(r=>r[s.id].v.includes(op.v)).length)));
+  h+=`<div class="cbw">`;
+  s.groups.forEach(([g,ops])=>{
+    const rows=ops.map((op,i)=>{const rs=ans.filter(r=>r[s.id].v.includes(op.v));
+      rs.forEach(r=>{const a=r[s.id];if(op.text&&a.text) extra.push([tx(op.t)+': '+a.text,r._uid]);(op.fields||[]).forEach(([f,lab])=>{if(a[f]) extra.push([tx(op.t)+' · '+(lab?tx(lab):f)+': '+a[f],r._uid]);});});
+      return [op,rs.length,i];}).sort((a,b)=>b[1]-a[1]);
+    const tot=rows.reduce((a,r)=>a+r[1],0);
+    h+=`<div class="cbg"><div class="grp2">${esc(tx(g))}<span>${tot.toLocaleString('en-US')} ครั้งที่ถูกเลือก</span></div>`;
+    rows.forEach(([op,v,i],j)=>{const br=BRAND[op.v], c=br?BCOL[op.v]:TPAL[(i+(g&&tx(g)==='ออฟไลน์'?3:0))%TPAL.length];
+      const ic=br?`<svg viewBox="0 0 24 24" fill="#fff"><path d="${br}"/></svg>`:SV(IC3[op.v]||DOTS);
+      h+=`<div class="cb ${v?'':'z'} ${j<3&&v?'top':''}" style="--d:${(k++*.04).toFixed(2)}s"><span class="ci" style="background:${c}">${ic}</span><span class="cl">${esc(tx(op.t))}</span><span class="ct"><i style="width:${(v/mx*100).toFixed(1)}%;background:${c}"></i></span><span class="cn"><b>${v.toLocaleString('en-US')}</b><small>${pct(v,n)}%</small></span></div>`;});
+    h+=`</div>`;});
+  h+=`</div>`+others(extra)+`<div class="leg">โลโก้แพลตฟอร์มจาก Simple Icons (CC0) · % คิดจากผู้ตอบ ${n} คน</div>`;
+  return `<div class="qc wide">${h}</div>`;
+}
+const PLANI={invest:IC.chart,partner:'<path d="M8 12.5l2.5 2.5 5.5-5.5"/><path d="M3 11l4-4 3 1 2-2 3 1 4 4-7 7z"/>',event:IC.pres,procure:IC.bag,other:DOTS};
+function investCard(s){ // 5.1
+  const ans=answered(s.id), n=ans.length, yes=ans.filter(r=>r[s.id].v==='yes'), val=r=>+String(r[s.id].value||'').replace(/[^0-9]/g,'')||0;
+  const tv=yes.reduce((a,r)=>a+val(r),0), nv=yes.filter(r=>val(r)>0).length;
+  const op=s.opts.find(o=>o.v==='yes'), pl=op.subm.opts;
+  let h=`<div class="qn">ข้อ ${s.part}.${s.no}</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน</div>`;
+  h+=`<div class="inv"><div class="ivh"><div class="ivk">มูลค่าธุรกิจที่คาดว่าจะเกิดในโคราช</div><div class="ivb an">${cu(tv,0,'฿')}</div>
+   <div class="ivs"><span><b>${yes.length}</b> ราย มีแผน (${pct(yes.length,n)}% ของผู้ตอบ)</span><span>เฉลี่ย <b>฿${fmtN(nv?tv/nv:0)}</b> ต่อราย</span></div>
+   <svg class="ivl" viewBox="0 0 200 60" preserveAspectRatio="none"><path d="M0 55 L30 48 L55 50 L85 36 L110 40 L140 22 L165 26 L200 6" fill="none" stroke="#D3FF34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M0 55 L30 48 L55 50 L85 36 L110 40 L140 22 L165 26 L200 6 L200 60 L0 60z" fill="rgba(211,255,52,.15)"/></svg></div>`;
+  const tiers=[['ไม่เกิน 50,000',0,50000],['100,000–300,000',50001,300000],['500,000',300001,500000],['1 ล้านขึ้นไป',500001,1e12]];
+  const tc=tiers.map(([t,lo,hi])=>{const rs=yes.filter(r=>val(r)>=lo&&val(r)<=hi);return [t,rs.length,rs.reduce((a,r)=>a+val(r),0)];}), tmx=Math.max(1,...tc.map(x=>x[2]));
+  h+=`<div class="ivr"><div><div class="grp2">ประเภทแผนธุรกิจ</div><div class="ivp">${pl.map(o=>{const c=yes.filter(r=>[].concat(r[s.id].plans||[]).includes(o.v)).length;return `<div class="${c?'':'z'}"><i>${SV(PLANI[o.v]||DOTS)}</i><span>${esc(tx(o.t))}</span><b>${c}</b></div>`;}).join('')}</div></div>
+   <div><div class="grp2">มูลค่าตามขนาดแผน</div><div class="ivt">${tc.map(([t,c,v],i)=>`<div style="--d:${(i*.1).toFixed(2)}s"><b>฿${v>=1e6?(v/1e6).toFixed(1)+' ล้าน':fmtN(v)}</b><i style="height:${Math.max(4,v/tmx*100).toFixed(0)}%"></i><span>${t}</span><small>${c} ราย</small></div>`).join('')}</div></div></div></div>`;
+  h+=`<div class="leg">มูลค่าที่ผู้ตอบประมาณเอง ยังไม่ใช่สัญญาหรือยอดลงทุนจริง</div>`;
+  return `<div class="qc wide">${h}</div>`;
+}
+function moveCard(s){ // 5.2
+  const ans=answered(s.id), n=ans.length, c=v=>ans.filter(r=>r[s.id].v===v).length, y=c('yes'), d=c('decided');
+  const from=k=>ans.filter(r=>['yes','decided'].includes(r[s.id].v)&&r.p1_2?.v===k).length;
+  let h=`<div class="qn">ข้อ ${s.part}.${s.no}</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน</div>`;
+  const st=[['ผู้ตอบทั้งหมด',n,'#6b7fa8'],['สนใจย้ายมาโคราช',y+d,'#00A79D'],['ตัดสินใจแล้ว',d,'#003674']];
+  h+=`<div class="fun">${st.map(([t,v,col],i)=>`<div class="fs" style="--w:${Math.max(40,v/n*100).toFixed(0)}%;--c:${col};--d:${(i*.15).toFixed(2)}s"><div class="fb"><b>${v.toLocaleString('en-US')}</b><span>${pct(v,n)}%</span></div><div class="ft">${t}</div></div>`).join('')}</div>`;
+  h+=`<div class="stat3" style="margin-top:14px"><div><b>${from('other_prov')}</b><span>มาจากจังหวัดอื่น</span></div><div><b>${from('abroad')}</b><span>ชาวต่างชาติ</span></div><div><b>${from('korat')}</b><span>คนโคราช (ย้ายกลับ/ทำงาน)</span></div></div>`;
+  return `<div class="qc">${h}</div>`;
+}
+function textCard(s){ // 8.2–8.4 ranked
+  const ans=answered(s.id), n=ans.length, c=PC[s.part];
+  let h=`<div class="qn">ข้อ ${s.part}.${s.no}</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน · คำตอบที่พบบ่อย</div>`;
+  if(!n) return `<div class="qc">${h}<div class="meta">ยังไม่มีคำตอบ</div></div>`;
+  const m={};ans.forEach(r=>{const t=String(r[s.id].v).trim();m[t]=(m[t]||0)+1;});
+  const e=Object.entries(m).sort((a,b)=>b[1]-a[1]), top=e.slice(0,8), mx=top[0][1];
+  h+=`<div class="tx">${top.map(([t,v],i)=>`<div class="tr2 ${i<3?'t'+(i+1):''}" style="--d:${(i*.06).toFixed(2)}s"><span class="rk">${i+1}</span><span class="tt2">${esc(t)}<i style="width:${(v/mx*100).toFixed(0)}%"></i></span><b>${v.toLocaleString('en-US')}<small>คน</small></b></div>`).join('')}</div>`;
+  if(e.length>8) h+=`<div class="leg">และคำตอบอื่นอีก ${e.length-8} แบบ</div>`;
+  return `<div class="qc">${h}</div>`;
+}
+function nights2(s){ // 2.4
+  const ans=answered(s.id), n=ans.length, nn=ans.map(r=>+r[s.id].v), st=nn.filter(x=>x>0), day=n-st.length, tot=st.reduce((a,b)=>a+b,0);
+  let h=`<div class="qn">ข้อ 2.4</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน · นับเป็นจำนวนคืนต่อคน ไม่ใช่จำนวนห้อง</div>`;
+  h+=`<div class="ng"><div class="nk"><span style="background:#B98AF0">${SV(IC.moon)}</span><div><b class="an">${cu(st.length)}<small>คน</small></b><em>ค้างคืนในโคราช · ${pct(st.length,n)}%</em></div></div>
+   <div class="nk"><span style="background:#E95429">${SV(IC.sun)}</span><div><b class="an">${cu(day)}<small>คน</small></b><em>ไป-กลับวันเดียว · ${pct(day,n)}%</em></div></div>
+   <div class="nk"><span style="background:#003674">${SV(IC.bed)}</span><div><b class="an">${cu(st.length?tot/st.length:0,1)}<small>คืน</small></b><em>เฉลี่ยต่อคนที่ค้างคืน</em></div></div></div>`;
+  h+=`<div class="nsplit"><i style="flex:${st.length||.001};background:#B98AF0"></i><i style="flex:${day||.001};background:#E95429"></i></div>`;
+  const mxc=Math.max(1,...[1,2,3,4,5].map(k=>nn.filter(x=>x===k).length));
+  h+=`<div class="grp2" style="margin-top:14px">คนที่ค้างคืน แยกตามจำนวนคืน</div>`;
+  [1,2,3,4,5].forEach((k,i)=>{const c=nn.filter(x=>x===k).length; if(!c) return;
+    h+=`<div class="nr2"><span class="lb">ค้าง ${k} คืน</span><span class="mo">${Array.from({length:k},(_,j)=>`<span class="moon" style="--d:${(i*.1+j*.08).toFixed(2)}s">${SV(IC.moon)}</span>`).join('')}</span><span class="ct"><i style="width:${(c/mxc*100).toFixed(0)}%"></i></span><b>${c.toLocaleString('en-US')}<small>คน</small></b></div>`;});
+  h+=`<div class="leg">🌙 1 ดวง = 1 คืน · รวมทั้งหมด ${tot.toLocaleString('en-US')} คืน-คน</div>`;
+  return `<div class="qc wide">${h}</div>`;
+}
+const GT={tour:'ทัวร์',org:'องค์กร/บริษัท',merit:'คณะทำบุญ',school:'สถานศึกษา',other:'อื่น ๆ'};
+function compCard(s){ // 2.7
+  const ans=answered(s.id), n=ans.length, sz=r=>r[s.id].v==='alone'?1:(+r[s.id].people||0), c=v=>ans.filter(r=>r[s.id].v===v).length;
+  const all=ans.map(sz).filter(Boolean), people=all.reduce((a,b)=>a+b,0);
+  let h=`<div class="qn">ข้อ 2.7</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน · จำนวนคนนับรวมผู้ตอบ</div>`;
+  const K=[['alone','มาคนเดียว',IC.solo,'#E95429'],['family','ครอบครัว/ญาติ/เพื่อน',IC.fam,'#00A79D'],['group','หมู่คณะ',IC.grp,'#003674']];
+  h+=`<div class="cmp"><div class="cmh"><b class="an">${cu(all.length?people/all.length:0,1)}</b><span>คน ต่อกลุ่มโดยเฉลี่ย</span><em>รวม ${people.toLocaleString('en-US')} คน จากผู้ตอบ ${n} คน</em></div>
+   <div class="cmk">${K.map(([v,t,ic,col])=>{const x=c(v);return `<div><span style="background:${col}">${SV(ic)}</span><b>${x.toLocaleString('en-US')}</b><em>${t}</em><small>${pct(x,n)}%</small></div>`;}).join('')}</div></div>`;
+  const B=[['1',1,1],['2',2,2],['3',3,3],['4',4,4],['5',5,5],['6–7',6,7],['8–10',8,10],['11–15',11,15],['16+',16,999]];
+  const bc=B.map(([,lo,hi])=>all.filter(v=>v>=lo&&v<=hi).length), bm=Math.max(1,...bc);
+  h+=`<div class="grp2" style="margin-top:16px">ขนาดกลุ่มที่มา (คน)</div><div class="hist">${B.map(([t],i)=>`<div style="--d:${(i*.06).toFixed(2)}s"><b>${bc[i]}</b><i style="height:${Math.max(3,bc[i]/bm*100).toFixed(0)}%;background:${i===0?'#E95429':i<6?'#00A79D':'#003674'}"></i><span>${t}</span></div>`).join('')}</div>`;
+  const g=ans.filter(r=>r[s.id].v==='group');
+  if(g.length){const gm={};g.forEach(r=>{const k=r[s.id].gtype||'other';gm[k]=(gm[k]||0)+1;});
+    h+=`<div class="chips">${Object.entries(gm).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<span>${GT[k]||k} <b>${v}</b></span>`).join('')}</div><div class="leg">ประเภทหมู่คณะ (จำนวนกลุ่มที่ตอบ)</div>`;}
+  return `<div class="qc wide">${h}</div>`;
+}
+function money2(s){ // 2.8.x compact
+  const ans=answered(s.id), n=ans.length, sp=SPEND.find(x=>x[0]===s.id), a=spAvg(s.id);
+  const rows=s.opts.map(op=>[op,ans.filter(r=>r[s.id].v===op.v).length]), mx=Math.max(1,...rows.map(r=>r[1])), best=rows.findIndex(r=>r[1]===mx);
+  let h=`<div class="qn">ข้อ 2.${s.no}</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน${s.pre2?' · '+esc(tx(s.pre2)):''}</div>`;
+  h+=`<div class="hero2" style="margin:0 0 12px"><span style="width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;background:${sp[3]}">${SV(sp[2])}</span><div class="big an" style="font-size:44px;color:#1f9a5f">${cu(Math.round(a),0,'฿')}</div><div class="sub">เฉลี่ยต่อคน</div></div>`;
+  h+=`<div class="mlad">${rows.map(([op,v],i)=>`<div class="ml ${v?'':'z'} ${i===best&&v?'b':''}" style="--d:${(i*.06).toFixed(2)}s"><span class="r">${esc(tx(op.t).replace(' บาท',''))}</span><span class="mb"><i style="width:${(v/mx*100).toFixed(0)}%"></i>${i===best&&v?'<em>฿</em>':''}</span><span class="v">${v.toLocaleString('en-US')}<small>${pct(v,n)}%</small></span></div>`).join('')}</div><div class="leg">หน่วยบาท/คน · ป้าย ฿ = ช่วงที่ตอบมากที่สุด</div>`;
+  return (s.id==='p2_8_1'?spendSummary():'')+`<div class="qc">${h}</div>`;
+}
 function card(s){
   if(s.part===7&&s.type==='rate') return (s.id==='p7_pr'?satSummary():'')+rateCard7(s);
   if(s.part===6&&s.type==='rate') return (s.id==='p6_livable'?brandSummary():'')+rateCard6(s);
-  if(s.id==='p3_1'||s.id==='p3_3') return multiIconCard(s);
+  if(s.id==='p3_1') return chanCard(s);
+  if(s.id==='p3_3') return multiIconCard(s);
+  if(s.id==='p5_1') return investCard(s);
+  if(s.id==='p5_2') return moveCard(s);
+  if(s.type==='text') return textCard(s);
+  if(s.id==='p2_7') return compCard(s);
   if(s.id==='p2_3') return daysCard(s);
-  if(s.id==='p2_4') return nightsCard(s);
-  if(/^p2_8_[1-5]$/.test(s.id)) return moneyCard(s);
+  if(s.id==='p2_4') return nights2(s);
+  if(/^p2_8_[1-5]$/.test(s.id)) return money2(s);
   if(s.id==='p1_4') return ageCard(s);
   if(ICONSET[s.id]) return iconCard(s);
   if(s.id==='p1_1') return typeCard(s);
@@ -1666,8 +1841,12 @@ function card(s){
     h+=bars(opts.map(([v,t])=>[t,ans.filter(r=>r[s.id].v===v).length]),n||1,c);
   } else if(s.type==='multi'){
     wide=s.groups.length>1;
+    if(s.id==='p4_1'){const ws=ans.filter(r=>r.p4_1.v.includes('workshop')), pp=ws.reduce((a,r)=>a+(r.p2_7?.v==='alone'?1:(+r.p2_7?.people||1)),0); {const pr=r=>r.p2_7?.v==='alone'?1:(+r.p2_7?.people||1), dy=r=>{const d=r.p2_3?.v;return d==='all'?10:+d||0};
+      const ops=s.groups[0][1], vr=ops.map(op=>{const rs=ans.filter(r=>r.p4_1.v.includes(op.v));return [tx(op.t),rs.length,rs.reduce((a,r)=>a+pr(r)*dy(r),0)];}), tot=vr.reduce((a,x)=>a+x[2],0), mx=Math.max(1,...vr.map(x=>x[2]));
+      h+=`<div class="vact"><div class="grp2">Visitation แยกตามกิจกรรม<span>คนในกลุ่ม × จำนวนวัน ของผู้ตอบที่เลือกกิจกรรมนั้น</span></div>${vr.map(([t,c,v])=>`<div class="va ${v?'':'z'}"><span class="t">${esc(t)}</span><span class="b"><i style="width:${(v/mx*100).toFixed(0)}%"></i></span><span class="c">${c.toLocaleString('en-US')} คน</span><b>${v.toLocaleString('en-US')}</b></div>`).join('')}<div class="va tot"><span class="t">รวม Visitation</span><span class="b" style="background:none"></span><span class="c">จากผู้ตอบ ${n.toLocaleString('en-US')} คน</span><b>${tot.toLocaleString('en-US')}</b></div></div>`; wide=true;}
+      if(ws.length) h+=`<div class="stat3"><div><b>${pp.toLocaleString('en-US')}</b><span>คนร่วมเวิร์กช็อป (รวมคนในกลุ่ม)</span></div><div><b>${ws.length.toLocaleString('en-US')}</b><span>ผู้ตอบที่เลือกเวิร์กช็อป</span></div></div>`;}
     s.groups.forEach(([g,ops])=>{ if(g) h+=`<div class="grp">${esc(tx(g))}</div>`;
-      h+=bars(ops.map(op=>[tx(op.t),ans.filter(r=>r[s.id].v.includes(op.v)).length]),n||1,c);
+      if(s.id!=='p4_1') h+=bars(ops.map(op=>[tx(op.t),ans.filter(r=>r[s.id].v.includes(op.v)).length]),n||1,c);
       ops.forEach(op=>ans.filter(r=>r[s.id].v.includes(op.v)).forEach(r=>{const a=r[s.id];
         if(op.text&&a.text) extra.push([tx(op.t)+': '+a.text,r._uid]);
         (op.fields||[]).forEach(([k,lab])=>{if(a[k]) extra.push([tx(op.t)+' · '+(lab?tx(lab):k)+': '+a[k],r._uid]);});}));
@@ -1709,7 +1888,7 @@ $('parts').innerHTML=html; $('toc').innerHTML=toc;
 // KPIs + table
 const ov=avg(R.map(r=>r.p7_overall?.v).filter(Boolean)), rec=avg(R.map(r=>r.p8_1?.v).filter(Boolean));
 const uidOk=R.filter(r=>/^U[0-9a-f]{32}$/.test(r._uid||'')).length;
-$('kpis').innerHTML=[['#D3FF34',N,'','ผู้ตอบแบบสำรวจ'],['#00A79D',uidOk+'/'+N,'','ยืนยันตัวตนด้วย LINE UID'],['#E95429',ov.toFixed(2),'/5','พึงพอใจภาพรวมของงาน'],['#FF999A',rec.toFixed(2),'/5','จะแนะนำเทศกาลนี้ต่อ']]
+$('kpis').innerHTML=[['#D3FF34',N,'','ผู้ตอบแบบสำรวจ'],['#00A79D',uidOk+'/'+N,'','ยืนยันตัวตนด้วย LINE UID · ตัดซ้ำ '+DUP+' รายการ'],['#E95429',ov.toFixed(2),'/5','พึงพอใจภาพรวมของงาน'],['#FF999A',rec.toFixed(2),'/5','จะแนะนำเทศกาลนี้ต่อ']]
  .map(([c,v,s,l])=>`<div class="kpi"><div class="ic" style="background:${c}"></div><div><div class="v">${v}<small>${s}</small></div><div class="l">${l}</div></div></div>`).join('');
 document.getElementById('htitle').innerHTML='ผู้ตอบแบบสำรวจ <span style="color:#D3FF34">'+N.toLocaleString('en-US')+'</span> คน';
 $('badge').textContent='โคราช น่าเที่ยว '+avg(R.map(r=>r.p6_tour?.v).filter(Boolean)).toFixed(1)+'/5';

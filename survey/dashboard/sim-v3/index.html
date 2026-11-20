@@ -167,6 +167,18 @@ code{font-size:12.5px}
 .qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
 .qc{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}
 .qc.wide{grid-column:1/-1}
+.st4w{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:6px}
+@media(max-width:1000px){.st4w{grid-template-columns:1fr 1fr}}@media(max-width:560px){.st4w{grid-template-columns:1fr}}
+.st4{position:relative;border-radius:14px;padding:12px 14px;background:var(--soft);border-left:6px solid var(--c)}
+.st4 .sn{position:absolute;right:12px;top:8px;font-family:var(--display);font-weight:800;font-size:26px;color:var(--c);opacity:.25}
+.st4 .stt{font-size:13px;font-weight:600}.st4 .stb{font-family:var(--display);font-weight:700;font-size:32px;color:var(--c);line-height:1.1;margin:4px 0;font-variant-numeric:tabular-nums}
+.st4 .stb small{font-size:13px;color:var(--muted);font-weight:500}.st4 .std{font-size:12.5px;color:var(--muted)}
+.chipsx{display:flex;flex-direction:column;gap:3px;margin-top:6px}.chipsx span{color:var(--ink);font-size:12.5px}.chipsx b{font-family:var(--display)}
+.exw{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:760px){.exw{grid-template-columns:1fr}}
+.ex{border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:12.5px}.exh{font-weight:600;margin-bottom:6px}
+.exd{padding:4px 0;border-top:1px dashed var(--line);line-height:1.6}.exd u{text-decoration:none;background:#ffe3d8;border-radius:5px;padding:0 5px;font-weight:700}
+.ext{margin-top:6px;font-weight:700;color:var(--orange);font-family:var(--display);font-size:15px}
+
 .gcards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 @media(max-width:1000px){.gcards{grid-template-columns:1fr 1fr}}@media(max-width:560px){.gcards{grid-template-columns:1fr}}
 .gc{border-radius:16px;padding:14px 16px;background:#fff;border:1px solid var(--line);border-top:6px solid var(--c)}
@@ -1138,16 +1150,28 @@ const pdR=r=>Object.values(dd(r)).reduce((a,x)=>a+(+x.p||1),0);
 const peopleR=r=>{const v=Object.values(dd(r)).map(x=>+x.p||1);return v.length?Math.max(...v):0;};
 const nf=v=>Math.round(v).toLocaleString('en-US');
 function dailyCard(s){
-  const ans=R.filter(r=>Object.keys(dd(r)).length), n=ans.length, dl=ans.flatMap(r=>Object.values(dd(r)));
-  const full=dl.filter(x=>x.full!==false).length, part=dl.length-full, fp=dl.length?full/dl.length*100:0;
+  const ans=R.filter(r=>Object.keys(dd(r)).length), n=ans.length;
+  const rows=ans.map(r=>{const D=dd(r), ks=Object.keys(D).sort(), P=peopleR(r), tog=ks.every(d=>D[d].full!==false);return {r,D,ks,P,tog,V:visitR(r),PD:pdR(r)};});
+  const Ptot=rows.reduce((a,x)=>a+x.P,0), PDtot=rows.reduce((a,x)=>a+x.PD,0), Vtot=rows.reduce((a,x)=>a+x.V,0);
+  const sz=[['มาคนเดียว',x=>x.P===1],['2–4 คน',x=>x.P>=2&&x.P<=4],['5–8 คน',x=>x.P>=5&&x.P<=8],['9 คนขึ้นไป',x=>x.P>=9]];
+  const dy=[...new Set(rows.map(x=>x.ks.length))].sort();
+  const T=rows.filter(x=>x.tog), S=rows.filter(x=>!x.tog), sm=(a,k)=>a.reduce((s,x)=>s+x[k],0);
+  const step=(no,c,title,big,unit,body)=>`<div class="st4" style="--c:${c}"><div class="sn">${no}</div><div class="stt">${title}</div><div class="stb">${big}<small> ${unit}</small></div><div class="std">${body}</div></div>`;
+  let h=`<div class="qn">ข้อ 4.1</div><h3>${esc(tx(s.q))}</h3><div class="meta">ผู้ตอบ ${nf(n)} คน · แต่ละคนติ๊กกิจกรรมแยกทีละวัน บอกว่ามากันกี่คน และทั้งกลุ่มไปด้วยกันทุกกิจกรรมหรือแยกกันไป</div>`;
+  h+=`<div class="st4w">`+
+   step('1','#003674','ผู้ตอบแบบสอบถาม',nf(n),'คน','1 LINE UID = 1 แบบสอบถาม')+
+   step('2','#00A79D','มากับเพื่อน/ครอบครัว',nf(Ptot),'คน',`ผู้ตอบ ${nf(n)} + เพื่อนที่มาด้วย ${nf(Ptot-n)} · เฉลี่ยกลุ่มละ ${(Ptot/n).toFixed(1)} คน<div class="chipsx">${sz.map(([t,f],i)=>`<span>${t} <b>${nf(rows.filter(f).length)}</b> ${i?'กลุ่ม':'คน'}</span>`).join('')}</div>`)+
+   step('3','#5b3fa8','อยู่ในงานกี่วัน',nf(PDtot),'คน-วัน',`มา 2 วัน นับ 2<div class="chipsx">${dy.map(k=>{const g=rows.filter(x=>x.ks.length===k);return `<span>มา ${k} วัน <b>${nf(g.length)}</b> กลุ่ม (${nf(sm(g,'P'))} คน)</span>`}).join('')}</div>`)+
+   step('4','#E95429','ร่วมกิจกรรมกี่ครั้ง',nf(Vtot),'Visitation',`เฉลี่ยคนละ ${(Vtot/Ptot).toFixed(1)} ครั้ง<div class="chipsx"><span>ไปด้วยกันทุกกิจกรรม <b>${nf(T.length)}</b> กลุ่ม → ${nf(sm(T,'V'))} ครั้ง</span><span>แยกกันไปบางกิจกรรม <b>${nf(S.length)}</b> กลุ่ม → ${nf(sm(S,'V'))} ครั้ง</span></div>`)+`</div>`;
+  const tp=n?T.length/n*100:0;
+  h+=`<div class="grp2" style="margin-top:14px">ผู้ตอบ ${nf(n)} คน: ทั้งกลุ่มไปด้วยกัน หรือแยกกันไป</div><div class="cmpl"><i style="width:${tp}%;background:var(--teal)">ไปด้วยกันทุกกิจกรรม ${nf(T.length)} กลุ่ม (${tp.toFixed(0)}%)</i><i style="width:${100-tp}%;background:var(--orange)">แยกกัน ${nf(S.length)}</i></div>
+  <div class="leg">"แยกกันไป" = มีบางกิจกรรมที่เพื่อนในกลุ่มไปไม่ครบ ผู้ตอบจึงกรอกจำนวนคนที่ไปจริงของกิจกรรมนั้น (นับตามจริง ไม่คูณทั้งกลุ่ม)</div>`;
+  const ex=[T.find(x=>x.ks.length===2&&x.P>=3&&x.P<=6),S.find(x=>x.ks.length===2&&x.P>=3&&x.P<=6)].filter(Boolean);
+  h+=`<div class="grp2" style="margin-top:14px">ตัวอย่างวิธีนับจากคำตอบจริง</div><div class="exw">${ex.map(x=>`<div class="ex"><div class="exh">UID ${mask(x.r._uid)} · มา ${x.P} คน · ${x.ks.length} วัน · ${x.tog?'ไปด้วยกันทุกกิจกรรม':'แยกกันไปบางกิจกรรม'}</div>${x.ks.map(d=>{const y=x.D[d];return `<div class="exd"><b>${d} พ.ย.</b> มา ${y.p} คน · ${y.a.map(k=>`${esc(ACT[k][0])} <u>${aPeople(y,k)}</u>`).join(' + ')} = <b>${y.a.reduce((q,k)=>q+aPeople(y,k),0)}</b></div>`}).join('')}<div class="ext">รวม ${nf(x.V)} Visitation</div></div>`).join('')}</div>`;
   const cv={},cr={}; ans.forEach(r=>{const seen=new Set();Object.values(dd(r)).forEach(x=>x.a.forEach(k=>{const c=ACT[k][2];cv[c]=(cv[c]||0)+aPeople(x,k);seen.add(c);}));seen.forEach(c=>cr[c]=(cr[c]||0)+1);});
-  const lost=dl.filter(x=>x.full===false).reduce((a,x)=>a+x.a.reduce((b,k)=>b+((+x.p||1)-aPeople(x,k)),0),0);
-  const rows=Object.keys(CATN).map(c=>[c,CATN[c],cr[c]||0,cv[c]||0]).sort((a,b)=>b[3]-a[3]), tot=rows.reduce((a,x)=>a+x[3],0), mx=Math.max(1,...rows.map(x=>x[3]));
-  let h=`<div class="qn">ข้อ 4.1</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${nf(n)} จาก ${nf(N)} คน · รวม ${nf(dl.length)} วันที่มา · ติ๊กกิจกรรมแยกทีละวัน พร้อมจำนวนคนที่มาวันนั้น</div>`;
-  h+=`<div class="stat3"><div><b>${avg(dl.map(x=>x.a.length)).toFixed(1)}</b><span>กิจกรรมเฉลี่ยต่อ 1 วันที่มา</span></div><div><b>${avg(dl.map(x=>+x.p||1)).toFixed(1)}</b><span>คนต่อกลุ่ม ต่อ 1 วันที่มา</span></div><div><b>${nf(tot)}</b><span>Visitation จากข้อนี้</span></div></div>`;
-  h+=`<div class="grp2">ทั้งกลุ่มร่วมครบทุกกิจกรรมที่ติ๊กหรือไม่<span>นับรายวัน</span></div><div class="cmpl"><i style="width:${fp}%;background:var(--teal)">ครบทุกคน ${fp.toFixed(0)}%</i><i style="width:${100-fp}%;background:var(--orange)">${(100-fp).toFixed(0)}%</i></div><div class="leg">ครบทุกคน ${nf(full)} วัน · บางกิจกรรมมาไม่ครบ ${nf(part)} วัน (กรอกจำนวนคนรายกิจกรรม จึงนับต่ำลง ${nf(lost)} Visitation ตามจริง)</div>`;
-  h+=`<div class="vact" style="margin-top:14px"><div class="grp2">Visitation แยกตามประเภทกิจกรรม<span>คนที่ร่วม × กิจกรรม × วัน</span></div>${rows.map(([c,t,r,v])=>`<div class="va ${v?'':'z'}"><span class="t">${esc(t)}</span><span class="b"><i style="width:${(v/mx*100).toFixed(0)}%;background:${CATC[c]}"></i></span><span class="c">${nf(r)} คน</span><b>${nf(v)}</b></div>`).join('')}<div class="va tot"><span class="t">รวม Visitation</span><span class="b"></span><span class="c"></span><b>${nf(tot)}</b></div></div>`;
-  const ws=cv.workshop||0; h+=`<div class="leg">เวิร์กช็อปทุกรายการรวม ${nf(ws)} Visitation (กำหนดไว้ไม่เกิน 4,000) · ผู้ตอบ 1 คนนับเป็น "คน" ในคอลัมน์กลาง</div>`;
+  const cats=Object.keys(CATN).map(c=>[c,CATN[c],cr[c]||0,cv[c]||0]).sort((a,b)=>b[3]-a[3]), mx=Math.max(1,...cats.map(x=>x[3]));
+  h+=`<div class="vact" style="margin-top:14px"><div class="grp2">Visitation แยกตามประเภทกิจกรรม<span>กลุ่มที่ไป · ครั้ง</span></div>${cats.map(([c,t,r,v])=>`<div class="va ${v?'':'z'}"><span class="t">${esc(t)}</span><span class="b"><i style="width:${(v/mx*100).toFixed(0)}%;background:${CATC[c]}"></i></span><span class="c">${nf(r)} กลุ่ม</span><b>${nf(v)}</b></div>`).join('')}<div class="va tot"><span class="t">รวม Visitation</span><span class="b"></span><span class="c"></span><b>${nf(Vtot)}</b></div></div>`;
+  h+=`<div class="leg">เวิร์กช็อปทุกรายการรวม ${nf(cv.workshop||0)} Visitation (กำหนดไว้ไม่เกิน 4,000) · ประเภทที่เป็น 0 = ยังไม่ถึงวันจัด</div>`;
   return `<div class="qc wide">${h}</div>`;
 }
 function datesCard(s){

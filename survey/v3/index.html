@@ -93,11 +93,11 @@ h2{font-family:var(--display);font-weight:600;font-size:18px;line-height:1.4;mar
 .sec{margin-top:22px;padding:10px 12px;border-radius:10px;border-left:4px solid var(--teal);background:var(--accent-soft);color:var(--ink);font-size:14px;font-weight:500}
 .q .opts+.grp{margin-top:16px}
 .kv{display:block;width:100%;height:auto;border-radius:10px;margin:0 0 18px}
-.tags{font-size:13px;font-weight:600;color:var(--teal);margin:0 0 10px;letter-spacing:.02em}
+.tags{font-size:13px;font-weight:600;color:#00857c;margin:0 0 10px;letter-spacing:.02em}
 .proto{font-size:12px;color:var(--muted);text-align:center;margin-top:18px}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 .dgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:520px}
-.dchip{border:1.5px solid var(--line,#dcd6ee);background:#fff;border-radius:12px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:0;font:inherit;cursor:pointer;color:inherit}
+.dchip{border:1.5px solid var(--line,#dcd6ee);background:var(--surface,#fff);border-radius:12px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:0;font:inherit;cursor:pointer;color:inherit}
 .dchip b{font-size:22px;line-height:1.15}.dchip small{font-size:11.5px;opacity:.75}
 .dchip[aria-checked="true"]{background:#003674;color:#fff;border-color:#003674}.dchip[aria-checked="true"] small{opacity:.9}
 .dayb{border:1.5px solid var(--line,#dcd6ee);border-radius:16px;padding:12px 14px;margin-top:12px}
@@ -105,6 +105,9 @@ h2{font-family:var(--display);font-weight:600;font-size:18px;line-height:1.4;mar
 .ven{display:block;font-size:12px;opacity:.65;margin-top:1px}
 .dayp{display:grid;grid-template-columns:1fr 110px;gap:4px 10px;align-items:center;margin-top:10px}.dayp .fl{grid-column:1/-1}.dayp .hint{margin:0}
 @media (max-width:420px){.dgrid{grid-template-columns:repeat(5,1fr);gap:6px}.dchip b{font-size:19px}}
+
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tags{color:#4fe0d4}:root:not([data-theme="light"]) .dchip[aria-checked="true"]{background:#D3FF34;color:#0b1a33;border-color:#D3FF34}}
+:root[data-theme="dark"] .tags{color:#4fe0d4}:root[data-theme="dark"] .dchip[aria-checked="true"]{background:#D3FF34;color:#0b1a33;border-color:#D3FF34}
 </style>
 </head>
 <body>
@@ -406,7 +409,7 @@ function render(){
   } else if(part===9){
     h=`<div class="done">${KVIMG}<div class="ok">✓</div><h1>${esc(tx(UI.thanks))}</h1><p class="hint">${esc(tx(UI.thanks2))}</p>
       <button class="btn" id="again" style="max-width:220px">${esc(tx(UI.again))}</button>
-      <details><summary>${esc(tx(UI.raw))}</summary><pre>${esc(JSON.stringify(A,null,2))}</pre></details>
+      
       <p class="proto">${esc(tx(UI.proto))}</p></div>`;
   } else {
     const qs=visible().filter(x=>x.part===part);

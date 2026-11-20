@@ -93,9 +93,12 @@ h2{font-family:var(--display);font-weight:600;font-size:18px;line-height:1.4;mar
 .sec{margin-top:22px;padding:10px 12px;border-radius:10px;border-left:4px solid var(--teal);background:var(--accent-soft);color:var(--ink);font-size:14px;font-weight:500}
 .q .opts+.grp{margin-top:16px}
 .kv{display:block;width:100%;height:auto;border-radius:10px;margin:0 0 18px}
-.tags{font-size:13px;font-weight:600;color:var(--teal);margin:0 0 10px;letter-spacing:.02em}
+.tags{font-size:13px;font-weight:600;color:#00857c;margin:0 0 10px;letter-spacing:.02em}
 .proto{font-size:12px;color:var(--muted);text-align:center;margin-top:18px}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tags{color:#4fe0d4}:root:not([data-theme="light"]) .dchip[aria-checked="true"]{background:#D3FF34;color:#0b1a33;border-color:#D3FF34}}
+:root[data-theme="dark"] .tags{color:#4fe0d4}:root[data-theme="dark"] .dchip[aria-checked="true"]{background:#D3FF34;color:#0b1a33;border-color:#D3FF34}
 </style>
 </head>
 <body>
@@ -355,7 +358,7 @@ function render(){
   } else if(part===9){
     h=`<div class="done">${KVIMG}<div class="ok">✓</div><h1>${esc(tx(UI.thanks))}</h1><p class="hint">${esc(tx(UI.thanks2))}</p>
       <button class="btn" id="again" style="max-width:220px">${esc(tx(UI.again))}</button>
-      <details><summary>${esc(tx(UI.raw))}</summary><pre>${esc(JSON.stringify(A,null,2))}</pre></details>
+      
       <p class="proto">${esc(tx(UI.proto))}</p></div>`;
   } else {
     const qs=visible().filter(x=>x.part===part);

@@ -104,6 +104,11 @@ footer{border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
 footer .wrap{padding-block:16px 28px}
 @media (max-width:900px){.hero .wrap{grid-template-columns:1fr}.c3,.c4,.c5,.c6,.c7,.c8{grid-column:span 12}.axis{grid-template-columns:repeat(2,1fr)}.insights,.quotes{grid-template-columns:1fr}.qphoto{grid-row:auto}}
 @media (max-width:480px){.kpis{grid-template-columns:1fr 1fr}.kpi{flex-direction:column;align-items:flex-start;gap:8px}.axis{grid-template-columns:1fr}.icons{grid-template-columns:repeat(2,1fr)}}
+
+.lvl,.sw,.rk,.tagb{text-shadow:0 1px 2px rgba(0,0,0,.45)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .st4 .stb,:root:not([data-theme="light"]) .st4 .sn{color:var(--ink)}
+ :root:not([data-theme="light"]) .gc .big{color:var(--ink)} :root:not([data-theme="light"]) table.hm td{color:var(--ink)}}
+:root[data-theme="dark"] .st4 .stb,:root[data-theme="dark"] .st4 .sn,:root[data-theme="dark"] .gc .big{color:var(--ink)}
 </style><style>
 </head>
 <body>
@@ -169,7 +174,7 @@ code{font-size:12.5px}
 .qc.wide{grid-column:1/-1}
 .eq3{display:flex;align-items:stretch;gap:8px;margin:12px 0 4px;flex-wrap:wrap}.eq3>div{flex:1;min-width:120px;background:var(--soft);border-radius:12px;padding:10px 12px}
 .eq3 b{display:block;font-family:var(--display);font-size:26px;font-variant-numeric:tabular-nums}.eq3 span{font-size:12.5px;color:var(--muted)}
-.eq3 i{font-style:normal;align-self:center;font-family:var(--display);font-size:24px;font-weight:700;color:var(--muted)}.eq3 .hl{background:#00A79D;color:#fff}.eq3 .hl span{color:#e6fffb}
+.eq3 i{font-style:normal;align-self:center;font-family:var(--display);font-size:24px;font-weight:700;color:var(--muted)}.eq3 .hl{background:#00857c;color:#fff}.eq3 .hl span{color:#fff}
 @media(max-width:520px){.eq3 i{display:none}}
 
 .st4w{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:6px}
@@ -181,12 +186,12 @@ code{font-size:12.5px}
 .chipsx{display:flex;flex-direction:column;gap:3px;margin-top:6px}.chipsx span{color:var(--ink);font-size:12.5px}.chipsx b{font-family:var(--display)}
 .exw{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:760px){.exw{grid-template-columns:1fr}}
 .ex{border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:12.5px}.exh{font-weight:600;margin-bottom:6px}
-.exd{padding:4px 0;border-top:1px dashed var(--line);line-height:1.6}.exd u{text-decoration:none;background:#ffe3d8;border-radius:5px;padding:0 5px;font-weight:700}
+.exd{padding:4px 0;border-top:1px dashed var(--line);line-height:1.6}.exd u{text-decoration:none;background:#ffe3d8;color:#7a2a10;border-radius:5px;padding:0 5px;font-weight:700}
 .ext{margin-top:6px;font-weight:700;color:var(--orange);font-family:var(--display);font-size:15px}
 
 .gcards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 @media(max-width:1000px){.gcards{grid-template-columns:1fr 1fr}}@media(max-width:560px){.gcards{grid-template-columns:1fr}}
-.gc{border-radius:16px;padding:14px 16px;background:#fff;border:1px solid var(--line);border-top:6px solid var(--c)}
+.gc{border-radius:16px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--c)}
 .gc h4{margin:0;font-size:15px}.gc .pv{font-size:11.5px;color:var(--muted);margin:2px 0 8px}
 .gc .big{font-family:var(--display);font-size:30px;font-weight:700;line-height:1.1;color:var(--c);font-variant-numeric:tabular-nums}
 .gc .big small{font-size:12.5px;color:var(--muted);font-weight:500}
@@ -219,12 +224,12 @@ table.gt th:first-child,table.gt td:first-child{text-align:left}table.gt td smal
 .hmw{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table.hm{border-collapse:separate;border-spacing:2px;font-size:12.5px;min-width:760px;width:100%}
 table.hm th{font-weight:600;color:var(--muted);padding:4px;white-space:nowrap}
-table.hm th.a{text-align:left;color:var(--ink);font-weight:500;min-width:190px;position:sticky;left:0;background:#fff;z-index:1}
+table.hm th.a{text-align:left;color:var(--ink);font-weight:500;min-width:190px;position:sticky;left:0;background:var(--surface);z-index:1}
 table.hm th.a small{display:block;color:var(--muted);font-size:11px}
 table.hm td{text-align:center;padding:6px 2px;border-radius:5px;font-variant-numeric:tabular-nums;min-width:46px}
 @media(max-width:520px){table.hm th.a{min-width:118px;max-width:128px;white-space:normal;font-size:11.5px;line-height:1.25}table.hm{min-width:640px}}
 table.hm td.no{background:repeating-linear-gradient(45deg,#f1f2f6 0 4px,#e7e9ef 4px 8px)}
-table.hm td.fut{background:#fafbfc;color:#b4bac8}
+table.hm td.fut{background:var(--soft);color:var(--muted)}
 table.hm td.t,table.hm tr.t td{font-weight:700;background:var(--soft)}
 .cmpl{display:flex;height:26px;border-radius:8px;overflow:hidden;margin:4px 0 4px;font-size:12px;color:#fff;font-weight:600}
 .cmpl i{display:flex;align-items:center;padding:0 8px;font-style:normal;white-space:nowrap}
@@ -954,7 +959,7 @@ function multiIconCard(s){
 
 // ---- part 6: city branding ----
 const AX6={p6_livable:['#น่าอยู่','#00A79D',IC.house],p6_tour:['#น่าเที่ยว','#E95429',IC.palm],p6_invest:['#น่าลงทุน','#003674',IC.chart],p6_identity:['อัตลักษณ์','#B98AF0',IC.lotus]};
-const FACEC=['#d64545','#f08a3c','#f2c230','#7cc65b','#1f9a5f'];
+const FACEC=['#d64545','#f08a3c','#f2c230','#4f9a33','#1f9a5f'];
 const FACE=(k,c)=>{const m={1:'M8 16.5q4-3 8 0',2:'M8.5 16q3.5-1.6 7 0',3:'M8.5 15.5h7',4:'M8.5 14.5q3.5 2 7 0',5:'M7.5 14q4.5 4.5 9 0'}[k];
  return `<svg class="fc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5" fill="${c}"/><circle cx="8.6" cy="9.6" r="1.3" fill="#fff"/><circle cx="15.4" cy="9.6" r="1.3" fill="#fff"/><path d="${m}" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>`;};
 const rAvg=id=>{const v=answered(id).map(r=>+r[id].v);return v.length?avg(v):0;};
@@ -994,13 +999,13 @@ IC.pin='<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"
 IC.clock='<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>';
 IC.web='<rect x="3" y="4.5" width="18" height="13" rx="2"/><path d="M3 8.5h18M8 21h8M12 17.5V21M7.5 12.5l2 2 4-4"/>';
 const A7={pr:[IC.mega,'#E95429'],venue:[IC.pin,'#00A79D'],time:[IC.clock,'#003674'],act:[IC.trophy,'#B98AF0'],perf:[IC.music,'#FF999A'],points:[IC.gift,'#e0a100'],web:[IC.web,'#6b7fa8'],overall:[IC.star,'#1f9a5f']};
-const LV=a=>a>=4.21?['มากที่สุด','#1f9a5f']:a>=3.41?['มาก','#7cc65b']:a>=2.61?['ปานกลาง','#e0a100']:a>=1.81?['น้อย','#f08a3c']:['น้อยที่สุด','#d64545'];
+const LV=a=>a>=4.21?['มากที่สุด','#1f9a5f']:a>=3.41?['มาก','#4f9a33']:a>=2.61?['ปานกลาง','#e0a100']:a>=1.81?['น้อย','#f08a3c']:['น้อยที่สุด','#d64545'];
 const short=s=>tx(s.q).replace(/\s*\(.*\)/,'');
 function satSummary(){
   const ov=rAvg('p7_overall'), [lt,lc]=LV(ov), asp=S.filter(s=>s.part===7&&s.id!=='p7_overall').map(s=>[s,rAvg(s.id)]).sort((a,b)=>b[1]-a[1]);
   // speedometer 1..5 over 180deg
   const cx=180,cy=180,R=140, ang=v=>Math.PI*(1-(v-1)/4), P=(v,r)=>[cx+r*Math.cos(ang(v)),cy-r*Math.sin(ang(v))];
-  const zones=[[1,1.8,'#d64545'],[1.81,2.6,'#f08a3c'],[2.61,3.4,'#f2c230'],[3.41,4.2,'#7cc65b'],[4.21,5,'#1f9a5f']];
+  const zones=[[1,1.8,'#d64545'],[1.81,2.6,'#f08a3c'],[2.61,3.4,'#f2c230'],[3.41,4.2,'#4f9a33'],[4.21,5,'#1f9a5f']];
   let g=zones.map(([a,b,c])=>{const [x1,y1]=P(a,R),[x2,y2]=P(b,R);return `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} A${R} ${R} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="${c}" stroke-width="26"/>`;}).join('');
   [1,2,3,4,5].forEach(k=>{const [x,y]=P(k,R+26);g+=`<text text-anchor="middle" x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}">${k}</text>`;});
   const rot=(ov-1)/4*180-90;
@@ -1167,7 +1172,7 @@ function dailyCard(s){
   let h=`<div class="qn">ข้อ 4.1</div><h3>${esc(tx(s.q))}</h3><div class="meta">นับเป็นรายคน: ผู้ตอบ ${nf(n)} คน กับผู้ร่วมเดินทางที่มาด้วย แต่ละคนร่วมกิจกรรมกี่ครั้ง</div>`;
   h+=`<div class="st4w">`+
    step('1','#003674','ผู้กรอกแบบสอบถาม',nf(n),'คน','1 LINE UID = 1 แบบสอบถาม')+
-   step('2','#00A79D','รวมผู้ร่วมเดินทาง',nf(Ptot),'คน',`ผู้ตอบ ${nf(n)} + ผู้ร่วมเดินทาง ${nf(Ptot-n)} คน`)+
+   step('2','#00857c','รวมผู้ร่วมเดินทาง',nf(Ptot),'คน',`ผู้ตอบ ${nf(n)} + ผู้ร่วมเดินทาง ${nf(Ptot-n)} คน`)+
    step('3','#5b3fa8','มากี่วัน',nf(Ptot),'คน',Object.keys(dpp).sort().map(d=>`มา ${d} วัน <b style="color:var(--ink)">${nf(dpp[d])}</b> คน`).join('<br>'))+
    step('4','#E95429','ร่วมกิจกรรมรวม',nf(Vtot),'ครั้ง',`เฉลี่ยคนละ <b style="color:var(--ink)">${avgV.toFixed(1)}</b> ครั้ง · 1 คน 1 กิจกรรม = 1 ครั้ง (Visitation)`)+`</div>`;
   h+=`<div class="grp2" style="margin-top:16px">${nf(Ptot)} คน แต่ละคนร่วมกิจกรรมกี่ครั้ง</div><div class="hist">${B.map(([t],i)=>`<div style="--d:${(i*.06).toFixed(2)}s"><b>${nf(bc[i])}</b><i style="height:${Math.max(3,bc[i]/bm*100).toFixed(0)}%;background:${['#FF999A','#E95429','#00A79D','#5b3fa8','#003674'][i]}"></i><span>${t}</span></div>`).join('')}</div><div class="leg">ตัวเลขบนแท่ง = จำนวนคน · บวกกันได้ ${nf(Ptot)} คน</div>`;
@@ -1196,7 +1201,7 @@ function datesCard(s){
 const NEAR5=['ชัยภูมิ','ขอนแก่น','บุรีรัมย์','สระบุรี','ปราจีนบุรี'], BKKV=['กรุงเทพมหานคร','กรุงเทพฯ','นนทบุรี','ปทุมธานี','สมุทรปราการ','สมุทรสาคร','นครปฐม'];
 const orig=r=>{const a=r.p1_2||{};if(a.v==='korat')return 'in';if(a.v==='abroad')return 'fx';const pv=a.province||'';if(NEAR5.includes(pv))return 'in';if(BKKV.includes(pv))return 'bkk';return 'oth';};
 const pil=r=>{const p1=r.p2_1?.v, p4=r.p4_2?.v||[];if(p1==='business'||p1==='kbatx'||p4.includes('invest')||p4.includes('network'))return 'inv';if(['yes','decided'].includes(r.p5_2?.v))return 'live';return 'tour';};
-const GRP=[['in','โคราช + 5 จังหวัดรอบข้าง','ชัยภูมิ ขอนแก่น บุรีรัมย์ สระบุรี ปราจีนบุรี',140000,{live:64000,tour:59000,inv:17000},'#003674'],['bkk','กรุงเทพฯ และปริมณฑล','กทม. นนทบุรี ปทุมธานี สมุทรปราการ สมุทรสาคร นครปฐม',39000,{live:10000,tour:24000,inv:5000},'#E95429'],['oth','จังหวัดอื่น ๆ','จังหวัดนอกจากกลุ่มด้านบน',18000,{live:0,tour:15000,inv:3000},'#00A79D'],['fx','ชาวต่างชาติ','อยู่ต่างประเทศ',3000,{live:1000,tour:2000,inv:0},'#B98AF0']];
+const GRP=[['in','โคราช + 5 จังหวัดรอบข้าง','ชัยภูมิ ขอนแก่น บุรีรัมย์ สระบุรี ปราจีนบุรี',140000,{live:64000,tour:59000,inv:17000},'#003674'],['bkk','กรุงเทพฯ และปริมณฑล','กทม. นนทบุรี ปทุมธานี สมุทรปราการ สมุทรสาคร นครปฐม',39000,{live:10000,tour:24000,inv:5000},'#E95429'],['oth','จังหวัดอื่น ๆ','จังหวัดนอกจากกลุ่มด้านบน',18000,{live:0,tour:15000,inv:3000},'#00857c'],['fx','ชาวต่างชาติ','อยู่ต่างประเทศ',3000,{live:1000,tour:2000,inv:0},'#7b4fc4']];
 const PIL=[['live','น่าอยู่'],['tour','น่าเที่ยว'],['inv','น่าลงทุน']];
 function card(s){
   if(s.part===7&&s.type==='rate') return (s.id==='p7_pr'?satSummary():'')+rateCard7(s);

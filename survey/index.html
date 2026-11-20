@@ -99,6 +99,8 @@ h2{font-family:var(--display);font-weight:600;font-size:18px;line-height:1.4;mar
 
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tags{color:#4fe0d4}:root:not([data-theme="light"]) .dchip[aria-checked="true"]{background:#D3FF34;color:#0b1a33;border-color:#D3FF34}}
 :root[data-theme="dark"] .tags{color:#4fe0d4}:root[data-theme="dark"] .dchip[aria-checked="true"]{background:#D3FF34;color:#0b1a33;border-color:#D3FF34}
+.sstat{font-weight:600}.sstat.s-ok{color:#1b8552}.sstat.s-fail{color:#c93c3c;text-decoration:underline;cursor:pointer}
+@media (prefers-color-scheme: dark){.sstat.s-ok{color:#4cd08f}.sstat.s-fail{color:#ff7b7b}}
 </style>
 </head>
 <body>
@@ -134,6 +136,9 @@ const UI={
   raw:T('ดูข้อมูลคำตอบ (สำหรับทีมงาน)','View answer data (for staff)'),
   again:T('เริ่มใหม่','Start again'),
   proto:T('ตัวอย่างทดลอง ยังไม่บันทึกคำตอบเข้าระบบ','Prototype: answers are not saved to any server yet'),
+  sOk:T('บันทึกคำตอบเรียบร้อยแล้ว','Your answers have been saved'),
+  sWait:T('กำลังบันทึกคำตอบ…','Saving your answers…'),
+  sFail:T('ยังบันทึกไม่สำเร็จ (สัญญาณอินเทอร์เน็ต) แตะเพื่อส่งอีกครั้ง','Not saved yet (connection). Tap to send again'),
   intro:T('ส่วนนำ','Introduction'),
 };
 const PARTS=[null,
@@ -263,6 +268,16 @@ if(UID&&!/^U[0-9a-f]{32}$/.test(UID))UID='';
 if(UID&&A._uid&&A._uid!==UID){A={};i=0;}
 if(UID)A._uid=UID;
 const save=()=>{try{localStorage.setItem('kce-survey-v2',JSON.stringify({A,i,L}))}catch(e){}};
+const SURVEY_API='https://korat.mididigitalevent.workers.dev/api/survey', FORM='v2';
+let TEST=false;try{TEST=new URLSearchParams(location.search).get('test')==='1';}catch(e){}
+const newSid=()=>Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,6);
+let SUB=A._sent?'ok':'';
+async function submit(){if(SUB==='wait')return;SUB='wait';render();
+  if(!A._sid)A._sid=newSid();save();
+  try{const r=await fetch(SURVEY_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sid:A._sid,uid:UID||'',form:FORM,lang:L,test:TEST,answers:A})});
+    const j=await r.json().catch(()=>({}));if(!r.ok||!j.ok)throw new Error('x');SUB='ok';A._sent=new Date().toISOString();}
+  catch(e){SUB='fail';}
+  save();if(PAGES[i]===9)render();}
 const tx=x=>x?x[L]:'';
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const visible=()=>S.filter(s=>!s.show||s.show(A));
@@ -359,7 +374,7 @@ function render(){
     h=`<div class="done">${KVIMG}<div class="ok">✓</div><h1>${esc(tx(UI.thanks))}</h1><p class="hint">${esc(tx(UI.thanks2))}</p>
       <button class="btn" id="again" style="max-width:220px">${esc(tx(UI.again))}</button>
       
-      <p class="proto">${esc(tx(UI.proto))}</p></div>`;
+      <p class="proto sstat s-${SUB||'wait'}" id="sstat">${SUB==='ok'?'✓ '+esc(tx(UI.sOk)):SUB==='fail'?esc(tx(UI.sFail)):esc(tx(UI.sWait))}</p></div>`;
   } else {
     const qs=visible().filter(x=>x.part===part);
     h=`<div class="qno">${L==='th'?'ส่วนที่ '+part:'Part '+part}</div><h1>${esc(tx(PARTS[part]).replace(/^(ส่วนที่ \d+ |Part \d+: )/,''))}</h1>
@@ -369,7 +384,8 @@ function render(){
   $('stage').innerHTML=h;
   $('stage').querySelectorAll('[data-cons]').forEach(b=>b.onclick=()=>{A.consent=A.consent||{};const k=b.dataset.cons;A.consent[k]=!A.consent[k];err='';render();});
   $('stage').querySelectorAll('section[data-q]').forEach(el=>bindQ(S.find(x=>x.id===el.dataset.q),el));
-  const ag=$('again'); if(ag) ag.onclick=()=>{A=UID?{_uid:UID}:{};i=0;render();window.scrollTo(0,0);};
+  const ag=$('again'); if(ag) ag.onclick=()=>{A=UID?{_uid:UID}:{};i=0;SUB='';render();window.scrollTo(0,0);};
+  const ss=$('sstat'); if(ss&&SUB==='fail') ss.onclick=submit;
   save();
 }
 function rerender(){const y=window.scrollY;S.forEach(x=>{if(x.show&&!x.show(A))delete A[x.id];});render();window.scrollTo(0,y);}
@@ -400,12 +416,13 @@ function bindQ(s,st){
 }
 function go(){
   if(PAGES[i]===0&&!(A.consent&&A.consent.agree)){err=tx(UI.needc);render();return;}
-  if(i<PAGES.length-1){i++;if(PAGES[i]===9)A._submitted=new Date().toISOString();render();window.scrollTo(0,0);}
+  if(i<PAGES.length-1){i++;if(PAGES[i]===9){A._submitted=new Date().toISOString();A._sid=A._sid||newSid();SUB='';render();window.scrollTo(0,0);submit();return;}render();window.scrollTo(0,0);}
 }
 $('next').onclick=go;
 $('back').onclick=()=>{if(i>0){i--;render();window.scrollTo(0,0);}};
 $('lth').onclick=()=>{L='th';err='';rerender();};$('len').onclick=()=>{L='en';err='';rerender();};
 render();
+if(PAGES[i]===9&&!A._sent&&A.consent&&A.consent.agree)submit();
 </script>
 </body>
 </html>

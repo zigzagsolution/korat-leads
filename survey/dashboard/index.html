@@ -14,7 +14,7 @@
 /* Layout: navy hero with photo + KPI row, then numbered-free sections in a 12-col grid that stacks to 1 col on phones */
 :root{
   --bg:#f4f3fa; --surface:#fff; --ink:#0d1f3d; --muted:#5a6680; --line:#e1e0ee;
-  --navy:#003674; --orange:#E95429; --lime:#D3FF34; --teal:#00A79D; --salmon:#FF999A; --lav:#DCB8FE;
+  --navy:#003674; --orange:#D34016; --lime:#D3FF34; --teal:#00837B; --salmon:#C0393B; --lav:#DCB8FE;
   --soft:#ece4fe; --bar-bg:#ebeaf4;
   --display:"Prompt","IBM Plex Sans Thai",system-ui,sans-serif; --body:"IBM Plex Sans Thai",system-ui,sans-serif;
 }
@@ -37,7 +37,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15p
 .photo{position:relative;border-radius:16px;overflow:hidden;min-height:260px;background:#0a2a57}
 .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .photo .cap{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 10px;background:linear-gradient(transparent,rgba(0,20,50,.85));font-size:12px;color:#e8ecf7}
-.photo .badge{position:absolute;top:12px;left:12px;background:var(--orange);color:#fff;font-weight:600;font-size:13px;border-radius:999px;padding:5px 12px}
+.photo .badge{position:absolute;top:12px;left:12px;background:#D34016;color:#fff;font-weight:600;font-size:13px;border-radius:999px;padding:5px 12px}
 .kvline{height:6px;background:linear-gradient(90deg,var(--orange) 0 20%,var(--lime) 20% 40%,var(--teal) 40% 60%,var(--salmon) 60% 80%,var(--lav) 80%)}
 main .wrap{padding-block:22px 40px}
 .insights{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:26px}
@@ -93,8 +93,8 @@ h2 .dot{width:12px;height:12px;border-radius:3px;flex:none}
 .qphoto .cap{position:absolute;left:0;right:0;bottom:0;padding:24px 12px 8px;background:linear-gradient(transparent,rgba(0,20,50,.8));color:#fff;font-size:12px}
 .cols{display:flex;align-items:flex-end;gap:6px;height:150px;padding-top:18px}
 .cols .col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end;min-width:0}
-.cols .col i{display:block;width:100%;border-radius:6px 6px 2px 2px;background:var(--teal)}
-.cols .col.hi i{background:var(--orange)}
+.cols .col i{display:block;width:100%;border-radius:6px 6px 2px 2px;background:#00837B}
+.cols .col.hi i{background:#D34016}
 .cols .col b{font-size:11.5px;font-variant-numeric:tabular-nums}
 .cols .col span{font-size:11.5px;color:var(--muted)}
 .pill{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:2px 9px;background:var(--soft)}
@@ -136,6 +136,77 @@ footer .wrap{padding-block:16px 28px}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .gnum{color:var(--lav)}}
 :root[data-theme="dark"] .gnum{color:var(--lav)}
 @media (max-width:900px){.per,.goal{grid-template-columns:1fr}}
+
+/* c2-contrast */
+.tags,.stars .f{-webkit-text-stroke:.5px rgba(0,0,0,.25)}
+.stars{color:#9aa3bd}
+.stars .f{color:#c78800}
+[style*="color:#D3FF34"]{-webkit-text-stroke:1px #6b8a00}
+.va.z,.cb.z,.ivp .z,.ml.z,.cal .pg.z,.nrow.z,.mt.z,.tt.z{opacity:.75}
+.face.z{opacity:.5}
+.badge,.sw,.tagb,.lvl,.rk,.fb,.pp,.cmh,.cmpl i{text-shadow:0 1px 2px rgba(0,0,0,.35)}
+@media (prefers-color-scheme: dark){.ext,.rank li:first-child .r,.hero2 .big,.qc .qn,[style*="color:var(--orange)"]{color:#ff7a4d!important}
+ .cal .pg.on .d,[style*="color:var(--teal)"]{color:#2fd1c4!important}
+ .badge,.rk,.tagb,.lvl{color:#fff}
+ [style*="background:#D3FF34"],[style*="background:var(--lime)"]{color:#0b1a33!important}
+ .stars{color:#5f7db0}
+ [style*="color:#D3FF34"]{-webkit-text-stroke:0}
+ .stars .f{color:#ffb400}
+ [style*="color:#003674"]:not([style*="background:#003674"]){color:#9cc3ff!important}
+ [style*="color:#00776F"]:not([style*="background:#00776F"]){color:#2fd1c4!important}
+ [style*="color:#00776f"]:not([style*="background:#00776f"]){color:#2fd1c4!important}
+ [style*="color:#00837B"]:not([style*="background:#00837B"]){color:#2fd1c4!important}
+ [style*="color:#00837b"]:not([style*="background:#00837b"]){color:#2fd1c4!important}
+ [style*="color:#1B8552"]:not([style*="background:#1B8552"]){color:#4cd08f!important}
+ [style*="color:#1b8552"]:not([style*="background:#1b8552"]){color:#4cd08f!important}
+ [style*="color:#2D825A"]:not([style*="background:#2D825A"]){color:#5fd69d!important}
+ [style*="color:#2d825a"]:not([style*="background:#2d825a"]){color:#5fd69d!important}
+ [style*="color:#43832B"]:not([style*="background:#43832B"]){color:#7fd35e!important}
+ [style*="color:#43832b"]:not([style*="background:#43832b"]){color:#7fd35e!important}
+ [style*="color:#5B3FA8"]:not([style*="background:#5B3FA8"]){color:#b79cff!important}
+ [style*="color:#5D72A0"]:not([style*="background:#5D72A0"]){color:#a9b8dc!important}
+ [style*="color:#5b3fa8"]:not([style*="background:#5b3fa8"]){color:#b79cff!important}
+ [style*="color:#5d72a0"]:not([style*="background:#5d72a0"]){color:#a9b8dc!important}
+ [style*="color:#8F4FE0"]:not([style*="background:#8F4FE0"]){color:#c9a2ff!important}
+ [style*="color:#8f4fe0"]:not([style*="background:#8f4fe0"]){color:#c9a2ff!important}
+ [style*="color:#9A6F00"]:not([style*="background:#9A6F00"]){color:#f2c230!important}
+ [style*="color:#9a6f00"]:not([style*="background:#9a6f00"]){color:#f2c230!important}
+ [style*="color:#BA590E"]:not([style*="background:#BA590E"]){color:#ffa25c!important}
+ [style*="color:#C0393B"]:not([style*="background:#C0393B"]){color:#ff8f90!important}
+ [style*="color:#C93C3C"]:not([style*="background:#C93C3C"]){color:#ff7b7b!important}
+ [style*="color:#D34016"]:not([style*="background:#D34016"]){color:#ff7a4d!important}
+ [style*="color:#ba590e"]:not([style*="background:#ba590e"]){color:#ffa25c!important}
+ [style*="color:#c0393b"]:not([style*="background:#c0393b"]){color:#ff8f90!important}
+ [style*="color:#c93c3c"]:not([style*="background:#c93c3c"]){color:#ff7b7b!important}
+ [style*="color:#d34016"]:not([style*="background:#d34016"]){color:#ff7a4d!important}
+ text[fill="#003674"],tspan[fill="#003674"],[style*="fill:#003674"]{fill:#9cc3ff!important}
+ text[fill="#00776F"],tspan[fill="#00776F"],[style*="fill:#00776F"]{fill:#2fd1c4!important}
+ text[fill="#00776f"],tspan[fill="#00776f"],[style*="fill:#00776f"]{fill:#2fd1c4!important}
+ text[fill="#00837B"],tspan[fill="#00837B"],[style*="fill:#00837B"]{fill:#2fd1c4!important}
+ text[fill="#00837b"],tspan[fill="#00837b"],[style*="fill:#00837b"]{fill:#2fd1c4!important}
+ text[fill="#1B8552"],tspan[fill="#1B8552"],[style*="fill:#1B8552"]{fill:#4cd08f!important}
+ text[fill="#1b8552"],tspan[fill="#1b8552"],[style*="fill:#1b8552"]{fill:#4cd08f!important}
+ text[fill="#2D825A"],tspan[fill="#2D825A"],[style*="fill:#2D825A"]{fill:#5fd69d!important}
+ text[fill="#2d825a"],tspan[fill="#2d825a"],[style*="fill:#2d825a"]{fill:#5fd69d!important}
+ text[fill="#43832B"],tspan[fill="#43832B"],[style*="fill:#43832B"]{fill:#7fd35e!important}
+ text[fill="#43832b"],tspan[fill="#43832b"],[style*="fill:#43832b"]{fill:#7fd35e!important}
+ text[fill="#5B3FA8"],tspan[fill="#5B3FA8"],[style*="fill:#5B3FA8"]{fill:#b79cff!important}
+ text[fill="#5D72A0"],tspan[fill="#5D72A0"],[style*="fill:#5D72A0"]{fill:#a9b8dc!important}
+ text[fill="#5b3fa8"],tspan[fill="#5b3fa8"],[style*="fill:#5b3fa8"]{fill:#b79cff!important}
+ text[fill="#5d72a0"],tspan[fill="#5d72a0"],[style*="fill:#5d72a0"]{fill:#a9b8dc!important}
+ text[fill="#8F4FE0"],tspan[fill="#8F4FE0"],[style*="fill:#8F4FE0"]{fill:#c9a2ff!important}
+ text[fill="#8f4fe0"],tspan[fill="#8f4fe0"],[style*="fill:#8f4fe0"]{fill:#c9a2ff!important}
+ text[fill="#9A6F00"],tspan[fill="#9A6F00"],[style*="fill:#9A6F00"]{fill:#f2c230!important}
+ text[fill="#9a6f00"],tspan[fill="#9a6f00"],[style*="fill:#9a6f00"]{fill:#f2c230!important}
+ text[fill="#BA590E"],tspan[fill="#BA590E"],[style*="fill:#BA590E"]{fill:#ffa25c!important}
+ text[fill="#C0393B"],tspan[fill="#C0393B"],[style*="fill:#C0393B"]{fill:#ff8f90!important}
+ text[fill="#C93C3C"],tspan[fill="#C93C3C"],[style*="fill:#C93C3C"]{fill:#ff7b7b!important}
+ text[fill="#D34016"],tspan[fill="#D34016"],[style*="fill:#D34016"]{fill:#ff7a4d!important}
+ text[fill="#ba590e"],tspan[fill="#ba590e"],[style*="fill:#ba590e"]{fill:#ffa25c!important}
+ text[fill="#c0393b"],tspan[fill="#c0393b"],[style*="fill:#c0393b"]{fill:#ff8f90!important}
+ text[fill="#c93c3c"],tspan[fill="#c93c3c"],[style*="fill:#c93c3c"]{fill:#ff7b7b!important}
+ text[fill="#d34016"],tspan[fill="#d34016"],[style*="fill:#d34016"]{fill:#ff7a4d!important}
+}
 </style>
 <div class="mock">ตัวอย่างหน้าตาแดชบอร์ด · ตัวเลขทั้งหมดเป็นข้อมูลจำลอง ยังไม่ใช่ผลสำรวจจริง</div>
 <section class="hero"><div class="wrap">
@@ -150,12 +221,12 @@ footer .wrap{padding-block:16px 28px}
 <div class="kvline"></div>
 <main><div class="wrap">
   <div class="insights" id="ins"></div><section class="vis" id="visblock">
-  <h2><span class="dot" style="background:var(--orange)"></span>เป้า 200,000 Visitation (นับเป็นครั้ง)</h2>
+  <h2><span class="dot" style="background:#D34016"></span>เป้า 200,000 Visitation (นับเป็นครั้ง)</h2>
   <p class="lead" id="vislead"></p>
   <div class="per">
     <div class="pp" style="background:var(--navy)"><div class="op">×</div><div class="k">ผู้เข้าร่วม 1 คน ร่วมกิจกรรมเฉลี่ย</div><div class="n" id="vAct"></div><div class="s">นับจากข้อ 4.1 งานเทศกาลที่เข้าร่วม (กิจกรรมในพื้นที่จริง)</div></div>
-    <div class="pp" style="background:var(--teal)"><div class="op">=</div><div class="k">มางานเฉลี่ย</div><div class="n" id="vDay"></div><div class="s">นับจากข้อ 2.3 จำนวนวันที่เข้าร่วมงาน</div></div>
-    <div class="pp" style="background:var(--orange)"><div class="k">คิดเป็น Visitation ต่อคน</div><div class="n" id="vPer"></div><div class="s" id="vPerS"></div></div>
+    <div class="pp" style="background:#00837B"><div class="op">=</div><div class="k">มางานเฉลี่ย</div><div class="n" id="vDay"></div><div class="s">นับจากข้อ 2.3 จำนวนวันที่เข้าร่วมงาน</div></div>
+    <div class="pp" style="background:#D34016"><div class="k">คิดเป็น Visitation ต่อคน</div><div class="n" id="vPer"></div><div class="s" id="vPerS"></div></div>
   </div>
   <div class="goal">
     <div>
@@ -177,7 +248,7 @@ footer .wrap{padding-block:16px 28px}
   </div>
 </section>
 
-  <h2><span class="dot" style="background:var(--orange)"></span>ใครมางานบ้าง</h2>
+  <h2><span class="dot" style="background:#D34016"></span>ใครมางานบ้าง</h2>
   <p class="lead">ประเภทผู้ตอบ ที่อยู่ปัจจุบัน และช่วงอายุ</p>
   <div class="grid">
     <div class="card c5"><h3>ประเภทผู้ตอบ<small>n = 1,248</small></h3><div class="donut" id="d1"></div></div>
@@ -185,7 +256,7 @@ footer .wrap{padding-block:16px 28px}
     <div class="card c3"><h3>ช่วงอายุ</h3><div class="hb" id="age"></div><h3 style="margin-top:16px">เพศ</h3><div class="stack" id="sexs"></div><div class="legend" id="sexl"></div></div>
   </div>
 
-  <h2><span class="dot" style="background:var(--teal)"></span>การเดินทางและการใช้จ่าย</h2>
+  <h2><span class="dot" style="background:#00837B"></span>การเดินทางและการใช้จ่าย</h2>
   <p class="lead">คิดจากคนที่ตอบข้อ 2.4–2.8 · ค่าใช้จ่ายใช้ค่ากลางของช่วงที่เลือก (บาท/คน ตลอดการเดินทาง)</p>
   <div class="grid">
     <div class="card c4"><h3>ค้างคืนในโคราช</h3><div class="big" id="stay"></div><div class="stack" id="nights"></div><div class="legend" id="nightl"></div></div>
@@ -227,7 +298,7 @@ footer .wrap{padding-block:16px 28px}
 <footer><div class="wrap">ข้อมูลจำลองเพื่อดูรูปแบบการแสดงผลเท่านั้น · ภาพปราสาทหินพิมาย: Anandajoti Bhikkhu (CC BY-SA 3.0) · ภาพประกอบ: Adobe Stock · พัฒนาข้อมูลโดย MIDI Digital</div></footer>
 
 <script>
-const C={navy:'#003674',orange:'#E95429',lime:'#B7E01A',teal:'#00A79D',salmon:'#FF999A',lav:'#B98AF0'};
+const C={navy:'#003674',orange:'#D34016',lime:'#B7E01A',teal:'#00837B',salmon:'#C0393B',lav:'#8F4FE0'};
 const svg=(p,c='currentColor',s=22)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 const I={
  users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M16.5 14.6c2.6.2 4.4 1.9 5 5.4"/>',
@@ -318,7 +389,7 @@ function visBlock(o){
 }
 visBlock({lead:'ข้อมูลจำลอง · ค่าเฉลี่ยต่อคนจากผู้ตอบ 1,248 คน และยอดจาก 5 แหล่งรวมกัน หลังกันนับซ้ำด้วย LINE UID',
  act:3.2,day:2.4,per:3.4,perNote:'ขั้นต่ำ: นับวันละอย่างน้อย 1 กิจกรรม และแต่ละกิจกรรมอย่างน้อย 1 ครั้ง',
- src:[['สแกน QR ที่จุดจัดงาน',96400,'#003674','นับทุกครั้งที่สแกน'],['ยอดเข้าพักโรงแรม/ที่พัก',18200,'#B98AF0','คืนเข้าพัก × Visitation ต่อคน'],['ยอดจากพาร์ทเนอร์ ห้าง ร้านค้า',41500,'#00A79D','รายงานจากพาร์ทเนอร์'],['ยอดทัวร์',6800,'#FF999A','จากบริษัททัวร์'],['แบบสำรวจคนที่อยู่ในงานจริง',4243,'#E95429','ผู้ตอบ 1,248 คน × 3.4']],
+ src:[['สแกน QR ที่จุดจัดงาน',96400,'#003674','นับทุกครั้งที่สแกน'],['ยอดเข้าพักโรงแรม/ที่พัก',18200,'#8F4FE0','คืนเข้าพัก × Visitation ต่อคน'],['ยอดจากพาร์ทเนอร์ ห้าง ร้านค้า',41500,'#00837B','รายงานจากพาร์ทเนอร์'],['ยอดทัวร์',6800,'#C0393B','จากบริษัททัวร์'],['แบบสำรวจคนที่อยู่ในงานจริง',4243,'#D34016','ผู้ตอบ 1,248 คน × 3.4']],
  note:'ต้นทุนต่อ Visitation เป้าหมาย 135.5 บาท (งบ 27.1 ล้าน ÷ 200,000)'});
 </script>
 </body>

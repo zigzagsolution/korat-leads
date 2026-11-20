@@ -12,7 +12,7 @@
 /* Layout: navy hero with photo + KPI row, then numbered-free sections in a 12-col grid that stacks to 1 col on phones */
 :root{
   --bg:#f4f3fa; --surface:#fff; --ink:#0d1f3d; --muted:#5a6680; --line:#e1e0ee;
-  --navy:#003674; --orange:#E95429; --lime:#D3FF34; --teal:#00A79D; --salmon:#FF999A; --lav:#DCB8FE;
+  --navy:#003674; --orange:#D34016; --lime:#D3FF34; --teal:#00837B; --salmon:#C0393B; --lav:#DCB8FE;
   --soft:#ece4fe; --bar-bg:#ebeaf4;
   --display:"Prompt","IBM Plex Sans Thai",system-ui,sans-serif; --body:"IBM Plex Sans Thai",system-ui,sans-serif;
 }
@@ -35,7 +35,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15p
 .photo{position:relative;border-radius:16px;overflow:hidden;min-height:260px;background:#0a2a57}
 .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .photo .cap{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 10px;background:linear-gradient(transparent,rgba(0,20,50,.85));font-size:12px;color:#e8ecf7}
-.photo .badge{position:absolute;top:12px;left:12px;background:var(--orange);color:#fff;font-weight:600;font-size:13px;border-radius:999px;padding:5px 12px}
+.photo .badge{position:absolute;top:12px;left:12px;background:#D34016;color:#fff;font-weight:600;font-size:13px;border-radius:999px;padding:5px 12px}
 .kvline{height:6px;background:linear-gradient(90deg,var(--orange) 0 20%,var(--lime) 20% 40%,var(--teal) 40% 60%,var(--salmon) 60% 80%,var(--lav) 80%)}
 main .wrap{padding-block:22px 40px}
 .insights{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:26px}
@@ -91,8 +91,8 @@ h2 .dot{width:12px;height:12px;border-radius:3px;flex:none}
 .qphoto .cap{position:absolute;left:0;right:0;bottom:0;padding:24px 12px 8px;background:linear-gradient(transparent,rgba(0,20,50,.8));color:#fff;font-size:12px}
 .cols{display:flex;align-items:flex-end;gap:6px;height:150px;padding-top:18px}
 .cols .col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end;min-width:0}
-.cols .col i{display:block;width:100%;border-radius:6px 6px 2px 2px;background:var(--teal)}
-.cols .col.hi i{background:var(--orange)}
+.cols .col i{display:block;width:100%;border-radius:6px 6px 2px 2px;background:#00837B}
+.cols .col.hi i{background:#D34016}
 .cols .col b{font-size:11.5px;font-variant-numeric:tabular-nums}
 .cols .col span{font-size:11.5px;color:var(--muted)}
 .pill{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:2px 9px;background:var(--soft)}
@@ -174,7 +174,7 @@ code{font-size:12.5px}
 .qc.wide{grid-column:1/-1}
 .eq3{display:flex;align-items:stretch;gap:8px;margin:12px 0 4px;flex-wrap:wrap}.eq3>div{flex:1;min-width:120px;background:var(--soft);border-radius:12px;padding:10px 12px}
 .eq3 b{display:block;font-family:var(--display);font-size:26px;font-variant-numeric:tabular-nums}.eq3 span{font-size:12.5px;color:var(--muted)}
-.eq3 i{font-style:normal;align-self:center;font-family:var(--display);font-size:24px;font-weight:700;color:var(--muted)}.eq3 .hl{background:#00857c;color:#fff}.eq3 .hl span{color:#fff}
+.eq3 i{font-style:normal;align-self:center;font-family:var(--display);font-size:24px;font-weight:700;color:var(--muted)}.eq3 .hl{background:#00776f;color:#fff}.eq3 .hl span{color:#fff}
 @media(max-width:520px){.eq3 i{display:none}}
 
 .st4w{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:6px}
@@ -215,8 +215,8 @@ table.gt th:first-child,table.gt td:first-child{text-align:left}table.gt td smal
 @media(max-width:520px){.per.ch4{grid-template-columns:1fr}}
 .dt{display:grid;grid-template-columns:84px 1fr 150px;gap:8px 12px;align-items:center;font-size:13.5px}
 .dt .bar{height:22px;background:var(--soft);border-radius:6px;position:relative;overflow:hidden}
-.dt .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--teal);border-radius:6px}
-.dt .bar i.wk{background:var(--orange)}
+.dt .bar i{position:absolute;left:0;top:0;bottom:0;background:#00837B;border-radius:6px}
+.dt .bar i.wk{background:#D34016}
 .dt .v{text-align:right;font-variant-numeric:tabular-nums}.dt .v b{font-family:var(--display);font-size:16px}
 .dt .v small{display:block;color:var(--muted);font-size:11.5px}
 .dt .z{color:var(--muted)}
@@ -236,8 +236,8 @@ table.hm td.t,table.hm tr.t td{font-weight:700;background:var(--soft)}
 button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:9px 14px;font:inherit;font-size:13.5px;cursor:pointer;margin:0 0 10px}
 
 .tl2{display:flex;align-items:flex-end;gap:2px;height:170px;padding:26px 4px 0;position:relative}
-.tl2 i{flex:1;background:var(--teal);border-radius:3px 3px 0 0;min-height:2px;position:relative}
-.tl2 i.d21{background:var(--orange)}
+.tl2 i{flex:1;background:#00837B;border-radius:3px 3px 0 0;min-height:2px;position:relative}
+.tl2 i.d21{background:#D34016}
 .tl2 i.ev{outline:2px solid var(--lime);outline-offset:1px}
 .tlx{display:flex;gap:2px;padding:4px 4px 0;font-size:10.5px;color:var(--muted)}
 .tlx span{flex:1;text-align:center;overflow:visible;white-space:nowrap}.tlx em{font-style:normal}@media(max-width:520px){.tlx em{display:none}}
@@ -248,9 +248,9 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 .tlst div{background:var(--soft);border-radius:10px;padding:8px 12px}.tlst b{display:block;font-family:var(--display);font-size:20px}.tlst span{font-size:12px;color:var(--muted)}
 
 .vact{margin-top:14px;display:grid;gap:6px}.va{display:grid;grid-template-columns:minmax(110px,34%) 1fr 74px 70px;gap:10px;align-items:center;font-size:13px}
-.va .t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.va .b{height:10px;background:var(--bar-bg);border-radius:5px;overflow:hidden}.va .b i{display:block;height:100%;background:#E95429;border-radius:5px}
+.va .t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.va .b{height:10px;background:var(--bar-bg);border-radius:5px;overflow:hidden}.va .b i{display:block;height:100%;background:#D34016;border-radius:5px}
 .va .c{color:var(--muted);font-size:12px;text-align:right}.va b{font-family:var(--display);text-align:right;font-size:16px}.va.z{opacity:.45}
-.va.tot{border-top:2px solid var(--line);padding-top:8px;margin-top:2px}.va.tot b{font-size:22px;color:#E95429}.va.tot .t{font-weight:600}
+.va.tot{border-top:2px solid var(--line);padding-top:8px;margin-top:2px}.va.tot b{font-size:22px;color:#D34016}.va.tot .t{font-weight:600}
 @media (max-width:760px){.va{grid-template-columns:1fr 64px 60px}.va .b{display:none}}
 .cbw{display:grid;grid-template-columns:1fr 1fr;gap:6px 28px}
 .cbg{display:flex;flex-direction:column;gap:7px}
@@ -273,7 +273,7 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 .ivp b{font-family:var(--display);font-size:19px}.ivp .z{opacity:.45}
 .ivt{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;height:190px;align-items:end}
 .ivt div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;text-align:center}
-.ivt i{width:70%;background:linear-gradient(180deg,#00A79D,#003674);border-radius:8px 8px 2px 2px;min-height:4px;transform-origin:bottom}
+.ivt i{width:70%;background:linear-gradient(180deg,#00837B,#003674);border-radius:8px 8px 2px 2px;min-height:4px;transform-origin:bottom}
 .qc.in .ivt i,.qc.in .hist i{animation:rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
 @keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 .ivt b{font-family:var(--display);font-size:14px}.ivt span{font-size:12px;color:var(--muted);line-height:1.2}.ivt small{font-size:11.5px;color:var(--muted)}
@@ -285,10 +285,10 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 .tx{display:grid;gap:8px}
 .tr2{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center}
 .tr2 .rk{width:28px;height:28px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:13px;color:var(--muted)}
-.tr2.t1 .rk{background:#E95429;color:#fff}.tr2.t2 .rk{background:#00A79D;color:#fff}.tr2.t3 .rk{background:#B98AF0;color:#fff}
+.tr2.t1 .rk{background:#D34016;color:#fff}.tr2.t2 .rk{background:#00837B;color:#fff}.tr2.t3 .rk{background:#8F4FE0;color:#fff}
 .tr2 .tt2{font-size:13.5px;line-height:1.3;display:flex;flex-direction:column;gap:5px;min-width:0}
 .tr2 .tt2 i{display:block;height:6px;border-radius:3px;background:var(--bar-bg);transform-origin:left}
-.tr2.t1 .tt2 i{background:#E95429}.tr2.t2 .tt2 i{background:#00A79D}.tr2.t3 .tt2 i{background:#B98AF0}.tr2:not(.t1):not(.t2):not(.t3) .tt2 i{background:#9aa6c2}
+.tr2.t1 .tt2 i{background:#D34016}.tr2.t2 .tt2 i{background:#00837B}.tr2.t3 .tt2 i{background:#8F4FE0}.tr2:not(.t1):not(.t2):not(.t3) .tt2 i{background:#9aa6c2}
 .tr2.t1 .tt2{font-weight:600}
 .tr2>b{font-family:var(--display);font-size:18px;white-space:nowrap}.tr2>b small{font-size:12px;color:var(--muted);font-weight:500;margin-left:3px}
 .ng{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -298,11 +298,11 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 .nk em{font-style:normal;font-size:12.5px;color:var(--muted)}
 .nsplit{display:flex;height:12px;border-radius:6px;overflow:hidden;margin-top:12px;gap:2px}
 .nr2{display:grid;grid-template-columns:78px 130px 1fr 80px;gap:10px;align-items:center;padding:6px 0;font-size:13.5px}
-.nr2 .mo{display:flex;gap:3px;color:#B98AF0}.nr2 .mo svg{width:20px;height:20px}
-.nr2 .ct{height:12px;background:var(--bar-bg);border-radius:6px;overflow:hidden}.nr2 .ct i{display:block;height:100%;background:#B98AF0;border-radius:6px;transform-origin:left}
+.nr2 .mo{display:flex;gap:3px;color:#8F4FE0}.nr2 .mo svg{width:20px;height:20px}
+.nr2 .ct{height:12px;background:var(--bar-bg);border-radius:6px;overflow:hidden}.nr2 .ct i{display:block;height:100%;background:#8F4FE0;border-radius:6px;transform-origin:left}
 .nr2>b{font-family:var(--display);font-size:18px;text-align:right}.nr2>b small{font-size:12px;color:var(--muted);font-weight:500;margin-left:3px}
 .cmp{display:grid;grid-template-columns:minmax(160px,240px) 1fr;gap:14px;align-items:stretch}
-.cmh{background:linear-gradient(135deg,#00A79D,#007f77);color:#fff;border-radius:16px;padding:16px;display:flex;flex-direction:column;justify-content:center}
+.cmh{background:linear-gradient(135deg,#00837B,#006b64);color:#fff;border-radius:16px;padding:16px;display:flex;flex-direction:column;justify-content:center}
 .cmh b{font-family:var(--display);font-size:52px;line-height:1}.cmh>span{font-size:14px}.cmh em{font-style:normal;font-size:12px;opacity:.85;margin-top:6px}
 .cmk{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .cmk div{border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:4px}
@@ -315,8 +315,8 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 .mlad{display:grid;gap:7px}
 .ml{display:grid;grid-template-columns:96px 1fr 74px;gap:10px;align-items:center;font-size:13px}
 .ml .r{color:var(--muted)}.ml .mb{position:relative;height:16px;background:var(--bar-bg);border-radius:8px}
-.ml .mb i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#48c088,#1f9a5f);border-radius:8px;transform-origin:left}
-.ml .mb em{position:absolute;right:-6px;top:50%;transform:translateY(-50%);font-style:normal;width:22px;height:22px;border-radius:50%;background:#1f9a5f;color:#fff;display:grid;place-items:center;font-weight:700;font-size:12px;box-shadow:0 0 0 3px var(--surface)}
+.ml .mb i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#2d825a,#1b8552);border-radius:8px;transform-origin:left}
+.ml .mb em{position:absolute;right:-6px;top:50%;transform:translateY(-50%);font-style:normal;width:22px;height:22px;border-radius:50%;background:#1b8552;color:#fff;display:grid;place-items:center;font-weight:700;font-size:12px;box-shadow:0 0 0 3px var(--surface)}
 .ml.b .r{color:var(--ink);font-weight:600}.ml .v{text-align:right;font-family:var(--display);font-weight:700;font-size:16px}.ml .v small{font-size:11.5px;color:var(--muted);font-weight:500;margin-left:4px}
 .ml.z{opacity:.4}
 .agec .col{position:relative}.agec .col .cv{order:99;margin-bottom:2px}
@@ -390,7 +390,7 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 .radar{width:100%;max-width:420px;margin:0 auto;display:block;overflow:visible}
 .radar .ring{fill:none;stroke:var(--line)}
 .radar .ax{stroke:var(--line)}
-.radar .poly{fill:rgba(233,84,41,.22);stroke:var(--orange);stroke-width:2.5;stroke-linejoin:round;transform-origin:210px 200px}
+.radar .poly{fill:rgba(211,64,22,.22);stroke:var(--orange);stroke-width:2.5;stroke-linejoin:round;transform-origin:210px 200px}
 .qc.in .radar .poly{animation:radarIn 1.2s cubic-bezier(.3,1.4,.5,1) both}
 @keyframes radarIn{from{transform:scale(0);opacity:0}}
 .radar .dot{fill:#fff;stroke-width:3}
@@ -400,7 +400,7 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 .rank{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .rank li{display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:10px 14px}
 .rank li .r{font-family:var(--display);font-weight:800;font-size:22px;color:var(--muted)}
-.rank li:first-child{border-color:var(--orange);box-shadow:0 0 0 3px rgba(233,84,41,.12)}
+.rank li:first-child{border-color:var(--orange);box-shadow:0 0 0 3px rgba(211,64,22,.12)}
 .rank li:first-child .r{color:var(--orange)}
 .rank li .hs{font-weight:700}
 .rank li .hs small{display:block;font-weight:400;color:var(--muted);font-size:12px}
@@ -432,7 +432,7 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 .cal .pg .d{font-family:var(--display);font-weight:700;font-size:26px;padding:6px 0 0;line-height:1.1}
 .cal .pg .u{font-size:11.5px;color:var(--muted)}
 .cal .pg .c{font-size:13px;font-weight:600;padding:4px 0 8px}
-.cal .pg.on{border-color:var(--teal)}.cal .pg.on .tp{background:var(--teal)}.cal .pg.on .d{color:var(--teal)}
+.cal .pg.on{border-color:var(--teal)}.cal .pg.on .tp{background:#00837B}.cal .pg.on .d{color:var(--teal)}
 .cal .pg.z{opacity:.45}
 .nrow{display:grid;grid-template-columns:110px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
 .nrow:last-child{border-bottom:0}
@@ -445,7 +445,7 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 .money{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
 .mt{border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
 .mt .bills{height:56px;position:relative}
-.mt .bills i{position:absolute;left:0;width:46px;height:24px;border-radius:4px;background:#2fa36b;border:2px solid #1f7a4f;box-shadow:inset 0 0 0 3px #48c088}
+.mt .bills i{position:absolute;left:0;width:46px;height:24px;border-radius:4px;background:#2fa36b;border:2px solid #1f7a4f;box-shadow:inset 0 0 0 3px #2d825a}
 .mt .bills i:after{content:"฿";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:700;font-size:13px}
 .mt .r{font-size:12.5px;color:var(--muted)}
 .mt .v{font-family:var(--display);font-weight:700;font-size:24px;line-height:1}
@@ -534,10 +534,81 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 .stat3 b{display:block;font-family:var(--display);font-size:22px;font-variant-numeric:tabular-nums}
 .stat3 span{font-size:12px;color:var(--muted)}
 @media (max-width:760px){.qgrid{grid-template-columns:1fr}}
+
+/* c2-contrast */
+.tags,.stars .f{-webkit-text-stroke:.5px rgba(0,0,0,.25)}
+.stars{color:#9aa3bd}
+.stars .f{color:#c78800}
+[style*="color:#D3FF34"]{-webkit-text-stroke:1px #6b8a00}
+.va.z,.cb.z,.ivp .z,.ml.z,.cal .pg.z,.nrow.z,.mt.z,.tt.z{opacity:.75}
+.face.z{opacity:.5}
+.badge,.sw,.tagb,.lvl,.rk,.fb,.pp,.cmh,.cmpl i{text-shadow:0 1px 2px rgba(0,0,0,.35)}
+@media (prefers-color-scheme: dark){.ext,.rank li:first-child .r,.hero2 .big,.qc .qn,[style*="color:var(--orange)"]{color:#ff7a4d!important}
+ .cal .pg.on .d,[style*="color:var(--teal)"]{color:#2fd1c4!important}
+ .badge,.rk,.tagb,.lvl{color:#fff}
+ [style*="background:#D3FF34"],[style*="background:var(--lime)"]{color:#0b1a33!important}
+ .stars{color:#5f7db0}
+ [style*="color:#D3FF34"]{-webkit-text-stroke:0}
+ .stars .f{color:#ffb400}
+ [style*="color:#003674"]:not([style*="background:#003674"]){color:#9cc3ff!important}
+ [style*="color:#00776F"]:not([style*="background:#00776F"]){color:#2fd1c4!important}
+ [style*="color:#00776f"]:not([style*="background:#00776f"]){color:#2fd1c4!important}
+ [style*="color:#00837B"]:not([style*="background:#00837B"]){color:#2fd1c4!important}
+ [style*="color:#00837b"]:not([style*="background:#00837b"]){color:#2fd1c4!important}
+ [style*="color:#1B8552"]:not([style*="background:#1B8552"]){color:#4cd08f!important}
+ [style*="color:#1b8552"]:not([style*="background:#1b8552"]){color:#4cd08f!important}
+ [style*="color:#2D825A"]:not([style*="background:#2D825A"]){color:#5fd69d!important}
+ [style*="color:#2d825a"]:not([style*="background:#2d825a"]){color:#5fd69d!important}
+ [style*="color:#43832B"]:not([style*="background:#43832B"]){color:#7fd35e!important}
+ [style*="color:#43832b"]:not([style*="background:#43832b"]){color:#7fd35e!important}
+ [style*="color:#5B3FA8"]:not([style*="background:#5B3FA8"]){color:#b79cff!important}
+ [style*="color:#5D72A0"]:not([style*="background:#5D72A0"]){color:#a9b8dc!important}
+ [style*="color:#5b3fa8"]:not([style*="background:#5b3fa8"]){color:#b79cff!important}
+ [style*="color:#5d72a0"]:not([style*="background:#5d72a0"]){color:#a9b8dc!important}
+ [style*="color:#8F4FE0"]:not([style*="background:#8F4FE0"]){color:#c9a2ff!important}
+ [style*="color:#8f4fe0"]:not([style*="background:#8f4fe0"]){color:#c9a2ff!important}
+ [style*="color:#9A6F00"]:not([style*="background:#9A6F00"]){color:#f2c230!important}
+ [style*="color:#9a6f00"]:not([style*="background:#9a6f00"]){color:#f2c230!important}
+ [style*="color:#BA590E"]:not([style*="background:#BA590E"]){color:#ffa25c!important}
+ [style*="color:#C0393B"]:not([style*="background:#C0393B"]){color:#ff8f90!important}
+ [style*="color:#C93C3C"]:not([style*="background:#C93C3C"]){color:#ff7b7b!important}
+ [style*="color:#D34016"]:not([style*="background:#D34016"]){color:#ff7a4d!important}
+ [style*="color:#ba590e"]:not([style*="background:#ba590e"]){color:#ffa25c!important}
+ [style*="color:#c0393b"]:not([style*="background:#c0393b"]){color:#ff8f90!important}
+ [style*="color:#c93c3c"]:not([style*="background:#c93c3c"]){color:#ff7b7b!important}
+ [style*="color:#d34016"]:not([style*="background:#d34016"]){color:#ff7a4d!important}
+ text[fill="#003674"],tspan[fill="#003674"],[style*="fill:#003674"]{fill:#9cc3ff!important}
+ text[fill="#00776F"],tspan[fill="#00776F"],[style*="fill:#00776F"]{fill:#2fd1c4!important}
+ text[fill="#00776f"],tspan[fill="#00776f"],[style*="fill:#00776f"]{fill:#2fd1c4!important}
+ text[fill="#00837B"],tspan[fill="#00837B"],[style*="fill:#00837B"]{fill:#2fd1c4!important}
+ text[fill="#00837b"],tspan[fill="#00837b"],[style*="fill:#00837b"]{fill:#2fd1c4!important}
+ text[fill="#1B8552"],tspan[fill="#1B8552"],[style*="fill:#1B8552"]{fill:#4cd08f!important}
+ text[fill="#1b8552"],tspan[fill="#1b8552"],[style*="fill:#1b8552"]{fill:#4cd08f!important}
+ text[fill="#2D825A"],tspan[fill="#2D825A"],[style*="fill:#2D825A"]{fill:#5fd69d!important}
+ text[fill="#2d825a"],tspan[fill="#2d825a"],[style*="fill:#2d825a"]{fill:#5fd69d!important}
+ text[fill="#43832B"],tspan[fill="#43832B"],[style*="fill:#43832B"]{fill:#7fd35e!important}
+ text[fill="#43832b"],tspan[fill="#43832b"],[style*="fill:#43832b"]{fill:#7fd35e!important}
+ text[fill="#5B3FA8"],tspan[fill="#5B3FA8"],[style*="fill:#5B3FA8"]{fill:#b79cff!important}
+ text[fill="#5D72A0"],tspan[fill="#5D72A0"],[style*="fill:#5D72A0"]{fill:#a9b8dc!important}
+ text[fill="#5b3fa8"],tspan[fill="#5b3fa8"],[style*="fill:#5b3fa8"]{fill:#b79cff!important}
+ text[fill="#5d72a0"],tspan[fill="#5d72a0"],[style*="fill:#5d72a0"]{fill:#a9b8dc!important}
+ text[fill="#8F4FE0"],tspan[fill="#8F4FE0"],[style*="fill:#8F4FE0"]{fill:#c9a2ff!important}
+ text[fill="#8f4fe0"],tspan[fill="#8f4fe0"],[style*="fill:#8f4fe0"]{fill:#c9a2ff!important}
+ text[fill="#9A6F00"],tspan[fill="#9A6F00"],[style*="fill:#9A6F00"]{fill:#f2c230!important}
+ text[fill="#9a6f00"],tspan[fill="#9a6f00"],[style*="fill:#9a6f00"]{fill:#f2c230!important}
+ text[fill="#BA590E"],tspan[fill="#BA590E"],[style*="fill:#BA590E"]{fill:#ffa25c!important}
+ text[fill="#C0393B"],tspan[fill="#C0393B"],[style*="fill:#C0393B"]{fill:#ff8f90!important}
+ text[fill="#C93C3C"],tspan[fill="#C93C3C"],[style*="fill:#C93C3C"]{fill:#ff7b7b!important}
+ text[fill="#D34016"],tspan[fill="#D34016"],[style*="fill:#D34016"]{fill:#ff7a4d!important}
+ text[fill="#ba590e"],tspan[fill="#ba590e"],[style*="fill:#ba590e"]{fill:#ffa25c!important}
+ text[fill="#c0393b"],tspan[fill="#c0393b"],[style*="fill:#c0393b"]{fill:#ff8f90!important}
+ text[fill="#c93c3c"],tspan[fill="#c93c3c"],[style*="fill:#c93c3c"]{fill:#ff7b7b!important}
+ text[fill="#d34016"],tspan[fill="#d34016"],[style*="fill:#d34016"]{fill:#ff7a4d!important}
+}
 </style>
 <div class="kvline"></div>
 <main><div class="wrap"><section class="vis" id="visblock">
-  <h2><span class="dot" style="background:var(--orange)"></span>ผู้ตอบ → คนที่มา → Visitation (เป้า 200,000)</h2>
+  <h2><span class="dot" style="background:#D34016"></span>ผู้ตอบ → คนที่มา → Visitation (เป้า 200,000)</h2>
   <p class="lead" id="vislead"></p>
   <div class="per ch4" id="chain"></div>
   <p id="chainEq" style="color:var(--muted);font-size:14.5px;margin:-4px 0 18px;line-height:1.7"></p>
@@ -556,7 +627,7 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
     <div>
       <h3 style="font-size:15px;margin:0 0 10px">แหล่งนับ 4 แหล่ง + ตัวยืนยัน</h3>
       <div class="src" id="gSrc"></div>
-      <div id="gConf" style="margin-top:12px;border:2px dashed #E95429;border-radius:12px;padding:10px 12px"></div>
+      <div id="gConf" style="margin-top:12px;border:2px dashed #D34016;border-radius:12px;padding:10px 12px"></div>
       <p class="lead" style="margin-top:12px" id="gNote"></p>
     </div>
   </div>
@@ -568,17 +639,17 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
   <div class="card" id="gtab" style="margin-top:14px"></div>
 </section>
   <section class="vis" id="dailysec">
-  <h2><span class="dot" style="background:var(--teal)"></span>Visitation รายวัน เทียบเป้ารายวัน</h2>
+  <h2><span class="dot" style="background:#00837B"></span>Visitation รายวัน เทียบเป้ารายวัน</h2>
   <p class="lead">นับเฉพาะจากแบบสำรวจ (1 ใน 5 แหล่งนับ) ยอดจริงต้องรวมแหล่งอื่นด้วย · เป้ารายวันตามแผนที่เสนอ สสปน.</p>
   <div class="card" id="dayt"></div>
-  <h2 style="margin-top:22px"><span class="dot" style="background:var(--orange)"></span>Visitation แยกกิจกรรม × วัน</h2>
+  <h2 style="margin-top:22px"><span class="dot" style="background:#D34016"></span>Visitation แยกกิจกรรม × วัน</h2>
   <p class="lead">ตัวเลขในช่อง = จำนวนคนที่ร่วมกิจกรรมนั้นในวันนั้น (รวมคนในกลุ่ม) · ช่องเทา = วันนั้นไม่มีกิจกรรมนี้ · บนมือถือเลื่อนตารางซ้าย-ขวาได้</p>
   <div class="card" id="heat"></div>
 </section>
   <nav class="toc" id="toc"></nav>
-  <h2><span class="dot" style="background:var(--teal)"></span>เวลาที่ตอบแบบสำรวจ</h2>
+  <h2><span class="dot" style="background:#00837B"></span>เวลาที่ตอบแบบสำรวจ</h2>
   <div class="card" id="tline"></div>
-  <h2><span class="dot" style="background:var(--teal)"></span>รายชื่อผู้ตอบ (ล่าสุด 20 คน)</h2>
+  <h2><span class="dot" style="background:#00837B"></span>รายชื่อผู้ตอบ (ล่าสุด 20 คน)</h2>
   <button class="dl" id="dlcsv">ดาวน์โหลดไฟล์ Excel (.csv) รายกิจกรรม: 1 แถว = 1 UID × 1 วัน × 1 กิจกรรม</button>
   <p class="lead">ยืนยันตัวตนด้วย LINE UID (1 UID = 1 แบบสอบถาม ตอบซ้ำเก็บครั้งล่าสุด) · จำนวนวันที่มา (ข้อ 2.3) · จำนวนคนในกลุ่ม รวมผู้ตอบ (ข้อ 2.7) · งานที่เข้าร่วม (ข้อ 4.1)</p>
   <div class="card"><div class="tw"><table id="chk"></table></div></div>
@@ -738,8 +809,8 @@ const $=id=>document.getElementById(id), N=R.length;
 const esc=v=>String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
 const mask=u=>u?u.slice(0,5)+'…'+u.slice(-4):'-';
-const COL=['#003674','#E95429','#00A79D','#B98AF0','#FF999A','#6b7fa8'];
-const PC={1:'#E95429',2:'#00A79D',3:'#B98AF0',4:'#FF999A',5:'#003674',6:'#00A79D',7:'#E95429',8:'#B98AF0'};
+const COL=['#003674','#D34016','#00837B','#8F4FE0','#C0393B','#5d72a0'];
+const PC={1:'#D34016',2:'#00837B',3:'#8F4FE0',4:'#C0393B',5:'#003674',6:'#00837B',7:'#D34016',8:'#8F4FE0'};
 function bars(rows,base,color){ // rows [label,count]
   return `<div class="hb">${rows.map(([t,v])=>`<div class="t" title="${esc(t)}">${esc(t)}</div><div class="tr"><i style="width:${base?v/base*100:0}%;background:${color}"></i></div><div class="n ${v?'':'z'}">${v}</div>`).join('')}</div>`;}
 function others(list){if(!list.length)return '';
@@ -755,7 +826,7 @@ const TICON={
  biz:'<rect x="3.5" y="7.5" width="17" height="12" rx="2"/><path d="M9 7.5V5.5h6v2M3.5 12.5h17"/>',
  partner:'<path d="M4 20h16M6 20v-8M10 20v-8M14 20v-8M18 20v-8M3.5 10 12 4.5l8.5 5.5z"/>',
  media:'<rect x="9" y="3.5" width="6" height="11" rx="3"/><path d="M6 11.5a6 6 0 0 0 12 0M12 17.5v3M9 20.5h6"/>'};
-const TCOL={thai:'#E95429',foreign:'#00A79D',biz:'#003674',partner:'#B98AF0',media:'#FF999A'};
+const TCOL={thai:'#D34016',foreign:'#00837B',biz:'#003674',partner:'#8F4FE0',media:'#C0393B'};
 const PERSON=c=>`<svg viewBox="0 0 14 18"><circle cx="7" cy="4" r="3.2" fill="${c}"/><path d="M1.5 17.5v-4.2A4.3 4.3 0 0 1 5.8 9h2.4a4.3 4.3 0 0 1 4.3 4.3v4.2z" fill="${c}"/></svg>`;
 function typeCard(s){
   const ans=answered(s.id), n=ans.length, unit=Math.max(1,Math.ceil(n/20));
@@ -796,7 +867,7 @@ function mapCard(s){
   const abT=Object.values(ab).reduce((a,b)=>a+b,0);
   const svg=`<svg class="th" viewBox="-6 -6 350 600" role="img" aria-label="แผนที่ประเทศไทยแสดงจังหวัดที่ผู้ตอบมา"><path class="land" d="M${TH_OUT.map(PJ).map(p=>p.join(' ')).join('L')}Z"/>${flows}${pins}${labs}
    ${abT?`<path class="flow" d="M${K[0]} ${K[1]} Q300 420 330 560"/><text class="b" x="230" y="585">ต่างประเทศ ${abT} →</text>`:''}</svg>`;
-  const rows=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).map(([p,v])=>`<li><span class="d" style="background:${p==='นครราชสีมา'?'#003674':'#E95429'}"></span><span class="nm">${esc(p)}<small>${p==='นครราชสีมา'?'คนในพื้นที่':'มาจากจังหวัดอื่น'}${PROV[p]?'':' · ไม่พบพิกัด'}</small></span><b>${v}</b><span class="meta" style="margin:0">${Math.round(v/n*100)}%</span></li>`).join('');
+  const rows=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).map(([p,v])=>`<li><span class="d" style="background:${p==='นครราชสีมา'?'#003674':'#D34016'}"></span><span class="nm">${esc(p)}<small>${p==='นครราชสีมา'?'คนในพื้นที่':'มาจากจังหวัดอื่น'}${PROV[p]?'':' · ไม่พบพิกัด'}</small></span><b>${v}</b><span class="meta" style="margin:0">${Math.round(v/n*100)}%</span></li>`).join('');
   const abBox=abT?`<div class="abroad"><div class="h">มาจากต่างประเทศ ${abT} คน</div><div class="c">${Object.entries(ab).map(([c,v])=>`<span>${esc(c)} · ${v}</span>`).join('')}</div></div>`:'';
   const tv=Object.entries(cnt).filter(([p])=>p!=='นครราชสีมา').reduce((a,[,v])=>a+v,0);
   return `<div class="qc wide"><div class="qn">ข้อ 1.2</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน · ในโคราช ${kv} · จังหวัดอื่น ${tv} · ต่างประเทศ ${abT}</div>
@@ -815,7 +886,7 @@ const ICONSET={
  p1_7:{below:CAP,ba:CAP,ma:CAP,phd:CAP,other:DOTS},
  p1_8:{none:coins(0),'<10k':coins(1),'10-15k':coins(2),'15-30k':coins(3),'30-45k':coins(4),'>45k':coins(5)}};
 const BADGE={p1_7:{below:'',ba:'ตรี',ma:'โท',phd:'เอก'}};
-const TPAL=['#E95429','#00A79D','#003674','#B98AF0','#FF999A','#6b7fa8'];
+const TPAL=['#D34016','#00837B','#003674','#8F4FE0','#C0393B','#5d72a0'];
 function iconCard(s){
   const ans=answered(s.id), n=ans.length, unit=Math.max(1,Math.ceil(n/20)), ic=ICONSET[s.id], cls=s.opts.length>=6?'c6':s.opts.length===4?'c4':'c3';
   let h=`<div class="qn">ข้อ ${s.part}.${s.no}</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน</div><div class="tgrid ${cls}">`, extra=[];
@@ -833,7 +904,7 @@ function ageCard(s){
   let h=`<div class="qn">ข้อ 1.4</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${vs.length} จาก ${N} คน</div>`;
   h+=`<div class="stat3"><div><b>${vs.length?avg(vs).toFixed(1):'-'}</b><span>อายุเฉลี่ย (ปี)</span></div><div><b>${vs.length?Math.min(...vs):'-'}</b><span>อายุน้อยสุด</span></div><div><b>${vs.length?Math.max(...vs):'-'}</b><span>อายุมากสุด</span></div></div>`;
   const cnt=B.map(([,lo,hi])=>vs.filter(v=>v>=lo&&v<=hi).length);
-  h+=`<div class="agec">${cnt.map((v,i)=>`<div class="col">${PERSON(v?'#E95429':'var(--bar-bg)').repeat(Math.max(0,Math.round(v/unit)))}<div class="cv ${v?'':'z'}">${v}</div></div>`).join('')}${B.map(b=>`<div class="ax">${b[0]}</div>`).join('')}</div>`;
+  h+=`<div class="agec">${cnt.map((v,i)=>`<div class="col">${PERSON(v?'#D34016':'var(--bar-bg)').repeat(Math.max(0,Math.round(v/unit)))}<div class="cv ${v?'':'z'}">${v}</div></div>`).join('')}${B.map(b=>`<div class="ax">${b[0]}</div>`).join('')}</div>`;
   h+=`<div class="leg">1 ไอคอนคน = ${unit} คน</div>`;
   return `<div class="qc wide">${h}</div>`;
 }
@@ -893,29 +964,29 @@ function nightsCard(s){
   let h=`<div class="qn">ข้อ 2.4</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน</div>`;
   h+=`<div class="hero2"><div class="big an" style="color:var(--navy)">${cu(nn.reduce((a,b)=>a+b,0))}<small>คืน</small></div><div class="sub">คืนพักรวมในโคราช · พักค้างคืน <b>${stay}</b> จาก ${n} คน · เฉลี่ย <b>${avg(nn).toFixed(1)}</b> คืน/คน</div></div>`;
   [['0','ไป-กลับวันเดียว'],['1','1 คืน'],['2','2 คืน'],['3','3 คืน'],['4','4 คืน'],['5','5 คืน']].forEach(([v,t],i)=>{const c=ans.filter(r=>r[s.id].v===v).length, k=+v;
-    const icons=k?Array.from({length:k},(_,j)=>`<span class="moon" style="color:#B98AF0;--d:${(i*.1+j*.08).toFixed(2)}s">${SV(IC.moon)}</span>`).join(''):`<span class="an" style="color:#E95429">${SV(IC.sun)}</span>`;
+    const icons=k?Array.from({length:k},(_,j)=>`<span class="moon" style="color:#8F4FE0;--d:${(i*.1+j*.08).toFixed(2)}s">${SV(IC.moon)}</span>`).join(''):`<span class="an" style="color:#D34016">${SV(IC.sun)}</span>`;
     h+=`<div class="nrow ${c?'':'z'}"><div class="lb">${t}</div><div class="ic"><span style="color:var(--navy)">${SV(k?IC.hotel:IC.car)}</span>${icons}</div><div class="pp">${PERSON('#003674').repeat(Math.min(c,8))}<b style="margin-left:6px;color:var(--ink)">${c}</b><small style="font-size:12.5px;color:var(--muted);font-weight:500;margin-left:3px">คน</small></div></div>`;});
   h+=`<div class="leg">พระจันทร์ 1 ดวง = 1 คืน · ไอคอนคน = จำนวนผู้ตอบ</div>`;
   return `<div class="qc wide">${h}</div>`;
 }
 const MID={'100-400':250,'500-900':700,'1,000-1,400':1200,'1,500-1,900':1700,'2,000-3,000':2500,'>3000':3000};
-const SPEND=[['p2_8_1','ค่าที่พัก',IC.bed,'#003674'],['p2_8_2','อาหารและเครื่องดื่ม',IC.food,'#E95429'],['p2_8_3','ค่าพาหนะ',IC.car,'#00A79D'],['p2_8_4','บัตร/กิจกรรม',IC.ticket,'#B98AF0'],['p2_8_5','ของฝาก/ของที่ระลึก',IC.gift,'#FF999A']];
+const SPEND=[['p2_8_1','ค่าที่พัก',IC.bed,'#003674'],['p2_8_2','อาหารและเครื่องดื่ม',IC.food,'#D34016'],['p2_8_3','ค่าพาหนะ',IC.car,'#00837B'],['p2_8_4','บัตร/กิจกรรม',IC.ticket,'#8F4FE0'],['p2_8_5','ของฝาก/ของที่ระลึก',IC.gift,'#C0393B']];
 const spAvg=id=>{const vs=answered(id).map(r=>MID[r[id].v]).filter(x=>x!==undefined);return vs.length?avg(vs):0;};
 function spendSummary(){
   const parts=SPEND.map(([id,t,ic,c])=>[t,ic,c,spAvg(id)]), tot=parts.reduce((a,p)=>a+p[3],0);
   let h=`<div class="qn">ข้อ 2.8 ภาพรวม</div><h3>ค่าใช้จ่ายตลอดการเดินทาง (บาท/คน)</h3><div class="meta">ประมาณจากค่ากลางของช่วงที่ตอบ (มากกว่า 3,000 นับเป็น 3,000)</div>`;
-  h+=`<div class="sumwrap"><div class="hero2" style="margin:0"><div class="big an" style="color:#1f9a5f">${cu(Math.round(tot),0,'฿')}</div><div class="sub">ใช้จ่ายเฉลี่ยต่อคน ต่อการเดินทาง</div></div><div>`;
+  h+=`<div class="sumwrap"><div class="hero2" style="margin:0"><div class="big an" style="color:#1b8552">${cu(Math.round(tot),0,'฿')}</div><div class="sub">ใช้จ่ายเฉลี่ยต่อคน ต่อการเดินทาง</div></div><div>`;
   h+=`<div class="stack">${parts.map(([t,ic,c,v])=>`<div title="${t}" style="flex:${v||0.0001} 1 0;background:${c}">${v/tot>.12?SV(ic):''}</div>`).join('')}</div>`;
   h+=`<div class="slist">${parts.map(([t,ic,c,v])=>`<div><i style="background:${c}">${SV(ic)}</i><span>${t}<b>฿${Math.round(v).toLocaleString('en-US')}</b></span></div>`).join('')}</div></div></div>`;
   const grp=[['in','โคราช + 5 จังหวัดรอบข้าง',800],['bkk','กรุงเทพฯ และปริมณฑล',2500],['oth','จังหวัดอื่น ๆ',2500],['fx','ชาวต่างชาติ',4500]].map(([k,t,base])=>{const rs=R.filter(r=>orig(r)===k);
     const v=rs.length?avg(rs.map(r=>SPEND.reduce((a,[id])=>a+(r[id]&&MID[r[id].v]||0),0))):0; return [t,rs.length,v,base];});
-  h+=`<div class="grp2" style="margin-top:18px">เทียบกับตัวเลขที่เสนอ สสปน. (บาท/คน/ทริป · 4 กลุ่มตามสไลด์เป้าหมาย)</div><div class="slist" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">${grp.map(([t,c,v,b])=>`<div style="border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:block"><span style="font-size:12.5px;color:var(--muted)">${t} · ${c.toLocaleString('en-US')} คน</span><b style="font-size:22px">฿${Math.round(v).toLocaleString('en-US')}</b><span style="font-size:12.5px">เสนอไว้ ฿${b.toLocaleString('en-US')} · <b style="display:inline;font-size:13px;color:${v/b-1>0.4?'#d64545':'#1f9a5f'}">${v>=b?'+':''}${Math.round((v/b-1)*100)}%</b></span></div>`).join('')}</div>`;
+  h+=`<div class="grp2" style="margin-top:18px">เทียบกับตัวเลขที่เสนอ สสปน. (บาท/คน/ทริป · 4 กลุ่มตามสไลด์เป้าหมาย)</div><div class="slist" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">${grp.map(([t,c,v,b])=>`<div style="border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:block"><span style="font-size:12.5px;color:var(--muted)">${t} · ${c.toLocaleString('en-US')} คน</span><b style="font-size:22px">฿${Math.round(v).toLocaleString('en-US')}</b><span style="font-size:12.5px">เสนอไว้ ฿${b.toLocaleString('en-US')} · <b style="display:inline;font-size:13px;color:${v/b-1>0.4?'#c93c3c':'#1b8552'}">${v>=b?'+':''}${Math.round((v/b-1)*100)}%</b></span></div>`).join('')}</div>`;
   return `<div class="qc wide">${h}</div>`;
 }
 function moneyCard(s){
   const ans=answered(s.id), n=ans.length, sp=SPEND.find(x=>x[0]===s.id), a=spAvg(s.id);
   let h=`<div class="qn">ข้อ 2.${s.no}</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน${s.pre2?' · '+esc(tx(s.pre2)):''}</div>`;
-  h+=`<div class="hero2" style="margin:0 0 10px"><span style="width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;background:${sp[3]}">${SV(sp[2])}</span><div class="big an" style="font-size:44px;color:#1f9a5f">${cu(Math.round(a),0,'฿')}</div><div class="sub">เฉลี่ยต่อคน</div></div><div class="money">`;
+  h+=`<div class="hero2" style="margin:0 0 10px"><span style="width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;background:${sp[3]}">${SV(sp[2])}</span><div class="big an" style="font-size:44px;color:#1b8552">${cu(Math.round(a),0,'฿')}</div><div class="sub">เฉลี่ยต่อคน</div></div><div class="money">`;
   s.opts.forEach((op,i)=>{const v=ans.filter(r=>r[s.id].v===op.v).length, k=i+1;
     const bills=Array.from({length:k},(_,j)=>`<i style="top:${30-j*6}px;left:${j*5}px;--d:${(j*.09+i*.05).toFixed(2)}s"></i>`).join('');
     h+=`<div class="mt ${v?'':'z'}"><div class="bills">${bills}</div><div class="r">${esc(tx(op.t))}</div><div class="v">${v}<small>คน · ${n?Math.round(v/n*100):0}%</small></div></div>`;});
@@ -958,8 +1029,8 @@ function multiIconCard(s){
 // PART6
 
 // ---- part 6: city branding ----
-const AX6={p6_livable:['#น่าอยู่','#00A79D',IC.house],p6_tour:['#น่าเที่ยว','#E95429',IC.palm],p6_invest:['#น่าลงทุน','#003674',IC.chart],p6_identity:['อัตลักษณ์','#B98AF0',IC.lotus]};
-const FACEC=['#d64545','#f08a3c','#f2c230','#4f9a33','#1f9a5f'];
+const AX6={p6_livable:['#น่าอยู่','#00837B',IC.house],p6_tour:['#น่าเที่ยว','#D34016',IC.palm],p6_invest:['#น่าลงทุน','#003674',IC.chart],p6_identity:['อัตลักษณ์','#8F4FE0',IC.lotus]};
+const FACEC=['#c93c3c','#ba590e','#f2c230','#43832b','#1b8552'];
 const FACE=(k,c)=>{const m={1:'M8 16.5q4-3 8 0',2:'M8.5 16q3.5-1.6 7 0',3:'M8.5 15.5h7',4:'M8.5 14.5q3.5 2 7 0',5:'M7.5 14q4.5 4.5 9 0'}[k];
  return `<svg class="fc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5" fill="${c}"/><circle cx="8.6" cy="9.6" r="1.3" fill="#fff"/><circle cx="15.4" cy="9.6" r="1.3" fill="#fff"/><path d="${m}" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>`;};
 const rAvg=id=>{const v=answered(id).map(r=>+r[id].v);return v.length?avg(v):0;};
@@ -998,14 +1069,14 @@ IC.mega='<path d="M3.5 10v4h3l7 4.5V5.5l-7 4.5zM17 9a4 4 0 0 1 0 6M19.5 6.5a7.5 
 IC.pin='<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/>';
 IC.clock='<circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/>';
 IC.web='<rect x="3" y="4.5" width="18" height="13" rx="2"/><path d="M3 8.5h18M8 21h8M12 17.5V21M7.5 12.5l2 2 4-4"/>';
-const A7={pr:[IC.mega,'#E95429'],venue:[IC.pin,'#00A79D'],time:[IC.clock,'#003674'],act:[IC.trophy,'#B98AF0'],perf:[IC.music,'#FF999A'],points:[IC.gift,'#e0a100'],web:[IC.web,'#6b7fa8'],overall:[IC.star,'#1f9a5f']};
-const LV=a=>a>=4.21?['มากที่สุด','#1f9a5f']:a>=3.41?['มาก','#4f9a33']:a>=2.61?['ปานกลาง','#e0a100']:a>=1.81?['น้อย','#f08a3c']:['น้อยที่สุด','#d64545'];
+const A7={pr:[IC.mega,'#D34016'],venue:[IC.pin,'#00837B'],time:[IC.clock,'#003674'],act:[IC.trophy,'#8F4FE0'],perf:[IC.music,'#C0393B'],points:[IC.gift,'#9a6f00'],web:[IC.web,'#5d72a0'],overall:[IC.star,'#1b8552']};
+const LV=a=>a>=4.21?['มากที่สุด','#1b8552']:a>=3.41?['มาก','#43832b']:a>=2.61?['ปานกลาง','#9a6f00']:a>=1.81?['น้อย','#ba590e']:['น้อยที่สุด','#c93c3c'];
 const short=s=>tx(s.q).replace(/\s*\(.*\)/,'');
 function satSummary(){
   const ov=rAvg('p7_overall'), [lt,lc]=LV(ov), asp=S.filter(s=>s.part===7&&s.id!=='p7_overall').map(s=>[s,rAvg(s.id)]).sort((a,b)=>b[1]-a[1]);
   // speedometer 1..5 over 180deg
   const cx=180,cy=180,R=140, ang=v=>Math.PI*(1-(v-1)/4), P=(v,r)=>[cx+r*Math.cos(ang(v)),cy-r*Math.sin(ang(v))];
-  const zones=[[1,1.8,'#d64545'],[1.81,2.6,'#f08a3c'],[2.61,3.4,'#f2c230'],[3.41,4.2,'#4f9a33'],[4.21,5,'#1f9a5f']];
+  const zones=[[1,1.8,'#c93c3c'],[1.81,2.6,'#ba590e'],[2.61,3.4,'#f2c230'],[3.41,4.2,'#43832b'],[4.21,5,'#1b8552']];
   let g=zones.map(([a,b,c])=>{const [x1,y1]=P(a,R),[x2,y2]=P(b,R);return `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} A${R} ${R} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="${c}" stroke-width="26"/>`;}).join('');
   [1,2,3,4,5].forEach(k=>{const [x,y]=P(k,R+26);g+=`<text text-anchor="middle" x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}">${k}</text>`;});
   const rot=(ov-1)/4*180-90;
@@ -1066,7 +1137,7 @@ function moveCard(s){ // 5.2
   const ans=answered(s.id), n=ans.length, c=v=>ans.filter(r=>r[s.id].v===v).length, y=c('yes'), d=c('decided');
   const from=k=>ans.filter(r=>['yes','decided'].includes(r[s.id].v)&&r.p1_2?.v===k).length;
   let h=`<div class="qn">ข้อ ${s.part}.${s.no}</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน</div>`;
-  const st=[['ผู้ตอบทั้งหมด',n,'#6b7fa8'],['สนใจย้ายมาโคราช',y+d,'#00A79D'],['ตัดสินใจแล้ว',d,'#003674']];
+  const st=[['ผู้ตอบทั้งหมด',n,'#5d72a0'],['สนใจย้ายมาโคราช',y+d,'#00837B'],['ตัดสินใจแล้ว',d,'#003674']];
   h+=`<div class="fun">${st.map(([t,v,col],i)=>`<div class="fs" style="--w:${Math.max(40,v/n*100).toFixed(0)}%;--c:${col};--d:${(i*.15).toFixed(2)}s"><div class="fb"><b>${v.toLocaleString('en-US')}</b><span>${pct(v,n)}%</span></div><div class="ft">${t}</div></div>`).join('')}</div>`;
   h+=`<div class="stat3" style="margin-top:14px"><div><b>${from('other_prov')}</b><span>มาจากจังหวัดอื่น</span></div><div><b>${from('abroad')}</b><span>ชาวต่างชาติ</span></div><div><b>${from('korat')}</b><span>คนโคราช (ย้ายกลับ/ทำงาน)</span></div></div>`;
   return `<div class="qc">${h}</div>`;
@@ -1084,10 +1155,10 @@ function textCard(s){ // 8.2–8.4 ranked
 function nights2(s){ // 2.4
   const ans=answered(s.id), n=ans.length, nn=ans.map(r=>+r[s.id].v), st=nn.filter(x=>x>0), day=n-st.length, tot=st.reduce((a,b)=>a+b,0);
   let h=`<div class="qn">ข้อ 2.4</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน · นับเป็นจำนวนคืนต่อคน ไม่ใช่จำนวนห้อง</div>`;
-  h+=`<div class="ng"><div class="nk"><span style="background:#B98AF0">${SV(IC.moon)}</span><div><b class="an">${cu(st.length)}<small>คน</small></b><em>ค้างคืนในโคราช · ${pct(st.length,n)}%</em></div></div>
-   <div class="nk"><span style="background:#E95429">${SV(IC.sun)}</span><div><b class="an">${cu(day)}<small>คน</small></b><em>ไป-กลับวันเดียว · ${pct(day,n)}%</em></div></div>
+  h+=`<div class="ng"><div class="nk"><span style="background:#8F4FE0">${SV(IC.moon)}</span><div><b class="an">${cu(st.length)}<small>คน</small></b><em>ค้างคืนในโคราช · ${pct(st.length,n)}%</em></div></div>
+   <div class="nk"><span style="background:#D34016">${SV(IC.sun)}</span><div><b class="an">${cu(day)}<small>คน</small></b><em>ไป-กลับวันเดียว · ${pct(day,n)}%</em></div></div>
    <div class="nk"><span style="background:#003674">${SV(IC.bed)}</span><div><b class="an">${cu(st.length?tot/st.length:0,1)}<small>คืน</small></b><em>เฉลี่ยต่อคนที่ค้างคืน</em></div></div></div>`;
-  h+=`<div class="nsplit"><i style="flex:${st.length||.001};background:#B98AF0"></i><i style="flex:${day||.001};background:#E95429"></i></div>`;
+  h+=`<div class="nsplit"><i style="flex:${st.length||.001};background:#8F4FE0"></i><i style="flex:${day||.001};background:#D34016"></i></div>`;
   const mxc=Math.max(1,...[1,2,3,4,5].map(k=>nn.filter(x=>x===k).length));
   h+=`<div class="grp2" style="margin-top:14px">คนที่ค้างคืน แยกตามจำนวนคืน</div>`;
   [1,2,3,4,5].forEach((k,i)=>{const c=nn.filter(x=>x===k).length; if(!c) return;
@@ -1100,12 +1171,12 @@ function compCard(s){ // 2.7
   const ans=answered(s.id), n=ans.length, sz=r=>r[s.id].v==='alone'?1:(+r[s.id].people||0), c=v=>ans.filter(r=>r[s.id].v===v).length;
   const all=ans.map(sz).filter(Boolean), people=all.reduce((a,b)=>a+b,0);
   let h=`<div class="qn">ข้อ 2.7</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน · จำนวนคนนับรวมผู้ตอบ</div>`;
-  const K=[['alone','มาคนเดียว',IC.solo,'#E95429'],['family','ครอบครัว/ญาติ/เพื่อน',IC.fam,'#00A79D'],['group','หมู่คณะ',IC.grp,'#003674']];
+  const K=[['alone','มาคนเดียว',IC.solo,'#D34016'],['family','ครอบครัว/ญาติ/เพื่อน',IC.fam,'#00837B'],['group','หมู่คณะ',IC.grp,'#003674']];
   h+=`<div class="cmp"><div class="cmh"><b class="an">${cu(all.length?people/all.length:0,1)}</b><span>คน ต่อกลุ่มโดยเฉลี่ย</span><em>รวม ${people.toLocaleString('en-US')} คน จากผู้ตอบ ${n} คน</em></div>
    <div class="cmk">${K.map(([v,t,ic,col])=>{const x=c(v);return `<div><span style="background:${col}">${SV(ic)}</span><b>${x.toLocaleString('en-US')}</b><em>${t}</em><small>${pct(x,n)}% · มารวม ${nf(ans.filter(r=>r[s.id].v===v).reduce((a,r)=>a+sz(r),0))} คน</small></div>`;}).join('')}</div></div><div class="eq3"><div><b>${nf(n)}</b><span>ผู้กรอกแบบสอบถาม</span></div><i>+</i><div><b>${nf(people-n)}</b><span>ผู้ร่วมเดินทางที่มาด้วย</span></div><i>=</i><div class="hl"><b>${nf(people)}</b><span>คนที่มางานทั้งหมด</span></div></div>`;
   const B=[['1',1,1],['2',2,2],['3',3,3],['4',4,4],['5',5,5],['6–7',6,7],['8–10',8,10],['11–15',11,15],['16+',16,999]];
   const bc=B.map(([,lo,hi])=>all.filter(v=>v>=lo&&v<=hi).length), bm=Math.max(1,...bc);
-  h+=`<div class="grp2" style="margin-top:16px">ขนาดกลุ่มที่มา (คน)</div><div class="hist">${B.map(([t],i)=>`<div style="--d:${(i*.06).toFixed(2)}s"><b>${bc[i]}</b><i style="height:${Math.max(3,bc[i]/bm*100).toFixed(0)}%;background:${i===0?'#E95429':i<6?'#00A79D':'#003674'}"></i><span>${t}</span></div>`).join('')}</div>`;
+  h+=`<div class="grp2" style="margin-top:16px">ขนาดกลุ่มที่มา (คน)</div><div class="hist">${B.map(([t],i)=>`<div style="--d:${(i*.06).toFixed(2)}s"><b>${bc[i]}</b><i style="height:${Math.max(3,bc[i]/bm*100).toFixed(0)}%;background:${i===0?'#D34016':i<6?'#00837B':'#003674'}"></i><span>${t}</span></div>`).join('')}</div>`;
   const g=ans.filter(r=>r[s.id].v==='group');
   if(g.length){const gm={};g.forEach(r=>{const k=r[s.id].gtype||'other';gm[k]=(gm[k]||0)+1;});
     h+=`<div class="chips">${Object.entries(gm).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<span>${GT[k]||k} <b>${v}</b></span>`).join('')}</div><div class="leg">ประเภทหมู่คณะ (จำนวนกลุ่มที่ตอบ)</div>`;}
@@ -1115,7 +1186,7 @@ function money2(s){ // 2.8.x compact
   const ans=answered(s.id), n=ans.length, sp=SPEND.find(x=>x[0]===s.id), a=spAvg(s.id);
   const rows=s.opts.map(op=>[op,ans.filter(r=>r[s.id].v===op.v).length]), mx=Math.max(1,...rows.map(r=>r[1])), best=rows.findIndex(r=>r[1]===mx);
   let h=`<div class="qn">ข้อ 2.${s.no}</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน${s.pre2?' · '+esc(tx(s.pre2)):''}</div>`;
-  h+=`<div class="hero2" style="margin:0 0 12px"><span style="width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;background:${sp[3]}">${SV(sp[2])}</span><div class="big an" style="font-size:44px;color:#1f9a5f">${cu(Math.round(a),0,'฿')}</div><div class="sub">เฉลี่ยต่อคน</div></div>`;
+  h+=`<div class="hero2" style="margin:0 0 12px"><span style="width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;background:${sp[3]}">${SV(sp[2])}</span><div class="big an" style="font-size:44px;color:#1b8552">${cu(Math.round(a),0,'฿')}</div><div class="sub">เฉลี่ยต่อคน</div></div>`;
   h+=`<div class="mlad">${rows.map(([op,v],i)=>`<div class="ml ${v?'':'z'} ${i===best&&v?'b':''}" style="--d:${(i*.06).toFixed(2)}s"><span class="r">${esc(tx(op.t).replace(' บาท',''))}</span><span class="mb"><i style="width:${(v/mx*100).toFixed(0)}%"></i>${i===best&&v?'<em>฿</em>':''}</span><span class="v">${v.toLocaleString('en-US')}<small>${pct(v,n)}%</small></span></div>`).join('')}</div><div class="leg">หน่วยบาท/คน · ป้าย ฿ = ช่วงที่ตอบมากที่สุด</div>`;
   return (s.id==='p2_8_1'?spendSummary():'')+`<div class="qc">${h}</div>`;
 }
@@ -1151,7 +1222,7 @@ const _ps=a=>{const c=a.p2_7;if(!c)return 0;return c.v==='alone'?1:(+c.people||0
 
 const TGT={20:16000,21:25000,22:24000,23:17000,24:16000,25:16000,26:17000,27:19000,28:25000,29:25000};
 const CATN={sounder:'SOUNDER',exhibit:'นิทรรศการเมือง',market:'ตลาด/อาหารท้องถิ่น',points:'KORAT POINT',workshop:'เวิร์กช็อป',perf:'การแสดง/ดนตรี',kbattle:'K-BATTLE',kbatx:'KBATx'};
-const CATC={sounder:'#E95429',exhibit:'#B98AF0',market:'#00A79D',points:'#D3A600',workshop:'#003674',perf:'#FF999A',kbattle:'#E95429',kbatx:'#00A79D'};
+const CATC={sounder:'#D34016',exhibit:'#8F4FE0',market:'#00837B',points:'#D3A600',workshop:'#003674',perf:'#C0393B',kbattle:'#D34016',kbatx:'#00837B'};
 const DATA_TO='21';
 const aPeople=(x,k)=>x.full===false&&x.pa&&x.pa[k]!=null?+x.pa[k]:(+x.p||1);
 const dd=r=>(r.p4_1&&r.p4_1.days)||{};
@@ -1172,12 +1243,12 @@ function dailyCard(s){
   let h=`<div class="qn">ข้อ 4.1</div><h3>${esc(tx(s.q))}</h3><div class="meta">นับเป็นรายคน: ผู้ตอบ ${nf(n)} คน กับผู้ร่วมเดินทางที่มาด้วย แต่ละคนร่วมกิจกรรมกี่ครั้ง</div>`;
   h+=`<div class="st4w">`+
    step('1','#003674','ผู้กรอกแบบสอบถาม',nf(n),'คน','1 LINE UID = 1 แบบสอบถาม')+
-   step('2','#00857c','รวมผู้ร่วมเดินทาง',nf(Ptot),'คน',`ผู้ตอบ ${nf(n)} + ผู้ร่วมเดินทาง ${nf(Ptot-n)} คน`)+
+   step('2','#00776f','รวมผู้ร่วมเดินทาง',nf(Ptot),'คน',`ผู้ตอบ ${nf(n)} + ผู้ร่วมเดินทาง ${nf(Ptot-n)} คน`)+
    step('3','#5b3fa8','มากี่วัน',nf(Ptot),'คน',Object.keys(dpp).sort().map(d=>`มา ${d} วัน <b style="color:var(--ink)">${nf(dpp[d])}</b> คน`).join('<br>'))+
-   step('4','#E95429','ร่วมกิจกรรมรวม',nf(Vtot),'ครั้ง',`เฉลี่ยคนละ <b style="color:var(--ink)">${avgV.toFixed(1)}</b> ครั้ง · 1 คน 1 กิจกรรม = 1 ครั้ง (Visitation)`)+`</div>`;
-  h+=`<div class="grp2" style="margin-top:16px">${nf(Ptot)} คน แต่ละคนร่วมกิจกรรมกี่ครั้ง</div><div class="hist">${B.map(([t],i)=>`<div style="--d:${(i*.06).toFixed(2)}s"><b>${nf(bc[i])}</b><i style="height:${Math.max(3,bc[i]/bm*100).toFixed(0)}%;background:${['#FF999A','#E95429','#00A79D','#5b3fa8','#003674'][i]}"></i><span>${t}</span></div>`).join('')}</div><div class="leg">ตัวเลขบนแท่ง = จำนวนคน · บวกกันได้ ${nf(Ptot)} คน</div>`;
+   step('4','#D34016','ร่วมกิจกรรมรวม',nf(Vtot),'ครั้ง',`เฉลี่ยคนละ <b style="color:var(--ink)">${avgV.toFixed(1)}</b> ครั้ง · 1 คน 1 กิจกรรม = 1 ครั้ง (Visitation)`)+`</div>`;
+  h+=`<div class="grp2" style="margin-top:16px">${nf(Ptot)} คน แต่ละคนร่วมกิจกรรมกี่ครั้ง</div><div class="hist">${B.map(([t],i)=>`<div style="--d:${(i*.06).toFixed(2)}s"><b>${nf(bc[i])}</b><i style="height:${Math.max(3,bc[i]/bm*100).toFixed(0)}%;background:${['#C0393B','#D34016','#00837B','#5b3fa8','#003674'][i]}"></i><span>${t}</span></div>`).join('')}</div><div class="leg">ตัวเลขบนแท่ง = จำนวนคน · บวกกันได้ ${nf(Ptot)} คน</div>`;
   const mp=Ptot?missN/Ptot*100:0;
-  h+=`<div class="grp2" style="margin-top:14px">ร่วมครบทุกกิจกรรมที่กลุ่มไปหรือไม่</div><div class="cmpl"><i style="width:${100-mp}%;background:var(--teal)">ไปครบทุกกิจกรรม ${nf(Ptot-missN)} คน (${(100-mp).toFixed(0)}%)</i><i style="width:${mp}%;background:var(--orange)">${nf(missN)} คน</i></div><div class="leg">${nf(missN)} คน ไม่ได้ไปบางกิจกรรมที่เพื่อนในกลุ่มไป จึงนับเฉพาะกิจกรรมที่ไปจริง</div>`;
+  h+=`<div class="grp2" style="margin-top:14px">ร่วมครบทุกกิจกรรมที่กลุ่มไปหรือไม่</div><div class="cmpl"><i style="width:${100-mp}%;background:#00837B">ไปครบทุกกิจกรรม ${nf(Ptot-missN)} คน (${(100-mp).toFixed(0)}%)</i><i style="width:${mp}%;background:#D34016">${nf(missN)} คน</i></div><div class="leg">${nf(missN)} คน ไม่ได้ไปบางกิจกรรมที่เพื่อนในกลุ่มไป จึงนับเฉพาะกิจกรรมที่ไปจริง</div>`;
   const rows=ans.map(r=>({r,D:dd(r),ks:Object.keys(dd(r)).sort(),P:peopleR(r),V:visitR(r),pv:personVisits(r)}));
   const ex=[rows.find(x=>x.ks.length===2&&x.P>=3&&x.P<=5&&!x.pv.miss.some(Boolean)),rows.find(x=>x.ks.length===2&&x.P>=3&&x.P<=6&&x.pv.miss.some(Boolean))].filter(Boolean);
   h+=`<div class="grp2" style="margin-top:14px">ตัวอย่างวิธีนับจากคำตอบจริง</div><div class="exw">${ex.map(x=>`<div class="ex"><div class="exh">UID ${mask(x.r._uid)} · มารวม ${x.P} คน · ${x.ks.length} วัน</div>${x.ks.map(d=>{const y=x.D[d];return `<div class="exd"><b>${d} พ.ย.</b> มา ${y.p} คน · ${y.a.map(k=>`${esc(ACT[k][0])} <u>${aPeople(y,k)} คน</u>`).join(' + ')} = <b>${y.a.reduce((q,k)=>q+aPeople(y,k),0)} ครั้ง</b></div>`}).join('')}<div class="exd">รายคน: ${x.pv.out.map((v,i)=>`คนที่ ${i+1} = ${v}`).join(' · ')}</div><div class="ext">รวม ${nf(x.V)} ครั้ง</div></div>`).join('')}</div>`;
@@ -1201,7 +1272,7 @@ function datesCard(s){
 const NEAR5=['ชัยภูมิ','ขอนแก่น','บุรีรัมย์','สระบุรี','ปราจีนบุรี'], BKKV=['กรุงเทพมหานคร','กรุงเทพฯ','นนทบุรี','ปทุมธานี','สมุทรปราการ','สมุทรสาคร','นครปฐม'];
 const orig=r=>{const a=r.p1_2||{};if(a.v==='korat')return 'in';if(a.v==='abroad')return 'fx';const pv=a.province||'';if(NEAR5.includes(pv))return 'in';if(BKKV.includes(pv))return 'bkk';return 'oth';};
 const pil=r=>{const p1=r.p2_1?.v, p4=r.p4_2?.v||[];if(p1==='business'||p1==='kbatx'||p4.includes('invest')||p4.includes('network'))return 'inv';if(['yes','decided'].includes(r.p5_2?.v))return 'live';return 'tour';};
-const GRP=[['in','โคราช + 5 จังหวัดรอบข้าง','ชัยภูมิ ขอนแก่น บุรีรัมย์ สระบุรี ปราจีนบุรี',140000,{live:64000,tour:59000,inv:17000},'#003674'],['bkk','กรุงเทพฯ และปริมณฑล','กทม. นนทบุรี ปทุมธานี สมุทรปราการ สมุทรสาคร นครปฐม',39000,{live:10000,tour:24000,inv:5000},'#E95429'],['oth','จังหวัดอื่น ๆ','จังหวัดนอกจากกลุ่มด้านบน',18000,{live:0,tour:15000,inv:3000},'#00857c'],['fx','ชาวต่างชาติ','อยู่ต่างประเทศ',3000,{live:1000,tour:2000,inv:0},'#7b4fc4']];
+const GRP=[['in','โคราช + 5 จังหวัดรอบข้าง','ชัยภูมิ ขอนแก่น บุรีรัมย์ สระบุรี ปราจีนบุรี',140000,{live:64000,tour:59000,inv:17000},'#003674'],['bkk','กรุงเทพฯ และปริมณฑล','กทม. นนทบุรี ปทุมธานี สมุทรปราการ สมุทรสาคร นครปฐม',39000,{live:10000,tour:24000,inv:5000},'#D34016'],['oth','จังหวัดอื่น ๆ','จังหวัดนอกจากกลุ่มด้านบน',18000,{live:0,tour:15000,inv:3000},'#00776f'],['fx','ชาวต่างชาติ','อยู่ต่างประเทศ',3000,{live:1000,tour:2000,inv:0},'#7b4fc4']];
 const PIL=[['live','น่าอยู่'],['tour','น่าเที่ยว'],['inv','น่าลงทุน']];
 function card(s){
   if(s.part===7&&s.type==='rate') return (s.id==='p7_pr'?satSummary():'')+rateCard7(s);
@@ -1288,7 +1359,7 @@ $('parts').innerHTML=html; $('toc').innerHTML=toc;
 // KPIs + table
 const ov=avg(R.map(r=>r.p7_overall?.v).filter(Boolean)), rec=avg(R.map(r=>r.p8_1?.v).filter(Boolean));
 const uidOk=R.filter(r=>/^U[0-9a-f]{32}$/.test(r._uid||'')).length;
-$('kpis').innerHTML=[['#D3FF34',N,'','ผู้ตอบแบบสำรวจ'],['#00A79D',uidOk+'/'+N,'','ยืนยันตัวตนด้วย LINE UID · ตัดซ้ำ '+DUP+' รายการ'],['#E95429',ov.toFixed(2),'/5','พึงพอใจภาพรวมของงาน'],['#FF999A',rec.toFixed(2),'/5','จะแนะนำเทศกาลนี้ต่อ']]
+$('kpis').innerHTML=[['#D3FF34',N,'','ผู้ตอบแบบสำรวจ'],['#00837B',uidOk+'/'+N,'','ยืนยันตัวตนด้วย LINE UID · ตัดซ้ำ '+DUP+' รายการ'],['#D34016',ov.toFixed(2),'/5','พึงพอใจภาพรวมของงาน'],['#C0393B',rec.toFixed(2),'/5','จะแนะนำเทศกาลนี้ต่อ']]
  .map(([c,v,s,l])=>`<div class="kpi"><div class="ic" style="background:${c}"></div><div><div class="v">${v}<small>${s}</small></div><div class="l">${l}</div></div></div>`).join('');
 document.getElementById('htitle').innerHTML='ผู้ตอบแบบสำรวจ <span style="color:#D3FF34">'+N.toLocaleString('en-US')+'</span> คน';
 $('badge').textContent='โคราช น่าเที่ยว '+avg(R.map(r=>r.p6_tour?.v).filter(Boolean)).toFixed(1)+'/5';
@@ -1321,7 +1392,7 @@ $('chk').innerHTML='<tr><th>#</th><th>LINE UID</th><th>ส่งเมื่อ<
         tile('#5b3fa8','คน-วัน',PD,'คน-วัน',m2.toFixed(2)+' วัน/คน','มาซ้ำวันอื่นนับใหม่ (ข้อ 2.3 + จำนวนคนรายวัน)')+
         tile('var(--orange)','Visitation',V,'ครั้ง',m3.toFixed(2)+' กิจกรรม/คน-วัน','1 คน × 1 กิจกรรม = 1 Visitation (ข้อ 4.1 รายวัน)'),
   eq:`<b>${nf(N)}</b> ผู้ตอบ × ${m1.toFixed(2)} = <b>${nf(P)}</b> คน × ${m2.toFixed(2)} = <b>${nf(PD)}</b> คน-วัน × ${m3.toFixed(2)} = <b style="color:var(--orange)">${nf(V)}</b> Visitation`,
-  src:[['สแกน QR เช็กอิน 7 จุด',null,'#003674','เป้า 152,000 (15,200/วัน)'],['ยอดเข้าพักโรงแรม/ที่พัก',null,'#B98AF0','เป้า 20,000 (2,000/วัน) · โรงแรมร่วม 50+ แห่ง'],['ยอดจากพันธมิตร ห้าง ร้านค้า',null,'#00A79D','เป้า 20,000 (2,000/วัน)'],['ยอดทัวร์/กรุ๊ปเดินทาง',null,'#FF999A','เป้า 8,000 (800/วัน) · ททท. TICA ADT ATTO']],
+  src:[['สแกน QR เช็กอิน 7 จุด',null,'#003674','เป้า 152,000 (15,200/วัน)'],['ยอดเข้าพักโรงแรม/ที่พัก',null,'#8F4FE0','เป้า 20,000 (2,000/วัน) · โรงแรมร่วม 50+ แห่ง'],['ยอดจากพันธมิตร ห้าง ร้านค้า',null,'#00837B','เป้า 20,000 (2,000/วัน)'],['ยอดทัวร์/กรุ๊ปเดินทาง',null,'#C0393B','เป้า 8,000 (800/วัน) · ททท. TICA ADT ATTO']],
   note:'แบบสอบถาม LINE เป็นกรองชั้นที่ 3 ใช้ยืนยันยอดรวมและแบ่งสัดส่วนกลุ่ม/แกน จึงไม่บวกเพิ่มเป็นแหล่งที่ 5'});
  // daily vs target
  const byD={}; R.forEach(r=>Object.entries(dd(r)).forEach(([d,x])=>{const o=byD[d]||(byD[d]={v:0,p:0,r:0});o.v+=x.a.reduce((b,k)=>b+aPeople(x,k),0);o.p+=(+x.p||1);o.r++;}));
@@ -1332,7 +1403,7 @@ $('chk').innerHTML='<tr><th>#</th><th>LINE UID</th><th>ส่งเมื่อ<
  const M={}; R.forEach(r=>Object.entries(dd(r)).forEach(([d,x])=>x.a.forEach(k=>{M[k]=M[k]||{};M[k][d]=(M[k][d]||0)+aPeople(x,k);})));
  const order=Object.keys(ACT).sort((a,b)=>{const f=k=>DAYS.findIndex(([d])=>(DAYACT[d]||[]).includes(k));return f(a)-f(b);});
  const mxc=Math.max(1,...order.flatMap(k=>Object.values(M[k]||{})));
- const col=v=>`background:rgba(233,84,41,${(0.1+0.8*v/mxc).toFixed(2)});color:${v/mxc>.55?'#fff':'var(--ink)'}`;
+ const col=v=>`background:rgba(211,64,22,${(0.1+0.8*v/mxc).toFixed(2)});color:${v/mxc>.55?'#fff':'var(--ink)'}`;
  const ct={}; let gt=0;
  let t='<div class="hmw"><table class="hm"><tr><th class="a">กิจกรรม</th>'+DAYS.map(([d,w])=>`<th>${w}<br>${d}</th>`).join('')+'<th>รวม</th></tr>';
  order.forEach(k=>{let rt=0; t+=`<tr><th class="a">${esc(ACT[k][0])}<small>${esc(ACT[k][3])}</small></th>`+DAYS.map(([d])=>{const on=(DAYACT[d]||[]).includes(k), v=(M[k]||{})[d]||0;
@@ -1364,7 +1435,7 @@ $('chk').innerHTML='<tr><th>#</th><th>LINE UID</th><th>ส่งเมื่อ<
   `<tr class="t"><td>รวม</td>${PIL.map(([pk])=>`<td>${nf(PT[pk])}<small>${pc(tot?PT[pk]/tot:0)} · เป้า ${pc({live:.375,tour:.5,inv:.125}[pk])}</small></td>`).join('')}<td>${nf(tot)}<small>เป้า 200,000</small></td></tr></table></div>
   <div class="leg" style="margin-top:8px">ตัวเลข = Visitation จากแบบสอบถาม (ใช้เทียบเป้าที่สัดส่วน) · ซ้าย = สัดส่วนจริง / ขวา = สัดส่วนเป้า · เส้นดำบนแท่ง = เป้า<br>การจัดกลุ่ม: ข้อ 1.2 ที่อยู่ปัจจุบัน + จังหวัด · การจัดแกน: น่าลงทุน = ข้อ 2.1 ธุรกิจ/KBATx หรือข้อ 4.2 หาเครือข่าย/ดูลู่ทางลงทุน · น่าอยู่ = ข้อ 5.2 สนใจ/ตัดสินใจย้ายมาอยู่ · ที่เหลือ = น่าเที่ยว (1 คนนับแกนเดียว เรียงตามลำดับนี้)</div>`;
  const P=R.reduce((a,r)=>a+peopleR(r),0);
- $('gConf').innerHTML=`<div style="font-size:13px;font-weight:700;color:#E95429">กรอง 3 · ยืนยันด้วยแบบสอบถาม LINE</div><div style="font-size:13px;margin-top:4px">${nf(N)} ผู้ตอบ · ${nf(P)} คนที่มา · <b>${nf(tot)}</b> Visitation ที่ผู้ตอบรายงาน</div><div style="font-size:11.5px;color:var(--muted)">ใช้เทียบกับยอด QR และแบ่งสัดส่วนกลุ่มผู้มา ไม่บวกซ้ำในยอดรวม</div>`;
+ $('gConf').innerHTML=`<div style="font-size:13px;font-weight:700;color:#D34016">กรอง 3 · ยืนยันด้วยแบบสอบถาม LINE</div><div style="font-size:13px;margin-top:4px">${nf(N)} ผู้ตอบ · ${nf(P)} คนที่มา · <b>${nf(tot)}</b> Visitation ที่ผู้ตอบรายงาน</div><div style="font-size:11.5px;color:var(--muted)">ใช้เทียบกับยอด QR และแบ่งสัดส่วนกลุ่มผู้มา ไม่บวกซ้ำในยอดรวม</div>`;
  if(!/[1-9]/.test($('gNow').textContent)){$('gNow').innerHTML='รอข้อมูล<small> 4 แหล่ง</small>';$('gPct').textContent='เริ่มนับเมื่อ QR / โรงแรม / พันธมิตร / ทัวร์ ส่งยอด';}
 })();
 // reveal + count-up on scroll

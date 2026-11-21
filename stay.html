@@ -124,7 +124,8 @@ footer{color:var(--faint);font-size:13px;padding:36px 0 40px;text-align:center}
 .nrow .tr i{display:block;height:100%}.nrow .tr i.a{background:var(--lime)}.nrow .tr i.f{background:var(--orange)}
 .nrow .tr.na{background:repeating-linear-gradient(45deg,rgba(255,255,255,.08) 0 6px,transparent 6px 12px)}
 .nrow .v{text-align:right;color:var(--mute);font-variant-numeric:tabular-nums}.nrow .v b{color:#fff}
-.nrow.we .d{color:var(--lime);font-weight:600}
+.nrow.ctl{margin-top:14px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.2)}.nrow .d small{display:block;font-size:10.5px;color:var(--mute)}
+.nrow.ctl{margin-top:10px;opacity:.85}.nrow.ctl .d small{display:block;font-size:10px;opacity:.75}.nrow.we .d{color:var(--lime);font-weight:600}
 .leg{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--mute);margin:6px 0 2px}.leg i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 .occ table{min-width:640px}.occ .tbl{background:var(--ground);margin-top:12px}.occ th{background:var(--ground);padding:10px 12px}.occ td{padding:8px 12px}
 @media (max-width:640px){.occk{grid-template-columns:minmax(0,1fr)}.nrow{grid-template-columns:70px minmax(0,1fr) 112px;font-size:12.5px}}
@@ -151,20 +152,21 @@ footer{color:var(--faint);font-size:13px;padding:36px 0 40px;text-align:center}
 
   <section class="occ" aria-labelledby="occh">
     <h3 id="occh"><em>ห้องว่าง–ห้องเต็ม</em> บน Agoda รายคืน 21–28 พ.ย.</h3>
-    <p class="sub">โซน Agoda "นครราชสีมา" (เมืองโคราชและอำเภอรอบ ไม่รวมปากช่อง-เขาใหญ่) · ค้นแบบคืนเดียว 2 คน 1 ห้อง · เก็บข้อมูล 21 พ.ย. 2569 เวลา 10.45 น.</p>
+    <p class="sub">โซน Agoda "นครราชสีมา" (เมืองโคราชและอำเภอรอบ ไม่รวมปากช่อง-เขาใหญ่) · ค้นแบบคืนเดียว 2 คน 1 ห้อง · เก็บข้อมูล 21 พ.ย. 2569 (คืน 21, 22, 24, 28 เวลา 10.45 น. · คืน 23, 25, 26, 27 และคืนเทียบ 19 ธ.ค. เวลา 11.22 น.)</p>
     <div class="occk">
       <div><b id="oPool">-</b><span>ที่พักในโซนนี้ที่เคยขึ้นบน Agoda</span><small id="oPools"></small></div>
       <div><b class="o" id="oSat" style="color:var(--orange)">-</b><span>คืนเสาร์ 21 พ.ย. จองบน Agoda ไม่ได้แล้ว<span class="est">ประมาณ</span></span><small id="oSats"></small></div>
       <div><b id="oSat2" style="color:var(--orange)">-</b><span>คืนเสาร์ 28 พ.ย. จองบน Agoda ไม่ได้แล้ว<span class="est">ประมาณ</span></span><small id="oSat2s"></small></div>
     </div>
-    <div class="leg"><span><i style="background:var(--lime)"></i>ห้องในที่พักที่ยังจองได้</span><span><i style="background:var(--orange)"></i>ห้องในที่พักที่จองไม่ได้แล้ว (เต็ม/ปิดขาย)</span><span><i style="background:repeating-linear-gradient(45deg,#7d8fae 0 3px,transparent 3px 6px)"></i>ข้อมูลยังไม่ครบ</span></div>
+    <div class="leg"><span><i style="background:var(--lime)"></i>ห้องในที่พักที่ยังจองได้</span><span><i style="background:var(--orange)"></i>ห้องในที่พักที่จองไม่ได้แล้ว (เต็ม/ปิดขาย)</span></div>
     <div id="nights"></div>
     <div class="tbl"><table>
       <thead><tr><th>คืน</th><th class="r">ยังจองได้</th><th class="r">ขึ้นว่าเต็ม</th><th class="r">ไม่มีราคาขาย</th><th class="r">ไม่ขึ้นในผลค้น</th><th class="r">ราคากลางที่เหลือ</th></tr></thead>
       <tbody id="nrows"></tbody>
     </table></div>
     <p class="note" id="kyNote"></p>
-    <p class="note">วิธีนับ: ค้น Agoda ทีละคืน แล้วนับว่าที่พักแต่ละแห่ง "ยังจองได้" หรือไม่ · "ที่พักในโซน" = ทุกแห่งที่ขึ้นในผลค้นคืนใดคืนหนึ่ง (21, 22, 24, 28 พ.ย.) รวม 324 แห่ง · ที่พักที่ไม่ขึ้นในผลค้นของคืนนั้น นับเป็นจองไม่ได้ (Agoda ซ่อนที่พักที่ไม่มีห้องขาย) · <b>ห้อง</b> = ใช้เฉพาะ 122 แห่งที่แจ้งจำนวนห้องไว้บน Agoda รวม 5,032 ห้อง เป็นค่าประมาณ ไม่ใช่อัตราเข้าพักจริง เพราะ (1) ที่พักที่ยังจองได้อาจเหลือห้องไม่กี่ห้อง (2) "จองไม่ได้บน Agoda" อาจเป็นเพราะโควตาห้องที่ให้ Agoda หมด หรือปิดขายเอง ไม่ได้แปลว่าห้องเต็มทั้งโรงแรม · คืน 23, 25, 26, 27 พ.ย. ระบบดึงข้อมูลหยุดกลางทาง (ถึงวงเงินใช้งานรายเดือน) จึงยังไม่ครบ</p>
+    <p class="note">วิธีนับ: ค้น Agoda ทีละคืน แล้วนับว่าที่พักแต่ละแห่ง "ยังจองได้" หรือไม่ · "ที่พักในโซน" = ทุกแห่งที่ขึ้นในผลค้นคืนใดคืนหนึ่ง (21, 22, 24, 28 พ.ย.) รวม 324 แห่ง · ที่พักที่ไม่ขึ้นในผลค้นของคืนนั้น นับเป็นจองไม่ได้ (Agoda ซ่อนที่พักที่ไม่มีห้องขาย) · <b>ห้อง</b> = ใช้เฉพาะ 122 แห่งที่แจ้งจำนวนห้องไว้บน Agoda รวม 5,032 ห้อง เป็นค่าประมาณ ไม่ใช่อัตราเข้าพักจริง เพราะ (1) ที่พักที่ยังจองได้อาจเหลือห้องไม่กี่ห้อง (2) "จองไม่ได้บน Agoda" อาจเป็นเพราะโควตาห้องที่ให้ Agoda หมด หรือปิดขายเอง ไม่ได้แปลว่าห้องเต็มทั้งโรงแรม · คืนเสาร์ 19 ธ.ค. (นอกเทศกาล) ค้นแบบเดียวกัน ใช้เป็นคืนเทียบ แต่ยังอีกเกือบ 4 สัปดาห์ จึงอาจมีคนจองน้อยกว่าเพราะยังไม่ถึงเวลาจอง</p>
+    <p class="note"><b>สถิติทางการ (กระทรวงการท่องเที่ยวและกีฬา)</b> อัตราการเข้าพักโรงแรม จ.นครราชสีมา ทั้งเดือน: พ.ย. 2568 = 79.84% (ผู้เข้าพัก 490,158 คน) · พ.ย. 2567 = 78.51% · ต.ค. 2569 = 78.85% (ต.ค. 2568 = 78.95%) · ก.ย. 2569 = 71.82% (ก.ย. 2568 = 73.17%) · ตัวเลข พ.ย. 2569 กระทรวงฯ ยังไม่ประกาศ · เป็นค่าเฉลี่ยทั้งเดือนทุกวัน วัดคนละแบบกับตัวเลข Agoda ด้านบน จึงเทียบกันตรงๆ ไม่ได้</p>
   </section>
 
   <section class="kpis">
@@ -235,13 +237,13 @@ const CC=[102.0978,14.9750],CR=8.5;// อนุสาวรีย์ท้าว
 // Agoda nightly availability, searched 21 Nov 2026 10:45 (Apify xtracto/agoda-hotels-scraper, 1 night, 2 adults, 1 room). Zone = Agoda cityId 702243.
 // ok=0: run stopped before all result pages (usage limit) -> counts are partial. avR = rooms (Agoda "Number of rooms") in bookable places, of POOLR rooms across 122 places with a known room count.
 const POOL=324,POOLR=5032;
-const NIGHTS=[{d:21,w:'ส.',ok:1,ret:166,av:121,so:14,nr:31,avR:2132,med:562},{d:22,w:'อา.',ok:1,ret:298,av:244,so:18,nr:36,avR:4335,med:589},{d:23,w:'จ.',ok:0,ret:244,av:219,so:10,nr:15,avR:4738,med:554},{d:24,w:'อ.',ok:1,ret:313,av:261,so:14,nr:38,avR:4591,med:604},{d:25,w:'พ.',ok:0,ret:293,av:256,so:12,nr:25,avR:4639,med:530},{d:26,w:'พฤ.',ok:0,ret:244,av:220,so:9,nr:15,avR:4782,med:520},{d:27,w:'ศ.',ok:0,ret:147,av:135,so:12,nr:0,avR:4180,med:590},{d:28,w:'ส.',ok:1,ret:150,av:98,so:12,nr:40,avR:1901,med:779}];
+const NIGHTS=[{d:21,w:'ส.',ok:1,ret:166,av:121,so:14,nr:31,avR:2132,med:562},{d:22,w:'อา.',ok:1,ret:298,av:244,so:18,nr:36,avR:4335,med:589},{d:23,w:'จ.',ok:1,ret:313,av:260,so:14,nr:42,avR:4741,med:559},{d:24,w:'อ.',ok:1,ret:313,av:261,so:14,nr:38,avR:4591,med:604},{d:25,w:'พ.',ok:1,ret:309,av:265,so:12,nr:41,avR:4639,med:631},{d:26,w:'พฤ.',ok:1,ret:311,av:267,so:12,nr:38,avR:4807,med:594},{d:27,w:'ศ.',ok:1,ret:293,av:241,so:18,nr:36,avR:4361,med:589},{d:28,w:'ส.',ok:1,ret:150,av:98,so:12,nr:40,avR:1901,med:779},{d:19,m:'ธ.ค.',x:1,w:'ส.',ok:1,ret:188,av:179,so:11,nr:9,avR:4725,med:580}];
 (()=>{const pc=(a,b)=>Math.round(a/b*100)+'%';
  document.getElementById('oPool').textContent=fmt(POOL)+' แห่ง';document.getElementById('oPools').textContent=`แจ้งจำนวนห้อง 122 แห่ง รวม ${fmt(POOLR)} ห้อง`;
  const sat=(id,n)=>{const f=POOLR-n.avR;document.getElementById(id).textContent=pc(f,POOLR);document.getElementById(id+'s').textContent=`ราว ${fmt(f)} จาก ${fmt(POOLR)} ห้อง · ที่พัก ${fmt(POOL-n.av)} จาก ${fmt(POOL)} แห่ง`};
  sat('oSat',NIGHTS[0]);sat('oSat2',NIGHTS[7]);
- document.getElementById('nights').innerHTML=NIGHTS.map(n=>{const f=POOLR-n.avR;return `<div class="nrow${n.w==='ส.'||n.w==='ศ.'?' we':''}"><span class="d">${n.w} ${n.d} พ.ย.</span>${n.ok?`<span class="tr"><i class="a" style="width:${n.avR/POOLR*100}%"></i><i class="f" style="width:${f/POOLR*100}%"></i></span><span class="v">เต็ม/ปิด <b>${pc(f,POOLR)}</b> · ${fmt(f)} ห้อง</span>`:`<span class="tr na"></span><span class="v">ข้อมูลยังไม่ครบ</span>`}</div>`}).join('');
- document.getElementById('nrows').innerHTML=NIGHTS.map(n=>`<tr><td>${n.w} ${n.d} พ.ย.${n.ok?'':' <span class="est" style="border-color:#7d8fae;color:#c9d3e6">ไม่ครบ</span>'}</td><td class="r">${n.ok?'':'≥ '}${fmt(n.av)}</td><td class="r">${n.ok?'':'≥ '}${fmt(n.so)}</td><td class="r">${n.ok?'':'≥ '}${fmt(n.nr)}</td><td class="r">${n.ok?fmt(POOL-n.ret):'-'}</td><td class="r">${fmt(n.med)} บาท</td></tr>`).join('');
+ document.getElementById('nights').innerHTML=NIGHTS.map(n=>{const f=POOLR-n.avR;return `<div class="nrow${n.w==='ส.'||n.w==='ศ.'?' we':''}${n.x?' ctl':''}"><span class="d">${n.w} ${n.d} ${n.m||'พ.ย.'}${n.x?' <small>นอกเทศกาล</small>':''}</span>${n.ok?`<span class="tr"><i class="a" style="width:${n.avR/POOLR*100}%"></i><i class="f" style="width:${f/POOLR*100}%"></i></span><span class="v">เต็ม/ปิด <b>${pc(f,POOLR)}</b> · ${fmt(f)} ห้อง</span>`:`<span class="tr na"></span><span class="v">ข้อมูลยังไม่ครบ</span>`}</div>`}).join('');
+ document.getElementById('nrows').innerHTML=NIGHTS.map(n=>`<tr><td>${n.w} ${n.d} ${n.m||'พ.ย.'}${n.x?' (นอกเทศกาล)':''}${n.ok?'':' <span class="est" style="border-color:#7d8fae;color:#c9d3e6">ไม่ครบ</span>'}</td><td class="r">${n.ok?'':'≥ '}${fmt(n.av)}</td><td class="r">${n.ok?'':'≥ '}${fmt(n.so)}</td><td class="r">${n.ok?'':'≥ '}${fmt(n.nr)}</td><td class="r">${n.ok?fmt(POOL-n.ret):'-'}</td><td class="r">${fmt(n.med)} บาท</td></tr>`).join('');
  document.getElementById('kyNote').textContent='ปากช่อง-เขาใหญ่ (โซน Agoda "เขาใหญ่") คืนเสาร์ 21 พ.ย.: ขึ้นในผลค้น 522 แห่ง ยังจองได้ 353 แห่ง ขึ้นว่าเต็ม 44 แห่ง ไม่มีราคาขาย 125 แห่ง (ราคากลางที่เหลือ 2,022 บาท) · คืนอื่นของโซนนี้ยังดึงไม่ครบ · ตารางบน: "ไม่ขึ้นในผลค้น" = ที่พักในโซนที่เคยขึ้นคืนอื่นแต่คืนนั้นไม่ขึ้น · ราคากลาง = ห้องถูกสุดของที่พักที่ยังจองได้ รวมภาษี';
 })();
 const S=RAW.s.map((r,i)=>({i,name:r[0],d:r[1],lat:r[2],lng:r[3],star:r[4],score:r[5],rev:r[6],price:r[7],st:r[8],ty:r[9],url:'https://www.agoda.com/'+r[10],rooms:r[11]??null}));

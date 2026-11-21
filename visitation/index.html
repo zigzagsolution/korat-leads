@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Visitation อวดเมืองโคราช</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f4f3fa; --surface:#ffffff; --ink:#0d1f3d; --muted:#56627c; --line:#e1e0ee;
+  --navy:#003674; --orange:#D34016; --lime:#D3FF34; --teal:#00837B; --lav:#DCB8FE;
+  --soft:#ece4fe; --bar-bg:#ebeaf4; --ok:#00756e; --warn:#a33a10;
+  --c-qr:#003674; --c-hotel:#00837B; --c-partner:#D34016; --c-tour:#8a4fd1;
+  --display:"Prompt","IBM Plex Sans Thai",system-ui,sans-serif; --body:"IBM Plex Sans Thai",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#061632;--surface:#0c2347;--ink:#eef1fb;--muted:#a7b3cf;--line:#1f3a66;--soft:#25306a;--bar-bg:#18325c;--ok:#4fd1c5;--warn:#ff9a73;--c-qr:#7fb2ff;--c-hotel:#3fd0c4;--c-partner:#ff8a5c;--c-tour:#c9a2ff;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#061632;--surface:#0c2347;--ink:#eef1fb;--muted:#a7b3cf;--line:#1f3a66;--soft:#25306a;--bar-bg:#18325c;--ok:#4fd1c5;--warn:#ff9a73;--c-qr:#7fb2ff;--c-hotel:#3fd0c4;--c-partner:#ff8a5c;--c-tour:#c9a2ff;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.hero{background:#003674;color:#fff;padding:22px 0 26px}
+.tags{color:#D3FF34;font-weight:600;font-size:13px;letter-spacing:.03em}
+.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(24px,4.2vw,38px);line-height:1.2;margin:6px 0 4px}
+.hero .sub{color:#c8d2ea;font-size:14px;margin:0}
+.big{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:18px 0 8px}
+.big .n{font-family:var(--display);font-weight:700;font-size:clamp(44px,9vw,72px);line-height:1;font-variant-numeric:tabular-nums;color:#D3FF34}
+.big .of{font-size:18px;color:#c8d2ea}
+.pbar{height:16px;background:rgba(255,255,255,.14);border-radius:9px;overflow:hidden;display:flex}
+.pbar i{display:block;height:100%}
+.pbar .tick{position:relative}
+.plabel{display:flex;justify-content:space-between;font-size:13px;color:#c8d2ea;margin-top:6px;gap:8px;flex-wrap:wrap}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:18px}
+.kpi{background:rgba(255,255,255,.08);border-radius:12px;padding:12px 14px}
+.kpi .v{font-family:var(--display);font-weight:700;font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:14px;font-weight:500;opacity:.85}
+.kpi .l{font-size:13px;color:#c8d2ea;margin-top:3px}
+.kvline{height:6px;background:linear-gradient(90deg,#D34016 0 20%,#D3FF34 20% 40%,#00837B 40% 60%,#C0393B 60% 80%,#DCB8FE 80%)}
+h2{font-family:var(--display);font-weight:600;font-size:20px;margin:30px 0 4px}
+.lead{color:var(--muted);margin:0 0 14px;font-size:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.meth{border-top:5px solid var(--c)}
+.meth .top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.meth h3{font-size:15px;font-weight:600;margin:0}
+.meth .v{font-family:var(--display);font-weight:700;font-size:30px;line-height:1.15;margin:8px 0 2px;font-variant-numeric:tabular-nums}
+.meth .d{font-size:13px;color:var(--muted)}
+.meth .mini{height:8px;background:var(--bar-bg);border-radius:5px;overflow:hidden;margin-top:10px}
+.meth .mini i{display:block;height:100%;background:var(--c)}
+.badge{font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;white-space:nowrap;border:1px solid currentColor}
+.b-live{color:var(--ok)} .b-wait{color:var(--muted)} .b-manual{color:var(--warn)}
+.chart{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;align-items:end;height:220px;padding-top:10px;position:relative}
+.col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative}
+.col .tg{position:absolute;left:8%;right:8%;border-top:2px dashed var(--muted);opacity:.8}
+.col .stk{width:70%;display:flex;flex-direction:column-reverse;border-radius:6px 6px 0 0;overflow:hidden;min-height:2px;background:var(--bar-bg)}
+.col .val{font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;margin-bottom:3px}
+.xl{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:6px;text-align:center;font-size:12px;color:var(--muted)}
+.xl .we{color:var(--ink);font-weight:600}
+.xl span small{display:block;font-size:11px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;margin-top:12px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.legend .dash{width:18px;height:0;border-top:2px dashed var(--muted);border-radius:0}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th,.tbl td{padding:8px 8px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+.tbl th:first-child,.tbl td:first-child{text-align:left;min-width:120px}
+.tbl thead th{font-size:12.5px;color:var(--muted);font-weight:600}
+.tbl tfoot td{font-weight:600}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.heat{display:inline-block;min-width:44px;padding:2px 6px;border-radius:6px}
+.empty{color:var(--muted);font-size:13.5px;background:var(--soft);border-radius:10px;padding:10px 12px}
+.rules{margin:0;padding-left:20px;font-size:14px}
+.rules li{margin:4px 0}
+.note{font-size:12.5px;color:var(--muted);margin-top:10px}
+.btn{font:inherit;font-size:14px;font-weight:600;background:var(--navy);color:#fff;border:0;border-radius:10px;padding:9px 14px;cursor:pointer}
+:root[data-theme="dark"] .btn{background:#2b5fb0}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn{background:#2b5fb0}}
+.pts{display:grid;gap:8px}
+.pt{display:grid;grid-template-columns:minmax(110px,40%) 1fr 56px;gap:10px;align-items:center;font-size:13.5px}
+.pt .tr{height:12px;background:var(--bar-bg);border-radius:6px;overflow:hidden}
+.pt .tr i{display:block;height:100%;background:var(--c-qr)}
+.pt .n{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+footer{color:var(--muted);font-size:12.5px;text-align:center;padding:30px 0 40px}
+.team-only{}
+body.tceb .team-only{display:none!important}
+@media (max-width:560px){.chart{height:180px}.col .val{font-size:10px}.xl{font-size:11px}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="tags">K-BATTLE INTERNATIONAL STREET CULTURE FESTIVAL 2026 · 20–29 พ.ย. 2569</div>
+    <h1>ผู้เข้าร่วมงาน (Visitation) อวดเมืองโคราช</h1>
+    <p class="sub">นับ 1 ครั้งต่อคนต่อกิจกรรม ร่วมหลายกิจกรรมนับทุกครั้ง · อัปเดตล่าสุด <span id="upd">–</span></p>
+    <div class="big"><span class="n" id="total">0</span><span class="of">/ 200,000 Visitation</span></div>
+    <div class="pbar" id="pbar"></div>
+    <div class="plabel"><span id="pct">0%</span><span id="pace"></span></div>
+    <div class="kpis" id="kpis"></div>
+  </div>
+</header>
+<div class="kvline"></div>
+<main class="wrap">
+
+  <h2>นับจาก 4 วิธี</h2>
+  <p class="lead">แบบสำรวจไม่บวกเพิ่ม ใช้ยืนยันสัดส่วนเท่านั้น (ดูด้านล่าง)</p>
+  <div class="grid g4" id="methods"></div>
+
+  <h2>รายวัน 20–29 พ.ย.</h2>
+  <p class="lead">แท่ง = นับได้จริงแยกตามวิธี · เส้นประ = เป้ารายวัน · ตัวหนา = วันเสาร์-อาทิตย์และวันไฮไลต์</p>
+  <div class="card">
+    <div class="chart" id="chart"></div>
+    <div class="xl" id="xl"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+
+  <h2>เช็คอินแยกตามจุด × วัน</h2>
+  <p class="lead">จากสรุปของทีมงานหน้างานทุกวัน · "คนไม่ซ้ำ" นับไม่ซ้ำภายในวันเดียวกัน</p>
+  <div class="grid g2">
+    <div class="card"><h3 style="margin:0 0 12px;font-size:15px">รวมทุกวัน แยกตามจุด</h3><div class="pts" id="pts"></div></div>
+    <div class="card"><h3 style="margin:0 0 12px;font-size:15px">ครั้งต่อคน (เฉลี่ยรายวัน)</h3><div id="rep"></div></div>
+  </div>
+  <div class="card scroll" style="margin-top:12px"><table class="tbl" id="heat"></table></div>
+
+  <h2>ที่พัก · พันธมิตร · ทัวร์</h2>
+  <div class="grid g2" id="others"></div>
+
+  <h2>แบบสำรวจผู้เข้าร่วมงาน (ใช้ยืนยัน ไม่บวกเพิ่ม)</h2>
+  <div class="card" id="survey">
+    <div class="empty">กำลังโหลดจำนวนผู้ตอบ…</div>
+  </div>
+
+  <h2>Reach (ไม่นับเป็น Visitation)</h2>
+  <p class="lead">ยอดคนเห็นสื่อและผู้ร่วมกิจกรรมออนไลน์ แยกจากเป้า 200,000</p>
+  <div class="grid g4" id="reach"></div>
+
+  <div class="team-only">
+    <h2>ก่อนช่วงเทศกาล (แยกไว้ ไม่รวม 200,000)</h2>
+    <div class="card scroll"><table class="tbl" id="pre"></table></div>
+  </div>
+
+  <h2>กติกาการนับ</h2>
+  <div class="card">
+    <ol class="rules">
+      <li>1 คน ร่วม 1 กิจกรรม = 1 Visitation ร่วมหลายกิจกรรมหรือกลับมาวันอื่นนับทุกครั้ง</li>
+      <li>นับ 4 วิธี: เช็คอิน QR หน้างาน · ผู้เข้าพักโรงแรม/ที่พัก · ยอดจากพันธมิตร (ห้าง ร้านค้า) · ยอดทัวร์</li>
+      <li>ไม่นับ: การลงทะเบียนล่วงหน้า ยอดเห็นโฆษณา ยอดดูออนไลน์</li>
+      <li>แบบสำรวจใช้ยืนยันว่ามาจากไหน มากี่คน กี่วัน ไม่นำมาบวกเพิ่ม</li>
+      <li>ทุกแถวระบุแหล่งที่มา แยก "นับจริง" กับ "ประมาณการ" และไม่นำข้อมูลทดสอบระบบมารวม</li>
+    </ol>
+    <div style="margin-top:14px"><button class="btn" id="csv">ดาวน์โหลดข้อมูลดิบ (CSV)</button></div>
+  </div>
+</main>
+<footer>พัฒนาข้อมูลโดย MIDI Digital</footer>
+
+<script>
+(function(){
+var P=new URLSearchParams(location.search);
+if(P.get('view')==='tceb')document.body.classList.add('tceb');
+var TEAM=!document.body.classList.contains('tceb');
+var M=[{k:'qr',name:'เช็คอิน QR หน้างาน',c:'var(--c-qr)'},{k:'hotel',name:'ผู้เข้าพักโรงแรม/ที่พัก',c:'var(--c-hotel)'},{k:'partner',name:'ยอดจากพันธมิตร',c:'var(--c-partner)'},{k:'tour',name:'ยอดทัวร์',c:'var(--c-tour)'}];
+var DOW=['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
+function f(n){return (n==null?'–':Math.round(n).toLocaleString('en-US'))}
+function el(id){return document.getElementById(id)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function thDate(iso){return {d:parseInt(iso.slice(8),10),dow:DOW[new Date(iso+'T12:00:00Z').getUTCDay()]}}
+fetch('data.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(render).catch(function(){el('methods').innerHTML='<div class="empty">โหลดข้อมูลไม่สำเร็จ ลองรีเฟรชอีกครั้ง</div>'});
+
+function render(D){
+  var days=D.days, idx={};days.forEach(function(d,i){idx[d]=i});
+  var per={qr:new Array(10).fill(0),hotel:new Array(10).fill(0),partner:new Array(10).fill(0),tour:new Array(10).fill(0)};
+  var has={qr:{},hotel:{},partner:{},tour:{}};
+  (D.checkin||[]).forEach(function(r){if(idx[r.date]!=null){per.qr[idx[r.date]]+=r.total;has.qr[r.date]=1}});
+  ['hotel','partner','tour'].forEach(function(k){(D[k]||[]).forEach(function(r){if(idx[r.date]!=null&&!r.test){per[k][idx[r.date]]+=r.count;has[k][r.date]=1}})});
+  var tot={},all=0;M.forEach(function(m){tot[m.k]=per[m.k].reduce(function(a,b){return a+b},0);all+=tot[m.k]});
+  var dayTot=days.map(function(_,i){return M.reduce(function(a,m){return a+per[m.k][i]},0)});
+  var lastI=-1;days.forEach(function(d,i){if(dayTot[i]>0)lastI=i});
+  var upd=new Date(D.updated);
+  el('upd').textContent=upd.toLocaleString('th-TH',{timeZone:'Asia/Bangkok',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.';
+  // hero
+  countUp(el('total'),all);
+  var pct=all/D.target*100;
+  el('pbar').innerHTML=M.map(function(m){return '<i style="width:'+(tot[m.k]/D.target*100)+'%;background:'+(m.k==='qr'?'#D3FF34':m.c)+'"></i>'}).join('');
+  el('pct').textContent=(pct<1?pct.toFixed(2):pct.toFixed(1))+'% ของเป้า · เหลืออีก '+f(Math.max(0,D.target-all));
+  var cumT=0;for(var i=0;i<=lastI;i++)cumT+=D.dailyTarget[i];
+  var remainDays=10-(lastI+1);
+  el('pace').textContent= remainDays>0 ? ('ต้องได้เฉลี่ยวันละ '+f(Math.max(0,D.target-all)/remainDays)+' ใน '+remainDays+' วันที่เหลือ') : '';
+  var ci=D.checkin||[], uq=ci.reduce(function(a,r){return a+(r.unique||0)},0), ct=ci.reduce(function(a,r){return a+r.total},0);
+  var k=[
+    ['<b>'+(lastI+1)+'</b><small> / 10 วัน</small>','วันที่มีข้อมูลแล้ว'],
+    [f(uq)+'<small> คน</small>','คนไม่ซ้ำ (เช็คอิน รวมรายวัน)'],
+    [(uq?(ct/uq).toFixed(2):'–')+'<small> ครั้ง/คน</small>','กิจกรรมต่อคนต่อวัน (เช็คอิน)']
+  ];
+  if(TEAM){k.push([f(cumT)+'<small> เป้าสะสม</small>','เป้าถึงวันที่มีข้อมูล ('+(cumT?Math.round(all/cumT*100):0)+'%)']);
+}
+  el('kpis').innerHTML=k.map(function(x){return '<div class="kpi"><div class="v">'+x[0]+'</div><div class="l">'+x[1]+'</div></div>'}).join('');
+  // methods
+  el('methods').innerHTML=M.map(function(m){
+    var n=Object.keys(has[m.k]).length, t=D.methodTarget[m.k];
+    var st=n? (m.k==='qr'?'<span class="badge b-manual">สรุปทีมรายวัน</span>':'<span class="badge b-manual">กรอก/รายงาน</span>') : '<span class="badge b-wait">รอข้อมูล</span>';
+    var desc=n? ('มีข้อมูล '+n+' วัน') : (m.k==='hotel'?'ฟอร์มโรงแรมเปิดแล้ว ยังไม่มีคำตอบจริง':m.k==='partner'?'ยังไม่มีช่องรับยอดจากห้าง/ร้านค้า':m.k==='tour'?'ยังไม่มีช่องรับยอดทัวร์':'');
+    return '<div class="card meth" style="--c:'+m.c+'"><div class="top"><h3>'+m.name+'</h3>'+st+'</div><div class="v">'+f(tot[m.k])+'</div><div class="d">'+desc+(TEAM&&t?' · เป้า '+f(t):'')+'</div>'+(TEAM&&t?'<div class="mini"><i style="width:'+Math.min(100,tot[m.k]/t*100)+'%"></i></div>':'')+'</div>'
+  }).join('');
+  // chart
+  var mx=Math.max.apply(null,D.dailyTarget.concat(dayTot))*1.08;
+  el('chart').innerHTML=days.map(function(d,i){
+    var h=dayTot[i]/mx*100;
+    return '<div class="col"><div class="tg" style="bottom:'+(D.dailyTarget[i]/mx*100)+'%"></div>'+
+      (dayTot[i]?'<div class="val">'+f(dayTot[i])+'</div>':'')+
+      '<div class="stk" style="height:'+(dayTot[i]?Math.max(h,1):0.5)+'%">'+M.map(function(m){var v=per[m.k][i];return v?'<i style="display:block;flex:'+v+' 0 0;background:'+m.c+'"></i>':''}).join('')+'</div></div>';
+  }).join('');
+  el('xl').innerHTML=days.map(function(d,i){var t=thDate(d);var we=(t.dow==='ส.'||t.dow==='อา.'||t.dow==='ศ.');return '<span class="'+(we?'we':'')+'">'+t.d+'<small>'+t.dow+'</small>'+(TEAM?'<small>'+f(D.dailyTarget[i]/1000)+'k</small>':'')+'</span>'}).join('');
+  el('legend').innerHTML=M.map(function(m){return '<span><i style="background:'+m.c+'"></i>'+m.name+'</span>'}).join('')+'<span><i class="dash"></i>เป้ารายวัน</span>';
+  // points
+  var pts={};ci.forEach(function(r){(r.points||[]).forEach(function(p){pts[p.name]=(pts[p.name]||0)+p.count})});
+  var pk=Object.keys(pts).sort(function(a,b){return pts[b]-pts[a]}), pm=pk.length?pts[pk[0]]:1;
+  el('pts').innerHTML=pk.length?pk.map(function(n){return '<div class="pt"><span>'+esc(n)+'</span><div class="tr"><i style="width:'+(pts[n]/pm*100)+'%"></i></div><span class="n">'+f(pts[n])+'</span></div>'}).join(''):'<div class="empty">ยังไม่มีสรุปเช็คอิน</div>';
+  el('rep').innerHTML=ci.length?('<table class="tbl"><thead><tr><th>วัน</th><th>เช็คอิน</th><th>คนไม่ซ้ำ</th><th>ครั้ง/คน</th></tr></thead><tbody>'+ci.map(function(r){var t=thDate(r.date);return '<tr><td>'+t.dow+' '+t.d+' พ.ย.</td><td>'+f(r.total)+'</td><td>'+f(r.unique)+'</td><td>'+(r.unique?(r.total/r.unique).toFixed(2):'–')+'</td></tr>'}).join('')+'</tbody></table>'):'<div class="empty">ยังไม่มีข้อมูล</div>';
+  // heat
+  var hmax=1;ci.forEach(function(r){(r.points||[]).forEach(function(p){hmax=Math.max(hmax,p.count)})});
+  var head='<thead><tr><th>จุดเช็คอิน</th>'+days.map(function(d){var t=thDate(d);return '<th>'+t.d+'</th>'}).join('')+'<th>รวม</th></tr></thead>';
+  var byDay={};ci.forEach(function(r){byDay[r.date]=r});
+  var body=pk.map(function(n){return '<tr><td>'+esc(n)+'</td>'+days.map(function(d){var r=byDay[d];if(!r)return '<td style="color:var(--muted)">·</td>';var p=(r.points||[]).filter(function(x){return x.name===n})[0];if(!p)return '<td>0</td>';var a=0.12+0.6*p.count/hmax;return '<td><span class="heat" style="background:color-mix(in srgb,var(--c-qr) '+Math.round(a*100)+'%,transparent);'+(a>0.45?'color:#fff':'')+'">'+f(p.count)+'</span></td>'}).join('')+'<td>'+f(pts[n])+'</td></tr>'}).join('');
+  var foot='<tfoot><tr><td>รวมรายวัน</td>'+days.map(function(d){return '<td>'+(byDay[d]?f(byDay[d].total):'·')+'</td>'}).join('')+'<td>'+f(ct)+'</td></tr></tfoot>';
+  el('heat').innerHTML=pk.length?head+'<tbody>'+body+'</tbody>'+foot:'<tbody><tr><td class="empty">ยังไม่มีข้อมูล</td></tr></tbody>';
+  // others
+  var O=[['hotel','ผู้เข้าพักโรงแรม/ที่พัก','ฟอร์มให้โรงแรมรายงานห้องและผู้เข้าพักรายคืน 20–29 พ.ย. ตัวเลขที่ได้จากช่วง % จะติดป้าย "ประมาณการ"'],['partner','ยอดจากพันธมิตร','ห้าง ร้านค้า KORAT POINT และจุดพันธมิตรที่แจ้งจำนวนผู้เข้าร่วม'],['tour','ยอดทัวร์','จำนวนผู้ร่วมทัวร์จากบริษัททัวร์และ Press Tour']];
+  el('others').innerHTML=O.map(function(o){var rows=(D[o[0]]||[]).filter(function(r){return !r.test});return '<div class="card"><h3 style="margin:0 0 6px;font-size:15px">'+o[1]+'</h3><div class="note" style="margin:0 0 10px">'+o[2]+'</div>'+(rows.length?'<table class="tbl"><tbody>'+rows.map(function(r){return '<tr><td>'+esc(r.date)+' · '+esc(r.name||'')+(r.estimate?' (ประมาณการ)':'')+'</td><td>'+f(r.count)+'</td></tr>'}).join('')+'</tbody></table>':'<div class="empty">รอข้อมูล</div>')+'</div>'}).join('');
+  // reach
+  var R=D.reach||{}, rc=[];
+  if(R.ooh)rc.push(['ป้าย OOH',f(R.ooh.perDay)+'<small> ครั้ง/วัน</small>',R.ooh.note]);
+  (R.online||[]).forEach(function(o){rc.push([o.name,f(o.participants)+'<small> คน</small>','engagement '+f(o.engagement)])});
+  var op=(R.online||[]).reduce(function(a,o){return a+o.participants},0);
+  rc.push(['ผู้ร่วมกิจกรรมออนไลน์ (TOR ≥ 10,000)',f(op)+'<small> / '+f(R.onlineTarget)+'</small>','รวมทุกรอบที่จัดแล้ว']);
+  rc.push(['Live Streaming (TOR ≥ 10,000 viewers)',R.live?f(R.live)+'<small> viewers</small>':'<small>รอข้อมูล</small>','']);
+  el('reach').innerHTML=rc.map(function(x){return '<div class="card"><div class="note" style="margin:0">'+esc(x[0])+'</div><div style="font-family:var(--display);font-weight:700;font-size:24px;margin:6px 0 2px">'+x[1]+'</div><div class="note" style="margin:0">'+esc(x[2])+'</div></div>'}).join('');
+  // pre
+  el('pre').innerHTML='<thead><tr><th>กิจกรรม</th><th>วันที่</th><th>ลงทะเบียน</th><th>เช็คอิน</th></tr></thead><tbody>'+(D.prefestival||[]).map(function(p){return '<tr><td>'+esc(p.name)+'</td><td>'+esc(p.date)+'</td><td>'+f(p.registered)+'</td><td>'+f(p.checkin)+'</td></tr>'}).join('')+'</tbody>';
+  // survey count (live from the Worker, best effort)
+  fetch('https://korat.mididigitalevent.workers.dev/api/survey/count',{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+    var n=(typeof j==='number')?j:(j.real!=null?j.real:(j.count!=null?j.count:j.total));
+    el('survey').innerHTML='<div style="font-family:var(--display);font-weight:700;font-size:30px">'+f(n)+' <small style="font-size:15px;font-weight:500">ผู้ตอบ</small></div><div class="note">ใช้ยืนยันสัดส่วน มาจากพื้นที่ไหน มากี่คน อยู่กี่วัน ร่วมกี่กิจกรรม · รายละเอียดทุกข้อในบอร์ดแบบสำรวจ</div>';
+  }).catch(function(){el('survey').innerHTML='<div class="empty">ดูผลแบบสำรวจได้ที่บอร์ดแบบสำรวจ (ต้องใช้ PIN)</div>'});
+  // csv
+  el('csv').onclick=function(){
+    var L=[['วิธีนับ','วันที่','จุด/แหล่ง','จำนวน','คนไม่ซ้ำ','สถานะข้อมูล','แหล่งที่มา']];
+    ci.forEach(function(r){(r.points||[]).forEach(function(p){L.push(['เช็คอิน QR',r.date,p.name,p.count,'','นับจริง',r.source||''])});L.push(['เช็คอิน QR',r.date,'รวมทั้งวัน',r.total,r.unique,'นับจริง',r.source||''])});
+    ['hotel','partner','tour'].forEach(function(k){(D[k]||[]).filter(function(r){return !r.test}).forEach(function(r){L.push([M.filter(function(m){return m.k===k})[0].name,r.date,r.name||'',r.count,'',r.estimate?'ประมาณการ':'นับจริง',r.source||''])})});
+    var s='﻿'+L.map(function(r){return r.map(function(c){c=String(c);return /[",\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c}).join(',')}).join('\n');
+    var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'text/csv'}));a.download='visitation-korat.csv';a.click();
+  };
+}
+function countUp(e,n){var t0=null;function s(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/900);e.textContent=Math.round(n*(1-Math.pow(1-p,3))).toLocaleString('en-US');if(p<1)requestAnimationFrame(s)}
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){e.textContent=n.toLocaleString('en-US')}else requestAnimationFrame(s)}
+})();
+</script>
+</body>
+</html>

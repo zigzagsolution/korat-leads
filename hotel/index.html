@@ -30,24 +30,24 @@ header::after{content:"";display:block;height:5px;background:linear-gradient(90d
 .bar i{display:block;height:100%;width:0;background:var(--lime);border-radius:4px;transition:width .45s cubic-bezier(.34,1.56,.64,1)}
 main{padding:20px 0 130px}
 .step{display:none}
-.step.on{display:block;animation:in .42s cubic-bezier(.34,1.4,.64,1)}
+.step.on{display:block;animation:in .3s ease-out}
 .step.on.back{animation-name:inb}
-@keyframes in{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
-@keyframes inb{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+@keyframes in{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+@keyframes inb{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
 .mascot{font-size:46px;display:inline-block;animation:bob 2.4s ease-in-out infinite;transform-origin:50% 90%}
 @keyframes bob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-7px) rotate(4deg)}}
-h1{font:700 clamp(22px,6vw,27px)/1.3 var(--display);margin:6px 0 6px;text-wrap:balance}
+h1{font:600 clamp(20px,5.4vw,24px)/1.4 var(--display);margin:6px 0 6px;text-wrap:balance}
 h2{font:600 18px/1.35 var(--display);margin:22px 0 10px}
 .sub{color:var(--muted);font-size:14.5px;margin:0 0 14px}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
 .chip{border:2px solid var(--line);background:var(--surface);color:inherit;font:500 15.5px var(--body);padding:11px 16px;border-radius:16px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .15s,border-color .15s,background .15s;box-shadow:0 2px 0 var(--line)}
 .chip:active{transform:scale(.94)}
 .chip .e{font-size:20px;line-height:1}
-.chip[aria-pressed="true"]{border-color:var(--navy);background:var(--soft);font-weight:600;box-shadow:0 3px 0 var(--navy);animation:pop .35s cubic-bezier(.34,1.8,.64,1)}
-.chip[aria-pressed="true"] .e{animation:wig .5s}
-@keyframes pop{0%{transform:scale(.9)}60%{transform:scale(1.07)}100%{transform:scale(1)}}
+.chip[aria-pressed="true"]{border-color:var(--navy);background:var(--soft);font-weight:600;box-shadow:0 3px 0 var(--navy);animation:pop .25s ease-out}
+
+@keyframes pop{0%{transform:scale(.97)}100%{transform:scale(1)}}
 @keyframes wig{0%,100%{transform:rotate(0)}25%{transform:rotate(-18deg) scale(1.2)}75%{transform:rotate(14deg) scale(1.2)}}
-.chips.big .chip{flex:1 1 calc(50% - 10px);justify-content:center;flex-direction:column;padding:14px 8px;text-align:center}
+.chips.big .chip{flex:1 1 calc(50% - 10px);justify-content:center;padding:14px 10px;text-align:center}
 .chips.big .chip .e{font-size:30px}
 .static .chip{cursor:default;box-shadow:none}
 input[type=text],input[type=tel]{width:100%;font:inherit;font-size:17px;color:inherit;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:12px}
@@ -69,10 +69,10 @@ label.f{display:block;font-weight:600;font-size:15px;margin:4px 0 6px}
 .tag.bk{background:var(--lav);color:#2a1a55}
 .lv{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 .lv button{border:2px solid var(--line);background:var(--bg);border-radius:12px;padding:6px 2px 5px;cursor:pointer;font:500 11.5px var(--body);color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:1px;transition:transform .12s}
-.lv button .e{font-size:22px}
+.lv .m{display:flex;gap:2px;align-items:flex-end;height:22px;margin-bottom:3px}.lv .m i{width:5px;border-radius:2px;background:var(--line)}.lv .m i:nth-child(1){height:6px}.lv .m i:nth-child(2){height:10px}.lv .m i:nth-child(3){height:14px}.lv .m i:nth-child(4){height:18px}.lv .m i:nth-child(5){height:22px}.lv .m i.f{background:var(--teal)}.lv button[aria-pressed="true"] .m i.f{background:var(--navy)}
 .lv button:active{transform:scale(.9)}
-.lv button[aria-pressed="true"]{border-color:var(--navy);background:var(--soft);color:var(--ink);font-weight:600;animation:pop .35s cubic-bezier(.34,1.8,.64,1)}
-.lv button[aria-pressed="true"] .e{animation:wig .5s}
+.lv button[aria-pressed="true"]{border-color:var(--navy);background:var(--soft);color:var(--ink);font-weight:600;animation:pop .25s ease-out}
+
 .exact{margin-top:8px;font-size:13px;color:var(--muted);background:none;border:0;padding:4px 0;text-decoration:underline;cursor:pointer;font-family:inherit}
 .exactbox .stepper{margin:6px 0 10px}.exactbox .num{font-size:30px;min-width:70px}
 .split{display:flex;height:16px;border-radius:8px;overflow:hidden;margin-top:10px}
@@ -95,7 +95,16 @@ label.f{display:block;font-weight:600;font-size:15px;margin:4px 0 6px}
 .btn.bk{background:var(--surface);color:var(--ink);border:2px solid var(--line)}
 .btn:disabled{opacity:.55}
 .done{text-align:center;padding-top:30px}
-.done .mascot{font-size:72px}
+.letter{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--navy);border-radius:14px;padding:20px 18px;font-size:15px}
+.letter p{margin:0 0 12px}.letter h1{margin:4px 0 14px}
+.kick{font-size:13px;font-weight:600;color:var(--cta);letter-spacing:.02em}
+.letter dl{margin:4px 0 14px;padding:12px 14px;background:var(--bg);border-radius:10px}
+.letter dt{font-weight:600;font-size:14px}.letter dd{margin:0 0 8px;color:var(--muted);font-size:14px}.letter dd:last-child{margin:0}
+.letter a{color:var(--navy);font-weight:600}
+.tick{width:72px;height:72px;margin:0 auto 10px}.tick svg{fill:none;stroke:var(--teal);stroke-width:3}
+.tick circle{stroke-dasharray:151;stroke-dashoffset:151;animation:draw .6s ease-out forwards}
+.tick path{stroke-dasharray:36;stroke-dashoffset:36;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;animation:draw .35s .5s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
 .conf{position:fixed;top:-20px;width:10px;height:14px;border-radius:3px;z-index:20;animation:fall linear forwards;pointer-events:none}
 @keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
 footer{color:var(--muted);font-size:12px;text-align:center;margin-top:28px}
@@ -112,43 +121,48 @@ footer{color:var(--muted);font-size:12px;text-align:center;margin-top:28px}
 <main><div class="wrap">
 
 <section class="step" data-s="0">
-  <div class="mascot">🏨</div>
-  <h1>สวัสดีค่ะ ขอเวลา 2 นาที ช่วยเล่ายอดห้องพักช่วงเทศกาลหน่อยนะคะ</h1>
-  <p class="sub">เกือบทุกข้อแค่กดเลือก พิมพ์แค่ชื่อกับเบอร์โทรหน้าเดียว ข้อมูลของแต่ละโรงแรมเก็บเป็นความลับ ใช้สรุปภาพรวมของจังหวัดเท่านั้น</p>
-  <div class="chips static" style="margin-top:18px"><span class="chip">⏱️ ประมาณ 2 นาที</span><span class="chip">👆 กดเป็นส่วนใหญ่</span><span class="chip">🔒 ไม่เปิดเผยรายแห่ง</span></div>
+  <div class="letter">
+  <div class="kick">แบบรายงานข้อมูลการเข้าพัก</div>
+  <h1>ช่วงเทศกาลอวดเมืองโคราช และ K-BATTLE International Street Culture Festival 2026<br>ระหว่างวันที่ 20–29 พฤศจิกายน 2569</h1>
+  <p><b>เรียน</b> ผู้ประกอบการโรงแรมและที่พักในจังหวัดนครราชสีมา</p>
+  <p>สำนักงานส่งเสริมการจัดประชุมและนิทรรศการ (องค์การมหาชน) หรือ สสปน. โดยบริษัท มีดี ดิจิทัล จำกัด ในฐานะผู้ดำเนินโครงการเทศกาลอวดเมืองโคราช ขอความอนุเคราะห์ข้อมูลจำนวนห้องที่มีผู้เข้าพักและจำนวนผู้เข้าพักรายคืน ในช่วงวันที่ 20–29 พฤศจิกายน 2569 เพื่อนำไปใช้สรุปภาพรวมด้านการท่องเที่ยวและเศรษฐกิจของจังหวัดนครราชสีมา</p>
+  <dl>
+    <dt>การรักษาความลับ</dt><dd>ข้อมูลของแต่ละสถานประกอบการจะเก็บเป็นความลับ ไม่เปิดเผยเป็นรายแห่ง และใช้สรุปผลเชิงสถิติในภาพรวมเท่านั้น</dd>
+    <dt>ระยะเวลา</dt><dd>ประมาณ 3 นาที โดยส่วนใหญ่เป็นการเลือกคำตอบ</dd>
+    <dt>สอบถามเพิ่มเติม</dt><dd><a href="tel:0992936229">099 293 6229</a></dd>
+  </dl>
+  <p>จึงเรียนมาเพื่อโปรดพิจารณาให้ความอนุเคราะห์ และขอขอบพระคุณมา ณ โอกาสนี้</p>
+  </div>
 </section>
 
 <section class="step" data-s="1">
-  <div class="mascot">✍️</div>
-  <h1>โรงแรมของคุณชื่ออะไรคะ</h1>
-  <p class="sub">หน้านี้หน้าเดียวที่ต้องพิมพ์ค่ะ</p>
+  <h1>ข้อมูลสถานประกอบการและผู้ให้ข้อมูล</h1>
+  <p class="sub">ส่วนนี้เป็นส่วนเดียวที่ต้องพิมพ์ข้อมูล</p>
   <label class="f" for="hotel">ชื่อโรงแรม / ที่พัก</label><input type="text" id="hotel" autocomplete="organization">
-  <label class="f" for="name">ชื่อผู้กรอก</label><input type="text" id="name" autocomplete="name">
-  <label class="f" for="tel">เบอร์โทร</label><input type="tel" id="tel" inputmode="tel" autocomplete="tel">
+  <label class="f" for="name">ชื่อ–นามสกุล ผู้ให้ข้อมูล</label><input type="text" id="name" autocomplete="name">
+  <label class="f" for="tel">เบอร์โทรศัพท์</label><input type="tel" id="tel" inputmode="tel" autocomplete="tel">
 </section>
 
 <section class="step" data-s="2">
-  <div class="mascot">🗺️</div>
-  <h1>เป็นที่พักแบบไหน อยู่อำเภออะไรคะ</h1>
+  <h1>ประเภทและที่ตั้งของสถานประกอบการ</h1>
   <h2>ประเภทที่พัก</h2>
   <div class="chips big" data-k="type">
-    <button class="chip" data-v="โรงแรม"><span class="e">🏨</span>โรงแรม</button>
-    <button class="chip" data-v="รีสอร์ท"><span class="e">🌴</span>รีสอร์ท</button>
-    <button class="chip" data-v="เกสต์เฮาส์/โฮมสเตย์"><span class="e">🏡</span>เกสต์เฮาส์ / โฮมสเตย์</button>
-    <button class="chip" data-v="อื่นๆ"><span class="e">🛏️</span>อื่นๆ</button>
+    <button class="chip" data-v="โรงแรม">โรงแรม</button>
+    <button class="chip" data-v="รีสอร์ท">รีสอร์ท</button>
+    <button class="chip" data-v="เกสต์เฮาส์/โฮมสเตย์">เกสต์เฮาส์ / โฮมสเตย์</button>
+    <button class="chip" data-v="อื่นๆ">อื่นๆ</button>
   </div>
-  <h2>อำเภอ</h2>
+  <h2>อำเภอที่ตั้ง</h2>
   <div class="chips" data-k="district">
-    <button class="chip" data-v="เมืองนครราชสีมา">📍 เมืองนครราชสีมา</button>
-    <button class="chip" data-v="ปากช่อง">⛰️ ปากช่อง</button>
-    <button class="chip" data-v="อำเภออื่น">🧭 อำเภออื่น</button>
+    <button class="chip" data-v="เมืองนครราชสีมา">เมืองนครราชสีมา</button>
+    <button class="chip" data-v="ปากช่อง">ปากช่อง</button>
+    <button class="chip" data-v="อำเภออื่น">อำเภออื่น</button>
   </div>
 </section>
 
 <section class="step" data-s="3">
-  <div class="mascot">🔑</div>
-  <h1>มีห้องพักทั้งหมดกี่ห้องคะ</h1>
-  <p class="sub">กดตัวเลขใกล้เคียง แล้วกด + / − ปรับให้ตรงได้ค่ะ</p>
+  <h1>จำนวนห้องพักทั้งหมดที่เปิดให้บริการ</h1>
+  <p class="sub">เลือกตัวเลขที่ใกล้เคียง แล้วปรับให้ตรงด้วยปุ่ม + / −</p>
   <div class="chips" data-k="roomsQuick">
     <button class="chip" data-v="10">10</button><button class="chip" data-v="20">20</button><button class="chip" data-v="30">30</button>
     <button class="chip" data-v="50">50</button><button class="chip" data-v="80">80</button><button class="chip" data-v="100">100</button>
@@ -159,101 +173,96 @@ footer{color:var(--muted);font-size:12px;text-align:center;margin-top:28px}
 </section>
 
 <section class="step" data-s="4">
-  <div class="mascot">🌙</div>
-  <h1>แต่ละคืน ห้องเต็มประมาณแค่ไหนคะ</h1>
-  <p class="sub">กดคืนละ 1 ครั้ง คืนที่ยังไม่ถึงให้ดูจากยอดจอง ถ้าทราบจำนวนห้องจริง กด "ใส่จำนวนห้องจริง" ได้ค่ะ</p>
+  <h1>อัตราการเข้าพักรายคืน</h1>
+  <p class="sub">โปรดเลือกช่วงอัตราการเข้าพักของแต่ละคืน คืนที่ยังไม่ถึงวันเข้าพักให้อ้างอิงยอดจองล่วงหน้า หากทราบจำนวนห้องที่แน่นอน สามารถระบุได้ที่ "ระบุจำนวนห้องที่แน่นอน"</p>
   <div id="nights"></div>
 </section>
 
 <section class="step" data-s="5">
-  <div class="mascot">🧳</div>
-  <h1>แขกส่วนใหญ่เป็นคนไทยหรือต่างชาติคะ</h1>
+  <h1>ลักษณะผู้เข้าพัก</h1><h2>สัดส่วนผู้เข้าพักชาวไทยและชาวต่างชาติ</h2>
   <div class="chips big" data-k="mix">
-    <button class="chip" data-v="95"><span class="e">🇹🇭</span>ไทยเกือบทั้งหมด</button>
-    <button class="chip" data-v="80"><span class="e">🙂</span>ไทยส่วนใหญ่ มีต่างชาติบ้าง</button>
-    <button class="chip" data-v="50"><span class="e">🤝</span>ไทยกับต่างชาติพอ ๆ กัน</button>
-    <button class="chip" data-v="20"><span class="e">🌏</span>ต่างชาติส่วนใหญ่</button>
+    <button class="chip" data-v="95">ชาวไทยเกือบทั้งหมด (ประมาณ 95%)</button>
+    <button class="chip" data-v="80">ชาวไทยส่วนใหญ่ (ประมาณ 80%)</button>
+    <button class="chip" data-v="50">ไทยและต่างชาติใกล้เคียงกัน (ประมาณ 50%)</button>
+    <button class="chip" data-v="20">ชาวต่างชาติส่วนใหญ่ (ไทยประมาณ 20%)</button>
   </div>
   <div class="split" id="split" hidden><i style="background:var(--navy)"></i><i style="background:var(--salmon)"></i></div>
-  <h2>ห้องหนึ่งพักกันเฉลี่ยกี่คน</h2>
+  <h2>จำนวนผู้เข้าพักเฉลี่ยต่อห้อง</h2>
   <div class="chips" data-k="ppr">
-    <button class="chip" data-v="1">👤 1 คน</button><button class="chip" data-v="2">👥 2 คน</button><button class="chip" data-v="3">👨‍👩‍👦 3 คน</button><button class="chip" data-v="4">👨‍👩‍👧‍👦 4 คนขึ้นไป</button>
+    <button class="chip" data-v="1">1 คน</button><button class="chip" data-v="2">2 คน</button><button class="chip" data-v="3">3 คน</button><button class="chip" data-v="4">4 คนขึ้นไป</button>
   </div>
-  <h2>พักกันเฉลี่ยกี่คืน</h2>
+  <h2>ระยะเวลาเข้าพักเฉลี่ย</h2>
   <div class="chips" data-k="avgN">
     <button class="chip" data-v="1">1 คืน</button><button class="chip" data-v="2">2 คืน</button><button class="chip" data-v="3">3 คืน</button><button class="chip" data-v="4">4 คืนขึ้นไป</button>
   </div>
 </section>
 
 <section class="step" data-s="6">
-  <div class="mascot">🎉</div>
-  <h1>แขกที่มาเที่ยวงานเทศกาลอวดเมืองโคราช / K-BATTLE มีประมาณเท่าไรคะ</h1>
+  <h1>สัดส่วนผู้เข้าพักที่มาร่วมงานเทศกาลอวดเมืองโคราช / K-BATTLE (โดยประมาณ)</h1>
   <div class="chips big" data-k="fest">
-    <button class="chip" data-v="<10%"><span class="e">🤏</span>น้อยกว่า 10%</button>
-    <button class="chip" data-v="10-30%"><span class="e">🙌</span>10–30%</button>
-    <button class="chip" data-v="31-50%"><span class="e">🥳</span>31–50%</button>
-    <button class="chip" data-v=">50%"><span class="e">🔥</span>มากกว่าครึ่ง</button>
-    <button class="chip" data-v="ไม่ทราบ" style="flex-basis:100%"><span class="e">🤔</span>ไม่ทราบ</button>
+    <button class="chip" data-v="<10%">น้อยกว่า 10%</button>
+    <button class="chip" data-v="10-30%">10–30%</button>
+    <button class="chip" data-v="31-50%">31–50%</button>
+    <button class="chip" data-v=">50%">มากกว่า 50%</button>
+    <button class="chip" data-v="ไม่ทราบ" style="flex-basis:100%">ไม่ทราบ</button>
   </div>
-  <h2>รู้มาจากไหนคะ</h2>
+  <h2>แหล่งที่มาของข้อมูลข้อนี้</h2>
   <div class="chips" data-k="festSrc">
-    <button class="chip" data-v="สอบถามตอนเช็กอิน">💬 ถามตอนเช็กอิน</button>
-    <button class="chip" data-v="หมายเหตุการจอง/กรุ๊ปทัวร์">📝 หมายเหตุการจอง / กรุ๊ปทัวร์</button>
-    <button class="chip" data-v="พนักงานประเมิน">👀 พนักงานประเมินเอง</button>
+    <button class="chip" data-v="สอบถามตอนเช็กอิน">สอบถามขณะเช็กอิน</button>
+    <button class="chip" data-v="หมายเหตุการจอง/กรุ๊ปทัวร์">หมายเหตุการจอง / กรุ๊ปทัวร์</button>
+    <button class="chip" data-v="พนักงานประเมิน">การประเมินของพนักงาน</button>
   </div>
 </section>
 
 <section class="step" data-s="7">
-  <div class="mascot">📈</div>
-  <h1>เทียบกับช่วงเดียวกันปีที่แล้ว (20–29 พ.ย. 2568) เป็นยังไงบ้างคะ</h1>
+  <h1>เปรียบเทียบกับช่วงเดียวกันของปีที่ผ่านมา (20–29 พ.ย. 2568)</h1>
   <div class="chips big" data-k="ly">
-    <button class="chip" data-v="มากกว่ามาก"><span class="e">🚀</span>มากกว่ามาก</button>
-    <button class="chip" data-v="มากกว่าเล็กน้อย"><span class="e">📈</span>มากกว่าเล็กน้อย</button>
-    <button class="chip" data-v="ใกล้เคียง"><span class="e">➖</span>ใกล้เคียงกัน</button>
-    <button class="chip" data-v="น้อยกว่า"><span class="e">📉</span>น้อยกว่า</button>
-    <button class="chip" data-v="ไม่มีข้อมูล" style="flex-basis:100%"><span class="e">🤷</span>ไม่มีข้อมูลปีที่แล้ว</button>
+    <button class="chip" data-v="มากกว่ามาก">เพิ่มขึ้นมาก (มากกว่า 20%)</button>
+    <button class="chip" data-v="มากกว่าเล็กน้อย">เพิ่มขึ้นเล็กน้อย</button>
+    <button class="chip" data-v="ใกล้เคียง">ใกล้เคียงเดิม</button>
+    <button class="chip" data-v="น้อยกว่า">ลดลง</button>
+    <button class="chip" data-v="ไม่มีข้อมูล" style="flex-basis:100%">ไม่มีข้อมูลปีที่ผ่านมา</button>
   </div>
-  <h2>ตัวเลขที่กรอกมาจาก</h2>
+  <h2>แหล่งที่มาของตัวเลขทั้งหมด</h2>
   <div class="chips" data-k="source">
-    <button class="chip" data-v="ระบบโรงแรม/ทะเบียนผู้เข้าพัก">🖥️ ระบบโรงแรม / ทะเบียนผู้เข้าพัก</button>
-    <button class="chip" data-v="ประมาณการ">🧮 ประมาณการ</button>
+    <button class="chip" data-v="ระบบโรงแรม/ทะเบียนผู้เข้าพัก">ระบบโรงแรม / ทะเบียนผู้เข้าพัก</button>
+    <button class="chip" data-v="ประมาณการ">ประมาณการ</button>
   </div>
 </section>
 
 <section class="step" data-s="8">
-  <div class="mascot">🧐</div>
-  <h1>ตรวจอีกนิดก่อนส่งนะคะ</h1>
+  <h1>ตรวจสอบและรับรองข้อมูล</h1>
   <div class="sum" id="sum"></div>
   <label class="check"><input type="checkbox" id="certify"> ข้าพเจ้าขอรับรองว่าข้อมูลข้างต้นถูกต้องตามความเป็นจริง</label>
 </section>
 
 <section class="step done" data-s="9">
-  <div class="mascot">🥰</div>
-  <h1>ขอบคุณมากค่ะ!</h1>
-  <p class="sub">ได้รับข้อมูลเรียบร้อยแล้ว ถ้าอยากแก้ตัวเลข ส่งใหม่ได้เลย ระบบจะใช้ฉบับล่าสุดของโรงแรมเดียวกันค่ะ</p>
+  <div class="tick" aria-hidden="true"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg></div>
+  <h1>ได้รับข้อมูลเรียบร้อยแล้ว</h1>
+  <p class="sub">ขอขอบพระคุณท่านและสถานประกอบการที่ให้ความร่วมมือ หากต้องการแก้ไขข้อมูล สามารถส่งแบบรายงานใหม่ได้ ระบบจะใช้ฉบับล่าสุดของสถานประกอบการเดียวกัน หรือติดต่อ 099 293 6229</p>
 </section>
 
 <div class="err" id="err"></div>
-<footer>พัฒนาข้อมูลโดย MIDI Digital</footer>
+<footer>สอบถามข้อมูลเพิ่มเติม 099 293 6229<br>พัฒนาข้อมูลโดย MIDI Digital</footer>
 </div></main>
 
-<div class="foot" id="foot"><div class="wrap"><button class="btn bk" id="back" aria-label="ย้อนกลับ">←</button><button class="btn go" id="next">เริ่มเลย ✨</button></div></div>
+<div class="foot" id="foot"><div class="wrap"><button class="btn bk" id="back" aria-label="ย้อนกลับ">←</button><button class="btn go" id="next">เริ่มกรอกแบบรายงาน</button></div></div>
 
 <script>
 const HOOK='https://hook.us2.make.com/waglyob7mpvjjtm6yi2hwhnbxx452hx6';
 const TEST=new URLSearchParams(location.search).has('test');
 const S={rooms:0,nights:{},exact:{}};
 const LAST=8;
-const LV=[['😴','0–20%',10],['🙂','21–40%',30],['😊','41–60%',50],['😄','61–80%',70],['🔥','81–100%',90]];
-const DAYS=['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
+const LV=[[1,'0–20%',10],[2,'21–40%',30],[3,'41–60%',50],[4,'61–80%',70],[5,'81–100%',90]];
+const DAYS=['อาทิตย์ที่','จันทร์ที่','อังคารที่','พุธที่','พฤหัสบดีที่','ศุกร์ที่','เสาร์ที่'];
 const now=new Date();const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
 const $=s=>document.querySelector(s);
 const nb=$('#nights');
 for(let d=20;d<=29;d++){
   const dt=new Date(2026,10,d),w=dt.getDay(),we=w===5||w===6,future=dt>=today;
-  nb.insertAdjacentHTML('beforeend',`<div class="night" data-d="${d}"><div class="nh"><b>คืน ${DAYS[w]} ${d} พ.ย.</b>${we?'<span class="tag we">สุดสัปดาห์</span>':''}${future?'<span class="tag bk">ดูจากยอดจอง</span>':''}</div>
-  <div class="lv">${LV.map((l,i)=>`<button type="button" data-i="${i}" aria-pressed="false"><span class="e">${l[0]}</span>${l[1]}</button>`).join('')}</div>
-  <button type="button" class="exact">ใส่จำนวนห้องจริง</button><div class="exactbox" hidden><div class="stepper" data-t="ex${d}"><button class="s" data-d="-10">−10</button><button data-d="-1">−</button><div class="num">0</div><button data-d="1">+</button><button class="s" data-d="10">+10</button></div><div class="unit">ห้องที่มีผู้พัก</div></div></div>`);
+  nb.insertAdjacentHTML('beforeend',`<div class="night" data-d="${d}"><div class="nh"><b>คืนวัน${DAYS[w]} ${d} พ.ย.</b>${we?'<span class="tag we">สุดสัปดาห์</span>':''}${future?'<span class="tag bk">อ้างอิงยอดจอง</span>':''}</div>
+  <div class="lv">${LV.map((l,i)=>`<button type="button" data-i="${i}" aria-pressed="false"><span class="m">${[1,2,3,4,5].map(k=>`<i class="${k<=l[0]?'f':''}"></i>`).join('')}</span>${l[1]}</button>`).join('')}</div>
+  <button type="button" class="exact">ระบุจำนวนห้องที่แน่นอน</button><div class="exactbox" hidden><div class="stepper" data-t="ex${d}"><button class="s" data-d="-10">−10</button><button data-d="-1">−</button><div class="num">0</div><button data-d="1">+</button><button class="s" data-d="10">+10</button></div><div class="unit">ห้องที่มีผู้พัก</div></div></div>`);
 }
 nb.addEventListener('click',e=>{
   const n=e.target.closest('.night');if(!n)return;const d=n.dataset.d;
@@ -280,13 +289,13 @@ function autoLevel(d,v){if(!S.rooms)return;const p=v/S.rooms*100,i=p<=20?0:p<=40
 function bump(el){el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');}
 function buzz(){try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}}
 let cur=0;
-const need={1:()=>!$('#hotel').value.trim()?'ใส่ชื่อโรงแรมก่อนนะคะ':!$('#name').value.trim()?'ใส่ชื่อผู้กรอกด้วยค่ะ':!$('#tel').value.trim()?'ใส่เบอร์โทรด้วยค่ะ':'',
-  2:()=>!S.type?'เลือกประเภทที่พักค่ะ':!S.district?'เลือกอำเภอค่ะ':'',
-  3:()=>S.rooms>0?'':'กดจำนวนห้องก่อนนะคะ',
-  4:()=>Object.keys(S.nights).length?'':'กดอย่างน้อย 1 คืนค่ะ',
-  5:()=>!S.mix?'เลือกสัดส่วนไทย/ต่างชาติค่ะ':!S.ppr?'เลือกจำนวนคนต่อห้องค่ะ':'',
-  7:()=>S.source?'':'เลือกที่มาของตัวเลขค่ะ',
-  8:()=>$('#certify').checked?'':'ติ๊กรับรองข้อมูลก่อนส่งนะคะ'};
+const need={1:()=>!$('#hotel').value.trim()?'โปรดระบุชื่อสถานประกอบการ':!$('#name').value.trim()?'โปรดระบุชื่อผู้ให้ข้อมูล':!$('#tel').value.trim()?'โปรดระบุเบอร์โทรศัพท์':'',
+  2:()=>!S.type?'โปรดเลือกประเภทที่พัก':!S.district?'โปรดเลือกอำเภอที่ตั้ง':'',
+  3:()=>S.rooms>0?'':'โปรดระบุจำนวนห้องพัก',
+  4:()=>Object.keys(S.nights).length?'':'โปรดระบุอย่างน้อย 1 คืน',
+  5:()=>!S.mix?'โปรดเลือกสัดส่วนผู้เข้าพัก':!S.ppr?'โปรดเลือกจำนวนผู้เข้าพักต่อห้อง':'',
+  7:()=>S.source?'':'โปรดเลือกแหล่งที่มาของตัวเลข',
+  8:()=>$('#certify').checked?'':'โปรดรับรองความถูกต้องของข้อมูลก่อนส่ง'};
 function show(i,dir){
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('on','back'));
   const s=document.querySelector(`.step[data-s="${i}"]`);if(dir<0)s.classList.add('back');s.classList.add('on');
@@ -294,7 +303,7 @@ function show(i,dir){
   $('#barI').style.width=(Math.min(i,LAST)/LAST*100)+'%';
   $('#stepno').textContent=i>0&&i<=LAST?`ข้อ ${i}/${LAST}`:'';
   $('#back').hidden=i===0;$('#foot').hidden=i===9;
-  $('#next').textContent=i===0?'เริ่มเลย ✨':i===LAST?'ส่งข้อมูล 🚀':'ต่อไป →';
+  $('#next').textContent=i===0?'เริ่มกรอกแบบรายงาน':i===LAST?'ยืนยันและส่งข้อมูล':'ถัดไป';
   if(i===LAST)review();
   scrollTo({top:0,behavior:'smooth'});
 }
@@ -305,8 +314,8 @@ $('#next').onclick=async()=>{
   const m=need[cur]&&need[cur]();if(m)return fail(m);
   if(cur<LAST)return show(cur+1,1);
   $('#next').disabled=true;$('#next').textContent='กำลังส่ง…';
-  try{const r=await fetch(HOOK,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({payload:JSON.stringify(payload())})});if(!r.ok)throw 0;show(9,1);confetti();}
-  catch(e){$('#next').textContent='ส่งข้อมูล 🚀';fail('ส่งไม่สำเร็จ ลองเช็กอินเทอร์เน็ตแล้วกดส่งอีกครั้งนะคะ');}
+  try{const r=await fetch(HOOK,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({payload:JSON.stringify(payload())})});if(!r.ok)throw 0;show(9,1);}
+  catch(e){$('#next').textContent='ยืนยันและส่งข้อมูล';fail('ส่งข้อมูลไม่สำเร็จ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตแล้วส่งอีกครั้ง');}
   $('#next').disabled=false;
 };
 function est(d){if(S.exact[d])return{rooms:S.exact[d],exact:1};const i=S.nights[d];if(i===undefined)return null;return{rooms:Math.round(S.rooms*LV[i][2]/100),exact:0};}
@@ -323,9 +332,9 @@ function payload(){
 function review(){
   const p=payload();const filled=p.nights.filter(n=>n.level).length;
   const row=(a,b)=>`<div><span>${a}</span><b>${b}</b></div>`;
-  $('#sum').innerHTML=row('🏨 ที่พัก',p.hotel||'-')+row('📍 อำเภอ',p.district||'-')+row('🔑 ห้องทั้งหมด',p.totalRooms+' ห้อง')+row('🌙 กรอกแล้ว',filled+' จาก 10 คืน')+
-   row('🛏️ ห้อง-คืนโดยประมาณ',p.estRoomNights.toLocaleString())+row('🇹🇭 คนไทยโดยประมาณ',p.estThai.toLocaleString()+' คน')+row('🌏 ต่างชาติโดยประมาณ',p.estForeign.toLocaleString()+' คน')+
-   row('🎉 มาร่วมเทศกาล',p.festShare||'-')+row('📈 เทียบปีที่แล้ว',p.vsLastYear||'-');
+  $('#sum').innerHTML=row('สถานประกอบการ',p.hotel||'-')+row('อำเภอ',p.district||'-')+row('ห้องพักทั้งหมด',p.totalRooms+' ห้อง')+row('ระบุข้อมูลแล้ว',filled+' จาก 10 คืน')+
+   row('ห้อง-คืน (โดยประมาณ)',p.estRoomNights.toLocaleString())+row('ผู้เข้าพักชาวไทย (โดยประมาณ)',p.estThai.toLocaleString()+' คน')+row('ผู้เข้าพักชาวต่างชาติ (โดยประมาณ)',p.estForeign.toLocaleString()+' คน')+
+   row('ร่วมงานเทศกาล',p.festShare||'-')+row('เทียบปีที่ผ่านมา',p.vsLastYear||'-');
 }
 function confetti(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const c=['#E95429','#D3FF34','#00A79D','#FF999A','#DCB8FE','#003674'];
   for(let i=0;i<70;i++){const e=document.createElement('i');e.className='conf';e.style.left=Math.random()*100+'vw';e.style.background=c[i%c.length];e.style.animationDuration=(1.6+Math.random()*1.6)+'s';e.style.animationDelay=(Math.random()*.4)+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),4000);}}

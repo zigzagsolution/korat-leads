@@ -83,6 +83,10 @@ footer{position:sticky;bottom:0;background:var(--surface);border-top:1px solid v
 .btn.pri{flex:2;background:var(--cta);border-color:var(--cta);color:var(--cta-ink)}
 .btn[disabled]{opacity:.4;cursor:default}
 .done{text-align:center;padding-top:30px}
+.kpban{margin:0 0 14px;padding:12px 14px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font-weight:600;line-height:1.5}
+.kpban.end{background:transparent;border:1px solid currentColor;color:inherit;opacity:.85;font-weight:500}
+.kpgot{font-weight:700;color:var(--accent);margin:12px 0 4px}
+a.btn.kpbtn{display:inline-block;max-width:240px;text-decoration:none;margin-top:10px}
 .done .ok{width:64px;height:64px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin:0 auto 14px;font-size:32px}
 details{margin-top:22px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px}
 summary{cursor:pointer;font-weight:600;font-size:14px}
@@ -149,6 +153,13 @@ const UI={
   raw:T('ดูข้อมูลคำตอบ (สำหรับทีมงาน)','View answer data (for staff)'),
   again:T('เริ่มใหม่','Start again'),
   proto:T('ตัวอย่างทดลอง ยังไม่บันทึกคำตอบเข้าระบบ','Prototype: answers are not saved to any server yet'),
+  kpEarn:T('ตอบครบทุกส่วนและกดส่ง รับ 5 แต้ม Korat Point','Complete and submit this survey to get 5 Korat Point'),
+  kpEnd:T('หมดช่วงรับแต้ม Korat Point จากแบบสำรวจแล้ว ยังตอบแบบสำรวจได้ตามปกติ','The Korat Point survey reward period has ended. You can still answer the survey.'),
+  kpGot:T('ได้รับ 5 แต้ม Korat Point แล้ว','You received 5 Korat Point'),
+  kpMy:T('ดูแต้มของฉัน','View my points'),
+  kpAlready:T('ท่านทำแบบสำรวจนี้ไปแล้ว','You have already completed this survey'),
+  kpAlready2:T('ขอบคุณที่ร่วมตอบแบบสำรวจค่ะ','Thank you for taking part.'),
+  kpAnswered:T('ท่านตอบแบบสำรวจนี้ไปแล้ว','You have already answered this survey'),
   sOk:T('บันทึกคำตอบเรียบร้อยแล้ว','Your answers have been saved'),
   sWait:T('กำลังบันทึกคำตอบ…','Saving your answers…'),
   sFail:T('ยังบันทึกไม่สำเร็จ (สัญญาณอินเทอร์เน็ต) แตะเพื่อส่งอีกครั้ง','Not saved yet (connection). Tap to send again'),
@@ -282,10 +293,33 @@ const SURVEY_API='https://korat.mididigitalevent.workers.dev/api/survey', FORM='
 let TEST=false;try{TEST=new URLSearchParams(location.search).get('test')==='1';}catch(e){}
 const newSid=()=>Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,6);
 let SUB=A._sent?'ok':'';
+const LIFF_ID='2012143290-kTb1tp78', KP_POINTS='https://liff.line.me/2012143290-6Evv3ir6/points';
+let LIFFOK=false, KPS='', KPV='';
+const withTO=(p,ms)=>Promise.race([p,new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),ms))]);
+function loadLiff(){return new Promise(res=>{if(window.liff)return res(window.liff);const sc=document.createElement('script');sc.src='https://static.line-scdn.net/liff/edge/2/sdk.js';sc.onload=()=>res(window.liff||null);sc.onerror=()=>res(null);document.head.appendChild(sc);});}
+function idTok(){try{return LIFFOK&&window.liff?(window.liff.getIDToken()||''):'';}catch(e){return '';}}
+async function initKP(){
+  try{const lf=await withTO(loadLiff(),6000);if(!lf)return;
+    await withTO(lf.init({liffId:LIFF_ID}),6000);
+    if(!lf.isLoggedIn())return;
+    LIFFOK=true;const tk=idTok();if(!tk)return;
+    const r=await withTO(fetch(SURVEY_API+'/kp/status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({idToken:tk})}),8000);
+    const j=await r.json().catch(()=>({}));const k=j.kp||{};
+    const member=k.member===true||k.status==='member';
+    if(A._sent&&PAGES[i]===9)return;
+    if(k.status==='already'){KPV='already';}
+    else if(j.answered&&!(k.status==='ok'&&member)){KPV='answered';}
+    else if(k.status==='ok'&&member){KPS='earn';}
+    else if(k.status==='ended'){KPS='end';}
+    render();
+  }catch(e){}
+}
 async function submit(){return;if(SUB==='wait')return;SUB='wait';render();
   if(!A._sid)A._sid=newSid();save();
-  try{const r=await fetch(SURVEY_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sid:A._sid,uid:UID||'',form:FORM,lang:L,test:TEST,answers:A})});
-    const j=await r.json().catch(()=>({}));if(!r.ok||!j.ok)throw new Error('x');SUB='ok';A._sent=new Date().toISOString();}
+  try{const r=await fetch(SURVEY_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({sid:A._sid,uid:UID||'',form:FORM,lang:L,test:TEST,answers:A},idTok()?{idToken:idTok()}:{}))});
+    const j=await r.json().catch(()=>({}));if(!r.ok||!j.ok)throw new Error('x');SUB='ok';A._sent=new Date().toISOString();
+    const ks=(j.kp&&j.kp.status)||'';A._kp=ks;
+    if(ks==='not_member'&&LIFFOK){save();if(PAGES[i]===9)render();setTimeout(()=>{try{window.liff.closeWindow();}catch(e){}},1500);return;}}
   catch(e){SUB='fail';}
   save();if(PAGES[i]===9)render();}
 const tx=x=>x?x[L]:'';
@@ -425,9 +459,11 @@ function render(){
     $('stage').innerHTML=h;$('ovtoc').innerHTML=toc.join('')+`<span class="ovn">${L==='th'?'รวม':'Total'} ${n} ${L==='th'?'ข้อ':'items'}</span>`;
     $('stage').querySelectorAll('section[data-q]').forEach(el=>bindQ(S.find(x=>x.id===el.dataset.q),el));save();return;
   }
+  if(KPV){$('foot').hidden=true;$('partl').textContent='';$('cnt').textContent='';
+    $('stage').innerHTML=`<div class="done">${KVIMG}<div class="ok">✓</div><h1>${esc(tx(KPV==='already'?UI.kpAlready:UI.kpAnswered))}</h1><p class="hint">${esc(tx(UI.kpAlready2))}</p>${KPV==='already'?`<a class="btn kpbtn" href="${KP_POINTS}">${esc(tx(UI.kpMy))}</a>`:''}</div>`;return;}
   if(part===0){
     const c=A.consent||{};
-    h=`<div class="intro">${KVIMG}<p class="tags">#น่าลงทุน #น่าเที่ยว #น่าอยู่</p><div class="qno">${L==='th'?'แบบสำรวจผู้เข้าร่วมงาน':'Participant Survey'}</div>
+    h=`<div class="intro">${KVIMG}${KPS==='earn'?`<div class="kpban">★ ${esc(tx(UI.kpEarn))}</div>`:KPS==='end'?`<div class="kpban end">${esc(tx(UI.kpEnd))}</div>`:''}<p class="tags">#น่าลงทุน #น่าเที่ยว #น่าอยู่</p><div class="qno">${L==='th'?'แบบสำรวจผู้เข้าร่วมงาน':'Participant Survey'}</div>
     <h1>${L==='th'?'“เทศกาลอวดเมือง โคราช 2569 (City Expo)”':'“Korat City Expo 2026”'}</h1>
     <p class="hint">${L==='th'?'โครงการเพิ่มขีดความสามารถนักจัดเทศกาลไทย สู่เวทีนานาชาติ<br>กิจกรรมการสนับสนุนด้านประชาสัมพันธ์ในการพัฒนาและการยกระดับจังหวัดนำร่องอวดเมืองอันดับที่ 1 - จังหวัดนครราชสีมา<br>ระหว่างวันที่ 20-29 พฤศจิกายน 2569 ณ จังหวัดนครราชสีมา'
       :'Project: Enhancing the Capabilities of Thai Festival Organizers for the International Stage<br>Activity: Public Relations Support for Developing and Upgrading the #1 Pilot City Showcase Province – Nakhon Ratchasima<br>Date: November 20–29, 2026 | Venue: Nakhon Ratchasima Province'}</p>
@@ -439,7 +475,7 @@ function render(){
     </div>${err?`<div class="err" role="alert">${esc(err)}</div>`:''}</div>`;
   } else if(part===9){
     h=`<div class="done">${KVIMG}<div class="ok">✓</div><h1>${esc(tx(UI.thanks))}</h1><p class="hint">${esc(tx(UI.thanks2))}</p>
-      <button class="btn" id="again" style="max-width:220px">${esc(tx(UI.again))}</button>
+      ${A._kp==='credited'?`<p class="kpgot">★ ${esc(tx(UI.kpGot))}</p><a class="btn kpbtn" href="${KP_POINTS}">${esc(tx(UI.kpMy))}</a>`:LIFFOK?'':`<button class="btn" id="again" style="max-width:220px">${esc(tx(UI.again))}</button>`}
       
       <p class="proto sstat s-${SUB||'wait'}" id="sstat">${SUB==='ok'?'✓ '+esc(tx(UI.sOk)):SUB==='fail'?esc(tx(UI.sFail)):esc(tx(UI.sWait))}</p></div>`;
   } else {
@@ -500,6 +536,7 @@ $('back').onclick=()=>{if(i>0){i--;render();window.scrollTo(0,0);}};
 $('lth').onclick=()=>{L='th';err='';rerender();};$('len').onclick=()=>{L='en';err='';rerender();};
 render();
 if(PAGES[i]===9&&!A._sent&&A.consent&&A.consent.agree)submit();
+
 </script>
 </body>
 </html>

@@ -301,7 +301,8 @@ async function initKP(){
     const r=await withTO(fetch(SURVEY_API+'/kp/status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({idToken:tk})}),8000);
     const j=await r.json().catch(()=>({}));const k=j.kp||{};
     const member=k.member===true||k.status==='member';
-    if(A._sent&&PAGES[i]===9)return;
+    if(A._sent&&!j.answered){A={};i=0;SUB='';save();}
+    else if(A._sent&&PAGES[i]===9){render();return;}
     if(k.status==='already'){KPV='already';}
     else if(j.answered&&!(k.status==='ok'&&member)){KPV='answered';}
     else if(k.status==='ok'&&member){KPS='earn';}

@@ -182,11 +182,11 @@ body.tceb .team-only{display:none!important}
 
 <section class="tab" id="t-kpoint">
   <h2>KORAT POINT</h2>
-  <p class="lead">สรุป 2 แบบ: เช็คอิน และการมีส่วนร่วม (ส่งสลิป/ใบเสร็จสะสมแต้มที่ร้านค้า)</p>
+  <p class="lead">สรุป 2 แบบ: เช็คอิน และการมีส่วนร่วม (ส่งหลักฐานการซื้อเพื่อสะสมแต้ม) · ไม่รวมบัญชีทดสอบ</p>
   <h2 style="font-size:17px">เช็คอิน</h2>
   <div class="kpis" id="kcKpi"></div>
   <div class="card scroll" style="margin-top:12px" id="kcTbl"></div>
-  <h2 style="font-size:17px">การมีส่วนร่วม</h2>
+  <h2 style="font-size:17px">การมีส่วนร่วม (ซื้อสินค้าสะสมแต้ม)</h2>
   <div class="kpis" id="keKpi"></div>
   <div class="card scroll" style="margin-top:12px" id="keTbl"></div>
 </section>
@@ -201,8 +201,8 @@ if(P.get('view')==='tceb')document.body.classList.add('tceb');
 var TEAM=!document.body.classList.contains('tceb');
 var S=[
  {k:'area',name:'เช็คอินรายพื้นที่',c:'var(--c-area)',tab:'checkin'},
- {k:'kpci',name:'KORAT POINT · เช็คอิน',c:'var(--c-kpci)',tab:'kpoint'},
- {k:'kpeng',name:'KORAT POINT · การมีส่วนร่วม',c:'var(--c-kpeng)',tab:'kpoint'},
+ {k:'kpci',name:'KORAT POINT · เช็คอิน',c:'var(--c-kpci)',tab:'kpoint',nocount:true},
+ {k:'kpeng',name:'KORAT POINT · ซื้อสินค้า (ใบที่อนุมัติ)',c:'var(--c-kpeng)',tab:'kpoint'},
  {k:'hotel',name:'ผู้เข้าพักโรงแรม/ที่พัก',c:'var(--c-hotel)',tab:'hotel'},
  {k:'reported',name:'ยอดผู้เข้าร่วมงานที่แจ้งรายวัน',c:'var(--c-rep)',tab:null},
  {k:'partner',name:'ยอดจากพันธมิตร (ห้าง ร้านค้า)',c:'var(--c-partner)',tab:null},
@@ -233,18 +233,17 @@ function render(D){
   var ci=D.checkin||[], kp=D.kpoint||{}, kc=kp.checkin||[], ke=kp.engage||[], HR=(D.hotelRows||[]).filter(function(r){return !r.test});
   function real(a){return (a||[]).filter(function(r){return !r.test})}
   ci.forEach(function(r){add('area',r.date,r.total)});
-  kc.forEach(function(r){add('kpci',r.date,r.total)});
   ke.forEach(function(r){add('kpeng',r.date,r.total)});
   HR.forEach(function(h){Object.keys(h.nights||{}).forEach(function(d){add('hotel',d,(h.nights[d]||{}).guests)})});
   ['reported','partner','tour'].forEach(function(k){real(D[k]).forEach(function(r){add(k,r.date,r.count)})});
-  var tot={},all=0;S.forEach(function(s){tot[s.k]=sum(per[s.k]);all+=tot[s.k]});
+  var tot={},all=0;S.forEach(function(s){tot[s.k]=sum(per[s.k]);all+=tot[s.k]});tot.kpci=(kp.checkinCum&&kp.checkinCum.people)||sum(kc,'unique');kc.forEach(function(r){nDays.kpci[r.date]=1});
   var dayTot=days.map(function(_,i){return S.reduce(function(a,s){return a+per[s.k][i]},0)});
   var lastI=-1;dayTot.forEach(function(v,i){if(v>0)lastI=i});
   el('upd').textContent=new Date(D.updated).toLocaleString('th-TH',{timeZone:'Asia/Bangkok',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.';
 
   // overview
   countUp(el('total'),all);
-  el('pbar').innerHTML=S.map(function(s){return tot[s.k]?'<i style="width:'+Math.max(.4,tot[s.k]/D.target*100)+'%;background:'+s.c+'"></i>':''}).join('');
+  el('pbar').innerHTML=S.map(function(s){return (tot[s.k]&&!s.nocount)?'<i style="width:'+Math.max(.4,tot[s.k]/D.target*100)+'%;background:'+s.c+'"></i>':''}).join('');
   var pct=all/D.target*100;
   el('pct').textContent=(pct<1?pct.toFixed(2):pct.toFixed(1))+'% ของเป้า · เหลืออีก '+f(Math.max(0,D.target-all));
   var rem=10-(lastI+1);
@@ -254,6 +253,7 @@ function render(D){
   el('src').innerHTML=S.map(function(s){
     var n=Object.keys(nDays[s.k]).length;
     var st=n?'<span class="badge b-manual">มีข้อมูล '+n+' วัน</span>':'<span class="badge b-wait">'+waitTxt[s.k]+'</span>';
+    if(s.nocount){return '<a class="srow" href="#'+s.tab+'"><span class="dot" style="background:'+s.c+'"></span><span class="nm">'+s.name+'</span><span class="v" style="color:var(--muted)">'+f(tot[s.k])+' <small style="font-size:13px">คน</small></span><span class="ds"><span class="badge b-wait">คนกลุ่มเดียวกับเช็คอินรายพื้นที่ ไม่บวกซ้ำ</span><span class="go">ดูรายละเอียด →</span></span></a>'}
     var share=(all&&tot[s.k])?'<span>'+Math.round(tot[s.k]/all*100)+'% ของยอดรวม</span>':'';
     var tg=(TEAM&&MT[s.k])?'<span class="team-only">เป้า '+f(MT[s.k])+'</span>':'';
     var inner='<span class="dot" style="background:'+s.c+'"></span><span class="nm">'+s.name+'</span><span class="v">'+f(tot[s.k])+'</span><span class="ds">'+st+share+tg+(s.tab?'<span class="go">ดูรายละเอียด →</span>':'')+'</span>';
@@ -264,7 +264,7 @@ function render(D){
     return '<div class="col"><div class="tg" style="bottom:'+(D.dailyTarget[i]/mx*100)+'%"></div>'+(dayTot[i]?'<div class="val">'+f(dayTot[i])+'</div>':'')+
       '<div class="stk" style="height:'+(dayTot[i]?Math.max(dayTot[i]/mx*100,1):0.5)+'%">'+S.map(function(s){var v=per[s.k][i];return v?'<i style="display:block;flex:'+v+' 0 0;background:'+s.c+'"></i>':''}).join('')+'</div></div>'}).join('');
   el('xl').innerHTML=days.map(function(d,i){var t=thDate(d);var we=/^(ศ\.|ส\.|อา\.)$/.test(t.dow);return '<span class="'+(we?'we':'')+'">'+t.d+'<small>'+t.dow+'</small>'+(TEAM?'<small class="team-only">'+f(D.dailyTarget[i]/1000)+'k</small>':'')+'</span>'}).join('');
-  el('legend').innerHTML=S.map(function(s){return '<span><i style="background:'+s.c+'"></i>'+s.name+'</span>'}).join('')+'<span><i class="dash"></i>เป้ารายวัน</span>';
+  el('legend').innerHTML=S.filter(function(s){return !s.nocount}).map(function(s){return '<span><i style="background:'+s.c+'"></i>'+s.name+'</span>'}).join('')+'<span><i class="dash"></i>เป้ารายวัน</span>';
   var R=D.reach||{}, op=sum(R.online,'participants');
   el('reach').innerHTML=(R.ooh?'<span><b>'+f(R.ooh.perDay)+'</b> ครั้ง/วัน ป้าย OOH</span>':'')+'<span><b>'+f(op)+'</b> / '+f(R.onlineTarget)+' ยอดการมีส่วนร่วมกิจกรรมออนไลน์</span><span><b>'+(R.live?f(R.live):'รอข้อมูล')+'</b> Live viewers</span>';
   fetch('https://korat.mididigitalevent.workers.dev/api/survey/count',{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
@@ -288,16 +288,18 @@ function render(D){
   pointsUI(ci,'pts','rep','heat','var(--c-area)');
 
   // K POINT
-  kpis('kcKpi',[[f(sum(kc,'total'))+'<small> ครั้ง</small>','เช็คอินรวม'],[f(sum(kc,'unique'))+'<small> คน</small>','คนไม่ซ้ำ (รวมรายวัน)'],[f(Object.keys(nDays.kpci).length)+'<small> / 10 วัน</small>','วันที่มีข้อมูล']]);
-  el('kcTbl').innerHTML=kc.length?dayTable(kc,[['total','เช็คอิน'],['unique','คนไม่ซ้ำ']]):'<div class="empty"><b>รอสรุปเช็คอิน KORAT POINT</b></div>';
-  kpis('keKpi',[[f(sum(ke,'total'))+'<small> ครั้ง</small>','การมีส่วนร่วมรวม'],[f(sum(ke,'people'))+'<small> คน</small>','ผู้ร่วม (รวมรายวัน)'],[f(sum(ke,'shops'))+'<small> ร้าน</small>','ร้านค้าที่มีการสะสมแต้ม'],[(sum(ke,'spend')?f(sum(ke,'spend')):'–')+'<small> บาท</small>','ยอดใช้จ่ายที่บันทึก']]);
-  el('keTbl').innerHTML=ke.length?dayTable(ke,[['total','ครั้ง'],['people','คน'],['shops','ร้าน'],['spend','ยอดใช้จ่าย']]):'<div class="empty"><b>รอสรุปการมีส่วนร่วม KORAT POINT</b> เช่น จำนวนครั้งที่ส่งสลิป/ใบเสร็จ จำนวนคน จำนวนร้าน และยอดใช้จ่าย</div>';
+  var ccum=kp.checkinCum||{}, st=kp.status||{};
+  kpis('kcKpi',kc.map(function(r){var t=thDate(r.date);return [f(r.unique)+'<small> คน</small>','เช็คอินที่งาน '+t.dow+' '+t.d+' พ.ย.']}).concat(ccum.people?[[f(ccum.people)+'<small> คน</small>','สะสม ณ '+esc(ccum.asof)]]:[]));
+  el('kcTbl').innerHTML=kc.length?'<div class="note">ตัวเลขคนเช็คอินของ KORAT POINT ตรงกับ "คนไม่ซ้ำ" ในเมนูเช็คอินรายพื้นที่ (20 พ.ย. = 371 คน) จึงแสดงไว้ดูอย่างเดียว ไม่บวกเข้ายอด 200,000 ซ้ำ</div>':'<div class="empty"><b>รอสรุปเช็คอิน KORAT POINT</b></div>';
+  kpis('keKpi',[[f(st.spend!=null?st.spend:sum(ke,'spend'))+'<small> บาท</small>','ยอดซื้อที่อนุมัติแล้ว (สะสม)'],[f(st.approved!=null?st.approved:sum(ke,'total'))+'<small> ใบ</small>','ใบที่อนุมัติ'+(st.people?' จาก '+f(st.people)+' คน':'')],[f(st.submitted)+'<small> ใบ</small>','หลักฐานการซื้อที่ส่งเข้ามา'],[f(st.pending)+'<small> ใบ</small>','รอเจ้าหน้าที่ตรวจ'+(st.paper?' (ใบเสร็จกระดาษ '+f(st.paper)+')':'')]]);
+  var bar='';if(st.submitted){var W=function(n){return (n/st.submitted*100)+'%'};bar='<div class="note" style="margin-bottom:6px">สถานะหลักฐานการซื้อ ณ '+esc(st.asof)+'</div><div class="pbar" style="margin:0 0 6px"><i style="width:'+W(st.approved)+';background:var(--ok)"></i><i style="width:'+W(st.rejected)+';background:var(--warn)"></i><i style="width:'+W(st.pending)+';background:var(--muted);opacity:.5"></i></div><div class="legend" style="margin:0 0 14px"><span><i style="background:var(--ok)"></i>อนุมัติ '+f(st.approved)+'</span><span><i style="background:var(--warn)"></i>ปฏิเสธ '+f(st.rejected)+'</span><span><i style="background:var(--muted);opacity:.5"></i>รอตรวจ '+f(st.pending)+'</span></div>'}
+  el('keTbl').innerHTML=ke.length?bar+'<table class="tbl"><thead><tr><th>วัน</th><th>ส่งหลักฐาน</th><th>อนุมัติ (ใบ)</th><th>คน</th><th>ยอดซื้อ (บาท)</th><th>ร้านร่วมรายการ</th><th>ร้านทั่วไป</th></tr></thead><tbody>'+ke.map(function(r){var t=thDate(r.date);return '<tr><td>'+t.dow+' '+t.d+' พ.ย.'+(r.partial?' <span class="note">(ถึงตอนนี้)</span>':'')+'</td><td>'+f(r.submitted)+'</td><td>'+f(r.total)+'</td><td>'+f(r.people)+'</td><td>'+f(r.spend)+'</td><td>'+f(r.spendReg)+'</td><td>'+f(r.spendGen)+'</td></tr>'}).join('')+'</tbody></table><div class="note" style="margin-top:8px">นับเข้ายอด Visitation เฉพาะใบที่อนุมัติแล้ว 1 ใบ = 1 ครั้ง · ใบที่รอตรวจจะนับเมื่ออนุมัติ</div>':'<div class="empty"><b>รอสรุปการซื้อสินค้า KORAT POINT</b></div>';
 
   el('csv').onclick=function(){
     var L=[['แหล่ง','วันที่','จุด/รายละเอียด','จำนวน','คนไม่ซ้ำ','สถานะข้อมูล','แหล่งที่มา']];
     ci.forEach(function(r){(r.points||[]).forEach(function(p){L.push(['เช็คอินรายพื้นที่',r.date,p.name,p.count,'','นับจริง',r.source||''])});L.push(['เช็คอินรายพื้นที่',r.date,'รวมทั้งวัน',r.total,r.unique,'นับจริง',r.source||''])});
-    kc.forEach(function(r){L.push(['KORAT POINT เช็คอิน',r.date,'รวมทั้งวัน',r.total,r.unique||'','นับจริง',r.source||''])});
-    ke.forEach(function(r){L.push(['KORAT POINT การมีส่วนร่วม',r.date,'รวมทั้งวัน',r.total,r.people||'','นับจริง',r.source||''])});
+    kc.forEach(function(r){L.push(['KORAT POINT เช็คอิน (ไม่บวกซ้ำ)',r.date,'คนเช็คอิน','',r.unique||'','นับจริง',r.source||''])});
+    ke.forEach(function(r){L.push(['KORAT POINT ซื้อสินค้า (ใบที่อนุมัติ)',r.date,'ยอดซื้อ '+(r.spend||0)+' บาท',r.total,r.people||'',r.partial?'นับจริง (ยังไม่จบวัน)':'นับจริง',r.source||''])});
     HR.forEach(function(h){Object.keys(h.nights||{}).forEach(function(d){L.push(['โรงแรม',d,h.name,h.nights[d].guests,'',h.estimate?'ประมาณการ':'นับจริง','แบบสอบถามโรงแรม'])})});
     [['reported','ยอดผู้เข้าร่วมที่แจ้ง'],['partner','พันธมิตร'],['tour','ทัวร์']].forEach(function(k){real(D[k[0]]).forEach(function(r){L.push([k[1],r.date,r.name||'',r.count,'',r.estimate?'ประมาณการ':'นับจริง',r.source||''])})});
     var s='﻿'+L.map(function(r){return r.map(function(c){c=String(c);return /[",\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c}).join(',')}).join('\n');

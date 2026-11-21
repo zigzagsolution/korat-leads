@@ -85,8 +85,48 @@
  ],
  "hotelRows": [],
  "kpoint": {
-  "checkin": [],
-  "engage": []
+  "note": "ข้อมูลจากระบบ KORAT POINT ไม่รวมบัญชีทดสอบ",
+  "checkin": [
+   {
+    "date": "2026-11-20",
+    "unique": 371,
+    "source": "สรุป KORAT POINT ณ 21 พ.ย. 16:14"
+   }
+  ],
+  "checkinCum": {
+   "asof": "21 พ.ย. 16:14",
+   "people": 513
+  },
+  "engage": [
+   {
+    "date": "2026-11-20",
+    "total": 13,
+    "people": 11,
+    "spend": 2550,
+    "spendReg": 2351,
+    "spendGen": 199,
+    "submitted": 52,
+    "source": "สรุป KORAT POINT ณ 21 พ.ย. 16:14"
+   },
+   {
+    "date": "2026-11-21",
+    "total": 3,
+    "spend": 675,
+    "submitted": 33,
+    "partial": true,
+    "source": "คำนวณจากยอดสะสม ณ 21 พ.ย. 16:14 ลบยอด 20 พ.ย."
+   }
+  ],
+  "status": {
+   "asof": "21 พ.ย. 16:14",
+   "submitted": 85,
+   "approved": 16,
+   "rejected": 9,
+   "pending": 60,
+   "paper": 32,
+   "people": 13,
+   "spend": 3225
+  }
  },
  "reported": []
 }

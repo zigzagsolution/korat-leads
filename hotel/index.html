@@ -76,10 +76,18 @@ label.f{display:block;font-weight:600;font-size:15px;margin:4px 0 6px}
 .split{display:flex;height:16px;border-radius:8px;overflow:hidden;margin-top:10px}
 .split i{display:block;transition:width .4s}
 .sum{background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:14px;font-size:14.5px}
-.sum div{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dashed var(--line)}
-.sum div:last-child{border:0}
-.sum span{color:var(--muted)}
-.sum b{text-align:right}
+.sum{padding:6px 10px}
+.sum h3{margin:12px 4px 4px;font-size:13px;color:var(--navy);letter-spacing:.2px}
+.sum h3:first-child{margin-top:4px}
+.srow{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;gap:10px;padding:10px 6px;border-bottom:1px dashed var(--line);cursor:pointer;border-radius:10px;-webkit-tap-highlight-color:transparent}
+.srow:last-of-type{border-bottom:0}
+.srow:hover,.srow:focus-visible{background:var(--tint)}
+.srow:focus-visible{outline:2px solid var(--navy)}
+.srow span{color:var(--muted);flex:0 0 38%}
+.srow b{flex:1;text-align:right;font-weight:600;color:var(--ink)}
+.srow em{font-style:normal;font-size:12.5px;color:#0b6e66;font-weight:700;white-space:nowrap}
+.srow em::after{content:" ›";font-size:15px}
+.sumhint{font-size:13px;color:var(--muted);margin:0 0 8px}
 .check{display:flex;gap:12px;align-items:flex-start;margin-top:16px;font-size:15.5px;background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:14px;cursor:pointer}
 .check input{width:24px;height:24px;flex:none;accent-color:var(--navy)}
 .err{color:var(--err);font-size:14.5px;font-weight:500;margin-top:12px;min-height:1.2em}
@@ -168,6 +176,16 @@ footer{color:var(--muted);font-size:12px;text-align:center;margin-top:28px}
   </div>
   <div class="stepper" data-t="rooms"><button class="s" data-d="-10">−10</button><button data-d="-1">−</button><div class="num" id="roomsN">0</div><button data-d="1">+</button><button class="s" data-d="10">+10</button></div>
   <div class="unit">ห้อง</div>
+  <h2>ราคาห้องพักมาตรฐานต่อคืน ช่วงเทศกาล (บาท)</h2>
+  <div class="chips" data-k="price">
+    <button class="chip" data-v="<500">ต่ำกว่า 500</button><button class="chip" data-v="500-1000">500–1,000</button>
+    <button class="chip" data-v="1001-1500">1,001–1,500</button><button class="chip" data-v="1501-2500">1,501–2,500</button>
+    <button class="chip" data-v="2501-4000">2,501–4,000</button><button class="chip" data-v=">4000">มากกว่า 4,000</button>
+  </div>
+  <h2>เทียบกับราคาช่วงปกติ</h2>
+  <div class="chips" data-k="priceVsNormal">
+    <button class="chip" data-v="สูงกว่าปกติ">สูงกว่าปกติ</button><button class="chip" data-v="เท่าเดิม">เท่าเดิม</button><button class="chip" data-v="ต่ำกว่าปกติ/มีโปรโมชัน">ต่ำกว่าปกติ / มีโปรโมชัน</button>
+  </div>
 </section>
 
 <section class="step" data-s="4">
@@ -230,6 +248,7 @@ footer{color:var(--muted);font-size:12px;text-align:center;margin-top:28px}
 
 <section class="step" data-s="8">
   <h1>ตรวจสอบและรับรองข้อมูล</h1>
+  <p class="sumhint">หากต้องการแก้ไข แตะที่รายการนั้นได้ทันที ระบบจะพากลับมาหน้านี้หลังแก้ไข</p>
   <div class="sum" id="sum"></div>
   <label class="check"><input type="checkbox" id="certify"> ข้าพเจ้าขอรับรองว่าข้อมูลข้างต้นถูกต้องตามความเป็นจริง</label>
 </section>
@@ -289,7 +308,7 @@ function buzz(){try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}}
 let cur=0;
 const need={1:()=>!$('#hotel').value.trim()?'โปรดระบุชื่อสถานประกอบการ':!$('#name').value.trim()?'โปรดระบุชื่อผู้ให้ข้อมูล':!$('#tel').value.trim()?'โปรดระบุเบอร์โทรศัพท์':'',
   2:()=>!S.type?'โปรดเลือกประเภทที่พัก':!S.district?'โปรดเลือกอำเภอที่ตั้ง':'',
-  3:()=>S.rooms>0?'':'โปรดระบุจำนวนห้องพัก',
+  3:()=>!(S.rooms>0)?'โปรดระบุจำนวนห้องพัก':!S.price?'โปรดเลือกช่วงราคาห้องพัก':'',
   4:()=>Object.keys(S.nights).length?'':'โปรดระบุอย่างน้อย 1 คืน',
   5:()=>!S.mix?'โปรดเลือกสัดส่วนผู้เข้าพัก':!S.ppr?'โปรดเลือกจำนวนผู้เข้าพักต่อห้อง':'',
   7:()=>S.source?'':'โปรดเลือกแหล่งที่มาของตัวเลข',
@@ -301,15 +320,17 @@ function show(i,dir){
   $('#barI').style.width=(Math.min(i,LAST)/LAST*100)+'%';
   $('#stepno').textContent=i>0&&i<=LAST?`ข้อ ${i}/${LAST}`:'';
   $('#back').hidden=i===0;$('#foot').hidden=i===9;
-  $('#next').textContent=i===0?'เริ่มกรอกแบบรายงาน':i===LAST?'ยืนยันและส่งข้อมูล':'ถัดไป';
+  $('#next').textContent=i===0?'เริ่มกรอกแบบรายงาน':i===LAST?'ยืนยันและส่งข้อมูล':ret?'บันทึกและกลับไปหน้าสรุป':'ถัดไป';
   if(i===LAST)review();
   scrollTo({top:0,behavior:'smooth'});
 }
 function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');}
 function fail(m){$('#err').textContent=m;shake($('#err'));shake($('#next'));}
-$('#back').onclick=()=>show(cur-1,-1);
+let ret=false;
+$('#back').onclick=()=>{if(ret&&cur<LAST){ret=false;return show(LAST,1);}show(cur-1,-1);};
 $('#next').onclick=async()=>{
   const m=need[cur]&&need[cur]();if(m)return fail(m);
+  if(ret&&cur<LAST){ret=false;return show(LAST,1);}
   if(cur<LAST)return show(cur+1,1);
   $('#next').disabled=true;$('#next').textContent='กำลังส่ง…';
   try{const r=await fetch(HOOK,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({payload:JSON.stringify(payload())})});if(!r.ok)throw 0;show(9,1);}
@@ -322,18 +343,27 @@ function payload(){
   for(let d=20;d<=29;d++){const e=est(d);if(!e){nights.push({night:'2026-11-'+d,level:null});continue;}
     const g=e.rooms*ppr,t=Math.round(g*mix/100);rn+=e.rooms;th+=t;fo+=g-t;
     nights.push({night:'2026-11-'+d,level:S.nights[d]!==undefined?LV[S.nights[d]][1]:null,rooms:e.rooms,roomsExact:e.exact,booking:new Date(2026,10,d)>=today?1:0,estThai:t,estForeign:g-t});}
-  return{form:'hotel-kbattle-2569-v2',test:TEST?1:0,submitted:new Date().toISOString(),hotel:$('#hotel').value.trim(),name:$('#name').value.trim(),tel:$('#tel').value.trim(),
-    type:S.type,district:S.district,totalRooms:S.rooms,thaiPct:mix,guestsPerRoom:S.ppr,avgNights:S.avgN||'',festShare:S.fest||'',festShareSource:S.festSrc||'',
+  return{form:'hotel-kbattle-2569-v3',test:TEST?1:0,submitted:new Date().toISOString(),hotel:$('#hotel').value.trim(),name:$('#name').value.trim(),tel:$('#tel').value.trim(),
+    type:S.type,district:S.district,totalRooms:S.rooms,priceRange:S.price||'',priceVsNormal:S.priceVsNormal||'',thaiPct:mix,guestsPerRoom:S.ppr,avgNights:S.avgN||'',festShare:S.fest||'',festShareSource:S.festSrc||'',
     vsLastYear:S.ly||'',source:S.source,nights,estRoomNights:rn,estThai:th,estForeign:fo,
     note:'rooms = midpoint of tapped % band x totalRooms unless roomsExact=1; guests = rooms x guestsPerRoom split by thaiPct',certified:1};
 }
+function ct(k){const b=$(`[data-k="${k}"] [aria-pressed=true]`);return b?b.textContent.trim():'ไม่ได้ระบุ';}
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function review(){
-  const p=payload();const filled=p.nights.filter(n=>n.level).length;
-  const row=(a,b)=>`<div><span>${a}</span><b>${b}</b></div>`;
-  $('#sum').innerHTML=row('สถานประกอบการ',p.hotel||'-')+row('อำเภอ',p.district||'-')+row('ห้องพักทั้งหมด',p.totalRooms+' ห้อง')+row('ระบุข้อมูลแล้ว',filled+' จาก 10 คืน')+
-   row('ห้อง-คืน (โดยประมาณ)',p.estRoomNights.toLocaleString())+row('ผู้เข้าพักชาวไทย (โดยประมาณ)',p.estThai.toLocaleString()+' คน')+row('ผู้เข้าพักชาวต่างชาติ (โดยประมาณ)',p.estForeign.toLocaleString()+' คน')+
-   row('ร่วมงานเทศกาล',p.festShare||'-')+row('เทียบปีที่ผ่านมา',p.vsLastYear||'-');
+  const p=payload();const done=p.nights.filter(n=>n.level).map(n=>+n.night.slice(-2));
+  const row=(a,b,st)=>`<button type="button" class="srow" data-go="${st}"><span>${a}</span><b>${esc(b)}</b><em>แก้ไข</em></button>`;
+  const h=t=>`<h3>${t}</h3>`;
+  $('#sum').innerHTML=
+   h('ข้อมูลผู้ให้ข้อมูล')+row('สถานประกอบการ',p.hotel||'-',1)+row('ผู้ให้ข้อมูล',p.name||'-',1)+row('เบอร์โทรศัพท์',p.tel||'-',1)+
+   h('สถานประกอบการ')+row('ประเภทที่พัก',ct('type'),2)+row('อำเภอ',p.district||'-',2)+row('ห้องพักทั้งหมด',p.totalRooms+' ห้อง',3)+
+    row('ราคาห้องต่อคืน',ct('price')+(S.price?' บาท':'')+(p.priceVsNormal?' ('+ct('priceVsNormal')+')':''),3)+
+   h('อัตราการเข้าพัก 20–29 พ.ย.')+row('ระบุข้อมูลแล้ว',done.length+' จาก 10 คืน'+(done.length?' (คืนวันที่ '+done.join(', ')+')':''),4)+
+   h('ผู้เข้าพัก')+row('ชาวไทย / ต่างชาติ',ct('mix'),5)+row('ผู้เข้าพักต่อห้อง',ct('ppr'),5)+row('ระยะเวลาเข้าพัก',ct('avgN'),5)+
+   h('เทศกาลและการเปรียบเทียบ')+row('ร่วมงานเทศกาล',ct('fest'),6)+row('ที่มาของข้อมูลข้อนี้',ct('festSrc'),6)+
+    row('เทียบปีที่ผ่านมา',ct('ly'),7)+row('แหล่งที่มาของตัวเลข',ct('source'),7);
 }
+$('#sum').addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;ret=true;show(+b.dataset.go,-1);});
 function confetti(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const c=['#E95429','#D3FF34','#00A79D','#FF999A','#DCB8FE','#003674'];
   for(let i=0;i<70;i++){const e=document.createElement('i');e.className='conf';e.style.left=Math.random()*100+'vw';e.style.background=c[i%c.length];e.style.animationDuration=(1.6+Math.random()*1.6)+'s';e.style.animationDelay=(Math.random()*.4)+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),4000);}}
 show(0,1);

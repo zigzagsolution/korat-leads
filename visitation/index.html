@@ -230,9 +230,9 @@ function render(D){
   // reach
   var R=D.reach||{}, rc=[];
   if(R.ooh)rc.push(['ป้าย OOH',f(R.ooh.perDay)+'<small> ครั้ง/วัน</small>',R.ooh.note]);
-  (R.online||[]).forEach(function(o){rc.push([o.name,f(o.participants)+'<small> คน</small>','engagement '+f(o.engagement)])});
+  (R.online||[]).forEach(function(o){rc.push([o.name,f(o.participants),'ผู้เข้าร่วมกิจกรรมรวม'])});
   var op=(R.online||[]).reduce(function(a,o){return a+o.participants},0);
-  rc.push(['ผู้ร่วมกิจกรรมออนไลน์ (TOR ≥ 10,000)',f(op)+'<small> / '+f(R.onlineTarget)+'</small>','รวมทุกรอบที่จัดแล้ว']);
+  rc.push(['ยอดการมีส่วนร่วมกิจกรรมออนไลน์ (TOR ≥ 10,000)',f(op)+'<small> / '+f(R.onlineTarget)+'</small>','รวมทุกรอบที่จัดแล้ว']);
   rc.push(['Live Streaming (TOR ≥ 10,000 viewers)',R.live?f(R.live)+'<small> viewers</small>':'<small>รอข้อมูล</small>','']);
   el('reach').innerHTML=rc.map(function(x){return '<div class="card"><div class="note" style="margin:0">'+esc(x[0])+'</div><div style="font-family:var(--display);font-weight:700;font-size:24px;margin:6px 0 2px">'+x[1]+'</div><div class="note" style="margin:0">'+esc(x[2])+'</div></div>'}).join('');
   // pre

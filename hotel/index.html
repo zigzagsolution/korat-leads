@@ -9,25 +9,23 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
 <style>
 :root{
-  --bg:#f6f5fb;--surface:#fff;--ink:#0d1f3d;--muted:#5b6680;--line:#e2e0ef;
+  --bg:#ffffff;--surface:#fff;--ink:#0d1f3d;--muted:#3f4a63;--line:#d9dcea;--tint:#f5f6fa;
   --navy:#003674;--cta:#E95429;--lime:#D3FF34;--teal:#00A79D;--salmon:#FF999A;--lav:#DCB8FE;
-  --soft:#efe7ff;--err:#c62f12;--numc:#003674;
+  --soft:#efe7ff;--err:#c62f12;--numc:#003674;color-scheme:light;
   --display:"Prompt","IBM Plex Sans Thai",system-ui,sans-serif;
   --body:"IBM Plex Sans Thai",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#071a36;--surface:#0d2549;--ink:#eef1fb;--muted:#a9b5d0;--line:#22406d;--navy:#002a5c;--soft:#2a2f63;--err:#ffab99;--numc:#D3FF34;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#071a36;--surface:#0d2549;--ink:#eef1fb;--muted:#a9b5d0;--line:#22406d;--navy:#002a5c;--soft:#2a2f63;--err:#ffab99;--numc:#D3FF34;color-scheme:dark}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;overflow-x:hidden}
-header{position:sticky;top:0;z-index:5;background:var(--navy);color:#fff;padding-top:env(safe-area-inset-top,0px)}
+header{position:sticky;top:0;z-index:5;background:#fff;color:var(--navy);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
 header::after{content:"";display:block;height:5px;background:linear-gradient(90deg,var(--cta) 0 20%,var(--lime) 20% 40%,var(--teal) 40% 60%,var(--salmon) 60% 80%,var(--lav) 80%)}
 .wrap{max-width:560px;margin:0 auto;padding:0 16px}
 .hrow{display:flex;justify-content:space-between;align-items:center;padding:10px 0 8px;gap:10px}
 .brand{font:600 14px var(--display)}
-.brand small{display:block;font:400 12px var(--body);color:#c9d3ea}
-.stepno{font-size:12.5px;color:var(--lime);font-weight:600;white-space:nowrap}
-.bar{height:7px;background:rgba(255,255,255,.18);border-radius:4px;overflow:hidden;margin-bottom:10px}
-.bar i{display:block;height:100%;width:0;background:var(--lime);border-radius:4px;transition:width .45s cubic-bezier(.34,1.56,.64,1)}
+.brand small{display:block;font:400 12.5px var(--body);color:var(--muted)}
+.stepno{font-size:13px;color:var(--navy);font-weight:600;white-space:nowrap}
+.bar{height:7px;background:#e6e8f0;border-radius:4px;overflow:hidden;margin-bottom:10px}
+.bar i{display:block;height:100%;width:0;background:var(--teal);border-radius:4px;transition:width .45s cubic-bezier(.34,1.56,.64,1)}
 main{padding:20px 0 130px}
 .step{display:none}
 .step.on{display:block;animation:in .3s ease-out}
@@ -68,7 +66,7 @@ label.f{display:block;font-weight:600;font-size:15px;margin:4px 0 6px}
 .tag.we{background:var(--lime);color:#003674}
 .tag.bk{background:var(--lav);color:#2a1a55}
 .lv{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
-.lv button{border:2px solid var(--line);background:var(--bg);border-radius:12px;padding:6px 2px 5px;cursor:pointer;font:500 11.5px var(--body);color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:1px;transition:transform .12s}
+.lv button{border:2px solid var(--line);background:var(--tint);border-radius:12px;padding:6px 2px 5px;cursor:pointer;font:500 11.5px var(--body);color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:1px;transition:transform .12s}
 .lv .m{display:flex;gap:2px;align-items:flex-end;height:22px;margin-bottom:3px}.lv .m i{width:5px;border-radius:2px;background:var(--line)}.lv .m i:nth-child(1){height:6px}.lv .m i:nth-child(2){height:10px}.lv .m i:nth-child(3){height:14px}.lv .m i:nth-child(4){height:18px}.lv .m i:nth-child(5){height:22px}.lv .m i.f{background:var(--teal)}.lv button[aria-pressed="true"] .m i.f{background:var(--navy)}
 .lv button:active{transform:scale(.9)}
 .lv button[aria-pressed="true"]{border-color:var(--navy);background:var(--soft);color:var(--ink);font-weight:600;animation:pop .25s ease-out}
@@ -87,20 +85,20 @@ label.f{display:block;font-weight:600;font-size:15px;margin:4px 0 6px}
 .err{color:var(--err);font-size:14.5px;font-weight:500;margin-top:12px;min-height:1.2em}
 .shake{animation:shake .4s}
 @keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
-.foot{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px));z-index:5}
+.foot{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px));z-index:5}
 .foot .wrap{display:flex;gap:10px}
 .btn{border:0;border-radius:16px;font:600 17px var(--display);padding:14px 18px;cursor:pointer;transition:transform .12s}
 .btn:active{transform:scale(.95)}
-.btn.go{flex:1;background:var(--cta);color:#fff;box-shadow:0 4px 0 #b53a17}
+.btn.go{flex:1;background:#c2421a;color:#fff;box-shadow:0 4px 0 #8a2e10}
 .btn.bk{background:var(--surface);color:var(--ink);border:2px solid var(--line)}
 .btn:disabled{opacity:.55}
 .done{text-align:center;padding-top:30px}
 .letter{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--navy);border-radius:14px;padding:20px 18px;font-size:15px}
 .letter p{margin:0 0 12px}.letter h1{margin:4px 0 14px}
-.kick{font-size:13px;font-weight:600;color:var(--cta);letter-spacing:.02em}
-.letter dl{margin:4px 0 14px;padding:12px 14px;background:var(--bg);border-radius:10px}
-.letter dt{font-weight:600;font-size:14px}.letter dd{margin:0 0 8px;color:var(--muted);font-size:14px}.letter dd:last-child{margin:0}
-.letter a{color:var(--navy);font-weight:600}
+.kick{font-size:13.5px;font-weight:600;color:#b8401c;letter-spacing:.02em}
+.letter dl{margin:4px 0 14px;padding:12px 14px;background:var(--tint);border-radius:10px}
+.letter dt{font-weight:600;font-size:14px}.letter dd{margin:0 0 8px;color:var(--ink);font-size:14.5px}.letter dd:last-child{margin:0}
+.letter a{color:var(--navy);font-weight:700;font-size:16px}
 .tick{width:72px;height:72px;margin:0 auto 10px}.tick svg{fill:none;stroke:var(--teal);stroke-width:3}
 .tick circle{stroke-dasharray:151;stroke-dashoffset:151;animation:draw .6s ease-out forwards}
 .tick path{stroke-dasharray:36;stroke-dashoffset:36;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;animation:draw .35s .5s ease-out forwards}

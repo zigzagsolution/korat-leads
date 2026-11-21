@@ -206,8 +206,8 @@ const S=[
   opts:[o('yes','ท่องเที่ยวด้วย','Yes, I also went sightseeing'),o('no','ไม่ท่องเที่ยว','No, I only attended the event')]},
  {id:'p2_3',part:2,no:'3',type:'dates',q:T('วันที่ท่านมาร่วมงานแล้ว','Which days have you attended so far?'),pre2:T('เลือกได้หลายวัน · นับเฉพาะวันที่มาแล้ว','Select all that apply · only days you have already attended')},
  {id:'p2_4',part:2,no:'4',type:'nights',q:T('จำนวนคืนที่พักในโคราช','Number of Nights Staying in Korat')},
- {id:'p2_5',part:2,no:'5',type:'single',show:a=>a.p2_4&&a.p2_4.v!=='0',q:T('ประเภทที่พัก (ถ้าพักค้างคืน)','Type of Accommodation (If staying overnight)'),opts:[
-  o('hotel','โรงแรม','Hotel'),o('resort','รีสอร์ท/บังกะโล','Resort / Bungalow'),o('homestay','โฮมสเตย์','Homestay'),
+ {id:'p2_5',part:2,no:'5',type:'single',show:a=>a.p2_4&&a.p2_4.v!=='0',q:T('ประเภทที่พักในโคราช (ถ้าพักค้างคืน)','Type of Accommodation in Korat (If staying overnight)'),opts:[
+  o('hotel','โรงแรม','Hotel',{fields:[['place',T('ชื่อที่พัก (ไม่บังคับ)','Name of accommodation (optional)')]]}),o('resort','รีสอร์ท/บังกะโล','Resort / Bungalow',{fields:[['place',T('ชื่อที่พัก (ไม่บังคับ)','Name of accommodation (optional)')]]}),o('guesthouse','เกสต์เฮาส์/โฮสเทล','Guesthouse / Hostel',{fields:[['place',T('ชื่อที่พัก (ไม่บังคับ)','Name of accommodation (optional)')]]}),o('homestay','โฮมสเตย์','Homestay',{fields:[['place',T('ชื่อที่พัก (ไม่บังคับ)','Name of accommodation (optional)')]]}),
   o('app','ที่พักแบบแอปพลิเคชัน/Airbnb','App-based Accommodation / Airbnb'),o('relative','บ้านญาติ/เพื่อน','Relative’s / Friend’s Home'),OTHER()]},
  {id:'p2_6',part:2,no:'6',type:'single',q:T('พาหนะที่ใช้เดินทางมาโคราช','Mode of Transportation to Korat'),opts:[
   o('car','รถยนต์ส่วนตัว','Private Car'),o('rental','รถเช่า','Rental Car'),o('public','รถสาธารณะ','Public Transportation'),o('moto','จักรยานยนต์','Motorcycle'),
@@ -455,7 +455,7 @@ function render(){
   const ss=$('sstat'); if(ss&&SUB==='fail') ss.onclick=submit;
   save();
 }
-function rerender(){const y=window.scrollY;S.forEach(x=>{if(x.show&&!x.show(A))delete A[x.id];});render();window.scrollTo(0,y);}
+function rerender(){const y=window.scrollY;if(!OV)S.forEach(x=>{if(x.show&&!x.show(A))delete A[x.id];});render();window.scrollTo(0,y);}
 function bindQ(s,st){
   if(s.type==='single'||s.type==='chips'||s.type==='nights'){
     st.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{

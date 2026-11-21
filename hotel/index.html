@@ -228,7 +228,8 @@ send.addEventListener('click',async()=>{
     lastYear:lyNone.checked?'ไม่มีข้อมูล':{roomNights:v('lyR'),thai:v('lyT'),foreign:v('lyF')},
     source:pick.source,certified:1};
   try{
-    await fetch(HOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({payload:JSON.stringify(data)})});
+    const res=await fetch(HOOK,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({payload:JSON.stringify(data)})});
+    if(!res.ok)throw new Error(res.status);
     formWrap.hidden=true;bar.hidden=true;done.hidden=false;scrollTo(0,0);
   }catch(e){send.disabled=false;send.textContent='ส่งข้อมูล';err.hidden=false;err.textContent='ส่งไม่สำเร็จ กรุณาตรวจสอบอินเทอร์เน็ตแล้วกดส่งอีกครั้ง';}
 });

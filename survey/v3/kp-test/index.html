@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ทดสอบแต้ม Korat Point</title>
+<style>
+:root{--bg:#f5f4fa;--fg:#1b2140;--mut:#5b6080;--card:#fff;--line:#d9d6e8;--acc:#163574;--ok:#1b8552;--bad:#c93c3c}
+@media (prefers-color-scheme:dark){:root{--bg:#12142a;--fg:#eef0fa;--mut:#a9adc8;--card:#1d2040;--line:#363a63;--acc:#9db8ff;--ok:#4cd08f;--bad:#ff7b7b}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Noto Sans Thai",sans-serif}
+.w{max-width:480px;margin:0 auto;padding:20px 16px}
+h1{font-size:20px;margin:0 0 6px}p{margin:0 0 12px;color:var(--mut)}
+.c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}
+input{width:100%;box-sizing:border-box;font-size:18px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+button{width:100%;margin-top:12px;font-size:17px;font-weight:700;padding:12px;border:0;border-radius:12px;background:var(--acc);color:var(--card)}
+button:disabled{opacity:.5}
+pre{white-space:pre-wrap;word-break:break-all;font-size:13px;background:var(--bg);padding:10px;border-radius:8px;margin:8px 0 0}
+.big{font-size:18px;font-weight:700}.ok{color:var(--ok)}.bad{color:var(--bad)}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>ทดสอบส่ง complete ซ้ำ (responseId เดิม)</h1>
+<p>สำหรับทีมงานเท่านั้น · ต้องเปิดจาก LINE ด้วยบัญชีที่เคยตอบแบบสำรวจแล้ว</p>
+<div class="c" id="who">กำลังเชื่อม LINE…</div>
+<div class="c">
+<label for="pin">PIN แดชบอร์ด</label>
+<input id="pin" type="password" inputmode="numeric" autocomplete="off">
+<button id="go" disabled>ยิง complete ซ้ำ</button>
+</div>
+<div class="c" id="out" hidden></div>
+</div>
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script>
+const API='https://korat.mididigitalevent.workers.dev/api/survey/kp/replay';
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const MEAN={credited:'บวกแต้มแล้ว',not_member:'ไม่ใช่สมาชิก',already:'ได้แต้มไปแล้วด้วยคำตอบอื่น',ended:'หมดช่วงรับแต้ม',bad_token:'token หมดอายุ/ไม่ถูกต้อง',bad_signature:'ลายเซ็นผิด'};
+(async()=>{
+  try{await liff.init({liffId:'2012143290-kTb1tp78'});
+    if(!liff.isLoggedIn()){liff.login({redirectUri:location.href});return;}
+    const p=liff.getDecodedIDToken()||{};
+    $('who').innerHTML='เชื่อม LINE แล้ว: <b>'+esc(p.name||'')+'</b>';$('go').disabled=false;
+  }catch(e){$('who').innerHTML='<span class="bad">เชื่อม LINE ไม่ได้ ต้องเปิดจากลิงก์ liff.line.me ในแอป LINE</span>';}
+})();
+$('go').onclick=async()=>{
+  const b=$('go');b.disabled=true;b.textContent='กำลังส่ง…';const o=$('out');o.hidden=false;o.textContent='…';
+  try{const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({idToken:liff.getIDToken(),pin:$('pin').value})});
+    const j=await r.json().catch(()=>({}));let st='',rep=false;
+    try{const kb=typeof j.kpBody==='string'?JSON.parse(j.kpBody):(j.kpBody||{});st=kb.status||kb.error||j.kpStatus||'';rep=!!kb.repeat;}catch(e){st=j.kpStatus||j.error||'';}
+    const pass=st==='credited'&&rep;
+    o.innerHTML=`<div class="big ${pass?'ok':(st==='credited'?'ok':'bad')}">${pass?'✅ ผ่าน: credited + repeat (แต้มไม่เพิ่ม)':esc(st||j.error||('HTTP '+r.status))+(MEAN[st]?' · '+MEAN[st]:'')}</div><pre>${esc(JSON.stringify(j,null,1))}</pre>`;
+  }catch(e){o.innerHTML='<span class="bad">ส่งไม่สำเร็จ (เน็ต)</span>';}
+  b.disabled=false;b.textContent='ยิง complete ซ้ำ';
+};
+</script>
+</body>
+</html>

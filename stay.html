@@ -243,7 +243,7 @@ const CC=[102.0978,14.9750],CR=8.5;// อนุสาวรีย์ท้าว
 // ok=0: run stopped before all result pages (usage limit) -> counts are partial. avR = rooms (Agoda "Number of rooms") in bookable places, of POOLR rooms across 122 places with a known room count.
 const POOL=324,POOLR=5032;
 // Sat 28 Nov re-checked daily (same search, Agoda cityId 702243). c=check date, avR/av/ret as NIGHTS.
-const T28=[{c:'21 พ.ย.',t:'10.45',ret:150,av:98,avR:1901},{c:'22 พ.ย.',t:'10.48',ret:146,av:103,avR:2276,n:'Sima Thani (265 ห้อง) และ Mayflower Grand (120 ห้อง) กลับมาเปิดขายบน Agoda'}];
+const T28=[{c:'21 พ.ย.',t:'10.45',ret:150,av:98,avR:1901},{c:'22 พ.ย.',t:'10.48',ret:146,av:103,avR:2276,n:'Sima Thani (265 ห้อง) และ Mayflower Grand (120 ห้อง) กลับมาเปิดขายบน Agoda'},{c:'22 พ.ย.',t:'18.35',ret:145,av:97,avR:1871}];
 const NIGHTS=[{d:21,w:'ส.',ok:1,ret:166,av:121,so:14,nr:31,avR:2132,med:562},{d:22,w:'อา.',ok:1,ret:298,av:244,so:18,nr:36,avR:4335,med:589},{d:23,w:'จ.',ok:1,ret:313,av:260,so:14,nr:42,avR:4741,med:559},{d:24,w:'อ.',ok:1,ret:313,av:261,so:14,nr:38,avR:4591,med:604},{d:25,w:'พ.',ok:1,ret:309,av:265,so:12,nr:41,avR:4639,med:631},{d:26,w:'พฤ.',ok:1,ret:311,av:267,so:12,nr:38,avR:4807,med:594},{d:27,w:'ศ.',ok:1,ret:293,av:241,so:18,nr:36,avR:4361,med:589},{d:28,w:'ส.',ok:1,ret:150,av:98,so:12,nr:40,avR:1901,med:779},{d:19,m:'ธ.ค.',x:1,w:'ส.',ok:1,ret:188,av:179,so:11,nr:9,avR:4725,med:580}];
 (()=>{const pc=(a,b)=>Math.round(a/b*100)+'%';
  document.getElementById('oPool').textContent=fmt(POOL)+' แห่ง';document.getElementById('oPools').textContent=`แจ้งจำนวนห้อง 122 แห่ง รวม ${fmt(POOLR)} ห้อง`;

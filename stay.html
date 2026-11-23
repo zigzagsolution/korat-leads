@@ -119,6 +119,8 @@ footer{color:var(--faint);font-size:13px;padding:36px 0 40px;text-align:center}
 .occk div{background:var(--ground);padding:14px 16px;min-width:0}.occk b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(24px,3vw,34px);line-height:1.1;font-variant-numeric:tabular-nums}
 .occk span{color:var(--mute);font-size:13px}.occk small{display:block;color:var(--faint);font-size:12px;margin-top:3px}
 .est{display:inline-block;border:1px solid var(--orange);color:#FFB15E;border-radius:999px;padding:0 8px;font-size:11.5px;font-weight:600;margin-left:6px;vertical-align:middle;white-space:nowrap}
+.ozone{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 4px}.ozone button{background:transparent;border:1.5px solid var(--line);border-radius:9px;height:36px;padding:0 14px;cursor:pointer;font-weight:600;font-size:14px;color:inherit}.ozone button[aria-pressed="true"]{background:var(--lime);border-color:var(--lime);color:#0b1f4a}
+.msum{border-left:3px solid var(--lime);padding:8px 12px;margin:10px 0 4px;font-size:14px;line-height:1.6;background:rgba(255,255,255,.04);border-radius:0 8px 8px 0}.msum b{color:var(--lime)}
 .nrow{display:grid;grid-template-columns:96px minmax(0,1fr) 150px;gap:10px;align-items:center;font-size:13.5px;margin:8px 0}
 .nrow .tr{height:16px;border-radius:5px;overflow:hidden;display:flex;background:rgba(255,255,255,.08)}
 .nrow .tr i{display:block;height:100%}.nrow .tr i.a{background:var(--lime)}.nrow .tr i.f{background:var(--orange)}
@@ -154,8 +156,10 @@ footer{color:var(--faint);font-size:13px;padding:36px 0 40px;text-align:center}
   <section class="occ" aria-labelledby="occh">
     <h3 id="occh"><em>ห้องว่าง–ห้องเต็ม</em> บน Agoda รายคืน 21–28 พ.ย.</h3>
     <p class="sub">โซน Agoda "นครราชสีมา" (เมืองโคราชและอำเภอรอบ ไม่รวมปากช่อง-เขาใหญ่) · ค้นแบบคืนเดียว 2 คน 1 ห้อง · เก็บข้อมูล 21 พ.ย. 2569 (คืน 21, 22, 24, 28 เวลา 10.45 น. · คืน 23, 25, 26, 27 และคืนเทียบ 19 ธ.ค. เวลา 11.22 น.)</p>
+    <div class="ozone" role="group" aria-label="เลือกพื้นที่"><button type="button" data-z="all" aria-pressed="true">ทั้งโซน Agoda นครราชสีมา</button><button type="button" data-z="mu" aria-pressed="false">เฉพาะ อ.เมืองนครราชสีมา</button></div>
+    <p class="msum" id="msum"></p>
     <div class="occk">
-      <div><b id="oPool">-</b><span>ที่พักในโซนนี้ที่เคยขึ้นบน Agoda</span><small id="oPools"></small></div>
+      <div><b id="oPool">-</b><span id="oPoolL">ที่พักในโซนนี้ที่เคยขึ้นบน Agoda</span><small id="oPools"></small></div>
       <div><b class="o" id="oSat" style="color:var(--orange)">-</b><span>คืนเสาร์ 21 พ.ย. จองบน Agoda ไม่ได้แล้ว<span class="est">ประมาณ</span></span><small id="oSats"></small></div>
       <div><b id="oSat2" style="color:var(--orange)">-</b><span>คืนเสาร์ 28 พ.ย. จองบน Agoda ไม่ได้แล้ว (เช็กล่าสุด <span id="oSat2d"></span>)<span class="est">ประมาณ</span></span><small id="oSat2s"></small></div>
     </div>
@@ -242,11 +246,13 @@ const CC=[102.0978,14.9750],CR=8.5;// อนุสาวรีย์ท้าว
 // Agoda nightly availability, searched 21 Nov 2026 10:45 (Apify xtracto/agoda-hotels-scraper, 1 night, 2 adults, 1 room). Zone = Agoda cityId 702243.
 // ok=0: run stopped before all result pages (usage limit) -> counts are partial. avR = rooms (Agoda "Number of rooms") in bookable places, of POOLR rooms across 122 places with a known room count.
 const POOL=324,POOLR=5032;
+// อ.เมืองนครราชสีมา subset: 237 of the 324 places (140 matched to the district list, 97 placed by nearest listed place), 95 with a room count = 4,530 rooms. mu = same fields for that subset.
+const MPOOL=237,MPOOLR=4530,MPOOLN=95;
 // Sat 28 Nov re-checked daily (same search, Agoda cityId 702243). c=check date, avR/av/ret as NIGHTS.
-const T28=[{c:'21 พ.ย.',t:'10.45',ret:150,av:98,avR:1901},{c:'22 พ.ย.',t:'10.48',ret:146,av:103,avR:2276,n:'Sima Thani (265 ห้อง) และ Mayflower Grand (120 ห้อง) กลับมาเปิดขายบน Agoda'},{c:'22 พ.ย.',t:'18.35',ret:145,av:97,avR:1871}];
-const NIGHTS=[{d:21,w:'ส.',ok:1,ret:166,av:121,so:14,nr:31,avR:2132,med:562},{d:22,w:'อา.',ok:1,ret:298,av:244,so:18,nr:36,avR:4335,med:589},{d:23,w:'จ.',ok:1,ret:313,av:260,so:14,nr:42,avR:4741,med:559},{d:24,w:'อ.',ok:1,ret:313,av:261,so:14,nr:38,avR:4591,med:604},{d:25,w:'พ.',ok:1,ret:309,av:265,so:12,nr:41,avR:4639,med:631},{d:26,w:'พฤ.',ok:1,ret:311,av:267,so:12,nr:38,avR:4807,med:594},{d:27,w:'ศ.',ok:1,ret:293,av:241,so:18,nr:36,avR:4361,med:589},{d:28,w:'ส.',ok:1,ret:150,av:98,so:12,nr:40,avR:1901,med:779},{d:19,m:'ธ.ค.',x:1,w:'ส.',ok:1,ret:188,av:179,so:11,nr:9,avR:4725,med:580}];
-(()=>{const pc=(a,b)=>Math.round(a/b*100)+'%';
- document.getElementById('oPool').textContent=fmt(POOL)+' แห่ง';document.getElementById('oPools').textContent=`แจ้งจำนวนห้อง 122 แห่ง รวม ${fmt(POOLR)} ห้อง`;
+const T28=[{c:'21 พ.ย.',t:'10.45',ret:150,av:98,avR:1901,mu:{ret:89,av:47,avR:1577}},{c:'22 พ.ย.',t:'10.48',ret:146,av:103,avR:2276,n:'Sima Thani (265 ห้อง) และ Mayflower Grand (120 ห้อง) กลับมาเปิดขายบน Agoda',mu:{ret:84,av:48,avR:1952}},{c:'22 พ.ย.',t:'18.35',ret:145,av:97,avR:1871,mu:{ret:86,av:45,avR:1547}}];
+const NIGHTS=[{d:21,w:'ส.',ok:1,ret:166,av:121,so:14,nr:31,avR:2132,med:562,mu:{ret:125,av:88,so:14,nr:23,avR:1841,med:566}},{d:22,w:'อา.',ok:1,ret:298,av:244,so:18,nr:36,avR:4335,med:589,mu:{ret:223,av:186,so:11,nr:26,avR:3936,med:590}},{d:23,w:'จ.',ok:1,ret:313,av:260,so:14,nr:42,avR:4741,med:559,mu:{ret:228,av:196,so:5,nr:27,avR:4342,med:555}},{d:24,w:'อ.',ok:1,ret:313,av:261,so:14,nr:38,avR:4591,med:604,mu:{ret:227,av:196,so:7,nr:24,avR:4192,med:608}},{d:25,w:'พ.',ok:1,ret:309,av:265,so:12,nr:41,avR:4639,med:631,mu:{ret:228,av:199,so:4,nr:25,avR:4222,med:629}},{d:26,w:'พฤ.',ok:1,ret:311,av:267,so:12,nr:38,avR:4807,med:594,mu:{ret:227,av:200,so:5,nr:22,avR:4384,med:594}},{d:27,w:'ศ.',ok:1,ret:293,av:241,so:18,nr:36,avR:4361,med:589,mu:{ret:220,av:181,so:13,nr:26,avR:3940,med:584}},{d:28,w:'ส.',ok:1,ret:150,av:98,so:12,nr:40,avR:1901,med:779,mu:{ret:89,av:47,so:12,nr:30,avR:1577,med:1235}},{d:19,m:'ธ.ค.',x:1,w:'ส.',ok:1,ret:188,av:179,so:11,nr:9,avR:4725,med:580,mu:{ret:142,av:130,so:7,nr:5,avR:4294,med:595}}];
+const occR=(z,NI,TT)=>{const pc=(a,b)=>Math.round(a/b*100)+'%';const Z=z==='mu';const POOL_=Z?MPOOL:POOL,POOLR_=Z?MPOOLR:POOLR;{const POOL=POOL_,POOLR=POOLR_,NIGHTS=NI,T28=TT;
+ document.getElementById('oPool').textContent=fmt(POOL)+' แห่ง';document.getElementById('oPools').textContent=`แจ้งจำนวนห้อง ${Z?MPOOLN:122} แห่ง รวม ${fmt(POOLR)} ห้อง`;
  const sat=(id,n)=>{const f=POOLR-n.avR;document.getElementById(id).textContent=pc(f,POOLR);document.getElementById(id+'s').textContent=`ราว ${fmt(f)} จาก ${fmt(POOLR)} ห้อง · ที่พัก ${fmt(POOL-n.av)} จาก ${fmt(POOL)} แห่ง`};
  sat('oSat',NIGHTS[0]);const L28=T28[T28.length-1];sat('oSat2',L28);document.getElementById('oSat2d').textContent=L28.c;
  document.getElementById('t28').innerHTML=T28.map(n=>{const f=POOLR-n.avR;return `<div class="nrow"><span class="d">เช็ก ${n.c}<small>${n.t} น.</small></span><span class="tr"><i class="a" style="width:${n.avR/POOLR*100}%"></i><i class="f" style="width:${f/POOLR*100}%"></i></span><span class="v">เต็ม/ปิด <b>${pc(f,POOLR)}</b> · ${fmt(f)} ห้อง</span></div>`}).join('');
@@ -254,7 +260,18 @@ const NIGHTS=[{d:21,w:'ส.',ok:1,ret:166,av:121,so:14,nr:31,avR:2132,med:562},{
  document.getElementById('nights').innerHTML=NIGHTS.map(n=>{const f=POOLR-n.avR;return `<div class="nrow${n.w==='ส.'||n.w==='ศ.'?' we':''}${n.x?' ctl':''}"><span class="d">${n.w} ${n.d} ${n.m||'พ.ย.'}${n.x?' <small>นอกเทศกาล</small>':''}</span>${n.ok?`<span class="tr"><i class="a" style="width:${n.avR/POOLR*100}%"></i><i class="f" style="width:${f/POOLR*100}%"></i></span><span class="v">เต็ม/ปิด <b>${pc(f,POOLR)}</b> · ${fmt(f)} ห้อง</span>`:`<span class="tr na"></span><span class="v">ข้อมูลยังไม่ครบ</span>`}</div>`}).join('');
  document.getElementById('nrows').innerHTML=NIGHTS.map(n=>`<tr><td>${n.w} ${n.d} ${n.m||'พ.ย.'}${n.x?' (นอกเทศกาล)':''}${n.ok?'':' <span class="est" style="border-color:#7d8fae;color:#c9d3e6">ไม่ครบ</span>'}</td><td class="r">${n.ok?'':'≥ '}${fmt(n.av)}</td><td class="r">${n.ok?'':'≥ '}${fmt(n.so)}</td><td class="r">${n.ok?'':'≥ '}${fmt(n.nr)}</td><td class="r">${n.ok?fmt(POOL-n.ret):'-'}</td><td class="r">${fmt(n.med)} บาท</td></tr>`).join('');
  document.getElementById('kyNote').textContent='ปากช่อง-เขาใหญ่ (โซน Agoda "เขาใหญ่") คืนเสาร์ 21 พ.ย.: ขึ้นในผลค้น 522 แห่ง ยังจองได้ 353 แห่ง ขึ้นว่าเต็ม 44 แห่ง ไม่มีราคาขาย 125 แห่ง (ราคากลางที่เหลือ 2,022 บาท) · คืนอื่นของโซนนี้ยังดึงไม่ครบ · ตารางบน: "ไม่ขึ้นในผลค้น" = ที่พักในโซนที่เคยขึ้นคืนอื่นแต่คืนนั้นไม่ขึ้น · ราคากลาง = ห้องถูกสุดของที่พักที่ยังจองได้ รวมภาษี';
-})();
+}};
+const ozB=[...document.querySelectorAll('.ozone button')];
+const ozSet=z=>{ozB.forEach(b=>b.setAttribute('aria-pressed',b.dataset.z===z));
+ const NI=NIGHTS.map(n=>z==='mu'?{...n,...n.mu}:n),TT=T28.map(n=>z==='mu'?{...n,...n.mu}:n);occR(z,NI,TT);
+ document.getElementById('oPoolL').textContent=z==='mu'?'ที่พักใน อ.เมืองนครราชสีมา ที่เคยขึ้นบน Agoda':'ที่พักในโซนนี้ที่เคยขึ้นบน Agoda';
+ const ms=document.getElementById('msum');
+ if(z!=='mu'){ms.hidden=true;return}
+ const pc=(a,b)=>Math.round(a/b*100),L=T28[T28.length-1],m=L.mu,c=NIGHTS.find(n=>n.x).mu,t=NIGHTS[1].mu;
+ ms.hidden=false;
+ ms.innerHTML=`<b>อ.เมืองนครราชสีมา</b> มีที่พักบน Agoda ราว ${fmt(MPOOL)} จาก ${fmt(POOL)} แห่งของโซน (ห้องที่แจ้งจำนวนไว้ ${fmt(MPOOLR)} จาก ${fmt(POOLR)} ห้อง) · คืนเสาร์ 28 พ.ย. (เช็กล่าสุด ${L.c} ${L.t} น.) จองไม่ได้แล้วราว <b>${pc(MPOOLR-m.avR,MPOOLR)}%</b> หรือราว ${fmt(MPOOLR-m.avR)} ห้อง (ทั้งโซน ${pc(POOLR-L.avR,POOLR)}%) · ยังจองได้ ${fmt(m.av)} แห่ง · คืนอาทิตย์ 22 พ.ย. จองไม่ได้ราว ${pc(MPOOLR-t.avR,MPOOLR)}% · คืนเทียบ 19 ธ.ค. (นอกเทศกาล) ราว ${pc(MPOOLR-c.avR,MPOOLR)}%<span class="est">ประมาณ</span><br><small style="color:var(--mute)">แยกอำเภอจากรายชื่อที่พักในหน้านี้ ที่พักที่ไม่อยู่ในรายชื่อใช้อำเภอของที่พักที่อยู่ใกล้ที่สุดแทน · ห้องนับเฉพาะ ${MPOOLN} แห่งที่แจ้งจำนวนห้องไว้</small>`};
+ozB.forEach(b=>b.addEventListener('click',()=>ozSet(b.dataset.z)));
+ozSet('all');
 const S=RAW.s.map((r,i)=>({i,name:r[0],d:r[1],lat:r[2],lng:r[3],star:r[4],score:r[5],rev:r[6],price:r[7],st:r[8],ty:r[9],url:'https://www.agoda.com/'+r[10],rooms:r[11]??null}));
 S.forEach(p=>{p.city=d3.geoDistance(CC,[p.lng,p.lat])*6371<=CR;p.dv=VEN.map(v=>d3.geoDistance(v.ll,[p.lng,p.lat])*6371)});
 // price bands; status 1 = sold out, 2 = no price shown

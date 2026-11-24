@@ -1343,7 +1343,7 @@ const ACT={
  sd_luk:['ซาวด์เด้อ ประกวดร้องเพลงลูกทุ่ง','Sounder: Luk Thung Singing Contest','sounder','ลานย่าโม'],
  chg:['นิทรรศการ “เชิงคือ” Art is Architecture','“Choeng Khue” Art is Architecture Exhibition','exhibit','ลานย่าโม'],
  recipe:['ร้านอาหาร/ตลาด KORAT City Recipe','KORAT City Recipe food & local market','market','ร้านที่ร่วมโครงการ'],
- kpoint:['บูธสะสมแต้ม/แลกของ KORAT POINT','KORAT POINT booth (collect & redeem)','points','ลานย่าโม'],
+ kpoint:['ร่วมเข้า KORAT POINT ในเทศกาล (บูธสะสมแต้ม/แลกของ)','Joined KORAT POINT at the festival (collect & redeem booth)','points','ลานย่าโม'],
  sd_show:['Sounder x KORAT ARTIST Showcase','Sounder x KORAT ARTIST Showcase','sounder','ลานย่าโม'],
  dcamp:['Dance Camp 2 Workshop','Dance Camp 2 Workshop','workshop','เซ็นทรัลโคราช'],
  andrea:['Workshop x Andrea Giuffredi','Workshop x Andrea Giuffredi','workshop','วิทยาลัยนาฏศิลป'],
@@ -1369,7 +1369,7 @@ const dayLab=(d,long)=>{const x=DAYS.find(y=>y[0]===d);return L==='th'?`${x[1]} 
 const _ps=a=>{const c=a.p2_7;if(!c)return 0;return c.v==='alone'?1:(+c.people||0);};
 
 const TGT={20:16000,21:25000,22:24000,23:17000,24:16000,25:16000,26:17000,27:19000,28:25000,29:25000};
-const CATN={sounder:'SOUNDER',exhibit:'นิทรรศการเมือง',market:'ตลาด/อาหารท้องถิ่น',points:'KORAT POINT',workshop:'เวิร์กช็อป',perf:'การแสดง/ดนตรี',kbattle:'K-BATTLE',kbatx:'KBATx'};
+const CATN={sounder:'SOUNDER',exhibit:'นิทรรศการเมือง',market:'ตลาด/อาหารท้องถิ่น',points:'ร่วมเข้า KORAT POINT ในเทศกาล',workshop:'เวิร์กช็อป',perf:'การแสดง/ดนตรี',kbattle:'K-BATTLE',kbatx:'KBATx'};
 const CATC={sounder:'#D34016',exhibit:'#8F4FE0',market:'#00837B',points:'#D3A600',workshop:'#003674',perf:'#C0393B',kbattle:'#D34016',kbatx:'#00837B'};
 const DATA_TO=(()=>{const t=new Date(Date.now()+7*3600e3), y=t.getUTCFullYear(), m=t.getUTCMonth()+1, d=t.getUTCDate();if(y>2026||(y===2026&&m>11))return '29';if(y<2026||m<11||d<20)return '20';return String(Math.min(29,d));})();
 const aPeople=(x,k)=>x.full===false&&x.pa&&x.pa[k]!=null?+x.pa[k]:(+x.p||1);

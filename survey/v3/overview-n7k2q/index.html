@@ -252,11 +252,14 @@ const S=[
   o('reg','ลงทะเบียนผ่านเว็บไซต์','Registered via website'),o('checkin','เช็กอิน/โพสต์ภาพพร้อมแฮชแท็กงาน','Checked in / Posted photos with event hashtags'),o('share','แชร์คลิป/ภาพ','Shared video clips / photos'),
   o('online','ร่วมกิจกรรมออนไลน์/ตอบคำถาม','Joined online activities / quizzes'),o('points','สะสมแต้ม/แลกของที่ระลึก','Collected points / Redeemed souvenirs'),
   o('follow','ติดตามเพจ/Line OA ของงาน','Followed the event’s page / LINE OA'),o('none','ไม่ได้ร่วมกิจกรรมใด','Did not participate in any activity',{excl:true})]]]},
- {id:'p3_kp',part:3,no:'4',type:'single',q:T('ท่านเช็กอินผ่าน KORAT POINT (สแกน QR ที่จุดจัดงาน) หรือไม่','Did you check in with KORAT POINT (scan the QR code at event spots)?'),opts:[
+ {id:'p3_kpmem',part:3,no:'4',type:'single',q:T('ท่านเป็นสมาชิกสะสมแต้ม KORAT POINT หรือไม่','Are you a KORAT POINT points member?'),opts:[
+  o('earn','เป็นสมาชิก และสะสมแต้มแล้ว','Yes, a member and I have collected points'),o('member','เป็นสมาชิกแล้ว แต่ยังไม่เคยสะสมแต้ม','Yes, a member but I have not collected points yet'),
+  o('lineonly','แอดไลน์ KORAT POINT อย่างเดียว ยังไม่ได้สมัครสมาชิก','I only added the KORAT POINT LINE account, not signed up as a member')]},
+ {id:'p3_kp',part:3,no:'5',type:'single',q:T('ท่านเช็กอินผ่าน KORAT POINT (สแกน QR ที่จุดจัดงาน) หรือไม่','Did you check in with KORAT POINT (scan the QR code at event spots)?'),opts:[
   o('all','เช็กอินทุกจุดที่ไป','Yes, at every spot I visited'),o('some','เช็กอินบางจุด','Yes, at some spots'),o('none','ไม่ได้เช็กอินเลย','No, I did not check in')]},
- {id:'p3_kpwhy',part:3,no:'5',type:'multi',show:a=>['some','none'].includes(a.p3_kp?.v),q:T('เหตุผลที่ไม่ได้เช็กอิน (บางจุดหรือทั้งหมด)','Why did you not check in (at some or all spots)?'),
-  pre:T('เฉพาะผู้ตอบข้อ 4 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Only for respondents who checked in at some spots or not at all in Q4'),groups:[[null,[
-  o('unaware','ไม่รู้ว่ามีให้เช็กอิน','Did not know check-in was available'),o('noqr','หาจุดสแกน QR ไม่เจอ','Could not find the QR code'),
+ {id:'p3_kpwhy',part:3,no:'6',type:'multi',show:a=>['some','none'].includes(a.p3_kp?.v),q:T('เหตุผลที่ไม่ได้เช็กอิน (บางจุดหรือทั้งหมด)','Why did you not check in (at some or all spots)?'),
+  pre:T('เฉพาะผู้ตอบข้อ 5 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Only for respondents who checked in at some spots or not at all in Q5'),groups:[[null,[
+  o('nomember','ยังไม่ได้สมัครสมาชิก/ไม่รู้วิธีสมัคร','Not a member yet / do not know how to sign up'),o('unaware','ไม่รู้ว่ามีให้เช็กอิน','Did not know check-in was available'),o('noqr','หาจุดสแกน QR ไม่เจอ','Could not find the QR code'),
   o('busy','ไม่สะดวก/ไม่มีเวลา','Inconvenient / no time'),o('error','สแกนแล้วระบบมีปัญหา','The system had a problem when scanning'),
   o('noline','ไม่ได้ใช้ LINE','I do not use LINE'),o('nointerest','ไม่สนใจสะสมแต้ม','Not interested in collecting points'),OTHER()]]]},
  // Part 4
@@ -465,7 +468,7 @@ function render(){
   let h='';
   if(OV){
     $('foot').hidden=true;$('partl').textContent=L==='th'?'ภาพรวมทุกคำถาม':'All questions';$('cnt').textContent='';$('barf').style.width='100%';
-    const CN={p2_2:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาเข้าร่วมเทศกาล','Shown only when Q2.1 is Korat City Expo'),p2_why:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาด้วยเหตุผลอื่น','Shown only when Q2.1 is another reason'),p2_5:T('ถามเฉพาะผู้ที่พักค้างคืน (ข้อ 2.4 ไม่ใช่ไป-กลับหรือคนโคราช)','Shown only to overnight visitors'),p2_8_1:T('ถามเฉพาะผู้ที่พักค้างคืน','Shown only to overnight visitors'),p3_kpwhy:T('ถามเฉพาะผู้ตอบข้อ 3.4 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Shown only if not checked in everywhere'),p5_2:T('ไม่ถามผู้ที่อยู่จังหวัดนครราชสีมา (ข้อ 1.2)','Not shown to Korat residents')};
+    const CN={p2_2:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาเข้าร่วมเทศกาล','Shown only when Q2.1 is Korat City Expo'),p2_why:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาด้วยเหตุผลอื่น','Shown only when Q2.1 is another reason'),p2_5:T('ถามเฉพาะผู้ที่พักค้างคืน (ข้อ 2.4 ไม่ใช่ไป-กลับหรือคนโคราช)','Shown only to overnight visitors'),p2_8_1:T('ถามเฉพาะผู้ที่พักค้างคืน','Shown only to overnight visitors'),p3_kpwhy:T('ถามเฉพาะผู้ตอบข้อ 3.5 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Shown only if not checked in everywhere'),p5_2:T('ไม่ถามผู้ที่อยู่จังหวัดนครราชสีมา (ข้อ 1.2)','Not shown to Korat residents')};
     let n=0;const toc=[];
     h=`<div class="ovhead"><h1>${L==='th'?'แบบสำรวจผู้เข้าร่วมงาน (ฟอร์มรายวัน) · ทุกคำถามในหน้าเดียว':'Participant survey (daily form) · all questions'}</h1><p class="hint">${L==='th'?'หน้านี้ไว้ดูภาพรวมเพื่อแก้/เพิ่มคำถามเท่านั้น ไม่บันทึกคำตอบ · ข้อที่มีเงื่อนไขแสดงไว้ทั้งหมด':'Overview for editing only. Answers are not saved.'}</p>
       <div class="ovpdpa"><b>${L==='th'?'ส่วนนำ · ความยินยอม PDPA':'Introduction · PDPA consent'}</b> ${L==='th'?'(1) ข้าพเจ้ายินยอมให้เก็บและใช้ข้อมูลตามวัตถุประสงค์ (บังคับ) · (2) กรณีอายุต่ำกว่า 20 ปี ผู้ปกครองให้ความยินยอมแล้ว':'(1) Consent (required) · (2) Guardian consent if under 20'}</div><div class="ovtoc" id="ovtoc"></div></div>`;

@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T21:42:00+07:00",
+ "updated": "2026-11-24T08:45:00+07:00",
  "target": 200000,
  "days": [
   "2026-11-20",
@@ -107,6 +107,30 @@
     }
    ],
    "source": "สถิติเช็คอินจากระบบ (ภาพสรุป 22 พ.ย.) เห็นรายละเอียด 2 จุด"
+  },
+  {
+   "date": "2026-11-23",
+   "total": 869,
+   "unique": 698,
+   "points": [
+    {
+     "name": "อนุสาวรีย์ท้าวสุรนารี (ลานย่าโม)",
+     "count": 563
+    },
+    {
+     "name": "ประตูเมืองจำลอง",
+     "count": 80
+    },
+    {
+     "name": "สวนภูมิรักษ์",
+     "count": 0
+    },
+    {
+     "name": "จุดอื่น (รอรายละเอียดแยกจุด)",
+     "count": 226
+    }
+   ],
+   "source": "สรุป KORAT POINT 23 พ.ย. (869 ครั้ง/698 คน) · แยกจุดจากภาพสรุป 3 จุด"
   }
  ],
  "partner": [],
@@ -123,7 +147,18 @@
    }
   ],
   "onlineTarget": 10000,
-  "live": null
+  "live": null,
+  "lineOA": {
+   "friends": 13010,
+   "net": 2719,
+   "asof": "23 พ.ย."
+  },
+  "web": {
+   "users": 1993,
+   "sessions": 2639,
+   "pageviews": 4019,
+   "asof": "1 ต.ค.–23 พ.ย."
+  }
  },
  "prefestival": [
   {
@@ -145,13 +180,17 @@
   "checkin": [
    {
     "date": "2026-11-20",
-    "unique": 371,
-    "source": "สรุป KORAT POINT ณ 21 พ.ย. 16:14"
+    "unique": 371
+   },
+   {
+    "date": "2026-11-23",
+    "unique": 698
    }
   ],
   "checkinCum": {
-   "asof": "21 พ.ย. 16:14",
-   "people": 513
+   "asof": "23 พ.ย.",
+   "people": 1776,
+   "times": 2671
   },
   "engage": [
    {
@@ -165,23 +204,47 @@
     "source": "สรุป KORAT POINT ณ 21 พ.ย. 16:14"
    },
    {
-    "date": "2026-11-21",
-    "total": 3,
-    "spend": 675,
-    "submitted": 33,
-    "partial": true,
-    "source": "คำนวณจากยอดสะสม ณ 21 พ.ย. 16:14 ลบยอด 20 พ.ย."
+    "date": "2026-11-22",
+    "label": "21–22 พ.ย. (รวม 2 วัน ยังไม่แยกวัน)",
+    "total": 196,
+    "source": "คำนวณ: อนุมัติสะสม 472 − 23 พ.ย. 263 − 20 พ.ย. 13"
+   },
+   {
+    "date": "2026-11-23",
+    "total": 263,
+    "submitted": 374,
+    "rejected": 96,
+    "source": "สรุป KORAT POINT 23 พ.ย."
    }
   ],
   "status": {
-   "asof": "21 พ.ย. 16:14",
-   "submitted": 85,
-   "approved": 16,
-   "rejected": 9,
-   "pending": 60,
-   "paper": 32,
-   "people": 13,
-   "spend": 3225
+   "asof": "23 พ.ย. (ส่งข้อความ 24 พ.ย.)",
+   "submitted": 764,
+   "approved": 472,
+   "rejected": 227,
+   "pending": 65
+  },
+  "redeem": {
+   "people": 26,
+   "items": 41,
+   "asof": "23 พ.ย.",
+   "day": {
+    "date": "2026-11-23",
+    "people": 16,
+    "items": 25,
+    "points": 540
+   }
+  },
+  "shops": {
+   "approved": 56,
+   "submitted": 56
+  },
+  "attend": {
+   "cum": 1782,
+   "day": {
+    "date": "2026-11-23",
+    "people": 707
+   }
   }
  },
  "reported": []

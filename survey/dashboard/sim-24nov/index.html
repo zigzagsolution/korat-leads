@@ -881,6 +881,16 @@ function visBlock(o){
   $('gPct').textContent=(tot/200000*100).toFixed(tot<2000?3:1)+'% ของเป้า';
   $('gSrc').innerHTML=o.src.map((s,k)=>`<div class="sw" style="background:${s[2]}">${k+1}</div><div>${s[0]}<div class="w">${s[3]}</div></div><div class="v">${s[1]==null?'<span class="w">รอข้อมูล</span>':f(s[1])}</div>`).join('');
   $('gNote').textContent=o.note;
+  if(!o._real){o._real=1;fetch('/korat-leads/visitation/data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+    const ok=x=>x&&!x.test, sm=a=>(a||[]).filter(ok).reduce((s,x)=>s+(+x.count||+x.total||0),0);
+    const qr=sm(d.checkin), kp=sm((d.kpoint||{}).engage);
+    const ht=(d.hotelRows||[]).filter(ok).reduce((s,h)=>s+Object.values(h.nights||{}).reduce((t,n)=>t+(+n.guests||0),0),0);
+    const pt=sm(d.partner)+kp, tr=sm(d.tour);
+    const last=(d.checkin||[]).map(x=>x.date).sort().pop()||'';
+    if(qr)o.src[0][1]=qr; if(ht)o.src[1][1]=ht; if(pt)o.src[2][1]=pt; if(tr)o.src[3][1]=tr;
+    if(kp)o.src[2][3]+=' · รวมสลิป KORAT POINT ที่อนุมัติ '+f(kp)+' ใบ';
+    o.note='ยอดจริงจากระบบเช็กอินและ KORAT POINT ถึงวันที่ '+(last?+last.slice(8)+' พ.ย.':'-')+' (หน้ารวม 200,000 Visitation) · '+o.note;
+    visBlock(o);}).catch(()=>{});}
 }
 
 (function(){const m=new Map();R.forEach(r=>{const p=m.get(r._uid);if(!p||String(r._submitted)>String(p._submitted))m.set(r._uid,r);});const keep=new Set(m.values());window.DUP=R.length-keep.size;for(let i=R.length-1;i>=0;i--)if(!keep.has(R[i]))R.splice(i,1);})();

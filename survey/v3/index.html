@@ -258,6 +258,12 @@ const S=[
   o('nomember','ยังไม่ได้สมัครสมาชิก/ไม่รู้วิธีสมัคร','Not a member yet / do not know how to sign up'),o('unaware','ไม่รู้ว่ามีให้เช็กอิน','Did not know check-in was available'),o('noqr','หาจุดสแกน QR ไม่เจอ','Could not find the QR code'),
   o('busy','ไม่สะดวก/ไม่มีเวลา','Inconvenient / no time'),o('error','สแกนแล้วระบบมีปัญหา','The system had a problem when scanning'),
   o('noline','ไม่ได้ใช้ LINE เป็นประจำ','I do not use LINE regularly'),o('nointerest','ไม่สนใจสะสมแต้ม','Not interested in collecting points'),OTHER()]]]},
+ {id:'p3_kb',part:3,no:'7',type:'single',q:T('ท่านรู้จักเทศกาล K-BATTLE หรือไม่','Do you know the K-BATTLE festival?'),opts:[
+  o('before','รู้จักมาก่อนแล้ว','Yes, I knew it before'),o('now','เพิ่งรู้จักจากงานอวดเมืองโคราชครั้งนี้','I just got to know it through Korat City Expo this time'),o('no','ไม่รู้จัก','No, I do not know it')]},
+ {id:'p3_kbsrc',part:3,no:'8',type:'multi',show:a=>['before','now'].includes(a.p3_kb?.v),q:T('ท่านรู้จัก K-BATTLE จากช่องทางใด','How did you get to know K-BATTLE?'),
+  pre:T('เฉพาะผู้ตอบข้อ 7 ว่ารู้จัก','Only for respondents who know K-BATTLE in Q7'),groups:[[null,[
+  o('fb_awd','Facebook อวดเมืองโคราช','Facebook: อวดเมืองโคราช (Korat City Expo)'),o('fb_kb','Facebook K-BATTLE','Facebook: K-BATTLE'),o('tt','TikTok','TikTok'),o('ig','Instagram','Instagram'),
+  o('web','เว็บไซต์','Website'),o('line','LINE','LINE'),o('onsite','ป้าย/หน้างาน','Signs / at the venue'),o('wom','เพื่อน/คนรู้จักบอก','Friends / word of mouth'),OTHER()]]]},
  // Part 4
  {id:'p4_1',part:4,no:'1',type:'daily',q:T('กิจกรรมที่ท่านเข้าร่วมในแต่ละวัน','Activities you joined on each day'),pre2:T('แสดงตามวันที่เลือกในข้อ 2.3 · ติ๊กได้หลายกิจกรรม','Based on the days selected in Q2.3 · select all that apply')},
  {id:'p4_2',part:4,no:'2',type:'multi',q:T('จุดประสงค์หลักที่เข้าร่วมงาน','What were your main objectives for attending the event?'),groups:[[null,[

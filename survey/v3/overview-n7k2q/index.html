@@ -262,6 +262,12 @@ const S=[
   o('nomember','ยังไม่ได้สมัครสมาชิก/ไม่รู้วิธีสมัคร','Not a member yet / do not know how to sign up'),o('unaware','ไม่รู้ว่ามีให้เช็กอิน','Did not know check-in was available'),o('noqr','หาจุดสแกน QR ไม่เจอ','Could not find the QR code'),
   o('busy','ไม่สะดวก/ไม่มีเวลา','Inconvenient / no time'),o('error','สแกนแล้วระบบมีปัญหา','The system had a problem when scanning'),
   o('noline','ไม่ได้ใช้ LINE เป็นประจำ','I do not use LINE regularly'),o('nointerest','ไม่สนใจสะสมแต้ม','Not interested in collecting points'),OTHER()]]]},
+ {id:'p3_kb',part:3,no:'7',type:'single',q:T('ท่านรู้จักเทศกาล K-BATTLE หรือไม่','Do you know the K-BATTLE festival?'),opts:[
+  o('before','รู้จักมาก่อนแล้ว','Yes, I knew it before'),o('now','เพิ่งรู้จักจากงานอวดเมืองโคราชครั้งนี้','I just got to know it through Korat City Expo this time'),o('no','ไม่รู้จัก','No, I do not know it')]},
+ {id:'p3_kbsrc',part:3,no:'8',type:'multi',show:a=>['before','now'].includes(a.p3_kb?.v),q:T('ท่านรู้จัก K-BATTLE จากช่องทางใด','How did you get to know K-BATTLE?'),
+  pre:T('เฉพาะผู้ตอบข้อ 7 ว่ารู้จัก','Only for respondents who know K-BATTLE in Q7'),groups:[[null,[
+  o('fb_awd','Facebook อวดเมืองโคราช','Facebook: อวดเมืองโคราช (Korat City Expo)'),o('fb_kb','Facebook K-BATTLE','Facebook: K-BATTLE'),o('tt','TikTok','TikTok'),o('ig','Instagram','Instagram'),
+  o('web','เว็บไซต์','Website'),o('line','LINE','LINE'),o('onsite','ป้าย/หน้างาน','Signs / at the venue'),o('wom','เพื่อน/คนรู้จักบอก','Friends / word of mouth'),OTHER()]]]},
  // Part 4
  {id:'p4_1',part:4,no:'1',type:'daily',q:T('กิจกรรมที่ท่านเข้าร่วมในแต่ละวัน','Activities you joined on each day'),pre2:T('แสดงตามวันที่เลือกในข้อ 2.3 · ติ๊กได้หลายกิจกรรม','Based on the days selected in Q2.3 · select all that apply')},
  {id:'p4_2',part:4,no:'2',type:'multi',q:T('จุดประสงค์หลักที่เข้าร่วมงาน','What were your main objectives for attending the event?'),groups:[[null,[
@@ -468,7 +474,7 @@ function render(){
   let h='';
   if(OV){
     $('foot').hidden=true;$('partl').textContent=L==='th'?'ภาพรวมทุกคำถาม':'All questions';$('cnt').textContent='';$('barf').style.width='100%';
-    const CN={p2_2:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาเข้าร่วมเทศกาล','Shown only when Q2.1 is Korat City Expo'),p2_why:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาด้วยเหตุผลอื่น','Shown only when Q2.1 is another reason'),p2_5:T('ถามเฉพาะผู้ที่พักค้างคืน (ข้อ 2.4 ไม่ใช่ไป-กลับหรือคนโคราช)','Shown only to overnight visitors'),p2_8_1:T('ถามเฉพาะผู้ที่พักค้างคืน','Shown only to overnight visitors'),p3_kpwhy:T('ถามเฉพาะผู้ตอบข้อ 3.5 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Shown only if not checked in everywhere'),p5_2:T('ไม่ถามผู้ที่อยู่จังหวัดนครราชสีมา (ข้อ 1.2)','Not shown to Korat residents')};
+    const CN={p2_2:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาเข้าร่วมเทศกาล','Shown only when Q2.1 is Korat City Expo'),p2_why:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาด้วยเหตุผลอื่น','Shown only when Q2.1 is another reason'),p2_5:T('ถามเฉพาะผู้ที่พักค้างคืน (ข้อ 2.4 ไม่ใช่ไป-กลับหรือคนโคราช)','Shown only to overnight visitors'),p2_8_1:T('ถามเฉพาะผู้ที่พักค้างคืน','Shown only to overnight visitors'),p3_kpwhy:T('ถามเฉพาะผู้ตอบข้อ 3.5 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Shown only if not checked in everywhere'),p3_kbsrc:T('ถามเฉพาะผู้ตอบข้อ 3.7 ว่ารู้จัก K-BATTLE','Shown only if the respondent knows K-BATTLE'),p5_2:T('ไม่ถามผู้ที่อยู่จังหวัดนครราชสีมา (ข้อ 1.2)','Not shown to Korat residents')};
     let n=0;const toc=[];
     h=`<div class="ovhead"><h1>${L==='th'?'แบบสำรวจผู้เข้าร่วมงาน (ฟอร์มรายวัน) · ทุกคำถามในหน้าเดียว':'Participant survey (daily form) · all questions'}</h1><p class="hint">${L==='th'?'หน้านี้ไว้ดูภาพรวมเพื่อแก้/เพิ่มคำถามเท่านั้น ไม่บันทึกคำตอบ · ข้อที่มีเงื่อนไขแสดงไว้ทั้งหมด':'Overview for editing only. Answers are not saved.'}</p>
       <div class="ovpdpa"><b>${L==='th'?'ส่วนนำ · ความยินยอม PDPA':'Introduction · PDPA consent'}</b> ${L==='th'?'(1) ข้าพเจ้ายินยอมให้เก็บและใช้ข้อมูลตามวัตถุประสงค์ (บังคับ) · (2) กรณีอายุต่ำกว่า 20 ปี ผู้ปกครองให้ความยินยอมแล้ว':'(1) Consent (required) · (2) Guardian consent if under 20'}</div><div class="ovtoc" id="ovtoc"></div></div>`;

@@ -1460,6 +1460,7 @@ function goCard(s){ // 2.7.2 everyone in the group + vehicles
   h+=bars(rows,pp||1,PC[2]);
   return `<div class="qc wide">${h}</div>`;
 }
+const BCN={p2_stay:T('ถามเฉพาะผู้ที่มาเป็นกลุ่ม (ข้อ 2.7 มากกว่า 1 คน) และไม่ได้ตอบข้อ 2.4 ว่าอยู่โคราช','Shown only for groups (more than 1 person in Q2.7) not living in Korat'),p2_go:T('ถามเฉพาะผู้ที่มาเป็นกลุ่ม (ข้อ 2.7 มากกว่า 1 คน) และไม่ได้ตอบข้อ 2.6 ว่าอยู่โคราช','Shown only for groups (more than 1 person in Q2.7) not living in Korat'),p2_2:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาเข้าร่วมเทศกาล','Shown only when Q2.1 is Korat City Expo'),p2_why:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาด้วยเหตุผลอื่น','Shown only when Q2.1 is another reason'),p2_5:T('ถามเฉพาะผู้ที่พักค้างคืน (ข้อ 2.4 ไม่ใช่ไป-กลับหรือคนโคราช)','Shown only to overnight visitors'),p2_8_1:T('ถามเฉพาะผู้ที่พักค้างคืน','Shown only to overnight visitors'),p3_kpwhy:T('ถามเฉพาะผู้ตอบข้อ 3.5 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Shown only if not checked in everywhere'),p4_main:T('ถามเฉพาะคนที่มางานวันที่ 24 พ.ย. ตามข้อ 2.3','Shown only if 24 Nov is selected in Q2.3'),p4_other:T('ถามเฉพาะผู้ที่มีเหตุผลหลักในข้อ 4.3','Shown only if a main reason is chosen in Q4.3'),p3_kbsrc:T('ถามเฉพาะผู้ตอบข้อ 3.7.1 ว่ารู้จัก K-BATTLE · ตอบข้อเดียว · ตัวเลือกสลับลำดับให้แต่ละคน','Shown only if the respondent knows K-BATTLE · one answer · options shuffled per respondent'),p5_2:T('ไม่ถามผู้ที่อยู่จังหวัดนครราชสีมา (ข้อ 1.2)','Not shown to Korat residents')};
 function card(s){
   if(s.id==='p2_stay') return stayCard(s);
   if(s.id==='p2_go') return goCard(s);
@@ -1485,7 +1486,7 @@ function card(s){
   const c=PC[s.part]; const ans=answered(s.id); const n=ans.length;
   let h=`<div class="qn">ข้อ ${s.part}.${s.no||'-'}</div><h3>${esc(tx(s.q))}</h3>`;
   const elig=s.show?R.filter(r=>s.show(r)).length:N;
-  h+=`<div class="meta">ตอบ ${n} จาก ${elig} คน${s.show?' (ข้อนี้ถามเฉพาะบางคน)':''}${s.type==='multi'?' · ตอบได้หลายข้อ':''}</div>`;
+  h+=`<div class="meta">ตอบ ${n} จาก ${elig} คน${s.show?' ('+(BCN[s.id]?tx(BCN[s.id]):'ข้อนี้ถามเฉพาะบางคน')+')':''}${s.show&&n<elig?' · ยังไม่ได้ตอบ '+(elig-n)+' คน (ตอบแบบสอบถามก่อนเพิ่มข้อนี้)':''}${s.type==='multi'?' · ตอบได้หลายข้อ':''}</div>`;
   let wide=false, extra=[];
   if(s.type==='single'||s.type==='chips'){
     h+=bars(s.opts.map(op=>[tx(op.t),ans.filter(r=>r[s.id].v===op.v).length]).sort((a,b)=>b[1]-a[1]),n||1,c);

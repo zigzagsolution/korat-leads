@@ -664,7 +664,7 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
  <div class="gk">แดชบอร์ดแบบสำรวจผู้เข้าร่วมงาน</div><h2>เทศกาลอวดเมือง โคราช 2569</h2>
  <p>สำหรับทีมงาน กรุณาใส่รหัสเข้าดู</p>
  <input id="gpin" type="password" inputmode="numeric" autocomplete="off" placeholder="รหัส" aria-label="รหัสเข้าดู">
- <label class="gt2"><input type="checkbox" id="gtest"> รวมคำตอบที่ส่งจากลิงก์ทดลอง (?test=1)</label>
+ <input type="checkbox" id="gtest" hidden>
  <button id="ggo">เข้าดู</button><div id="gmsg" role="status"></div></div></div>
 <style>
 #gate{position:fixed;inset:0;z-index:999;background:var(--bg);display:grid;place-items:center;padding:16px;overflow:auto}
@@ -719,8 +719,8 @@ async function load(pin,withTest){
 }
 $('ggo').onclick=()=>{const p=$('gpin').value.trim();if(!p){$('gmsg').className='err';$('gmsg').textContent='กรุณาใส่รหัส';return;}load(p,$('gtest').checked);};
 $('gpin').onkeydown=e=>{if(e.key==='Enter')$('ggo').click();};
-$('gtest').checked=ss.get('svtest')==='1';
-const sp=ss.get('svpin');if(sp)load(sp,ss.get('svtest')==='1');
+$('gtest').checked=false;
+const sp=ss.get('svpin');if(sp)load(sp,false);
 })();
 </script>
 <script type="text/plain" id="boardjs">

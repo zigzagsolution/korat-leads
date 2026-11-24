@@ -711,7 +711,7 @@ async function load(pin,withTest){
   document.body.prepend(bar);$('lvre').onclick=()=>location.reload();
   $('gate').remove();
   const sub=$('lvsub');if(sub)sub.textContent=`เทศกาลอวดเมือง โคราช 2569 · แบบสำรวจผู้เข้าร่วมงาน (ฟอร์มรายวัน) · คำตอบล่าสุด ${last?fmt(last):'-'}`+(nV2?` · ฟอร์มเดิมอีก ${nV2} คำตอบ (ไม่รวมในแดชบอร์ดนี้)`:'');
-  const ft=$('lvfoot');if(ft)ft.textContent=`คำตอบจริง ${real.length.toLocaleString('en-US')} + ข้อมูลประมาณการ ${sim.length.toLocaleString('en-US')} คำตอบ`+(withTest&&nT?' · มีคำตอบจากลิงก์ทดลองรวมอยู่ด้วย':'');
+  const ft=$('lvfoot');if(ft)ft.textContent='แบบสำรวจผู้เข้าร่วมงาน';
   if(!window.__R.length){const e=document.createElement('div');e.className='lvempty';e.innerHTML='<h2>ยังไม่มีคำตอบ</h2><p>เมื่อมีผู้ตอบแบบสำรวจ (ฟอร์มรายวัน) ข้อมูลจะขึ้นที่นี่ กด "อัปเดตข้อมูล" เพื่อดูล่าสุด'+(nT&&!withTest?`<br>ตอนนี้มีคำตอบจากลิงก์ทดลอง ${nT} รายการ ติ๊ก "รวมคำตอบที่ส่งจากลิงก์ทดลอง" ตอนใส่รหัสเพื่อดู`:'')+'</p>';
     [...document.body.children].forEach(c=>{if(c!==bar&&c.tagName!=='SCRIPT'&&c.tagName!=='STYLE')c.style.display='none'});document.body.append(e);
     $('lvre').textContent='อัปเดตข้อมูล';return;}

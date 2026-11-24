@@ -699,7 +699,7 @@ async function load(pin,withTest){
   const all=j.rows||[], nT=all.filter(x=>x.test).length;
   const use=all.filter(x=>x.form==='v3'&&(withTest||!x.test));
   const nV2=all.filter(x=>x.form!=='v3'&&(withTest||!x.test)).length;
-  window.__R=use.map(x=>Object.assign({},x.answers||{},{_uid:x.uid||('web-'+String(x.sid||x.id).slice(-8)),_submitted:(x.answers&&x.answers._submitted)||x.createdAt,_src:x.src,_test:!!x.test}));
+  window.__R=use.map(x=>Object.assign({},x.answers||{},{_uid:x.uid||('web-'+String(x.sid||x.id).slice(-8)),_submitted:(x.answers&&x.answers._submitted)||x.createdAt,_src:x.src,_test:!!x.test,_kp:x.kp_status||x.kpStatus||(x.answers&&x.answers._kp)||null}));
   const last=all.reduce((m,x)=>x.createdAt>m?x.createdAt:m,'');
   const bar=document.createElement('div');bar.className='lvbar';
   bar.innerHTML=`<span>ข้อมูลจริง · ${use.length.toLocaleString('en-US')} คำตอบ${withTest?` (รวมทดลอง ${use.filter(x=>x.test).length})`:''} · อัปเดต ${fmt(new Date())}</span><button id="lvre">อัปเดตข้อมูล</button>`;
@@ -824,11 +824,14 @@ const S=[
   o('reg','ลงทะเบียนผ่านเว็บไซต์','Registered via website'),o('checkin','เช็กอิน/โพสต์ภาพพร้อมแฮชแท็กงาน','Checked in / Posted photos with event hashtags'),o('share','แชร์คลิป/ภาพ','Shared video clips / photos'),
   o('online','ร่วมกิจกรรมออนไลน์/ตอบคำถาม','Joined online activities / quizzes'),o('points','สะสมแต้ม/แลกของที่ระลึก','Collected points / Redeemed souvenirs'),
   o('follow','ติดตามเพจ/Line OA ของงาน','Followed the event’s page / LINE OA'),o('none','ไม่ได้ร่วมกิจกรรมใด','Did not participate in any activity',{excl:true})]]]},
- {id:'p3_kp',part:3,no:'4',type:'single',q:T('ท่านเช็กอินผ่าน KORAT POINT (สแกน QR ที่จุดจัดงาน) หรือไม่','Did you check in with KORAT POINT (scan the QR code at event spots)?'),opts:[
+ {id:'p3_kpmem',part:3,no:'4',type:'single',q:T('ท่านเป็นสมาชิกสะสมแต้ม KORAT POINT หรือไม่','Are you a KORAT POINT points member?'),opts:[
+  o('earn','เป็นสมาชิก และสะสมแต้มแล้ว','Yes, a member and I have collected points'),o('member','เป็นสมาชิกแล้ว แต่ยังไม่เคยสะสมแต้ม','Yes, a member but I have not collected points yet'),
+  o('lineonly','แอดไลน์ KORAT POINT อย่างเดียว ยังไม่ได้สมัครสมาชิก','I only added the KORAT POINT LINE account, not signed up as a member')]},
+ {id:'p3_kp',part:3,no:'5',type:'single',q:T('ท่านเช็กอินผ่าน KORAT POINT (สแกน QR ที่จุดจัดงาน) หรือไม่','Did you check in with KORAT POINT (scan the QR code at event spots)?'),opts:[
   o('all','เช็กอินทุกจุดที่ไป','Yes, at every spot I visited'),o('some','เช็กอินบางจุด','Yes, at some spots'),o('none','ไม่ได้เช็กอินเลย','No, I did not check in')]},
- {id:'p3_kpwhy',part:3,no:'5',type:'multi',show:a=>['some','none'].includes(a.p3_kp?.v),q:T('เหตุผลที่ไม่ได้เช็กอิน (บางจุดหรือทั้งหมด)','Why did you not check in (at some or all spots)?'),
-  pre:T('เฉพาะผู้ตอบข้อ 4 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Only for respondents who checked in at some spots or not at all in Q4'),groups:[[null,[
-  o('unaware','ไม่รู้ว่ามีให้เช็กอิน','Did not know check-in was available'),o('noqr','หาจุดสแกน QR ไม่เจอ','Could not find the QR code'),
+ {id:'p3_kpwhy',part:3,no:'6',type:'multi',show:a=>['some','none'].includes(a.p3_kp?.v),q:T('เหตุผลที่ไม่ได้เช็กอิน (บางจุดหรือทั้งหมด)','Why did you not check in (at some or all spots)?'),
+  pre:T('เฉพาะผู้ตอบข้อ 5 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Only for respondents who checked in at some spots or not at all in Q5'),groups:[[null,[
+  o('nomember','ยังไม่ได้สมัครสมาชิก/ไม่รู้วิธีสมัคร','Not a member yet / do not know how to sign up'),o('unaware','ไม่รู้ว่ามีให้เช็กอิน','Did not know check-in was available'),o('noqr','หาจุดสแกน QR ไม่เจอ','Could not find the QR code'),
   o('busy','ไม่สะดวก/ไม่มีเวลา','Inconvenient / no time'),o('error','สแกนแล้วระบบมีปัญหา','The system had a problem when scanning'),
   o('noline','ไม่ได้ใช้ LINE','I do not use LINE'),o('nointerest','ไม่สนใจสะสมแต้ม','Not interested in collecting points'),OTHER()]]]},
  // Part 4
@@ -1228,6 +1231,17 @@ function textCard(s){ // 8.2–8.4 ranked
   if(e.length>8) h+=`<div class="leg">และคำตอบอื่นอีก ${e.length-8} แบบ</div>`;
   return `<div class="qc">${h}</div>`;
 }
+function kpFunnel(s){ // 3.4 membership funnel + system cross-check
+  const ans=answered(s.id), n=ans.length, c=v=>ans.filter(r=>r[s.id].v===v).length, e=c('earn'), m=c('member'), all=ans.filter(r=>r.p3_kp?.v==='all').length;
+  let h=`<div class="qn">ข้อ 3.4</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน · ทุกคนตอบผ่าน LINE จึงแอดไลน์แล้วทั้งหมด</div>`;
+  const st=[['แอดไลน์ KORAT POINT',n,'#5d72a0'],['สมัครสมาชิกแล้ว',e+m,'#00837B'],['สะสมแต้มแล้ว',e,'#003674'],['เช็กอินทุกจุด (ข้อ 3.5)',all,'#D34016']];
+  h+=`<div class="fun">${st.map(([t,v,col],i)=>`<div class="fs" style="--w:${Math.max(30,n?v/n*100:0).toFixed(0)}%;--c:${col};--d:${(i*.15).toFixed(2)}s"><div class="fb"><b>${v.toLocaleString('en-US')}</b><span>${pct(v,n)}%</span></div><div class="ft">${t}</div></div>`).join('')}</div>`;
+  const sys=ans.filter(r=>r._kp==='credited'||r._kp==='member'||r._kp==='not_member'||r._kp==='already');
+  if(sys.length){const sm=sys.filter(r=>r._kp!=='not_member'), self=r=>['earn','member'].includes(r[s.id].v), agree=sys.filter(r=>self(r)===(r._kp!=='not_member')).length;
+    h+=`<div class="stat3" style="margin-top:14px"><div><b>${pct(sm.length,sys.length)}%</b><span>เป็นสมาชิกตามระบบ KORAT POINT (${sys.length} คนที่ระบบเช็กได้)</span></div><div><b>${pct(agree,sys.length)}%</b><span>คำตอบตรงกับระบบ</span></div><div><b>${sys.length-agree}</b><span>คนที่ตอบไม่ตรงกับระบบ</span></div></div>`;}
+  else h+=`<div class="leg" style="margin-top:10px">ผลเช็กสมาชิกจากระบบ KORAT POINT จะขึ้นคู่กันเมื่อมีข้อมูลจากระบบ</div>`;
+  return `<div class="qc">${h}</div>`;
+}
 function impactCard(s){ // 2.2 (new): did the event bring people to Korat?
   const base=R.filter(r=>r.p2_1&&r.p2_1.v), n=base.length;
   const K=[['for','มาเพราะงานนี้โดยเฉพาะ','ตอบข้อ 2.1 ว่ามาเข้าร่วมเทศกาล',IC.star,'#D34016',r=>FEST.includes(r.p2_1.v)],
@@ -1378,6 +1392,7 @@ function card(s){
   if(s.id==='p4_1') return dailyCard(s);
   if(s.id==='p2_4') return nights2(s);
   if(s.id==='p2_why') return impactCard(s);
+  if(s.id==='p3_kpmem') return kpFunnel(s);
   if(/^p2_8_[1-5]$/.test(s.id)) return money2(s);
   if(s.id==='p1_4') return ageCard(s);
   if(ICONSET[s.id]) return iconCard(s);

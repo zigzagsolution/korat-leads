@@ -248,11 +248,14 @@ const S=[
   o('reg','ลงทะเบียนผ่านเว็บไซต์','Registered via website'),o('checkin','เช็กอิน/โพสต์ภาพพร้อมแฮชแท็กงาน','Checked in / Posted photos with event hashtags'),o('share','แชร์คลิป/ภาพ','Shared video clips / photos'),
   o('online','ร่วมกิจกรรมออนไลน์/ตอบคำถาม','Joined online activities / quizzes'),o('points','สะสมแต้ม/แลกของที่ระลึก','Collected points / Redeemed souvenirs'),
   o('follow','ติดตามเพจ/Line OA ของงาน','Followed the event’s page / LINE OA'),o('none','ไม่ได้ร่วมกิจกรรมใด','Did not participate in any activity',{excl:true})]]]},
- {id:'p3_kp',part:3,no:'4',type:'single',q:T('ท่านเช็กอินผ่าน KORAT POINT (สแกน QR ที่จุดจัดงาน) หรือไม่','Did you check in with KORAT POINT (scan the QR code at event spots)?'),opts:[
+ {id:'p3_kpmem',part:3,no:'4',type:'single',q:T('ท่านเป็นสมาชิกสะสมแต้ม KORAT POINT หรือไม่','Are you a KORAT POINT points member?'),opts:[
+  o('earn','เป็นสมาชิก และสะสมแต้มแล้ว','Yes, a member and I have collected points'),o('member','เป็นสมาชิกแล้ว แต่ยังไม่เคยสะสมแต้ม','Yes, a member but I have not collected points yet'),
+  o('lineonly','แอดไลน์ KORAT POINT อย่างเดียว ยังไม่ได้สมัครสมาชิก','I only added the KORAT POINT LINE account, not signed up as a member')]},
+ {id:'p3_kp',part:3,no:'5',type:'single',q:T('ท่านเช็กอินผ่าน KORAT POINT (สแกน QR ที่จุดจัดงาน) หรือไม่','Did you check in with KORAT POINT (scan the QR code at event spots)?'),opts:[
   o('all','เช็กอินทุกจุดที่ไป','Yes, at every spot I visited'),o('some','เช็กอินบางจุด','Yes, at some spots'),o('none','ไม่ได้เช็กอินเลย','No, I did not check in')]},
- {id:'p3_kpwhy',part:3,no:'5',type:'multi',show:a=>['some','none'].includes(a.p3_kp?.v),q:T('เหตุผลที่ไม่ได้เช็กอิน (บางจุดหรือทั้งหมด)','Why did you not check in (at some or all spots)?'),
-  pre:T('เฉพาะผู้ตอบข้อ 4 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Only for respondents who checked in at some spots or not at all in Q4'),groups:[[null,[
-  o('unaware','ไม่รู้ว่ามีให้เช็กอิน','Did not know check-in was available'),o('noqr','หาจุดสแกน QR ไม่เจอ','Could not find the QR code'),
+ {id:'p3_kpwhy',part:3,no:'6',type:'multi',show:a=>['some','none'].includes(a.p3_kp?.v),q:T('เหตุผลที่ไม่ได้เช็กอิน (บางจุดหรือทั้งหมด)','Why did you not check in (at some or all spots)?'),
+  pre:T('เฉพาะผู้ตอบข้อ 5 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Only for respondents who checked in at some spots or not at all in Q5'),groups:[[null,[
+  o('nomember','ยังไม่ได้สมัครสมาชิก/ไม่รู้วิธีสมัคร','Not a member yet / do not know how to sign up'),o('unaware','ไม่รู้ว่ามีให้เช็กอิน','Did not know check-in was available'),o('noqr','หาจุดสแกน QR ไม่เจอ','Could not find the QR code'),
   o('busy','ไม่สะดวก/ไม่มีเวลา','Inconvenient / no time'),o('error','สแกนแล้วระบบมีปัญหา','The system had a problem when scanning'),
   o('noline','ไม่ได้ใช้ LINE','I do not use LINE'),o('nointerest','ไม่สนใจสะสมแต้ม','Not interested in collecting points'),OTHER()]]]},
  // Part 4

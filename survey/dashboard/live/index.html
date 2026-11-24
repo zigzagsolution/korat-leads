@@ -725,6 +725,14 @@ const sp=ss.get('svpin');if(sp)load(sp,false);
 </script>
 <script type="text/plain" id="boardjs">
 const R=window.__R;
+(function(){const q=new URLSearchParams(location.search), D=q.get('day'), days=['20','21','22','23','24','25','26','27','28','29'];
+ const has=new Set();R.forEach(r=>(r.p2_3?.v||[]).forEach(d=>has.add(String(d))));
+ if(D){for(let i=R.length-1;i>=0;i--){if(!(R[i].p2_3?.v||[]).map(String).includes(D))R.splice(i,1);}}
+ const u=d=>{const x=new URLSearchParams(location.search);d?x.set('day',d):x.delete('day');return location.pathname+(x.toString()?'?'+x:'')+location.hash;};
+ const el=document.createElement('div');el.className='dayf';
+ el.innerHTML='<span>ดูเฉพาะคนที่มาวันที่</span>'+[['','ทุกวัน']].concat(days.filter(d=>has.has(d)).map(d=>[d,d+' พ.ย.'])).map(([d,t])=>`<a href="${u(d)}" class="${(D||'')===d?'on':''}">${t}</a>`).join('')+(D?`<em>แสดง ${R.length.toLocaleString('en-US')} คนที่มาวันที่ ${D} พ.ย. (ข้อมูลทุกข้อของคนกลุ่มนี้)</em>`:'');
+ const st=document.createElement('style');st.textContent='.dayf{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:14px 0 4px;font-size:14px}.dayf span{color:var(--muted);margin-right:4px}.dayf a{padding:6px 12px;border-radius:999px;background:var(--soft);color:var(--ink);text-decoration:none;font-weight:600}.dayf a.on{background:#D34016;color:#fff}.dayf em{flex-basis:100%;font-style:normal;color:#D34016;font-size:13px;margin-top:4px}';
+ document.head.append(st);const w=document.querySelector('main .wrap');if(w)w.prepend(el);})();
 const T=(th,en)=>({th,en});
 const UI={
   brand:T('เทศกาลอวดเมือง โคราช 2569','Korat City Expo 2026'),

@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T14:45:00+07:00",
+ "updated": "2026-11-25T00:45:00+07:00",
  "target": 200000,
  "days": [
   "2026-11-20",
@@ -34,8 +34,8 @@
  "checkin": [
   {
    "date": "2026-11-20",
-   "total": 651,
-   "unique": 371,
+   "total": 630,
+   "unique": 358,
    "points": [
     {
      "name": "อนุสาวรีย์ท้าวสุรนารี (ลานย่าโม)",
@@ -50,12 +50,12 @@
      "count": 345
     }
    ],
-   "source": "สรุปจากทีมงาน (ข้อความรายวัน)"
+   "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42) · แยกจุดตามสรุปเดิม (รวม 651 ครั้ง)"
   },
   {
    "date": "2026-11-21",
-   "total": 549,
-   "unique": 493,
+   "total": 535,
+   "unique": 482,
    "points": [
     {
      "name": "อนุสาวรีย์ท้าวสุรนารี (ลานย่าโม)",
@@ -86,12 +86,12 @@
      "count": 37
     }
    ],
-   "source": "สถิติเช็คอินจากระบบ (ภาพสรุป 21 พ.ย. 23:27)"
+   "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42) · แยกจุดตามสรุปเดิม (รวม 549 ครั้ง)"
   },
   {
    "date": "2026-11-22",
    "total": 581,
-   "unique": 484,
+   "unique": 476,
    "points": [
     {
      "name": "อนุสาวรีย์ท้าวสุรนารี (ลานย่าโม)",
@@ -106,12 +106,12 @@
      "count": 266
     }
    ],
-   "source": "สถิติเช็คอินจากระบบ (ภาพสรุป 22 พ.ย.) เห็นรายละเอียด 2 จุด"
+   "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
   },
   {
    "date": "2026-11-23",
-   "total": 869,
-   "unique": 698,
+   "total": 846,
+   "unique": 685,
    "points": [
     {
      "name": "อนุสาวรีย์ท้าวสุรนารี (ลานย่าโม)",
@@ -127,10 +127,22 @@
     },
     {
      "name": "จุดอื่น (รอรายละเอียดแยกจุด)",
-     "count": 226
+     "count": 203
     }
    ],
-   "source": "สรุป KORAT POINT 23 พ.ย. (869 ครั้ง/698 คน) · แยกจุดจากภาพสรุป 3 จุด"
+   "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
+  },
+  {
+   "date": "2026-11-24",
+   "points": [
+    {
+     "name": "รวมทุกจุด (รอรายละเอียดแยกจุด)",
+     "count": 1366
+    }
+   ],
+   "total": 1366,
+   "unique": 1076,
+   "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
   }
  ],
  "partner": [],
@@ -238,60 +250,75 @@
   "checkin": [
    {
     "date": "2026-11-20",
-    "unique": 371
+    "total": 630,
+    "unique": 358
+   },
+   {
+    "date": "2026-11-21",
+    "total": 535,
+    "unique": 482
+   },
+   {
+    "date": "2026-11-22",
+    "total": 581,
+    "unique": 476
    },
    {
     "date": "2026-11-23",
-    "unique": 698
+    "total": 846,
+    "unique": 685
+   },
+   {
+    "date": "2026-11-24",
+    "total": 1366,
+    "unique": 1076
    }
   ],
   "checkinCum": {
-   "asof": "23 พ.ย.",
-   "people": 1776,
-   "times": 2671
+   "asof": "24 พ.ย.",
+   "people": 2669,
+   "times": 3958
   },
   "engage": [
    {
     "date": "2026-11-20",
-    "total": 13,
-    "people": 11,
-    "spend": 2550,
-    "spendReg": 2351,
-    "spendGen": 199,
-    "submitted": 52,
-    "source": "สรุป KORAT POINT ณ 21 พ.ย. 16:14"
+    "total": 2,
+    "points": 6,
+    "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
+   },
+   {
+    "date": "2026-11-21",
+    "total": 47,
+    "points": 185,
+    "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
    },
    {
     "date": "2026-11-22",
-    "label": "21–22 พ.ย. (รวม 2 วัน ยังไม่แยกวัน)",
-    "total": 196,
-    "source": "คำนวณ: อนุมัติสะสม 472 − 23 พ.ย. 263 − 20 พ.ย. 13"
+    "total": 101,
+    "points": 365,
+    "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
    },
    {
     "date": "2026-11-23",
-    "total": 263,
-    "submitted": 374,
-    "rejected": 96,
-    "source": "สรุป KORAT POINT 23 พ.ย."
+    "total": 192,
+    "points": 703,
+    "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
+   },
+   {
+    "date": "2026-11-24",
+    "total": 171,
+    "points": 882,
+    "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
    }
   ],
   "status": {
-   "asof": "23 พ.ย. (ส่งข้อความ 24 พ.ย.)",
-   "submitted": 764,
-   "approved": 472,
-   "rejected": 227,
-   "pending": 65
+   "asof": "24 พ.ย.",
+   "approved": 513
   },
   "redeem": {
-   "people": 26,
-   "items": 41,
-   "asof": "23 พ.ย.",
-   "day": {
-    "date": "2026-11-23",
-    "people": 16,
-    "items": 25,
-    "points": 540
-   }
+   "items": 65,
+   "points": 1280,
+   "asof": "24 พ.ย."
   },
   "shops": {
    "approved": 56,
@@ -303,6 +330,62 @@
     "date": "2026-11-23",
     "people": 707
    }
+  },
+  "daily": [
+   {
+    "date": "2026-11-20",
+    "checkin": 630,
+    "people": 358,
+    "newMembers": 508,
+    "redeemItems": 0,
+    "redeemPoints": 0,
+    "slips": 2,
+    "slipPoints": 6
+   },
+   {
+    "date": "2026-11-21",
+    "checkin": 535,
+    "people": 482,
+    "newMembers": 481,
+    "redeemItems": 6,
+    "redeemPoints": 45,
+    "slips": 47,
+    "slipPoints": 185
+   },
+   {
+    "date": "2026-11-22",
+    "checkin": 581,
+    "people": 476,
+    "newMembers": 446,
+    "redeemItems": 10,
+    "redeemPoints": 195,
+    "slips": 101,
+    "slipPoints": 365
+   },
+   {
+    "date": "2026-11-23",
+    "checkin": 846,
+    "people": 685,
+    "newMembers": 663,
+    "redeemItems": 25,
+    "redeemPoints": 540,
+    "slips": 192,
+    "slipPoints": 703
+   },
+   {
+    "date": "2026-11-24",
+    "checkin": 1366,
+    "people": 1076,
+    "newMembers": 1004,
+    "redeemItems": 24,
+    "redeemPoints": 500,
+    "slips": 171,
+    "slipPoints": 882
+   }
+  ],
+  "members": {
+   "asof": "24 พ.ย.",
+   "new": 3102
   }
  },
  "reported": []

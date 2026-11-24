@@ -277,6 +277,7 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 .qc.in .ivt i,.qc.in .hist i{animation:rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
 @keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 .ivt b{font-family:var(--display);font-size:14px}.ivt span{font-size:12px;color:var(--muted);line-height:1.2}.ivt small{font-size:11.5px;color:var(--muted)}
+.kpst{display:flex;height:22px;border-radius:11px;overflow:hidden;background:var(--soft);gap:2px}.kpst i{display:block;height:100%}.kpax{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:4px}
 .fun{display:flex;flex-direction:column;align-items:center;gap:6px}
 .fs{width:100%;display:flex;flex-direction:column;align-items:center}
 .fb{box-sizing:border-box;width:var(--w);background:var(--c);color:#fff;border-radius:12px;padding:10px 12px;display:flex;justify-content:center;align-items:baseline;gap:8px;transform-origin:center}
@@ -921,7 +922,7 @@ const PERSON=c=>`<svg viewBox="0 0 14 18"><circle cx="7" cy="4" r="3.2" fill="${
 function typeCard(s){
   const ans=answered(s.id), n=ans.length, unit=Math.max(1,Math.ceil(n/20));
   let h=`<div class="qn">ข้อ 1.1</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน</div><div class="tgrid">`;
-  s.opts.forEach(op=>{const v=ans.filter(r=>r[s.id].v===op.v).length, c=TCOL[op.v]||'#003674', k=Math.round(v/unit);
+  s.opts.slice().sort((a,b)=>ans.filter(r=>r[s.id].v===b.v).length-ans.filter(r=>r[s.id].v===a.v).length).forEach(op=>{const v=ans.filter(r=>r[s.id].v===op.v).length, c=TCOL[op.v]||'#003674', k=Math.round(v/unit);
     h+=`<div class="tt ${v?'':'z'}"><div class="ti" style="background:${c}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${TICON[op.v]||''}</svg></div>
     <div class="tl">${esc(tx(op.t))}</div><div class="tv">${v}<small>คน · ${n?Math.round(v/n*100):0}%</small></div>
     <div class="ppl">${PERSON(c).repeat(k)||'<span class="meta" style="margin:0">ยังไม่มี</span>'}</div></div>`;});
@@ -980,9 +981,10 @@ const TPAL=['#D34016','#00837B','#003674','#8F4FE0','#C0393B','#5d72a0'];
 function iconCard(s){
   const ans=answered(s.id), n=ans.length, unit=Math.max(1,Math.ceil(n/20)), ic=ICONSET[s.id], cls=s.opts.length>=6?'c6':s.opts.length===4?'c4':'c3';
   let h=`<div class="qn">ข้อ ${s.part}.${s.no}</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน</div><div class="tgrid ${cls}">`, extra=[];
-  s.opts.forEach((op,i)=>{const rs=ans.filter(r=>r[s.id].v===op.v), v=rs.length, c=TPAL[i%TPAL.length], k=Math.round(v/unit), b=(BADGE[s.id]||{})[op.v];if(op.old&&!v)return;
+  const ORD=['p1_7','p1_8'], oo=s.opts.map((op,i)=>[op,i,ans.filter(r=>r[s.id].v===op.v).length]); if(!ORD.includes(s.id)) oo.sort((a,b)=>b[2]-a[2]||a[1]-b[1]);
+  oo.forEach(([op,i],j)=>{const rs=ans.filter(r=>r[s.id].v===op.v), v=rs.length, c=TPAL[i%TPAL.length], k=Math.round(v/unit), b=(BADGE[s.id]||{})[op.v];if(op.old&&!v)return;
     rs.forEach(r=>{const a=r[s.id];if(op.text&&a.text) extra.push([tx(op.t)+': '+a.text,r._uid]); if(a.people) extra.push([tx(op.t)+' · '+a.people+' คน'+(a.gtype&&op.subq?' ('+tx((op.subq.opts.find(x=>x.v===a.gtype)||{t:{th:a.gtype}}).t)+')':''),r._uid]);});
-    h+=`<div class="tt ${v?'':'z'} ${VEH[s.id]?'veh':''}" style="--d:${(i*.08).toFixed(2)}s"><div class="ti" style="background:${c}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ic[op.v]||DOTS}</svg>${b?`<em>${b}</em>`:''}</div>
+    h+=`<div class="tt ${v?'':'z'} ${VEH[s.id]?'veh':''}" style="--d:${(j*.08).toFixed(2)}s"><div class="ti" style="background:${c}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ic[op.v]||DOTS}</svg>${b?`<em>${b}</em>`:''}</div>
     <div class="tl">${esc(tx(op.t))}</div><div class="tv">${v}<small>คน · ${n?Math.round(v/n*100):0}%</small></div><div class="ppl">${PERSON(c).repeat(k)}</div></div>`;});
   if(s.id==='p2_2'){const y=ans.filter(r=>r[s.id].v==='yes').length;h+=`</div><div class="stat3" style="margin-top:12px"><div><b>${pct(y,N)}%</b><span>ของผู้ตอบทั้งหมด ${N} คน ท่องเที่ยวในโคราชต่อด้วย</span></div></div><div>`;}
   h+=`</div>${others(extra)}<div class="leg">1 ไอคอนคน = ${unit} คน</div>`;
@@ -1108,7 +1110,7 @@ function multiIconCard(s){
   s.groups.forEach(([g,ops])=>{const tot=ops.reduce((a,op)=>a+ans.filter(r=>r[s.id].v.includes(op.v)).length,0);
     if(g) h+=`<div class="grp2">${esc(tx(g))}<span>${tot} ครั้งที่ถูกเลือก</span></div>`;
     h+=`<div class="tgrid c5">`;
-    ops.forEach(op=>{const rs=ans.filter(r=>r[s.id].v.includes(op.v)), v=rs.length, i=k++;
+    ops.map((op,oi)=>[op,oi,ans.filter(r=>r[s.id].v.includes(op.v)).length]).sort((a,b)=>b[2]-a[2]||a[1]-b[1]).forEach(([op])=>{const rs=ans.filter(r=>r[s.id].v.includes(op.v)), v=rs.length, i=k++;
       rs.forEach(r=>{const a=r[s.id];if(op.text&&a.text) extra.push([tx(op.t)+': '+a.text,r._uid]);(op.fields||[]).forEach(([f,lab])=>{if(a[f]) extra.push([tx(op.t)+' · '+(lab?tx(lab):f)+': '+a[f],r._uid]);});});
       if(BRAND[op.v]) h+=tile(op,v,n,BCOL[op.v],`<svg viewBox="0 0 24 24" fill="#fff"><path d="${BRAND[op.v]}"/></svg>`,i,'brand');
       else h+=tile(op,v,n,TPAL[i%TPAL.length],SV(IC3[op.v]||DOTS),i);});
@@ -1245,8 +1247,9 @@ function textCard(s){ // 8.2–8.4 ranked
 function kpFunnel(s){ // 3.4 membership funnel + system cross-check
   const ans=answered(s.id), n=ans.length, c=v=>ans.filter(r=>r[s.id].v===v).length, e=c('earn'), m=c('member'), all=ans.filter(r=>r.p3_kp?.v==='all').length;
   let h=`<div class="qn">ข้อ 3.4</div><h3>${esc(tx(s.q))}</h3><div class="meta">ตอบ ${n} จาก ${N} คน · ทุกคนตอบผ่าน LINE จึงแอดไลน์แล้วทั้งหมด</div>`;
-  const st=[['แอดไลน์ KORAT POINT',n,'#5d72a0'],['สมัครสมาชิกแล้ว',e+m,'#00837B'],['สะสมแต้มแล้ว',e,'#003674'],['เช็กอินทุกจุด (ข้อ 3.5)',all,'#D34016']];
-  h+=`<div class="fun">${st.map(([t,v,col],i)=>`<div class="fs" style="--w:${Math.max(30,n?v/n*100:0).toFixed(0)}%;--c:${col};--d:${(i*.15).toFixed(2)}s"><div class="fb"><b>${v.toLocaleString('en-US')}</b><span>${pct(v,n)}%</span></div><div class="ft">${t}</div></div>`).join('')}</div>`;
+  const lo=n-e-m, K3=[['lineonly','แอดไลน์อย่างเดียว','ยังไม่ได้สมัครสมาชิกสะสมแต้ม',lo,'#5d72a0',IC.phone],['member','สมัครสมาชิกแล้ว','ยังไม่ได้สะสมแต้ม',m,'#00837B',IC.yes],['earn','สมัครและสะสมแต้มแล้ว','ส่งสลิป/สะสมแต้มในระบบ',e,'#D34016',IC.gift]];
+  h+=`<div class="kpst">${K3.map(([k,t,,v,c])=>v?`<i title="${t} ${v}" style="flex:${Math.max(v,n*.015)};background:${c}"></i>`:'').join('')}</div><div class="kpax"><span>0</span><span>ผู้ตอบทั้งหมด ${n.toLocaleString('en-US')} คน (แอดไลน์แล้ว 100%)</span></div>`;
+  h+=`<div class="tgrid c3" style="margin-top:12px">${K3.map(([k,t,sub,v,c,ic],i)=>`<div class="tt ${v?'':'z'}" style="--d:${(i*.08).toFixed(2)}s"><div class="ti" style="background:${c}">${SV(ic)}</div><div class="tl">${t}<div style="font-size:12px;color:var(--muted)">${sub}</div></div><div class="tv">${v.toLocaleString('en-US')}<small>คน · ${pct(v,n)}%</small></div></div>`).join('')}</div>`;
   const sys=ans.filter(r=>r._kp==='credited'||r._kp==='member'||r._kp==='not_member'||r._kp==='already');
   if(sys.length){const sm=sys.filter(r=>r._kp!=='not_member'), self=r=>['earn','member'].includes(r[s.id].v), agree=sys.filter(r=>self(r)===(r._kp!=='not_member')).length;
     h+=`<div class="stat3" style="margin-top:14px"><div><b>${pct(sm.length,sys.length)}%</b><span>เป็นสมาชิกตามระบบ KORAT POINT (${sys.length} คนที่ระบบเช็กได้)</span></div><div><b>${pct(agree,sys.length)}%</b><span>คำตอบตรงกับระบบ</span></div><div><b>${sys.length-agree}</b><span>คนที่ตอบไม่ตรงกับระบบ</span></div></div>`;}
@@ -1415,7 +1418,7 @@ function card(s){
   h+=`<div class="meta">ตอบ ${n} จาก ${elig} คน${s.show?' (ข้อนี้ถามเฉพาะบางคน)':''}${s.type==='multi'?' · ตอบได้หลายข้อ':''}</div>`;
   let wide=false, extra=[];
   if(s.type==='single'||s.type==='chips'){
-    h+=bars(s.opts.map(op=>[tx(op.t),ans.filter(r=>r[s.id].v===op.v).length]),n||1,c);
+    h+=bars(s.opts.map(op=>[tx(op.t),ans.filter(r=>r[s.id].v===op.v).length]).sort((a,b)=>b[1]-a[1]),n||1,c);
     s.opts.forEach(op=>{
       ans.filter(r=>r[s.id].v===op.v).forEach(r=>{const a=r[s.id];
         if(op.text&&a.text) extra.push([tx(op.t)+': '+a.text,r._uid]);
@@ -1435,7 +1438,7 @@ function card(s){
       h+=`<div class="vact"><div class="grp2">Visitation แยกตามกิจกรรม<span>คนในกลุ่ม × จำนวนวัน ของผู้ตอบที่เลือกกิจกรรมนั้น</span></div>${vr.map(([t,c,v])=>`<div class="va ${v?'':'z'}"><span class="t">${esc(t)}</span><span class="b"><i style="width:${(v/mx*100).toFixed(0)}%"></i></span><span class="c">${c.toLocaleString('en-US')} คน</span><b>${v.toLocaleString('en-US')}</b></div>`).join('')}<div class="va tot"><span class="t">รวม Visitation</span><span class="b" style="background:none"></span><span class="c">จากผู้ตอบ ${n.toLocaleString('en-US')} คน</span><b>${tot.toLocaleString('en-US')}</b></div></div>`; wide=true;}
       if(ws.length) h+=`<div class="stat3"><div><b>${pp.toLocaleString('en-US')}</b><span>คนร่วมเวิร์กช็อป (รวมคนในกลุ่ม)</span></div><div><b>${ws.length.toLocaleString('en-US')}</b><span>ผู้ตอบที่เลือกเวิร์กช็อป</span></div></div>`;}
     s.groups.forEach(([g,ops])=>{ if(g) h+=`<div class="grp">${esc(tx(g))}</div>`;
-      if(s.id!=='p4_1') h+=bars(ops.map(op=>[tx(op.t),ans.filter(r=>r[s.id].v.includes(op.v)).length]),n||1,c);
+      if(s.id!=='p4_1') h+=bars(ops.map(op=>[tx(op.t),ans.filter(r=>r[s.id].v.includes(op.v)).length]).sort((a,b)=>b[1]-a[1]),n||1,c);
       ops.forEach(op=>ans.filter(r=>r[s.id].v.includes(op.v)).forEach(r=>{const a=r[s.id];
         if(op.text&&a.text) extra.push([tx(op.t)+': '+a.text,r._uid]);
         (op.fields||[]).forEach(([k,lab])=>{if(a[k]) extra.push([tx(op.t)+' · '+(lab?tx(lab):k)+': '+a[k],r._uid]);});}));

@@ -610,13 +610,13 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 <div class="kvline"></div>
 <main><div class="wrap"><section class="vis" id="visblock">
   <h2><span class="dot" style="background:#D34016"></span>ผู้ตอบ → คนที่มา → Visitation (เป้า 200,000)</h2>
-  <div style="background:#FFF4E5;border:1px solid #F5C58A;border-radius:12px;padding:10px 14px;font-size:14px;line-height:1.65;margin:0 0 12px"><b>ตัวเลข Visitation ที่ใช้มีตัวเดียว = ยอดจากแบบสอบถาม (กล่องสีส้มด้านล่าง)</b> นับเป็น "ครั้ง" ตามกติกา 1 คน × 1 กิจกรรม = 1 Visitation · ยอด QR เช็กอิน / โรงแรม / สลิป KORAT POINT / ทัวร์ แสดงเป็นหลักฐานยืนยันเท่านั้น ไม่บวกเพิ่ม เพราะคนกลุ่มเดียวกันอยู่ในแบบสอบถามแล้ว</div>
+  <div style="background:#FFF4E5;border:1px solid #F5C58A;border-radius:12px;padding:10px 14px;font-size:14px;line-height:1.65;margin:0 0 12px"><b>Visitation รวม = แบบสอบถาม + QR เช็กอิน + โรงแรม + สลิป KORAT POINT + ทัวร์</b> นับเป็น "ครั้ง" ตามกติกา 1 คน × 1 กิจกรรม = 1 Visitation · ไม่ซ้ำกันเพราะแยกด้วย LINE UID</div>
   <p class="lead" id="vislead"></p>
   <div class="per ch4" id="chain"></div>
   <p id="chainEq" style="color:var(--muted);font-size:14.5px;margin:-4px 0 18px;line-height:1.7"></p>
   <div class="goal">
     <div>
-      <div class="k" style="font-size:14px;color:var(--muted)">Visitation รวม (จากแบบสอบถาม ข้อ 4.1)</div>
+      <div class="k" style="font-size:14px;color:var(--muted)">Visitation รวม (แบบสอบถาม + ระบบ 4 แหล่ง)</div>
       <div class="gnum" id="gNow"></div>
       <div class="gbar" id="gBar"></div>
       <div class="gmeta"><span id="gPct"></span><span>เป้า TOR 200,000</span></div>
@@ -627,7 +627,7 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
         <li>ใช้ LINE UID กันนับซ้ำ เมื่อคนเดียวกันอยู่ในหลายแหล่ง</li></ul></div>
     </div>
     <div>
-      <h3 style="font-size:15px;margin:0 0 10px">หลักฐานยืนยันจากระบบ (ไม่บวกเพิ่ม)</h3>
+      <h3 style="font-size:15px;margin:0 0 10px">แหล่งที่มาของยอดรวม</h3>
       <div class="src" id="gSrc"></div>
       <div id="gConf" style="display:none"></div>
       <p class="lead" style="margin-top:12px" id="gNote"></p>
@@ -636,7 +636,7 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 </section>
   <section class="vis" id="grpsec">
   <h2><span class="dot" style="background:var(--navy)"></span>เทียบเป้าตามกลุ่มผู้มา × 3 แกน</h2>
-  <p class="lead">เป้าจากสไลด์ "200,000 Visitation มาจากไหน" · ตัวเลขในการ์ด = Visitation จากแบบสอบถาม แยกตามกลุ่มผู้มา รวมทุกกลุ่ม = ยอด Visitation รวมด้านบน</p>
+  <p class="lead">เป้าจากสไลด์ "200,000 Visitation มาจากไหน" · ตัวเลขในการ์ด = Visitation จากแบบสอบถาม แยกตามกลุ่มผู้มา รวมทุกกลุ่ม = ยอดส่วนแบบสอบถามในยอดรวมด้านบน</p>
   <div class="gcards" id="gcards"></div>
   <div class="card" id="gtab" style="margin-top:14px"></div>
 </section>
@@ -879,11 +879,11 @@ function visBlock(o){
   const $=id=>document.getElementById(id), f=n=>Math.round(n).toLocaleString('en-US');
   $('vislead').textContent=o.lead;
   $('chain').innerHTML=o.chain; $('chainEq').innerHTML=o.eq;
-  const tot=o.main!=null?o.main:o.src.reduce((a,s)=>a+(s[1]||0),0);
+  const S=o.main!=null?[['แบบสอบถาม LINE (ข้อ 4.1)',o.main,'#D34016','1 คน × 1 กิจกรรม = 1 Visitation']].concat(o.src):o.src, tot=S.reduce((a,s)=>a+(s[1]||0),0);
   $('gNow').innerHTML=f(tot)+'<small> Visitation</small>';
-  $('gBar').innerHTML=o.main!=null?`<i style="width:${Math.max(tot/200000*100,0.6)}%;background:#D34016"></i>`:o.src.filter(s=>s[1]).map(s=>`<i title="${s[0]}" style="width:${Math.max(s[1]/200000*100,0.6)}%;background:${s[2]}"></i>`).join('');
+  $('gBar').innerHTML=S.filter(s=>s[1]).map(s=>`<i title="${s[0]}" style="width:${Math.max(s[1]/200000*100,0.6)}%;background:${s[2]}"></i>`).join('');
   $('gPct').textContent=(tot/200000*100).toFixed(tot<2000?3:1)+'% ของเป้า';
-  $('gSrc').innerHTML=o.src.map((s,k)=>`<div class="sw" style="background:${s[2]}">${k+1}</div><div>${s[0]}<div class="w">${s[3]}</div></div><div class="v">${s[1]==null?'<span class="w">รอข้อมูล</span>':f(s[1])}</div>`).join('');
+  $('gSrc').innerHTML=S.map((s,k)=>`<div class="sw" style="background:${s[2]}">${k+1}</div><div>${s[0]}<div class="w">${s[3]}</div></div><div class="v">${s[1]==null?'<span class="w">รอข้อมูล</span>':f(s[1])}</div>`).join('');
   $('gNote').textContent=o.note;
   if(!o._real){o._real=1;fetch('/korat-leads/visitation/data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
     const ok=x=>x&&!x.test, sm=a=>(a||[]).filter(ok).reduce((s,x)=>s+(+x.count||+x.total||0),0);
@@ -893,7 +893,7 @@ function visBlock(o){
     const last=(d.checkin||[]).map(x=>x.date).sort().pop()||'';
     if(qr)o.src[0][1]=qr; if(ht)o.src[1][1]=ht; if(pt)o.src[2][1]=pt; if(tr)o.src[3][1]=tr;
     if(kp)o.src[2][3]+=' · รวมสลิป KORAT POINT ที่อนุมัติ '+f(kp)+' ใบ';
-    o.note='ยอดจากระบบเช็กอินและ KORAT POINT ถึงวันที่ '+(last?+last.slice(8)+' พ.ย.':'-')+' · '+o.note;
+    o.note='ยอดระบบเช็กอินและ KORAT POINT ถึงวันที่ '+(last?+last.slice(8)+' พ.ย.':'-')+' · '+o.note;
     visBlock(o);}).catch(()=>{});}
 }
 
@@ -1514,7 +1514,7 @@ $('chk').innerHTML='<tr><th>#</th><th>LINE UID</th><th>ส่งเมื่อ<
         tile('var(--orange)','Visitation',V,'ครั้ง',m3.toFixed(2)+' กิจกรรม/คน-วัน','1 คน × 1 กิจกรรม = 1 Visitation (ข้อ 4.1 รายวัน)'),
   eq:`<b>${nf(N)}</b> ผู้ตอบ × ${m1.toFixed(2)} = <b>${nf(P)}</b> คน × ${m2.toFixed(2)} = <b>${nf(PD)}</b> คน-วัน × ${m3.toFixed(2)} = <b style="color:var(--orange)">${nf(V)}</b> Visitation`,
   src:[['สแกน QR เช็กอิน 7 จุด',null,'#003674','เป้า 152,000 (15,200/วัน)'],['ยอดเข้าพักโรงแรม/ที่พัก',null,'#8F4FE0','เป้า 20,000 (2,000/วัน) · โรงแรมร่วม 50+ แห่ง'],['ยอดจากพันธมิตร ห้าง ร้านค้า',null,'#00837B','เป้า 20,000 (2,000/วัน)'],['ยอดทัวร์/กรุ๊ปเดินทาง',null,'#C0393B','เป้า 8,000 (800/วัน) · ททท. TICA ADT ATTO']],
-  main:V,note:'ใช้ยืนยันว่ามีคนมาจริงตามที่ผู้ตอบรายงาน ไม่นำมาบวกกับ Visitation รวม'});
+  main:V,note:'ยอดรวม = ทุกแหล่งบวกกัน'});
  // daily vs target
  const byD={}; R.forEach(r=>Object.entries(dd(r)).forEach(([d,x])=>{const o=byD[d]||(byD[d]={v:0,p:0,r:0});o.v+=x.a.reduce((b,k)=>b+aPeople(x,k),0);o.p+=(+x.p||1);o.r++;}));
  const WK={20:1,21:1,22:1,27:1,28:1,29:1};

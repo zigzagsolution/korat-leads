@@ -262,10 +262,12 @@ const S=[
   o('nomember','ยังไม่ได้สมัครสมาชิก/ไม่รู้วิธีสมัคร','Not a member yet / do not know how to sign up'),o('unaware','ไม่รู้ว่ามีให้เช็กอิน','Did not know check-in was available'),o('noqr','หาจุดสแกน QR ไม่เจอ','Could not find the QR code'),
   o('busy','ไม่สะดวก/ไม่มีเวลา','Inconvenient / no time'),o('error','สแกนแล้วระบบมีปัญหา','The system had a problem when scanning'),
   o('noline','ไม่ได้ใช้ LINE เป็นประจำ','I do not use LINE regularly'),o('nointerest','ไม่สนใจสะสมแต้ม','Not interested in collecting points'),OTHER()]]]},
- {id:'p3_kb',part:3,no:'7',type:'single',q:T('ท่านรู้จักเทศกาล K-BATTLE หรือไม่','Do you know the K-BATTLE festival?'),opts:[
+ {id:'p3_kb',part:3,no:'7.1',type:'single',head:T('ท่านรู้จักกิจกรรมเหล่านี้มาก่อนหรือไม่','Did you know these festival programmes before?'),q:T('K-BATTLE','K-BATTLE'),opts:[
+  o('before','รู้จักมาก่อนแล้ว','Yes, I knew it before'),o('now','เพิ่งรู้จักจากงานอวดเมืองโคราชครั้งนี้','I just got to know it through Korat City Expo this time'),o('no','ไม่รู้จัก','No, I do not know it')]},
+ {id:'p3_sd',part:3,no:'7.2',type:'single',head:T('ท่านรู้จักกิจกรรมเหล่านี้มาก่อนหรือไม่','Did you know these festival programmes before?'),q:T('SOUNDER (ซาวด์เด้อ)','SOUNDER'),opts:[
   o('before','รู้จักมาก่อนแล้ว','Yes, I knew it before'),o('now','เพิ่งรู้จักจากงานอวดเมืองโคราชครั้งนี้','I just got to know it through Korat City Expo this time'),o('no','ไม่รู้จัก','No, I do not know it')]},
  {id:'p3_kbsrc',part:3,no:'8',type:'multi',show:a=>['before','now'].includes(a.p3_kb?.v),q:T('ท่านรู้จัก K-BATTLE จากช่องทางใด','How did you get to know K-BATTLE?'),
-  pre:T('เฉพาะผู้ตอบข้อ 7 ว่ารู้จัก','Only for respondents who know K-BATTLE in Q7'),groups:[[null,[
+  pre:T('เฉพาะผู้ตอบข้อ 7.1 ว่ารู้จัก K-BATTLE','Only for respondents who know K-BATTLE in Q7.1'),groups:[[null,[
   o('fb_awd','Facebook อวดเมืองโคราช','Facebook: อวดเมืองโคราช (Korat City Expo)'),o('fb_kb','Facebook K-BATTLE','Facebook: K-BATTLE'),o('tt','TikTok','TikTok'),o('ig','Instagram','Instagram'),
   o('web','เว็บไซต์','Website'),o('line','LINE','LINE'),o('onsite','ป้าย/หน้างาน','Signs / at the venue'),o('wom','เพื่อน/คนรู้จักบอก','Friends / word of mouth'),OTHER()]]]},
  // Part 4
@@ -275,6 +277,10 @@ const S=[
   o('show','ชมการแสดง/ความบันเทิง','Watch performances / entertainment'),o('culture','ศึกษาวัฒนธรรม/อัตลักษณ์โคราช','Explore Korat’s culture and identity'),o('buy','ซื้อสินค้าท้องถิ่น','Purchase local products'),
   o('innov','ศึกษานวัตกรรม/Street Culture','Explore innovation / Street Culture'),o('network','หาเครือข่าย/พาร์ตเนอร์ธุรกิจ','Business networking / Find partners'),
   o('invest','ดูลู่ทางลงทุน','Explore investment opportunities'),OTHER()]]]},
+ {id:'p4_main',part:4,no:'3',type:'single',show:a=>(a.p2_3?.v||[]).map(String).includes('24'),q:T('วันที่ 24 พ.ย. อะไรคือเหตุผลหลักที่ท่านมา','On 24 Nov, what was your main reason for coming?'),
+  pre:T('เฉพาะผู้ที่เลือกวันที่ 24 พ.ย. ในข้อ 2.3','Only for respondents who selected 24 Nov in Q2.3'),get opts(){return (DAYACT[24]||[]).map(k=>o(k,ACT[k][0],ACT[k][1])).concat([o('none','ไม่ได้ตั้งใจมาเพื่อกิจกรรมใดโดยเฉพาะ','I did not come for any particular activity')]);}},
+ {id:'p4_other',part:4,no:'4',type:'single',show:a=>!!a.p4_main&&a.p4_main.v!=='none',q:T('นอกจากเหตุผลหลัก ท่านสนใจกิจกรรมอื่นของงาน (เช่น K-BATTLE, SOUNDER) หรือไม่','Besides your main reason, are you interested in other festival activities (e.g. K-BATTLE, SOUNDER)?'),opts:[
+  o('joined','สนใจ และได้ร่วมกิจกรรมอื่นแล้ว','Yes, and I joined other activities'),o('later','สนใจ แต่ยังไม่ได้ร่วม','Yes, but I have not joined yet'),o('only','ไม่สนใจ มาเพื่อศิลปินหรือกิจกรรมนี้อย่างเดียว','No, I came only for this artist / activity')]},
  // Part 5
  {id:'p5_1',part:5,no:'1',type:'single',q:T('ท่านมีแผนทำธุรกิจ/ร่วมมือทางธุรกิจในโคราชภายหลังงานนี้หรือไม่','Do you plan to do business or form business partnerships in Korat following this event?'),opts:[
   o('no','ไม่มี','No'),
@@ -474,7 +480,7 @@ function render(){
   let h='';
   if(OV){
     $('foot').hidden=true;$('partl').textContent=L==='th'?'ภาพรวมทุกคำถาม':'All questions';$('cnt').textContent='';$('barf').style.width='100%';
-    const CN={p2_2:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาเข้าร่วมเทศกาล','Shown only when Q2.1 is Korat City Expo'),p2_why:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาด้วยเหตุผลอื่น','Shown only when Q2.1 is another reason'),p2_5:T('ถามเฉพาะผู้ที่พักค้างคืน (ข้อ 2.4 ไม่ใช่ไป-กลับหรือคนโคราช)','Shown only to overnight visitors'),p2_8_1:T('ถามเฉพาะผู้ที่พักค้างคืน','Shown only to overnight visitors'),p3_kpwhy:T('ถามเฉพาะผู้ตอบข้อ 3.5 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Shown only if not checked in everywhere'),p3_kbsrc:T('ถามเฉพาะผู้ตอบข้อ 3.7 ว่ารู้จัก K-BATTLE','Shown only if the respondent knows K-BATTLE'),p5_2:T('ไม่ถามผู้ที่อยู่จังหวัดนครราชสีมา (ข้อ 1.2)','Not shown to Korat residents')};
+    const CN={p2_2:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาเข้าร่วมเทศกาล','Shown only when Q2.1 is Korat City Expo'),p2_why:T('ถามเฉพาะเมื่อข้อ 2.1 ตอบว่ามาด้วยเหตุผลอื่น','Shown only when Q2.1 is another reason'),p2_5:T('ถามเฉพาะผู้ที่พักค้างคืน (ข้อ 2.4 ไม่ใช่ไป-กลับหรือคนโคราช)','Shown only to overnight visitors'),p2_8_1:T('ถามเฉพาะผู้ที่พักค้างคืน','Shown only to overnight visitors'),p3_kpwhy:T('ถามเฉพาะผู้ตอบข้อ 3.5 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Shown only if not checked in everywhere'),p4_main:T('ถามเฉพาะผู้ที่เลือกวันที่ 24 พ.ย. ในข้อ 2.3','Shown only if 24 Nov is selected in Q2.3'),p4_other:T('ถามเฉพาะผู้ที่มีเหตุผลหลักในข้อ 4.3','Shown only if a main reason is chosen in Q4.3'),p3_kbsrc:T('ถามเฉพาะผู้ตอบข้อ 3.7.1 ว่ารู้จัก K-BATTLE','Shown only if the respondent knows K-BATTLE'),p5_2:T('ไม่ถามผู้ที่อยู่จังหวัดนครราชสีมา (ข้อ 1.2)','Not shown to Korat residents')};
     let n=0;const toc=[];
     h=`<div class="ovhead"><h1>${L==='th'?'แบบสำรวจผู้เข้าร่วมงาน (ฟอร์มรายวัน) · ทุกคำถามในหน้าเดียว':'Participant survey (daily form) · all questions'}</h1><p class="hint">${L==='th'?'หน้านี้ไว้ดูภาพรวมเพื่อแก้/เพิ่มคำถามเท่านั้น ไม่บันทึกคำตอบ · ข้อที่มีเงื่อนไขแสดงไว้ทั้งหมด':'Overview for editing only. Answers are not saved.'}</p>
       <div class="ovpdpa"><b>${L==='th'?'ส่วนนำ · ความยินยอม PDPA':'Introduction · PDPA consent'}</b> ${L==='th'?'(1) ข้าพเจ้ายินยอมให้เก็บและใช้ข้อมูลตามวัตถุประสงค์ (บังคับ) · (2) กรณีอายุต่ำกว่า 20 ปี ผู้ปกครองให้ความยินยอมแล้ว':'(1) Consent (required) · (2) Guardian consent if under 20'}</div><div class="ovtoc" id="ovtoc"></div></div>`;

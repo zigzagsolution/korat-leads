@@ -294,6 +294,8 @@ const S=[
     fields:[['value',T('มูลค่าโดยประมาณ (บาท)','Estimated value (THB)')]]})]},
  {id:'p5_2',part:5,no:'2',type:'single',show:a=>a.p1_2?.v!=='korat',q:T('ท่านสนใจย้ายกลับ/ย้ายมาอยู่อาศัยหรือทำงานในโคราชหรือไม่','Are you interested in relocating back to or moving to Korat to live or work?'),opts:[
   o('no','ไม่สนใจ','Not interested'),o('yes','สนใจ','Interested'),o('decided','ตัดสินใจแล้ว','Already decided to relocate')]},
+ {id:'p5_3',part:5,no:'3',type:'single',q:T('ท่านคิดว่าเทศกาลหรือการมีกิจกรรมแบบนี้จะกระตุ้นเศรษฐกิจได้ในระยะยาวหรือไม่','Do you think festivals and activities like this can stimulate the economy in the long term?'),opts:[
+  o('much','กระตุ้นได้มาก','Strongly'),o('some','กระตุ้นพอสมควร','Moderately'),o('little','ไม่กระตุ้นเท่าไร','Not much'),OTHER()]},
  // Part 6
  ...[['livable','โคราชเป็นเมืองที่ น่าอยู่','Korat is a livable city (great place to live)'],['tour','โคราชเป็นเมืองที่ น่าเที่ยว','Korat is an attractive tourist destination'],
      ['invest','โคราชเป็นเมืองที่ น่าลงทุน','Korat is an attractive city for investment'],['identity','โคราชมีอัตลักษณ์/วัฒนธรรมโดดเด่น','Korat has a distinctive identity and culture']]

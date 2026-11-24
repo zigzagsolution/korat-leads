@@ -405,13 +405,10 @@ const ACT={
  kb:['การแข่งขัน K-BATTLE','K-BATTLE Competitions','kbattle','ลานย่าโม'],
  kbatx:['KBATx Creative Industry EXPO','KBATx Creative Industry EXPO','kbatx','เซ็นทรัลโคราช'],
  band:['KORAT BAND MASTER','KORAT BAND MASTER','perf','ร.ร.สุรนารีวิทยา'],
- klang:['KLANG SAENG Street Fashion & Food','KLANG SAENG Street Fashion & Food','market','ลานย่าโม / ถ.สุรนารี'],
  bball:['Korat 3x3 Street Basketball','Korat 3x3 Street Basketball','kbattle','Terminal 21'],
  ws28:['Workshop Beatbox / Breakdance','Beatbox / Breakdance Workshop','workshop','เซ็นทรัล / CATZY Studio'],
- concert:['คอนเสิร์ต','Concert','perf','ลานย่าโม'],
- final:['ALL ELEMENT FINAL + DJ','ALL ELEMENT FINAL + DJ','kbattle','ลานย่าโม / เซ็นทรัล'],
  ws29:['Workshop Krump','Krump Workshop','workshop','CATZY Studio']};
-const DAYACT={20:['sd_luk','chg','recipe','kpoint'],21:['sd_show','dcamp','andrea','chg','recipe','kpoint'],22:['sd_folk','dcamp','andrea','chg','recipe','kpoint'],23:['wind','recipe','kpoint'],24:['master','jkim','recipe','kpoint'],25:['yusu','jazz','recipe','kpoint'],26:['warm','recipe','kpoint'],27:['open','kb','kbatx','band','klang','kpoint'],28:['kb','concert','kbatx','bball','ws28','band','klang','kpoint'],29:['final','concert','kbatx','bball','ws29','band','klang','kpoint']};
+const DAYACT={20:['sd_luk','chg','recipe','kpoint'],21:['sd_show','dcamp','andrea','chg','recipe','kpoint'],22:['sd_folk','dcamp','andrea','chg','recipe','kpoint'],23:['wind','recipe','kpoint'],24:['master','jkim','recipe','kpoint'],25:['yusu','jazz','recipe','kpoint'],26:['warm','recipe','kpoint'],27:['open','kb','kbatx','band','kpoint'],28:['kb','kbatx','bball','ws28','band','kpoint'],29:['kbatx','bball','ws29','band','kpoint']};
 const dayLab=(d,long)=>{const x=DAYS.find(y=>y[0]===d);return L==='th'?`${x[1]} ${d} พ.ย.`:`${x[2]} ${d} Nov`;};
 const partySize=a=>{const c=a.p2_7;if(!c)return 0;return c.v==='alone'?1:(+c.people||0);};
 

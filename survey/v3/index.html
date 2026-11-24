@@ -264,10 +264,11 @@ const S=[
   o('before','รู้จักมาก่อนแล้ว','Yes, I knew it before'),o('now','เพิ่งรู้จักจากงานอวดเมืองโคราชครั้งนี้','I just got to know it through Korat City Expo this time'),o('no','ไม่รู้จัก','No, I do not know it')]},
  {id:'p3_kbx',part:3,no:'7.3',type:'single',head:T('ท่านรู้จักกิจกรรมเหล่านี้มาก่อนหรือไม่','Did you know these festival programmes before?'),q:T('K-BATx (KBATx Creative Industry EXPO)','K-BATx (KBATx Creative Industry EXPO)'),opts:[
   o('before','รู้จักมาก่อนแล้ว','Yes, I knew it before'),o('now','เพิ่งรู้จักจากงานอวดเมืองโคราชครั้งนี้','I just got to know it through Korat City Expo this time'),o('no','ไม่รู้จัก','No, I do not know it')]},
- {id:'p3_kbsrc',part:3,no:'8',type:'multi',show:a=>['before','now'].includes(a.p3_kb?.v),q:T('ท่านรู้จัก K-BATTLE จากช่องทางใด','How did you get to know K-BATTLE?'),
-  pre:T('เฉพาะผู้ตอบข้อ 7.1 ว่ารู้จัก K-BATTLE','Only for respondents who know K-BATTLE in Q7.1'),groups:[[null,[
-  o('fb_awd','Facebook อวดเมืองโคราช','Facebook: อวดเมืองโคราช (Korat City Expo)'),o('fb_kb','Facebook K-BATTLE','Facebook: K-BATTLE'),o('tt','TikTok','TikTok'),o('ig','Instagram','Instagram'),
-  o('web','เว็บไซต์','Website'),o('line','LINE','LINE'),o('onsite','ป้าย/หน้างาน','Signs / at the venue'),o('wom','เพื่อน/คนรู้จักบอก','Friends / word of mouth'),OTHER()]]]},
+ {id:'p3_kbsrc',part:3,no:'8',type:'single',shuf:true,show:a=>['before','now'].includes(a.p3_kb?.v),q:T('ท่านได้ยินหรือเห็นข้อมูล K-BATTLE ครั้งแรกจากช่องทางใด','Where did you first hear about or see K-BATTLE?'),
+  pre:T('เฉพาะผู้ตอบข้อ 7.1 ว่ารู้จัก K-BATTLE · ตอบข้อเดียว','Only for respondents who know K-BATTLE in Q7.1 · choose one'),opts:[
+  o('wom','เพื่อน / ครอบครัวบอกต่อ','Friends / family'),o('onsite','ป้าย / จอโฆษณา / หน้างาน','Signs / screens / at the venue'),o('fb_awd','Facebook อวดเมืองโคราช','Facebook: อวดเมืองโคราช (Korat City Expo)'),o('fb_kb','Facebook K-BATTLE','Facebook: K-BATTLE'),o('tt','TikTok / Instagram','TikTok / Instagram'),o('web','เว็บไซต์ / ข่าว','Website / news'),o('line','LINE','LINE'),OTHER()]},
+ {id:'p3_scan',part:3,no:'9',type:'single',q:T('ท่านคิดอย่างไรกับการสแกน QR เช็กอินก่อนเข้างานในแต่ละจุด','What do you think about scanning the QR code to check in at each event spot?'),opts:[
+  o('meh','เฉย ๆ','Neutral'),o('points','ดี ได้แต้ม','Good, I get points'),o('queue','รอคิวนาน','The queue was too long'),o('notint','ไม่ได้สนใจเช็กอิน','Not interested in checking in')]},
  // Part 4
  {id:'p4_1',part:4,no:'1',type:'daily',q:T('กิจกรรมที่ท่านเข้าร่วมในแต่ละวัน','Activities you joined on each day'),pre2:T('แสดงตามวันที่เลือกในข้อ 2.3 · ติ๊กได้หลายกิจกรรม','Based on the days selected in Q2.3 · select all that apply')},
  {id:'p4_2',part:4,no:'2',type:'multi',q:T('จุดประสงค์หลักที่เข้าร่วมงาน','What were your main objectives for attending the event?'),groups:[[null,[
@@ -408,6 +409,7 @@ const dayLab=(d,long)=>{const x=DAYS.find(y=>y[0]===d);return L==='th'?`${x[1]} 
 const partySize=a=>{const c=a.p2_7;if(!c)return 0;return c.v==='alone'?1:(+c.people||0);};
 
 const PAGES=[0,1,2,3,4,5,6,7,8,9];
+function shufOpts(s){if(!s.shuf)return s.opts;if(!s._o){const x=s.opts.filter(p=>p.v!=='other');for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]];}s._o=x.concat(s.opts.filter(p=>p.v==='other'));}return s._o;}
 function qHTML(s,prev){
   const a=A[s.id]; let h='';
   if(s.head&&(!prev||prev.head!==s.head)) h+=`<div class="sec">${esc(tx(s.head))}</div>`;
@@ -419,7 +421,7 @@ function qHTML(s,prev){
   const hint=[s.pre2&&s.type!=='rate'?tx(s.pre2):'',s.type==='multi'?tx(UI.multi):(s.one?tx(UI.one):'')].filter(Boolean).join(' · ');
   if(hint) h+=`<p class="hint">${esc(hint)}</p>`;
   if(s.type==='single'){
-    h+=`<div class="opts" role="radiogroup">${s.opts.map(op=>optHTML(s,op,a?.v===op.v,'r',a)).join('')}</div>`;
+    h+=`<div class="opts" role="radiogroup">${shufOpts(s).map(op=>optHTML(s,op,a?.v===op.v,'r',a)).join('')}</div>`;
   } else if(s.type==='chips'){
     h+=`<div class="chips" role="radiogroup">${s.opts.map(op=>`<button type="button" class="chip" role="radio" aria-checked="${a?.v===op.v}" data-v="${op.v}">${esc(tx(op.t))}</button>`).join('')}</div>`;
   } else if(s.type==='nights'){

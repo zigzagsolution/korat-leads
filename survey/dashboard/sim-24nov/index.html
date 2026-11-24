@@ -610,12 +610,13 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 <div class="kvline"></div>
 <main><div class="wrap"><section class="vis" id="visblock">
   <h2><span class="dot" style="background:#D34016"></span>ผู้ตอบ → คนที่มา → Visitation (เป้า 200,000)</h2>
+  <div style="background:#FFF4E5;border:1px solid #F5C58A;border-radius:12px;padding:10px 14px;font-size:14px;line-height:1.65;margin:0 0 12px"><b>มีตัวเลข Visitation 2 ชุด ไม่ต้องตรงกัน:</b><br>① <b>ประมาณจากแบบสอบถาม</b> (กล่องสีด้านล่าง และการ์ดแยกกลุ่ม) = ผู้ตอบเล่าว่าตัวเองและคนในกลุ่มร่วมกิจกรรมอะไรบ้าง ใช้ดูพฤติกรรมและสัดส่วนกลุ่มเท่านั้น <u>ไม่นำไปบวกในยอดรวม</u><br>② <b>ยอดนับจริงจากระบบ</b> (QR เช็กอิน + โรงแรม + พันธมิตร/สลิป + ทัวร์) = ตัวเลขที่ใช้รายงาน TOR<br>ตัวเลข ① สูงกว่า ② เพราะแบบสอบถามนับทุกกิจกรรมของทุกคนในกลุ่ม ส่วน QR นับเฉพาะคนที่สแกนที่จุดเช็กอิน (หลายคนร่วมกิจกรรมแต่ไม่ได้สแกน)</div>
   <p class="lead" id="vislead"></p>
   <div class="per ch4" id="chain"></div>
   <p id="chainEq" style="color:var(--muted);font-size:14.5px;margin:-4px 0 18px;line-height:1.7"></p>
   <div class="goal">
     <div>
-      <div class="k" style="font-size:14px;color:var(--muted)">นับได้แล้ว</div>
+      <div class="k" style="font-size:14px;color:var(--muted)">ยอดนับจริงจากระบบ 4 แหล่ง <b style="color:var(--ink)">(ตัวเลขที่ใช้รายงาน TOR)</b></div>
       <div class="gnum" id="gNow"></div>
       <div class="gbar" id="gBar"></div>
       <div class="gmeta"><span id="gPct"></span><span>เป้า TOR 200,000</span></div>
@@ -635,7 +636,7 @@ button.dl{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:
 </section>
   <section class="vis" id="grpsec">
   <h2><span class="dot" style="background:var(--navy)"></span>เทียบเป้าตามกลุ่มผู้มา × 3 แกน</h2>
-  <p class="lead">เป้าจากสไลด์ "200,000 Visitation มาจากไหน" · ตัวเลขจริงมาจากแบบสอบถาม ใช้ดูสัดส่วนว่าคนที่มาตรงกลุ่มเป้าหมายไหม</p>
+  <p class="lead">เป้าจากสไลด์ "200,000 Visitation มาจากไหน" · ตัวเลขในการ์ด = Visitation ประมาณจากแบบสอบถาม (ชุด ①) รวมทุกกลุ่ม = ยอดในกล่องสีส้มด้านบน ใช้ดู<b>สัดส่วน</b>ว่าคนที่มาตรงกลุ่มเป้าหมายไหม ไม่ใช่ยอดนับจริง</p>
   <div class="gcards" id="gcards"></div>
   <div class="card" id="gtab" style="margin-top:14px"></div>
 </section>

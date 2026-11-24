@@ -230,6 +230,8 @@ const S=[
   o('group','เป็นหมู่คณะ','Traveling as an organized group',{fields:[['people',null,'number']],subq:{key:'gtype',opts:[
     o('tour','ทัวร์','Tour group'),o('org','องค์กร/บริษัทเดียวกัน','Same organization / company'),o('merit','คณะทำบุญ','Merit-making group'),
     o('school','สถานศึกษา','Educational institution'),OTHER()]}})]},
+ {id:'p2_stay',part:2,no:'7.1',type:'fields',sumTo:true,show:a=>(a=>{const c=a.p2_7;return c?(c.v==='alone'?1:(+c.people||0)):0;})(a)>1&&!!a.p2_4&&a.p2_4.v!=='local',q:T('คนในกลุ่มของท่าน ค้างคืนในโคราชที่ไหนบ้าง','Where did the people in your group stay overnight in Korat?'),get pre(){const n=(a=>{const c=a.p2_7;return c?(c.v==='alone'?1:(+c.people||0)):0;})(typeof A!=='undefined'?A:{});return T('กลุ่มของท่านมา '+n+' คน (ข้อ 2.7) · ใส่จำนวนคนให้รวมกันได้ '+n+' คน','Your group: '+n+' people (Q2.7) · numbers should add up to '+n);},fields:[['same',T('ค้างคืนที่เดียวกับท่าน (รวมตัวท่าน ถ้าท่านค้างคืน)','Stayed at the same place as you (including you, if you stayed)'),'number','sum'],['other',T('ค้างโรงแรม/ที่พักอื่น','Stayed at another hotel / accommodation'),'number','sum'],['rel',T('ค้างบ้านญาติ/เพื่อน','Stayed with relatives / friends'),'number','sum'],['none',T('ไม่ได้ค้างคืน (ไป-กลับ หรืออยู่โคราชอยู่แล้ว)','Did not stay overnight (day trip or lives in Korat)'),'number','sum']]},
+ {id:'p2_go',part:2,no:'7.2',type:'fields',sumTo:true,show:a=>(a=>{const c=a.p2_7;return c?(c.v==='alone'?1:(+c.people||0)):0;})(a)>1&&!!a.p2_6&&a.p2_6.v!=='local',q:T('คนในกลุ่มของท่าน เดินทางมาโคราชอย่างไร','How did the people in your group travel to Korat?'),get pre(){const n=(a=>{const c=a.p2_7;return c?(c.v==='alone'?1:(+c.people||0)):0;})(typeof A!=='undefined'?A:{});return T('กลุ่มของท่านมา '+n+' คน (ข้อ 2.7) · ใส่จำนวนคนให้รวมกันได้ '+n+' คน','Your group: '+n+' people (Q2.7) · numbers should add up to '+n);},fields:[['same',T('มาด้วยพาหนะเดียวกับท่านในข้อ 2.6 (รวมตัวท่าน)','Came by the same transport as you in Q2.6 (including you)'),'number','sum'],['veh',T('พาหนะนั้นมากี่คัน (รถยนต์/รถเช่า/รถทัวร์/จักรยานยนต์)','How many vehicles of that type (car / rental / coach / motorcycle)?'),'number'],['other',T('แยกกันมาด้วยพาหนะอื่น','Came separately by other transport'),'number','sum'],['local',T('อยู่โคราชอยู่แล้ว (ไม่ได้เดินทางมา)','Already live in Korat (did not travel)'),'number','sum']]},
  {id:'p2_8_1',part:2,no:'8.1',type:'single',show:a=>a.p2_4&&!['0','local'].includes(a.p2_4.v),head:T('ค่าใช้จ่ายทั้งหมดตลอดการเดินทางครั้งนี้ (บาท/คน)','Total Expenditure Throughout This Trip (THB per person)'),q:T('ค่าที่พัก','Accommodation'),opts:expOpts()},
  {id:'p2_8_2',part:2,no:'8.2',type:'single',head:T('ค่าใช้จ่ายทั้งหมดตลอดการเดินทางครั้งนี้ (บาท/คน)','Total Expenditure Throughout This Trip (THB per person)'),q:T('ค่าอาหารและเครื่องดื่ม','Food and Beverages'),opts:expOpts(true)},
  {id:'p2_8_3',part:2,no:'8.3',type:'single',head:T('ค่าใช้จ่ายทั้งหมดตลอดการเดินทางครั้งนี้ (บาท/คน)','Total Expenditure Throughout This Trip (THB per person)'),q:T('ค่าพาหนะในการเดินทาง','Transportation'),pre2:T('ค่าน้ำมันเชื้อเพลิง ค่าชาร์จรถไฟฟ้า ค่าเช่ารถ ค่ารถโดยสาร','Fuel, EV charging, car rental, public transit fares'),opts:expOpts()},
@@ -410,6 +412,7 @@ const partySize=a=>{const c=a.p2_7;if(!c)return 0;return c.v==='alone'?1:(+c.peo
 
 const PAGES=[0,1,2,3,4,5,6,7,8,9];
 function shufOpts(s){if(!s.shuf)return s.opts;if(!s._o){const x=s.opts.filter(p=>p.v!=='other');for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]];}s._o=x.concat(s.opts.filter(p=>p.v==='other'));}return s._o;}
+function sumTxt(s){const a=A[s.id]||{}, n=partySize(A), t=s.fields.filter(f=>f[3]==='sum').reduce((x,f)=>x+(+a[f[0]]||0),0);return (L==='th'?'รวม ':'Total ')+t+' / '+n+(L==='th'?' คน':'')+(t===n?' ✓':(t>n?(L==='th'?' · เกินจำนวนคนในกลุ่ม':' · more than your group'):''));}
 function qHTML(s,prev){
   const a=A[s.id]; let h='';
   if(s.head&&(!prev||prev.head!==s.head)) h+=`<div class="sec">${esc(tx(s.head))}</div>`;
@@ -458,6 +461,7 @@ function qHTML(s,prev){
     h+=`<textarea id="f_${s.id}" data-main="1" aria-label="${esc(tx(s.q))}">${esc(a?.v??'')}</textarea>`;
   } else if(s.type==='fields'){
     h+=`<div class="opts">${s.fields.map(f=>fieldHTML(s.id,f,a)).join('')}</div>`;
+    if(s.sumTo) h+=`<p class="hint" id="sum_${s.id}" style="margin-top:8px">${sumTxt(s)}</p>`;
   } else if(s.type==='contact'){
     h+=`<div class="opts"><input id="f_${s.id}" data-main="1" type="text" value="${esc(a?.v??'')}" aria-label="${esc(tx(s.q))}">
       <button type="button" class="opt c" role="checkbox" aria-checked="${!!a?.ok}" data-okc="1"><span class="mk"></span><span>${L==='th'?'ยินยอมให้ติดต่อ':'I consent to be contacted'}</span></button></div>`;
@@ -538,7 +542,7 @@ function bindQ(s,st){
     if(multi){const arr=cur[k]||[];cur[k]=arr.includes(c.dataset.sv)?arr.filter(x=>x!==c.dataset.sv):arr.concat(c.dataset.sv);} else cur[k]=c.dataset.sv;
     rerender();
   }));
-  st.querySelectorAll('input[data-k]').forEach(inp=>inp.oninput=()=>{const cur=A[s.id]||(A[s.id]={});cur[inp.dataset.k]=inp.value;save();});
+  st.querySelectorAll('input[data-k]').forEach(inp=>inp.oninput=()=>{const cur=A[s.id]||(A[s.id]={});cur[inp.dataset.k]=inp.value;save();const sm=document.getElementById('sum_'+s.id);if(sm&&s.sumTo)sm.textContent=sumTxt(s);});
   st.querySelectorAll('[data-main]').forEach(inp=>inp.oninput=()=>{const cur=A[s.id]||(A[s.id]={});cur.v=inp.value;save();});
   st.querySelectorAll('[data-okc]').forEach(b=>b.onclick=()=>{const cur=A[s.id]||(A[s.id]={});cur.ok=!cur.ok;rerender();});
 }

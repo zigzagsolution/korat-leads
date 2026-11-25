@@ -245,6 +245,7 @@ body.tceb .team-only{display:none!important}
 .q-tq .tb{flex:1;position:relative;height:28px;border-radius:8px;background:var(--bg);overflow:hidden}.q-tq .tb div{height:100%;background:linear-gradient(90deg,color-mix(in srgb,var(--c-hotel) 30%,transparent),color-mix(in srgb,var(--c-hotel) 60%,transparent));animation:hzGrowX .9s ease-out both;transform-origin:left}
 .q-tq .tb span{position:absolute;left:10px;top:0;line-height:28px;font-size:12.5px;font-weight:600}
 .hz-val{margin-top:12px;background:linear-gradient(135deg,rgba(255,209,92,.16),rgba(211,255,52,.08));border:1px solid rgba(255,209,92,.35);border-radius:14px;padding:12px}
+.hz-val .vtop{display:flex;gap:12px;align-items:center;background:#FFD15C;color:#061632;border-radius:14px;padding:14px 16px;margin-bottom:10px;animation:hzPop .7s both}.hz-val .vtop>i{font-style:normal;font-size:44px;position:static}.hz-val .vk{display:block;font-weight:700;font-size:14px;opacity:1}.hz-val .vbig{font-size:clamp(44px,10vw,68px)!important;line-height:1}.hz-val .vbig small{font-size:20px}.hz-val .vsp{font-size:12.5px;opacity:1;margin-top:4px}
 .hz-val .vh{font-weight:700;color:#FFD15C;font-size:14px;margin-bottom:8px}
 .hz-val .vg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
 .hz-val .vg>div{background:rgba(255,255,255,.08);border-radius:12px;padding:10px 12px;position:relative;animation:hzPop .6s both}
@@ -468,14 +469,14 @@ function render(D){
     function vv(ds){var o={rn:0,gn:0,th:0,fo:0,rv:0};HR.forEach(function(h){var an=+h.avgNights||2;ds.forEach(function(d){var n=(h.nights||{})[d];if(!n)return;o.rn+=n.rooms||0;o.gn+=n.guests||0;o.rv+=(n.rooms||0)*(PM[h.price]||750);o.th+=(n.thai||0)/an;o.fo+=(n.foreign||0)/an})});o.pp=Math.round(o.th+o.fo);o.sp=Math.round(o.th)*2500+Math.round(o.fo)*4500;return o}
     var V1=vv(past),V2=vv(fut),VA=vv(past.concat(fut));
     function mb(x){return x>=1e6?(x/1e6).toFixed(1)+'<small> ล้าน</small>':f(x)}
-    var valH='<div class="hz-val"><div class="vh">💎 มูลค่าจากผู้เข้าพักโรงแรม 20–29 พ.ย.</div><div class="vg">'+
+    var valH='<div class="hz-val"><div class="vtop"><i>💰</i><div><span class="vk">มูลค่าใช้จ่ายของผู้เข้าพักโรงแรม 20–29 พ.ย.</span><b class="vbig">'+(VA.sp/1e6).toFixed(1)+'<small> ล้านบาท</small></b><span class="vsp">พักแล้ว 20–24 พ.ย. <strong>'+(V1.sp/1e6).toFixed(1)+' ล้าน</strong> · จองแล้ว 25–29 พ.ย. <strong>'+(V2.sp/1e6).toFixed(1)+' ล้าน</strong></span></div></div><div class="vg">'+
       '<div><i>🧳</i><b>'+f(VA.pp)+'</b><span>ผู้เข้าพัก (คน)</span><em>พักแล้ว '+f(V1.pp)+' · จองแล้ว '+f(V2.pp)+'</em></div>'+
       '<div><i>🌙</i><b>'+(VA.gn/VA.pp).toFixed(1)+'</b><span>คืน/คน โดยเฉลี่ย</span><em>'+f(VA.gn)+' คน-คืน</em></div>'+
-      '<div><i>🛏️</i><b>'+mb(VA.rv)+'</b><span>ค่าห้องพัก (บาท)</span><em>'+f(VA.rn)+' ห้อง-คืน × ราคาห้อง</em></div>'+
-      '<div class="big"><i>💰</i><b>'+mb(VA.sp)+'</b><span>ค่าใช้จ่ายรวมในโคราช (บาท)</span><em>คนไทย '+f(Math.round(VA.th))+' × 2,500 + ต่างชาติ '+f(Math.round(VA.fo))+' × 4,500</em></div>'+
-      '</div><p class="vn">ราคาห้องใช้กึ่งกลางช่วงราคาที่โรงแรมตอบ · ค่าใช้จ่ายต่อทริปจากข้อมูล ททท./กก. ปี 2569 (รวมค่าที่พักแล้ว)</p></div>';
-    el('hzHero').innerHTML='<div class="hz-big"><b data-cu="'+HR.length+'">'+HR.length+'</b><div><strong>โรงแรมตอบกลับแล้ว</strong><span>อ.เมืองนครราชสีมา · รวม '+f(rooms)+' ห้อง</span></div></div><h2>คืนที่ห้องเต็มที่สุด <b>'+dn(top.d)+'</b> '+(top.f?'จองแล้ว':'เข้าพัก')+' <b>'+Math.round(top.o.p)+'%</b></h2>'+
-      '<div class="hz-st"><div><b>'+Math.round(op.p)+'<small>%</small></b><span>เข้าพักเฉลี่ย 20–24 พ.ย.</span></div><div><b>'+Math.round(of.p)+'<small>%</small></b><span>จองแล้ว 25–29 พ.ย.</span></div><div><b>'+f(gp)+'</b><span>ผู้เข้าพัก (คน-คืน) 20–24 พ.ย.</span></div><div><b>'+f(of.r)+'</b><span>ห้อง-คืนที่จองแล้ว 25–29 พ.ย.</span></div></div>'+valH;
+      '<div><i>🛏️</i><b>'+mb(VA.rv)+'</b><span>เฉพาะค่าห้องพัก (บาท)</span><em>'+f(VA.rn)+' ห้อง-คืน × ราคาห้อง</em></div>'+
+      '<div><i>🧮</i><b>'+f(Math.round(VA.sp/VA.pp))+'</b><span>บาท/คน โดยเฉลี่ย</span><em>คนไทย '+f(Math.round(VA.th))+' × 2,500 · ต่างชาติ '+f(Math.round(VA.fo))+' × 4,500</em></div>'+
+      '</div><p class="vn">ค่าใช้จ่ายต่อคนต่อทริปจากข้อมูล ททท./กก. ปี 2569 (รวมค่าที่พักแล้ว) · ค่าห้องใช้กึ่งกลางช่วงราคาที่โรงแรมตอบ</p></div>';
+    el('hzHero').innerHTML='<div class="hz-big"><b data-cu="'+HR.length+'">'+HR.length+'</b><div><strong>โรงแรมตอบกลับแล้ว</strong><span>อ.เมืองนครราชสีมา · รวม '+f(rooms)+' ห้อง</span></div></div>'+valH+'<h2 style="margin-top:16px">คืนที่ห้องเต็มที่สุด <b>'+dn(top.d)+'</b> '+(top.f?'จองแล้ว':'เข้าพัก')+' <b>'+Math.round(top.o.p)+'%</b></h2>'+
+      '<div class="hz-st"><div><b>'+Math.round(op.p)+'<small>%</small></b><span>เข้าพักเฉลี่ย 20–24 พ.ย.</span></div><div><b>'+Math.round(of.p)+'<small>%</small></b><span>จองแล้ว 25–29 พ.ย.</span></div><div><b>'+f(gp)+'</b><span>ผู้เข้าพัก (คน-คืน) 20–24 พ.ย.</span></div><div><b>'+f(of.r)+'</b><span>ห้อง-คืนที่จองแล้ว 25–29 พ.ย.</span></div></div>';
     el('hzColsSub').textContent='แถบเต็ม 1 เส้น = ห้องพักทั้งหมด '+f(rooms)+' ห้อง จาก '+HR.length+' โรงแรม';
     function nrow(x){var t=thDate(x.d),we=/^(ศ\.|ส\.|อา\.)$/.test(t.dow),free=x.o.t-x.o.r,p=Math.round(x.o.p),fp=100-x.o.p;
       return '<div class="hz-n'+(we?' we':'')+'"><div class="d">'+t.dow+' '+t.d+'<small>พ.ย.</small></div><div><div class="hz-bar"><div class="a'+(x.f?' bk':'')+'" data-w="'+x.o.p+'"><b>'+p+'%</b>'+(x.f?'จองแล้ว ':'เข้าพักแล้ว ')+f(x.o.r)+' ห้อง</div><div class="e">'+(fp>=18?'ยังว่าง':'')+'</div></div>'+

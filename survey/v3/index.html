@@ -324,12 +324,12 @@ const S=[
 ];
 
 let L='th', A={}, i=0, err='';
-try{const s=JSON.parse(localStorage.getItem('kce-survey-v2')||'null'); if(s){A=s.A||{};i=s.i||0;L=s.L||'th';}}catch(e){}
+try{const s=JSON.parse((function(){try{localStorage.removeItem('kce-survey-v2')}catch(e){}})(),localStorage.getItem('kce-survey-v3b')||'null'); if(s){A=s.A||{};i=s.i||0;L=s.L||'th';}}catch(e){}
 let UID='';try{UID=new URLSearchParams(location.search).get('uid')||'';}catch(e){}
 if(UID&&!/^U[0-9a-f]{32}$/.test(UID))UID='';
 if(UID&&A._uid&&A._uid!==UID){A={};i=0;}
 if(UID)A._uid=UID;
-const save=()=>{try{localStorage.setItem('kce-survey-v2',JSON.stringify({A,i,L}))}catch(e){}};
+const save=()=>{try{localStorage.setItem('kce-survey-v3b',JSON.stringify({A,i,L}))}catch(e){}};
 const SURVEY_API='https://korat.mididigitalevent.workers.dev/api/survey', FORM='v3';
 let TEST=false;try{TEST=new URLSearchParams(location.search).get('test')==='1';}catch(e){}
 const newSid=()=>Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10)+Math.random().toString(36).slice(2,6);

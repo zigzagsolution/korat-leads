@@ -200,7 +200,7 @@ body.tceb .team-only{display:none!important}
 .hz-qc{position:relative;overflow:hidden}
 .hz-qc h4{font-size:15px}
 .hz-qc h4 span{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--soft);font-size:17px;animation:hzPop .5s both}
-.hz-q .w2{grid-column:span 2}
+.hz-q .w2{grid-column:span 2}.hz-q .full{grid-column:1/-1}
 @media (max-width:700px){.hz-q .w2{grid-column:auto}}
 .hz-qc .qs{margin:-4px 0 10px;font-size:12px;color:var(--muted)}
 .q-th .thw{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
@@ -243,6 +243,35 @@ body.tceb .team-only{display:none!important}
 .q-tq .tr{display:flex;align-items:center;gap:8px;margin:7px 0}.q-tq .fl{font-size:22px;width:28px;text-align:center}.q-tq .tr>b{font-family:var(--display);font-size:18px;min-width:24px;text-align:right}
 .q-tq .tb{flex:1;position:relative;height:28px;border-radius:8px;background:var(--bg);overflow:hidden}.q-tq .tb div{height:100%;background:linear-gradient(90deg,color-mix(in srgb,var(--c-hotel) 30%,transparent),color-mix(in srgb,var(--c-hotel) 60%,transparent));animation:hzGrowX .9s ease-out both;transform-origin:left}
 .q-tq .tb span{position:absolute;left:10px;top:0;line-height:28px;font-size:12.5px;font-weight:600}
+.hz-val{margin-top:12px;background:linear-gradient(135deg,rgba(255,209,92,.16),rgba(211,255,52,.08));border:1px solid rgba(255,209,92,.35);border-radius:14px;padding:12px}
+.hz-val .vh{font-weight:700;color:#FFD15C;font-size:14px;margin-bottom:8px}
+.hz-val .vg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.hz-val .vg>div{background:rgba(255,255,255,.08);border-radius:12px;padding:10px 12px;position:relative;animation:hzPop .6s both}
+.hz-val .vg>div.big{background:#FFD15C;color:#061632}.hz-val .vg>div.big em,.hz-val .vg>div.big span{color:#061632;opacity:.85}
+.hz-val i{font-style:normal;font-size:20px;position:absolute;right:10px;top:8px}
+.hz-val b{display:block;font-family:var(--display);font-size:26px;line-height:1.1}.hz-val b small{font-size:14px}
+.hz-val span{display:block;font-size:12.5px;opacity:.9}.hz-val em{display:block;font-style:normal;font-size:11px;opacity:.7;margin-top:2px}
+.hz-val .vn{margin:8px 0 0;font-size:11px;opacity:.65}
+.q-ty .bt{display:flex;gap:10px;align-items:stretch}
+.q-ty .b{flex:1;border-radius:16px;padding:12px 8px;text-align:center;background:var(--bg);animation:hzPop .6s both}
+.q-ty .b.mx{flex:2.2;background:color-mix(in srgb,var(--c-hotel) 12%,var(--surface))}
+.q-ty .bi{display:block;font-size:44px;line-height:1.1;animation:hzBob 2.6s ease-in-out 1s infinite}.q-ty .b.mx .bi{font-size:76px}
+.q-ty .b b{display:block;font-family:var(--display);font-size:30px;line-height:1.1}.q-ty .b.mx b{font-size:48px;color:var(--c-hotel)}
+.q-ty .bl{display:block;font-weight:600;font-size:14px}.q-ty .b em{font-style:normal;font-size:12px;color:var(--muted)}
+.q-fs .ft{display:flex;flex-direction:column;align-items:center}
+.q-fs .root{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#1a5bb0,#003674);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 10px 24px -12px #003674;animation:hzPop .6s both;position:relative}
+.q-fs .root b{font-family:var(--display);font-size:42px;line-height:1}.q-fs .root small{font-size:12px;opacity:.85}.q-fs .root span{font-size:11px;margin-top:4px;padding:0 14px;line-height:1.3}.q-fs .root strong{color:#FFD15C;font-size:14px}
+.q-fs .root:after{content:"";position:absolute;bottom:-18px;left:50%;width:2px;height:18px;background:var(--line)}
+.q-fs .kids{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 10px;margin-top:18px;padding-top:16px;border-top:2px solid var(--line);width:100%}
+.q-fs .kid{display:flex;flex-direction:column;align-items:center;width:170px;position:relative;animation:hzDrop .5s both}
+.q-fs .kid:before{content:"";position:absolute;top:-16px;left:50%;width:2px;height:16px;background:var(--line)}
+.q-fs .kc{width:var(--d);height:var(--d);border-radius:50%;background:var(--c);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#1b1b1b;box-shadow:0 6px 16px -8px var(--c)}
+.q-fs .kc b{font-family:var(--display);font-size:24px;line-height:1}.q-fs .kc small{font-size:10.5px}
+.q-fs .lf{display:flex;flex-direction:column;align-items:center;gap:3px;margin-top:6px;position:relative;padding-top:8px}
+.q-fs .lf:before{content:"";position:absolute;top:0;left:50%;width:2px;height:8px;background:var(--c)}
+.q-fs .lf span{border-radius:99px;padding:2px 9px;font-size:11.5px;white-space:nowrap}
+.q-fs .p1{background:var(--c);font-weight:700;color:#1b1b1b}.q-fs .p2{background:var(--bg);font-size:12.5px!important}.q-fs .p2 b{font-family:var(--display);font-size:16px}
+.q-fs .p3{border:1px dashed color-mix(in srgb,var(--c) 70%,#888);color:var(--muted)}
 @keyframes hzRing{from{stroke-dashoffset:301.6}}@keyframes hzRing2{from{stroke-dashoffset:113.1}}
 @keyframes hzGrowY{from{transform:scaleY(0)}}@keyframes hzGrowX{from{transform:scaleX(0)}}
 @keyframes hzPop{0%{transform:scale(.4);opacity:0}70%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
@@ -433,8 +462,19 @@ function render(D){
     var per=days.map(function(d){return {d:d,o:occ(HR,[d]),f:d>=today,a:AG.full[d]}});
     var top=per.slice().sort(function(a,b){return b.o.p-a.o.p})[0];
     function dn(d){var t=thDate(d);return t.dow+' '+t.d+' พ.ย.'}
+    // value of hotel guests
+    var PM={'<500':400,'500-1000':750,'1001-1500':1250,'1501-2500':2000,'2501-4000':3250,'>4000':4500};
+    function vv(ds){var o={rn:0,gn:0,th:0,fo:0,rv:0};HR.forEach(function(h){var an=+h.avgNights||2;ds.forEach(function(d){var n=(h.nights||{})[d];if(!n)return;o.rn+=n.rooms||0;o.gn+=n.guests||0;o.rv+=(n.rooms||0)*(PM[h.price]||750);o.th+=(n.thai||0)/an;o.fo+=(n.foreign||0)/an})});o.pp=Math.round(o.th+o.fo);o.sp=Math.round(o.th)*2500+Math.round(o.fo)*4500;return o}
+    var V1=vv(past),V2=vv(fut),VA=vv(past.concat(fut));
+    function mb(x){return x>=1e6?(x/1e6).toFixed(1)+'<small> ล้าน</small>':f(x)}
+    var valH='<div class="hz-val"><div class="vh">💎 มูลค่าจากผู้เข้าพักโรงแรม 20–29 พ.ย.</div><div class="vg">'+
+      '<div><i>🧳</i><b>'+f(VA.pp)+'</b><span>ผู้เข้าพัก (คน)</span><em>พักแล้ว '+f(V1.pp)+' · จองแล้ว '+f(V2.pp)+'</em></div>'+
+      '<div><i>🌙</i><b>'+(VA.gn/VA.pp).toFixed(1)+'</b><span>คืน/คน โดยเฉลี่ย</span><em>'+f(VA.gn)+' คน-คืน</em></div>'+
+      '<div><i>🛏️</i><b>'+mb(VA.rv)+'</b><span>ค่าห้องพัก (บาท)</span><em>'+f(VA.rn)+' ห้อง-คืน × ราคาห้อง</em></div>'+
+      '<div class="big"><i>💰</i><b>'+mb(VA.sp)+'</b><span>ค่าใช้จ่ายรวมในโคราช (บาท)</span><em>คนไทย '+f(Math.round(VA.th))+' × 2,500 + ต่างชาติ '+f(Math.round(VA.fo))+' × 4,500</em></div>'+
+      '</div><p class="vn">ราคาห้องใช้กึ่งกลางช่วงราคาที่โรงแรมตอบ · ค่าใช้จ่ายต่อทริปจากข้อมูล ททท./กก. ปี 2569 (รวมค่าที่พักแล้ว)</p></div>';
     el('hzHero').innerHTML='<div class="ey">โรงแรม อ.เมืองนครราชสีมา · '+HR.length+' แห่ง · '+f(rooms)+' ห้อง</div><h2>คืนที่ห้องเต็มที่สุด <b>'+dn(top.d)+'</b> '+(top.f?'จองแล้ว':'เข้าพัก')+' <b>'+Math.round(top.o.p)+'%</b></h2>'+
-      '<div class="hz-st"><div><b>'+Math.round(op.p)+'<small>%</small></b><span>เข้าพักเฉลี่ย 20–24 พ.ย.</span></div><div><b>'+Math.round(of.p)+'<small>%</small></b><span>จองแล้ว 25–29 พ.ย.</span></div><div><b>'+f(gp)+'</b><span>ผู้เข้าพัก (คน-คืน) 20–24 พ.ย.</span></div><div><b>'+f(of.r)+'</b><span>ห้อง-คืนที่จองแล้ว 25–29 พ.ย.</span></div></div>';
+      '<div class="hz-st"><div><b>'+Math.round(op.p)+'<small>%</small></b><span>เข้าพักเฉลี่ย 20–24 พ.ย.</span></div><div><b>'+Math.round(of.p)+'<small>%</small></b><span>จองแล้ว 25–29 พ.ย.</span></div><div><b>'+f(gp)+'</b><span>ผู้เข้าพัก (คน-คืน) 20–24 พ.ย.</span></div><div><b>'+f(of.r)+'</b><span>ห้อง-คืนที่จองแล้ว 25–29 พ.ย.</span></div></div>'+valH;
     el('hzColsSub').textContent='แถบเต็ม 1 เส้น = ห้องพักทั้งหมด '+f(rooms)+' ห้อง จาก '+HR.length+' โรงแรม';
     function nrow(x){var t=thDate(x.d),we=/^(ศ\.|ส\.|อา\.)$/.test(t.dow),free=x.o.t-x.o.r,p=Math.round(x.o.p),fp=100-x.o.p;
       return '<div class="hz-n'+(we?' we':'')+'"><div class="d">'+t.dow+' '+t.d+'<small>พ.ย.</small></div><div><div class="hz-bar"><div class="a'+(x.f?' bk':'')+'" data-w="'+x.o.p+'"><b>'+p+'%</b>'+(x.f?'จองแล้ว ':'เข้าพักแล้ว ')+f(x.o.r)+' ห้อง</div><div class="e">'+(fp>=18?'ยังว่าง':'')+'</div></div>'+
@@ -450,10 +490,13 @@ function render(D){
     var B=[];
     // 1 Thai / foreign: animated ring + people row
     var tp=th+fo?Math.round(th/(th+fo)*100):0,ppl='';for(var j=0;j<20;j++)ppl+='<i class="'+(j<Math.round(tp/5)?'t':'f')+'" style="animation-delay:'+(j*40)+'ms"></i>';
-    B.push('<div class="hz-qc q-th w2">'+hd('🌏','ผู้เข้าพักไทย / ต่างชาติ','20–24 พ.ย. · 1 คน = 5%')+'<div class="thw"><svg viewBox="0 0 120 120" class="rg"><circle cx="60" cy="60" r="48" class="bg"/><circle cx="60" cy="60" r="48" class="fg" style="--o:'+(301.6*(1-tp/100)).toFixed(1)+'"/><text x="60" y="58">'+tp+'%</text><text x="60" y="78" class="s">คนไทย</text></svg><div class="tpr"><div class="ppl">'+ppl+'</div><div class="tl"><span><i class="t"></i>ชาวไทย <b>'+f(th)+'</b> คน-คืน</span><span><i class="f"></i>ต่างชาติ <b>'+f(fo)+'</b> คน-คืน</span></div></div></div></div>');
-    // 2 type: icon waffle
-    var ty=cnt('type'),TI={'โรงแรม':'🏨','รีสอร์ท':'🌴','เกสต์เฮาส์/โฮมสเตย์':'🏡'},wf='',n=0;ty.forEach(function(x){for(var j=0;j<x[1];j++){wf+='<span style="animation-delay:'+(n*25)+'ms">'+(TI[x[0]]||'🏠')+'</span>';n++}});
-    B.push('<div class="hz-qc q-ty">'+hd('🏨','ประเภทที่พัก','1 ไอคอน = 1 แห่ง')+'<div class="wf">'+wf+'</div><div class="tyl">'+ty.map(function(x){return '<div><b>'+x[1]+'</b><span>'+(TI[x[0]]||'')+' '+esc(x[0])+' · '+pc(x[1],ty.t)+'%</span></div>'}).join('')+'</div></div>');
+    B.push('<div class="hz-qc q-th">'+hd('🌏','ผู้เข้าพักไทย / ต่างชาติ','20–24 พ.ย. · 1 คน = 5%')+'<div class="thw"><svg viewBox="0 0 120 120" class="rg"><circle cx="60" cy="60" r="48" class="bg"/><circle cx="60" cy="60" r="48" class="fg" style="--o:'+(301.6*(1-tp/100)).toFixed(1)+'"/><text x="60" y="58">'+tp+'%</text><text x="60" y="78" class="s">คนไทย</text></svg><div class="tpr"><div class="ppl">'+ppl+'</div><div class="tl"><span><i class="t"></i>ชาวไทย <b>'+f(th)+'</b> คน-คืน</span><span><i class="f"></i>ต่างชาติ <b>'+f(fo)+'</b> คน-คืน</span></div></div></div></div>');
+    // 2 type: big icons
+    var ty=cnt('type'),TI={'โรงแรม':'🏨','รีสอร์ท':'🌴','เกสต์เฮาส์/โฮมสเตย์':'🏡'};
+    B.push('<div class="hz-qc q-ty">'+hd('🏨','ประเภทที่พัก')+'<div class="bt">'+ty.map(function(x,i){return '<div class="b'+(i?'':' mx')+'" style="animation-delay:'+(i*180)+'ms"><span class="bi">'+(TI[x[0]]||'🏠')+'</span><b data-cu="'+x[1]+'">'+x[1]+'</b><span class="bl">'+esc(x[0])+'</span><em>'+pc(x[1],ty.t)+'%</em></div>'}).join('')+'</div></div>');
+    // 10 Thai share per hotel: flag ribbon rows
+    var tq=cnt('thaiPct'),TQ={'95':['🇹🇭','ไทยเกือบทั้งหมด','95%'],'80':['🇹🇭','ไทยส่วนใหญ่','80%'],'50':['🌏','ไทย-ต่างชาติพอ ๆ กัน','50%'],'20':['✈️','ต่างชาติส่วนใหญ่','20%']};
+    B.push('<div class="hz-qc q-tq">'+hd('🇹🇭','สัดส่วนแขกไทยของแต่ละโรงแรม')+tq.map(function(x,i){var o=TQ[x[0]]||['•',x[0],''];return '<div class="tr"><span class="fl">'+o[0]+'</span><div class="tb"><div style="width:'+pc(x[1],tq.t)+'%;animation-delay:'+(i*150)+'ms"></div><span>'+o[1]+' ('+o[2]+')</span></div><b>'+x[1]+'</b></div>'}).join('')+'</div>');
     // 3 price: coin-stack columns
     var pr=cnt('price'),PL={'<500':'< 500','500-1000':'500–1,000','1001-1500':'1,001–1,500','1501-2500':'1,501–2,500','2501-4000':'2,501–4,000','>4000':'> 4,000'},pm=pr[0][1];
     B.push('<div class="hz-qc q-pr">'+hd('💰','ราคาห้องต่อคืน (บาท)','เรียงจากมากไปน้อย')+'<div class="cols">'+pr.map(function(x,i){var h=Math.max(8,Math.round(x[1]/pm*100));return '<div class="cl'+(i?'':' mx')+'"><em>'+x[1]+' แห่ง</em><div class="st" style="--h:'+h+'%;animation-delay:'+(i*120)+'ms"></div><small>'+PL[x[0]]+'</small></div>'}).join('')+'</div></div>');
@@ -466,18 +509,24 @@ function render(D){
     // 6 avg nights: night sky tiles
     var an=cnt('avgNights');
     B.push('<div class="hz-qc q-an">'+hd('🌙','พักเฉลี่ยกี่คืน')+'<div class="sky">'+an.map(function(x,i){var m='';for(var j=0;j<+x[0];j++)m+='<i style="animation-delay:'+(i*150+j*150)+'ms">🌙</i>';return '<div class="nt'+(i?'':' mx')+'"><div class="mn">'+m+'</div><b>'+x[0]+' คืน</b><span>'+x[1]+' แห่ง · '+pc(x[1],an.t)+'%</span></div>'}).join('')+'</div></div>');
-    // 7 festival guests: bubbles
-    var fs=cnt('fest'),FL={'>50%':'มากกว่า 50%','31-50%':'31–50%','10-30%':'10–30%','<10%':'น้อยกว่า 10%','ไม่ทราบ':'ไม่ทราบ'},FC={'>50%':'#E95429','31-50%':'#F28C28','10-30%':'#F2B705','<10%':'#9fb7b4','ไม่ทราบ':'#c9ced8'},fm=fs[0][1];
-    B.push('<div class="hz-qc q-fs w2">'+hd('🎪','แขกที่มาเพราะเทศกาล','สัดส่วนแขกของแต่ละโรงแรม · วงใหญ่ = โรงแรมมาก')+'<div class="bub">'+fs.map(function(x,i){var d=Math.round(46+54*Math.sqrt(x[1]/fm));return '<div class="bb" style="--d:'+d+'px;--c:'+FC[x[0]]+';animation-delay:'+(i*130)+'ms"><div><b>'+x[1]+'</b><small>แห่ง</small></div><span>'+FL[x[0]]+'</span></div>'}).join('')+'</div></div>');
     // 8 how they know: mini rings
     var sr=cnt('festSrc'),SI={'พนักงานประเมิน':'🧑‍💼','สอบถามตอนเช็กอิน':'🛎️','หมายเหตุการจอง/กรุ๊ปทัวร์':'🚌'};
     B.push('<div class="hz-qc q-sr">'+hd('🔎','รู้ได้อย่างไรว่ามาเพราะเทศกาล')+'<div class="mr">'+sr.map(function(x,i){var p=pc(x[1],sr.t);return '<div class="mi"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" class="bg"/><circle cx="22" cy="22" r="18" class="fg" style="--o:'+(113.1*(1-p/100)).toFixed(1)+';animation-delay:'+(i*150)+'ms"/></svg><span class="ic">'+(SI[x[0]]||'•')+'</span><div><b>'+p+'%</b> <small>'+x[1]+' แห่ง</small><br>'+esc(x[0].replace('/',' / '))+'</div></div>'}).join('')+'</div></div>');
     // 9 vs last year: arrow columns
     var ly=cnt('ly'),LY={'มากกว่ามาก':['เพิ่มขึ้นมาก','up','#2E9E6B'],'มากกว่าเล็กน้อย':['เพิ่มขึ้นเล็กน้อย','up','#5cb88a'],'ใกล้เคียง':['ใกล้เคียงเดิม','fl','#8a94a6'],'น้อยกว่า':['ลดลง','dn','#E95429'],'ไม่มีข้อมูล':['ไม่มีข้อมูลปีก่อน','na','#c9ced8']},lm=ly[0][1];
     B.push('<div class="hz-qc q-ly">'+hd('📈','เทียบช่วงเดียวกันปีที่แล้ว')+'<div class="ar">'+ly.map(function(x,i){var o=LY[x[0]]||[x[0],'na','#ccc'];return '<div class="ac"><b>'+x[1]+'</b><div class="aw '+o[1]+'" style="--h:'+Math.max(14,Math.round(x[1]/lm*100))+'%;--c:'+o[2]+';animation-delay:'+(i*130)+'ms"></div><small>'+o[0]+'<br>'+pc(x[1],ly.t)+'%</small></div>'}).join('')+'</div></div>');
-    // 10 Thai share per hotel: flag ribbon rows
-    var tq=cnt('thaiPct'),TQ={'95':['🇹🇭','ไทยเกือบทั้งหมด','95%'],'80':['🇹🇭','ไทยส่วนใหญ่','80%'],'50':['🌏','ไทย-ต่างชาติพอ ๆ กัน','50%'],'20':['✈️','ต่างชาติส่วนใหญ่','20%']};
-    B.push('<div class="hz-qc q-tq">'+hd('🇹🇭','สัดส่วนแขกไทยของแต่ละโรงแรม')+tq.map(function(x,i){var o=TQ[x[0]]||['•',x[0],''];return '<div class="tr"><span class="fl">'+o[0]+'</span><div class="tb"><div style="width:'+pc(x[1],tq.t)+'%;animation-delay:'+(i*150)+'ms"></div><span>'+o[1]+' ('+o[2]+')</span></div><b>'+x[1]+'</b></div>'}).join('')+'</div>');
+    // 7 festival guests: tree (all hotels -> share bucket -> how known + people)
+    var FO=['>50%','31-50%','10-30%','<10%','ไม่ทราบ'],FL={'>50%':'มากกว่า 50%','31-50%':'31–50%','10-30%':'10–30%','<10%':'น้อยกว่า 10%','ไม่ทราบ':'ไม่ทราบ'},FC={'>50%':'#E95429','31-50%':'#F28C28','10-30%':'#F2B705','<10%':'#9fb7b4','ไม่ทราบ':'#c9ced8'},FMd={'>50%':.6,'31-50%':.4,'10-30%':.2,'<10%':.05,'ไม่ทราบ':0};
+    var SL={'พนักงานประเมิน':'🧑‍💼 พนักงานประเมิน','สอบถามตอนเช็กอิน':'🛎️ ถามตอนเช็กอิน','หมายเหตุการจอง/กรุ๊ปทัวร์':'🚌 จากการจอง/กรุ๊ปทัวร์'};
+    var G={},ftot=0;HR.forEach(function(h){var k=h.fest||'ไม่ทราบ';var an=+h.avgNights||2,pp=0;past.forEach(function(d){var n=(h.nights||{})[d];if(n)pp+=(n.guests||0)/an});var g=G[k]||(G[k]={n:0,pp:0,fp:0,src:{}});g.n++;g.pp+=pp;g.fp+=pp*FMd[k];if(h.festSrc)g.src[h.festSrc]=(g.src[h.festSrc]||0)+1;ftot+=pp*FMd[k]});
+    var fk=FO.filter(function(k){return G[k]}).sort(function(a,b){return G[b].n-G[a].n}),fmx=G[fk[0]].n;
+    B.push('<div class="hz-qc q-fs full">'+hd('🎪','แขกที่มาเพราะเทศกาล','20–24 พ.ย. · วงใหญ่ = โรงแรมทั้งหมด แตกเป็นกลุ่มตามสัดส่วนแขกเทศกาล')+
+      '<div class="ft"><div class="root"><b>'+HR.length+'</b><small>โรงแรม</small><span>แขกมาเพราะเทศกาล ≈ <strong>'+f(Math.round(ftot))+'</strong> คน</span></div>'+
+      '<div class="kids">'+fk.map(function(k,i){var g=G[k],d=Math.round(58+42*Math.sqrt(g.n/fmx)),sk=Object.keys(g.src).sort(function(a,b){return g.src[b]-g.src[a]});
+        return '<div class="kid" style="--c:'+FC[k]+';animation-delay:'+(300+i*150)+'ms"><div class="kc" style="--d:'+d+'px"><b>'+g.n+'</b><small>แห่ง</small></div>'+
+          '<div class="lf"><span class="p1">'+(k==='ไม่ทราบ'?'ไม่ทราบสัดส่วน':'แขกเทศกาล '+FL[k])+'</span>'+
+          (k==='ไม่ทราบ'?'<span class="p2">แขกทั้งหมด '+f(Math.round(g.pp))+' คน</span>':'<span class="p2">≈ <b>'+f(Math.round(g.fp))+'</b> คน</span>')+
+          sk.map(function(x){return '<span class="p3">'+(SL[x]||esc(x))+' '+g.src[x]+'</span>'}).join('')+'</div></div>'}).join('')+'</div></div></div>');
     el('hzQ').innerHTML=B.join('');
     el('hzN').textContent='นับจากโรงแรมที่ตอบ '+HR.length+' แห่ง';
     var cardHost=el('hzList');

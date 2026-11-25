@@ -196,6 +196,29 @@ body.tceb .team-only{display:none!important}
 .hz-agt b{color:var(--ink)}
 .hz-agt .ag2{color:#c4431a}.hz-agt .ag2 b{color:#c4431a}.hz-agt .ag2.no{color:var(--muted)}
 @media (max-width:480px){.hz-n{grid-template-columns:48px 1fr;gap:7px}.hz-bar .a,.hz-bar .e{font-size:11.5px;padding:0 7px}.hz-bar .a b{font-size:14px}}
+
+.hz-qc{position:relative;overflow:hidden}
+.hz-qc h4{font-size:15px}
+.hz-qc h4 span{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--soft);font-size:17px;animation:hzPop .5s both}
+.hz-p{padding:8px 10px;border-radius:12px;margin:6px 0;background:var(--bg)}
+.hz-p.mx{background:color-mix(in srgb,var(--c-hotel) 12%,var(--surface));box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--c-hotel) 55%,transparent)}
+.hz-p .ph{display:flex;align-items:center;gap:8px}
+.hz-p .pi{font-size:18px;line-height:1;min-width:24px;text-align:center;animation:hzPop .5s both}
+.hz-p.mx .pi{animation:hzPop .5s both,hzBob 2.4s ease-in-out 1s infinite}
+.hz-p .pl{flex:1;font-size:13.5px;font-weight:500;min-width:0}
+.hz-p.mx .pl{font-weight:700}
+.hz-p .pn{font-size:12px;color:var(--muted);white-space:nowrap}
+.hz-p .pn b{font-family:var(--display);font-size:17px;color:var(--ink)}
+.hz-p .pn em{font-style:normal;margin-left:6px;padding:1px 6px;border-radius:99px;background:var(--surface);color:var(--ink);font-weight:600}
+.hz-p.mx .pn em{background:var(--c-hotel);color:#fff}
+.hz-p .pd{display:flex;flex-wrap:wrap;gap:3px;margin:6px 0 0 32px}
+.hz-p .pd i{display:block;width:10px;height:12px;border-radius:2px 2px 1px 1px;background:var(--c-hotel);opacity:.35;position:relative;animation:hzDrop .4s both}
+.hz-p.mx .pd i{opacity:1}
+.hz-p .pd i:after{content:"";position:absolute;left:2px;right:2px;top:3px;height:2px;background:rgba(255,255,255,.7);box-shadow:0 4px 0 rgba(255,255,255,.7)}
+@keyframes hzPop{0%{transform:scale(.4);opacity:0}70%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+@keyframes hzDrop{from{transform:translateY(-8px) scale(.6);opacity:0}}
+@keyframes hzBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@media (prefers-reduced-motion:reduce){.hz-p .pd i,.hz-p .pi,.hz-qc h4 span{animation:none}}
 </style>
 </head>
 <body>
@@ -392,13 +415,17 @@ function render(D){
     // form answers
     var Q=[['🏨','ประเภทที่พัก','type'],['💰','ราคาห้องต่อคืน (บาท)','price',['<500','500-1000','1001-1500','1501-2500','2501-4000','>4000']],['🏷️','ราคาช่วงงานเทียบปกติ','priceVsNormal'],['👥','ผู้เข้าพักต่อห้อง','ppr',null,' คน'],['🌙','พักเฉลี่ย','avgNights',null,' คืน'],['🎪','แขกที่มาเพราะเทศกาล','fest',['>50%','31-50%','10-30%','<10%','ไม่ทราบ']],['🔎','รู้ได้อย่างไรว่ามาเพราะเทศกาล','festSrc'],['📈','เทียบช่วงเดียวกันปีที่แล้ว','ly',['มากกว่ามาก','มากกว่าเล็กน้อย','ใกล้เคียง','น้อยกว่า','ไม่มีข้อมูล']],['🇹🇭','สัดส่วนแขกชาวไทย','thaiPct',[95,80,50,20],'%']];
     var lab={'<10%':'น้อยกว่า 10%','>50%':'มากกว่า 50%','<500':'ต่ำกว่า 500','>4000':'มากกว่า 4,000','มากกว่ามาก':'เพิ่มขึ้นมาก','มากกว่าเล็กน้อย':'เพิ่มขึ้นเล็กน้อย','น้อยกว่า':'ลดลง','ใกล้เคียง':'ใกล้เคียงเดิม','ไม่มีข้อมูล':'ไม่มีข้อมูลปีก่อน','ต่ำกว่าปกติ/มีโปรโมชัน':'ต่ำกว่าปกติ / มีโปรโมชัน','ระบบโรงแรม/ทะเบียนผู้เข้าพัก':'ระบบโรงแรม / ทะเบียนผู้เข้าพัก','หมายเหตุการจอง/กรุ๊ปทัวร์':'หมายเหตุการจอง / กรุ๊ปทัวร์','สอบถามตอนเช็กอิน':'สอบถามตอนเช็กอิน','พนักงานประเมิน':'พนักงานประเมิน','95':'ไทยเกือบทั้งหมด (95%)','80':'ไทยส่วนใหญ่ (80%)','50':'ไทย-ต่างชาติพอ ๆ กัน','20':'ต่างชาติส่วนใหญ่'};
-    var qh=Q.map(function(q){var c={};HR.forEach(function(h){var v=h[q[2]];if(v===''||v==null)return;c[v]=(c[v]||0)+1});
+    var OI={'โรงแรม':'🏨','รีสอร์ท':'🌴','เกสต์เฮาส์/โฮมสเตย์':'🏡','<500':'🪙','500-1000':'💵','1001-1500':'💵💵','1501-2500':'💳','2501-4000':'💎','>4000':'👑','เท่าเดิม':'⚖️','สูงกว่าปกติ':'📈','ต่ำกว่าปกติ/มีโปรโมชัน':'🏷️','1':'👤','2':'👥','3':'👨‍👩‍👦','4':'👨‍👩‍👧‍👦','>50%':'🔥','31-50%':'🎉','10-30%':'🎪','<10%':'🙂','ไม่ทราบ':'❔','สอบถามตอนเช็กอิน':'🛎️','พนักงานประเมิน':'🧑‍💼','หมายเหตุการจอง/กรุ๊ปทัวร์':'🚌','มากกว่ามาก':'🚀','มากกว่าเล็กน้อย':'↗️','ใกล้เคียง':'➡️','น้อยกว่า':'↘️','ไม่มีข้อมูล':'❔','95':'🇹🇭','80':'🇹🇭','50':'🌏','20':'✈️'};
+    var NI={'1':'🌙','2':'🌙🌙','3':'🌙🌙🌙','4':'🌙🌙🌙🌙'};
+    var qh=Q.map(function(q){var c={};HR.forEach(function(h){var v=h[q[2]];if(v===''||v==null)return;v=String(v);c[v]=(c[v]||0)+1});
       var keys=Object.keys(c).sort(function(a,b){return c[b]-c[a]});
-      var tot=keys.reduce(function(a,k){return a+c[k]},0),mx=c[keys[0]]||1;
-      return '<div class="hz-qc"><h4><span>'+q[0]+'</span>'+q[1]+'</h4>'+keys.map(function(k,i){var l=lab[k]||(k+(q[4]||''));return '<div class="hz-o2'+(i===0?' mx':'')+'"><i class="fl" data-w="'+(c[k]/tot*100)+'"></i><span class="lb"><span class="rk">'+(i+1)+'</span>'+esc(l)+'</span><b>'+c[k]+'<small>แห่ง · '+Math.round(c[k]/tot*100)+'%</small></b></div>'}).join('')+'</div>'}).join('');
+      var tot=keys.reduce(function(a,k){return a+c[k]},0);
+      return '<div class="hz-qc"><h4><span>'+q[0]+'</span>'+q[1]+'</h4>'+keys.map(function(k,i){var l=lab[k]||(k+(q[4]||''));var ic=q[2]==='avgNights'?NI[k]:(OI[k]||'•');var pc=Math.round(c[k]/tot*100);
+        var dots='';for(var j=0;j<c[k];j++)dots+='<i style="animation-delay:'+(j*35+i*120)+'ms"></i>';
+        return '<div class="hz-p'+(i===0?' mx':'')+'"><div class="ph"><span class="pi">'+ic+'</span><span class="pl">'+esc(l)+'</span><span class="pn"><b data-cu="'+c[k]+'">'+c[k]+'</b> แห่ง<em>'+pc+'%</em></span></div><div class="pd">'+dots+'</div></div>'}).join('')+'</div>'}).join('');
     var tp=th+fo?Math.round(th/(th+fo)*100):0;
     el('hzQ').innerHTML='<div class="hz-qc"><h4><span>🌏</span>ผู้เข้าพักไทย / ต่างชาติ (20–24 พ.ย.)</h4><div class="hz-dn"><div class="ring" style="background:conic-gradient(var(--c-hotel) '+tp+'%,#E95429 0)"><b>'+tp+'%</b></div><ul><li><i style="background:var(--c-hotel)"></i>ชาวไทย <b>'+f(th)+'</b> คน-คืน</li><li><i style="background:#E95429"></i>ต่างชาติ <b>'+f(fo)+'</b> คน-คืน</li></ul></div></div>'+qh;
-    el('hzN').textContent='นับจากโรงแรมที่ตอบ '+HR.length+' แห่ง (ตัวเลขขวา = จำนวนโรงแรม)';
+    el('hzN').textContent='นับจากโรงแรมที่ตอบ '+HR.length+' แห่ง · 1 ตึกเล็ก = 1 โรงแรม';
     var cardHost=el('hzList');
     var SK=[['rooms','ห้องมากสุด'],['stay','เข้าพักสูงสุด'],['book','จองสูงสุด'],['fest','แขกเทศกาลมากสุด']],FR={'>50%':4,'31-50%':3,'10-30%':2,'<10%':1,'ไม่ทราบ':0};
     var RW=HR.map(function(h){return {h:h,stay:occ([h],past).p,book:occ([h],fut).p,fest:FR[h.fest]||0,rooms:h.rooms}});

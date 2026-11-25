@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-25T00:45:00+07:00",
+ "updated": "2026-11-26T00:25:00+07:00",
  "target": 200000,
  "days": [
   "2026-11-20",
@@ -143,6 +143,18 @@
    "total": 1366,
    "unique": 1076,
    "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
+  },
+  {
+   "date": "2026-11-25",
+   "points": [
+    {
+     "name": "รวมทุกจุด (รอรายละเอียดแยกจุด)",
+     "count": 157
+    }
+   ],
+   "total": 157,
+   "unique": null,
+   "source": "สรุป KORAT POINT 25 พ.ย. + รวม 6 วัน (20–25 พ.ย.) · รายการอื่นของวันที่ 25 คิดจากผลต่างยอดรวม"
   }
  ],
  "partner": [],
@@ -347,9 +359,9 @@
    }
   ],
   "checkinCum": {
-   "asof": "24 พ.ย.",
-   "people": 2669,
-   "times": 3958
+   "asof": "25 พ.ย.",
+   "people": 2683,
+   "times": 4115
   },
   "engage": [
    {
@@ -381,16 +393,21 @@
     "total": 171,
     "points": 882,
     "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
+   },
+   {
+    "date": "2026-11-25",
+    "total": 152,
+    "points": null,
+    "source": "สรุป KORAT POINT 25 พ.ย. + รวม 6 วัน (20–25 พ.ย.) · รายการอื่นของวันที่ 25 คิดจากผลต่างยอดรวม"
    }
   ],
   "status": {
-   "asof": "24 พ.ย.",
-   "approved": 513
+   "asof": "25 พ.ย.",
+   "approved": 665
   },
   "redeem": {
-   "items": 65,
-   "points": 1280,
-   "asof": "24 พ.ย."
+   "items": 90,
+   "asof": "25 พ.ย."
   },
   "shops": {
    "approved": 56,
@@ -453,11 +470,21 @@
     "redeemPoints": 500,
     "slips": 171,
     "slipPoints": 882
+   },
+   {
+    "date": "2026-11-25",
+    "checkin": 157,
+    "people": null,
+    "newMembers": 34,
+    "redeemItems": 25,
+    "redeemPoints": null,
+    "slips": 152,
+    "slipPoints": null
    }
   ],
   "members": {
-   "asof": "24 พ.ย.",
-   "new": 3102
+   "asof": "25 พ.ย.",
+   "new": 3136
   }
  },
  "reported": []

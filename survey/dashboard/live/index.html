@@ -934,7 +934,7 @@ function visBlock(o){
   $('gSrc').innerHTML=S.map((s,k)=>`<div class="sw" style="background:${s[2]}">${k+1}</div><div>${s[0]}<div class="w">${s[3]}</div></div><div class="v">${s[1]==null?'<span class="w">รอข้อมูล</span>':f(s[1])}</div>`).join('');
   $('gNote').textContent=o.note;
   if(!o._real){o._real=1;fetch('/korat-leads/visitation/data.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
-    const lo=(d.reach||{}).lineOA; if(lo&&lo.friends){LF={friends:+lo.friends,asof:lo.asof||LF.asof};document.querySelectorAll('.lft').forEach(e=>e.outerHTML=lfTxt());}
+    const lo=(d.reach||{}).lineOA; if(lo&&lo.friends){LF={friends:+lo.friends,asof:lo.asof||LF.asof};document.querySelectorAll('.lft').forEach(e=>e.outerHTML=lfTxt());document.querySelectorAll('.lfh').forEach(e=>e.outerHTML=lfH());}
     const ok=x=>x&&!x.test, sm=a=>(a||[]).filter(ok).reduce((s,x)=>s+(+x.count||+x.total||0),0);
     const qr=sm(d.checkin), kp=sm((d.kpoint||{}).engage);
     const ht=(d.hotelRows||[]).filter(ok).reduce((s,h)=>s+Object.values(h.nights||{}).reduce((t,n)=>t+(+n.guests||0),0),0);
@@ -1391,7 +1391,7 @@ const _ps=a=>{const c=a.p2_7;if(!c)return 0;return c.v==='alone'?1:(+c.people||0
 const TGT={20:16000,21:25000,22:24000,23:17000,24:16000,25:16000,26:17000,27:19000,28:25000,29:25000};
 const CATN={sounder:'SOUNDER',exhibit:'นิทรรศการเมือง',market:'ตลาด/อาหารท้องถิ่น',points:'ร่วมเข้า KORAT POINT ในเทศกาล',workshop:'เวิร์กช็อป',perf:'การแสดง/ดนตรี',kbattle:'K-BATTLE',kbatx:'KBATx'};
 const CATC={sounder:'#D34016',exhibit:'#8F4FE0',market:'#00837B',points:'#D3A600',workshop:'#003674',perf:'#C0393B',kbattle:'#D34016',kbatx:'#00837B'};
-let LF={friends:13010,asof:'23 พ.ย.'};const lfTxt=()=>`<span class="lft">จากสมาชิก LINE ${LF.friends.toLocaleString('en-US')} คน (ณ ${LF.asof})</span>`;
+let LF={friends:14892,asof:'25 พ.ย.'};const lfH=()=>`<span class="lfh">สำรวจจากผู้แอด LINE KORAT POINT <b>${LF.friends.toLocaleString('en-US')}</b> คน (ณ ${LF.asof})</span>`;const lfTxt=()=>`<span class="lft">จากสมาชิก LINE ${LF.friends.toLocaleString('en-US')} คน (ณ ${LF.asof})</span>`;
 const DATA_TO=(()=>{const t=new Date(Date.now()+7*3600e3), y=t.getUTCFullYear(), m=t.getUTCMonth()+1, d=t.getUTCDate();if(y>2026||(y===2026&&m>11))return '29';if(y<2026||m<11||d<20)return '20';return String(Math.min(29,d));})();
 const aPeople=(x,k)=>x.full===false&&x.pa&&x.pa[k]!=null?+x.pa[k]:(+x.p||1);
 const dd=r=>(r.p4_1&&r.p4_1.days)||{};
@@ -1574,7 +1574,7 @@ const ov=avg(R.map(r=>r.p7_overall?.v).filter(Boolean)), rec=avg(R.map(r=>r.p8_1
 const uidOk=R.filter(r=>/^U[0-9a-f]{32}$/.test(r._uid||'')).length;
 $('kpis').innerHTML=[['#D3FF34',N,'','ผู้ตอบแบบสำรวจ'],['#00837B',uidOk+'/'+N,'','ยืนยันตัวตนด้วย LINE UID · ตัดซ้ำ '+DUP+' รายการ'],['#D34016',ov.toFixed(2),'/5','พึงพอใจภาพรวมของงาน'],['#C0393B',rec.toFixed(2),'/5','จะแนะนำเทศกาลนี้ต่อ']]
  .map(([c,v,s,l])=>`<div class="kpi"><div class="ic" style="background:${c}"></div><div><div class="v">${v}<small>${s}</small></div><div class="l">${l}</div></div></div>`).join('');
-document.getElementById('htitle').innerHTML='ผู้ตอบแบบสำรวจ <span style="color:#D3FF34">'+N.toLocaleString('en-US')+'</span> คน';
+document.getElementById('htitle').innerHTML='ผู้ตอบแบบสำรวจ <span style="color:#D3FF34">'+N.toLocaleString('en-US')+'</span> คน<div style="font-size:.42em;font-weight:600;margin-top:6px;opacity:.92">'+lfH()+'</div>';
 $('badge').textContent='โคราช น่าเที่ยว '+avg(R.map(r=>r.p6_tour?.v).filter(Boolean)).toFixed(1)+'/5';
 const TY=Object.fromEntries(S.find(s=>s.id==='p1_1').opts.map(o=>[o.v,o.t.th]));
 const fmt=t=>new Date(t).toLocaleString('th-TH',{timeZone:'Asia/Bangkok',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',second:'2-digit'});

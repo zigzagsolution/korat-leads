@@ -97,45 +97,76 @@ footer{color:var(--muted);font-size:12.5px;text-align:center;padding:30px 0 40px
 body.tceb .team-only{display:none!important}
 @media (max-width:560px){.chart{height:170px}.col .val{font-size:10px}.xl{font-size:11px}.srow .v{font-size:19px}}
 
-.hx{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:12px}
-.hx .t{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;gap:14px;align-items:center}
-.hx .t .tx{min-width:0}
-.hx .t .k{font-size:13px;color:var(--muted);font-weight:600}
-.hx .t .bn{font-family:var(--display);font-weight:700;font-size:34px;line-height:1.05;font-variant-numeric:tabular-nums}
-.hx .t .bn small{font-size:15px;font-weight:600;color:var(--muted)}
-.hx .t .s{font-size:12.5px;color:var(--muted);margin-top:2px}
-.ring{--p:0;--c:var(--c-hotel);flex:0 0 74px;width:74px;height:74px;border-radius:50%;background:conic-gradient(var(--c) calc(var(--p)*1%),var(--bar-bg) 0);display:grid;place-items:center}
-.ring b{width:56px;height:56px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-family:var(--display);font-size:17px;font-variant-numeric:tabular-nums}
-.split{display:flex;height:12px;border-radius:6px;overflow:hidden;margin:8px 0 6px;background:var(--bar-bg)}
-.split i{display:block}
-.slg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted)}
-.slg b{color:var(--ink)}
-.dotc{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px;vertical-align:0}
-.hh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 14px;margin-bottom:10px}
-.hh h3{margin:0;font-size:15px}
-.hlg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted)}
-.sw{display:inline-block;width:14px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
-.sw.past{background:var(--c-hotel)}
-.sw.fut{background:repeating-linear-gradient(135deg,var(--c-hotel) 0 4px,color-mix(in srgb,var(--c-hotel) 35%,transparent) 4px 7px)}
-.sw.ag{background:#E95429;width:4px}
-.nr{display:grid;grid-template-columns:78px 1fr 84px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line)}
-.nr:last-child{border-bottom:0}
-.nr .d{font-weight:600;font-size:13.5px;line-height:1.2}
-.nr .d small{display:block;font-weight:500;color:var(--muted);font-size:11.5px}
-.nr.we .d{color:var(--c-hotel)}
-.nr .tk{position:relative;height:22px;background:var(--bar-bg);border-radius:6px}
-.nr .tk .f{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--c-hotel)}
-.nr .tk .f.fut{background:repeating-linear-gradient(135deg,var(--c-hotel) 0 6px,color-mix(in srgb,var(--c-hotel) 35%,transparent) 6px 10px)}
-.nr .tk .ag{position:absolute;top:-4px;bottom:-4px;width:4px;margin-left:-2px;border-radius:2px;background:#E95429}
-.nr .v{text-align:right;font-family:var(--display);font-weight:700;font-size:19px;line-height:1.1;font-variant-numeric:tabular-nums}
-.nr .v small{display:block;font-family:var(--body);font-weight:600;font-size:11.5px;color:#E95429}
+
+.hs-hero{background:linear-gradient(135deg,#003674 0%,#00566b 60%,#00837B 100%);color:#fff;border-radius:20px;padding:20px 18px;position:relative;overflow:hidden}
+.hs-hero:after{content:"";position:absolute;right:-30px;bottom:-30px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,209,92,.35),transparent 70%)}
+.hs-hero .ey{font-size:12.5px;font-weight:600;color:#D3FF34;letter-spacing:.03em}
+.hs-hero h2{font-family:var(--display);font-size:clamp(20px,4.6vw,28px);line-height:1.25;margin:4px 0 12px;color:#fff}
+.hs-hero h2 b{color:#FFD15C}
+.hs-pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;position:relative;z-index:1}
+.hs-pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:10px 12px}
+.hs-pill .n{font-family:var(--display);font-weight:700;font-size:28px;line-height:1.05;font-variant-numeric:tabular-nums}
+.hs-pill .n small{font-size:14px;font-weight:600;opacity:.8}
+.hs-pill .l{font-size:12.5px;opacity:.85}
+.hs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:12px;margin-top:12px}
+.hs-card{padding:16px}
+.hs-h{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px}
+.hs-h h3{margin:0;font-size:16px;font-family:var(--display)}
+.hs-h p{margin:2px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45}
+.hs-ic{flex:0 0 34px;height:34px;border-radius:10px;background:var(--soft);display:grid;place-items:center;font-size:18px}
+.hs-ic.ag{background:#E95429;color:#fff;font-family:var(--display);font-weight:700}
+.hs-tw{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.hs-tw svg{width:22px;height:26px;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
+.in .hs-tw svg{opacity:1;transform:none}
+.hs-sb{display:flex;height:14px;border-radius:8px;overflow:hidden;background:var(--bar-bg);margin:6px 0 8px}
+.hs-sb i{display:block;width:0;transition:width 1s ease}
+.hs-leg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+.hs-leg b{color:var(--ink);font-family:var(--display);font-size:16px}
+.hs-dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:0}
+.hs-gauge{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.hs-gauge svg{width:150px;height:86px;flex:0 0 auto}
+.hs-gauge .gt .n{font-family:var(--display);font-weight:700;font-size:30px;line-height:1;color:#E95429}
+.hs-gauge .gt .l{font-size:13px;color:var(--muted)}
+.hs-spark{display:flex;align-items:flex-end;gap:5px;height:64px;margin-top:12px}
+.hs-spark div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:10.5px;color:var(--muted)}
+.hs-spark i{display:block;width:100%;max-width:26px;border-radius:5px 5px 2px 2px;background:#E95429;opacity:.85;height:0;transition:height .9s ease}
+.hs-spark b{font-size:10.5px;color:var(--ink);font-weight:600}
+.hs-row{display:flex;gap:8px;align-items:flex-end;margin-bottom:10px}
+.hs-rl{writing-mode:vertical-rl;transform:rotate(180deg);font-size:12px;font-weight:600;color:var(--muted);padding:4px 0;align-self:center}
+.hs-city{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:end}
+.hs-b{display:flex;flex-direction:column;align-items:center;min-width:0}
+.hs-b .pc{font-family:var(--display);font-weight:700;font-size:20px;line-height:1;font-variant-numeric:tabular-nums;margin-bottom:4px}
+.hs-b .roof{width:70%;height:7px;border-radius:6px 6px 0 0;background:#3b4a66}
+.hs-b.we .roof{background:#D3FF34}
+.hs-b .bd{position:relative;width:100%;max-width:92px;background:#1d2c4a;border-radius:4px 4px 0 0;padding:5px;display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.hs-b .w{aspect-ratio:1/1.2;border-radius:2px;background:#2d3e60;transition:background .25s,box-shadow .25s}
+.in .hs-b .w.on{background:#FFD15C;box-shadow:0 0 6px rgba(255,209,92,.7)}
+.in .hs-b .w.bk{background:repeating-linear-gradient(135deg,#4fd1c5 0 3px,#2d3e60 3px 5px)}
+.hs-b .agl{position:absolute;left:-3px;right:-3px;height:3px;background:#E95429;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.6)}
+.hs-b .gd{width:100%;max-width:100px;height:4px;background:var(--line);border-radius:2px}
+.hs-b .dl{font-size:12px;font-weight:600;margin-top:5px;text-align:center;line-height:1.2}
+.hs-b .dl small{display:block;font-weight:500;color:var(--muted);font-size:11px}
+.hs-b .ag{font-size:10.5px;font-weight:600;color:#E95429;margin-top:2px;white-space:nowrap}
+.hs-k{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px}
+.hs-k.fut{background:repeating-linear-gradient(135deg,#4fd1c5 0 3px,#2d3e60 3px 5px)}
+.hs-k.agk{height:3px;width:14px;background:#E95429;vertical-align:2px}
+.hs-ins{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:6px}
+.hs-ins div{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:13.5px;line-height:1.45}
+.hs-ins b{font-family:var(--display)}
+.hs-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:8px}
+.hs-ht{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface)}
+.hs-ht .t{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.hs-ht .t span{font-weight:600;font-size:14px;line-height:1.35}
+.hs-ht .t em{font-style:normal;font-size:12px;color:var(--muted);white-space:nowrap}
+.hs-ht .st{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin:8px 0 4px}
+.hs-ht .st i{display:block;height:16px;border-radius:3px;background:var(--bar-bg)}
+.hs-ht .st i.fut{background-image:repeating-linear-gradient(135deg,transparent 0 3px,rgba(255,255,255,.55) 3px 5px)}
+.hs-ht .ft{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.hs-ht .ft b{color:var(--ink)}
 .chip{display:inline-block;font-size:11px;font-weight:600;padding:1px 7px;border-radius:99px;margin-left:6px;vertical-align:1px;white-space:nowrap}
 .chip.r{background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok)}
 .chip.s{background:var(--bar-bg);color:var(--muted)}
-.mb{display:flex;align-items:center;gap:6px;justify-content:flex-end}
-.mb i{display:block;height:7px;border-radius:4px;background:var(--c-hotel)}
-.mb i.fut{background:repeating-linear-gradient(135deg,var(--c-hotel) 0 4px,color-mix(in srgb,var(--c-hotel) 35%,transparent) 4px 7px)}
-.tbl td.nm{text-align:left}
+@media (max-width:480px){.hs-city{gap:5px}.hs-b .pc{font-size:16px}.hs-b .bd{padding:3px;gap:2px}}
 </style>
 </head>
 <body>
@@ -202,11 +233,18 @@ body.tceb .team-only{display:none!important}
 </section>
 
 <section class="tab" id="t-hotel">
-  <h2>โรงแรม อ.เมืองนครราชสีมา</h2>
-  <p class="lead">อัตราเข้าพักและยอดจองรายคืน 20–29 พ.ย. จากแบบรายงานห้องพัก เทียบห้องที่เต็มบน Agoda · <a href="../../hotel/" target="_blank" rel="noopener">เปิดฟอร์มโรงแรม ↗</a></p>
-  <div class="hx" id="hHero"></div>
-  <div class="card" style="margin-top:12px"><div class="hh"><h3>รายคืน: เข้าพัก / จองแล้ว เทียบ Agoda</h3><div class="hlg"><span><i class="sw past"></i>เข้าพักแล้ว</span><span><i class="sw fut"></i>จองแล้ว</span><span><i class="sw ag"></i>Agoda เต็ม/ปิดขาย</span></div></div><div id="hNight"></div><div class="note" id="hAgNote" style="margin-top:8px"></div></div>
-  <div class="card scroll" style="margin-top:12px"><h3 style="margin:0 0 10px;font-size:15px">รายชื่อที่พัก</h3><div id="hList"></div></div>
+  <div class="hs-hero" id="hsHero"></div>
+  <div class="hs-grid">
+    <div class="card hs-card"><div class="hs-h"><span class="hs-ic">🏨</span><div><h3>ข้อมูลมาจากไหน</h3><p>1 ตึก = 1 โรงแรม · สีเขียว = โรงแรมตอบจริง · สีเทา = จำลอง</p></div></div><div id="hsSrc"></div></div>
+    <div class="card hs-card"><div class="hs-h"><span class="hs-ic ag">A</span><div><h3>เทียบกับ Agoda (ข้อมูลจริง)</h3><p>ห้องใน อ.เมืองที่เต็มหรือปิดขายบน Agoda</p></div></div><div id="hsAg"></div></div>
+  </div>
+  <div class="card hs-card" style="margin-top:12px"><div class="hs-h"><span class="hs-ic">💡</span><div><h3>ไฟเปิดกี่ห้อง ในแต่ละคืน</h3><p>1 ตึก = 1 คืน · หน้าต่าง 50 บาน · ไฟเหลือง 1 บาน = ห้องมีคนพัก 2% · <span class="hs-k fut"></span> = จองแล้ว · <span class="hs-k agk"></span> = ระดับที่ Agoda เต็ม</p></div></div>
+    <div class="hs-row"><div class="hs-rl">เข้าพักแล้ว</div><div class="hs-city" id="hsPast"></div></div>
+    <div class="hs-row"><div class="hs-rl">จองแล้ว</div><div class="hs-city" id="hsFut"></div></div>
+    <div class="hs-ins" id="hsIns"></div>
+  </div>
+  <div class="card hs-card" style="margin-top:12px"><div class="hs-h"><span class="hs-ic">🛏️</span><div><h3>รายโรงแรม</h3><p>ช่องสี่เหลี่ยม 10 ช่อง = คืน 20–29 พ.ย. ยิ่งเข้มยิ่งเต็ม · ลายขีด = จองแล้ว</p></div></div><div class="hs-list" id="hsList"></div></div>
+  <p class="note" style="margin-top:10px">ฟอร์มโรงแรม: <a href="../../hotel/" target="_blank" rel="noopener">เปิดฟอร์ม ↗</a></p>
 </section>
 
 <section class="tab" id="t-checkin">
@@ -315,26 +353,51 @@ function render(D){
     var AG=D.agodaMu||{full:{}}, past=days.filter(function(d){return !HR.some(function(h){return ((h.nights||{})[d]||{}).booking})}), fut=days.filter(function(d){return past.indexOf(d)<0});
     function occ(list,ds){var r=0,t=0;list.forEach(function(h){ds.forEach(function(d){var n=(h.nights||{})[d];if(n){r+=n.rooms||0;t+=h.rooms}})});return {r:r,t:t,p:t?r/t*100:0}}
     var R=HR.filter(function(h){return h.real}), SM=HR.filter(function(h){return !h.real});
-    var rooms=sum(HR,'rooms'), rr=sum(R,'rooms'), sr=sum(SM,'rooms');
+    var rooms=sum(HR,'rooms'), rr=sum(R,'rooms'), sr=sum(SM,'rooms'), simPct=Math.round(sr/rooms*100);
     var op=occ(HR,past), of=occ(HR,fut), gN=0;HR.forEach(function(h){past.forEach(function(d){var n=(h.nights||{})[d];if(n)gN+=n.guests||0})});
-    var simPct=Math.round(sr/rooms*100);
-    var ag28=AG.full['2026-11-28'];
-    function ring(p,c){return '<div class="ring" style="--p:'+Math.round(p)+(c?';--c:'+c:'')+'"><b>'+Math.round(p)+'%</b></div>'}
+    var per=days.map(function(d){return {d:d,o:occ(HR,[d]),f:fut.indexOf(d)>=0,a:AG.full[d]}});
+    var top=per.slice().sort(function(a,b){return b.o.p-a.o.p})[0], low=per.slice().sort(function(a,b){return a.o.p-b.o.p})[0];
+    function dn(d){var t=thDate(d);return t.dow+' '+t.d+' พ.ย.'}
     var rng=function(a){var t=thDate(a[0]),u=thDate(a[a.length-1]);return t.d+'–'+u.d+' พ.ย.'};
-    el('hHero').innerHTML=
-      '<div class="t"><div class="tx" style="flex:1"><div class="k">ที่พักในแดชบอร์ด</div><div class="bn">'+f(HR.length)+' <small>แห่ง · '+f(rooms)+' ห้อง</small></div>'+
-        '<div class="split"><i style="width:'+(rr/rooms*100)+'%;background:var(--ok)"></i><i style="width:'+(sr/rooms*100)+'%;background:var(--muted);opacity:.45"></i></div>'+
-        '<div class="slg"><span><i class="dotc" style="background:var(--ok)"></i>ตอบจริง <b>'+R.length+'</b> แห่ง ('+(100-simPct)+'% ของห้อง)</span><span><i class="dotc" style="background:var(--muted);opacity:.45"></i>จำลอง <b>'+SM.length+'</b> แห่ง ('+simPct+'%)</span></div></div></div>'+
-      '<div class="t">'+ring(op.p)+'<div class="tx"><div class="k">เข้าพักแล้ว '+(past.length?rng(past):'')+'</div><div class="bn">'+f(op.r)+' <small>ห้อง-คืน</small></div><div class="s">ผู้เข้าพัก '+f(gN)+' คน-คืน</div></div></div>'+
-      (fut.length?'<div class="t">'+ring(of.p,'#2e9c94')+'<div class="tx"><div class="k">จองแล้ว '+rng(fut)+'</div><div class="bn">'+f(of.r)+' <small>ห้อง-คืน</small></div><div class="s">ยอดจองล่วงหน้าที่โรงแรมแจ้ง</div></div></div>':'')+
-      (ag28!=null?'<div class="t">'+ring(ag28,'#E95429')+'<div class="tx"><div class="k">Agoda เต็ม/ปิดขาย คืน ส. 28 พ.ย.</div><div class="bn">'+f(Math.round(AG.pool*ag28/100))+' <small>จาก '+f(AG.pool)+' ห้อง</small></div><div class="s">ข้อมูลจริงจาก Agoda · อ.เมือง '+f(AG.hotels)+' แห่ง</div></div></div>':'');
-    el('hNight').innerHTML=days.map(function(d){var t=thDate(d);var o=occ(HR,[d]);var isF=fut.indexOf(d)>=0;var a=AG.full[d];var we=/^(ศ\.|ส\.|อา\.)$/.test(t.dow);
-      return '<div class="nr'+(we?' we':'')+'"><span class="d">'+t.dow+' '+t.d+' พ.ย.<small>'+(isF?'จองแล้ว':'เข้าพัก')+'</small></span><div class="tk"><i class="f'+(isF?' fut':'')+'" style="width:'+o.p+'%"></i>'+(a!=null?'<i class="ag" style="left:'+a+'%"></i>':'')+'</div><span class="v">'+Math.round(o.p)+'%'+(a!=null?'<small>Agoda '+a+'%</small>':'<small style="color:var(--muted)">Agoda –</small>')+'</span></div>'}).join('');
-    el('hAgNote').textContent='เส้นสีส้ม = สัดส่วนห้องที่เต็มหรือปิดขายบน Agoda ใน อ.เมือง ('+f(AG.withRooms)+' แห่งที่แจ้งจำนวนห้อง รวม '+f(AG.pool)+' ห้อง) ค้นเมื่อ '+AG.checked;
+    el('hsHero').innerHTML='<div class="ey">โรงแรม อ.เมืองนครราชสีมา · คืน 20–29 พ.ย.</div><h2>คืนที่ห้องเต็มที่สุดคือ <b>'+dn(top.d)+'</b> '+(top.f?'จองแล้ว':'มีคนพัก')+' <b>'+Math.round(top.o.p)+'%</b></h2>'+
+      '<div class="hs-pills"><div class="hs-pill"><div class="n" data-cu="'+Math.round(op.p)+'">0<small>%</small></div><div class="l">เข้าพักแล้ว '+rng(past)+'</div></div>'+
+      (fut.length?'<div class="hs-pill"><div class="n" data-cu="'+Math.round(of.p)+'">0<small>%</small></div><div class="l">จองแล้ว '+rng(fut)+'</div></div>':'')+
+      '<div class="hs-pill"><div class="n" data-cu="'+gN+'">0</div><div class="l">ผู้เข้าพัก (คน-คืน) '+rng(past)+'</div></div>'+
+      '<div class="hs-pill"><div class="n" data-cu="'+simPct+'">0<small>%</small></div><div class="l">ของห้องเป็นข้อมูลจำลอง</div></div></div>';
+    var bld=function(c){return '<svg viewBox="0 0 22 26"><rect x="3" y="4" width="16" height="22" rx="2" fill="'+c+'"/><rect x="7" y="1" width="8" height="4" rx="1" fill="'+c+'"/>'+[0,1,2].map(function(r){return '<rect x="6" y="'+(8+r*5)+'" width="3" height="3" fill="#fff" opacity=".8"/><rect x="13" y="'+(8+r*5)+'" width="3" height="3" fill="#fff" opacity=".8"/>'}).join('')+'<rect x="9" y="21" width="4" height="5" fill="#fff" opacity=".8"/></svg>'};
+    var tw=R.map(function(){return bld('var(--ok)')}).concat(SM.map(function(){return bld('#b5b9c9')}));
+    el('hsSrc').innerHTML='<div class="hs-tw">'+tw.map(function(x,i){return x.replace('<svg','<svg style="transition-delay:'+(i*18)+'ms"')}).join('')+'</div>'+
+      '<div class="hs-sb"><i data-w="'+(rr/rooms*100)+'" style="background:var(--ok)"></i><i data-w="'+(sr/rooms*100)+'" style="background:#b5b9c9"></i></div>'+
+      '<div class="hs-leg"><span><i class="hs-dot" style="background:var(--ok)"></i>ตอบจริง <b>'+R.length+'</b> แห่ง · '+f(rr)+' ห้อง ('+(100-simPct)+'%)</span><span><i class="hs-dot" style="background:#b5b9c9"></i>จำลอง <b>'+SM.length+'</b> แห่ง · '+f(sr)+' ห้อง ('+simPct+'%)</span></div>';
+    var a28=AG.full['2026-11-28'], an=a28!=null?Math.round(AG.pool*a28/100):0, ang=Math.PI*(1-(a28||0)/100), ex=75+60*Math.cos(ang), ey=78-60*Math.sin(ang);
+    var agN=per.filter(function(x){return x.a!=null});
+    el('hsAg').innerHTML='<div class="hs-gauge"><svg viewBox="0 0 150 86"><path d="M15 78 A60 60 0 0 1 135 78" fill="none" stroke="var(--bar-bg)" stroke-width="14" stroke-linecap="round"/><path class="hs-arc" d="M15 78 A60 60 0 0 1 '+ex.toFixed(1)+' '+ey.toFixed(1)+'" fill="none" stroke="#E95429" stroke-width="14" stroke-linecap="round"/><text x="75" y="74" text-anchor="middle" font-family="Prompt" font-weight="700" font-size="24" fill="#E95429">'+a28+'%</text></svg>'+
+      '<div class="gt"><div class="l">คืนเสาร์ 28 พ.ย. เต็ม/ปิดขายแล้ว</div><div class="n">'+f(an)+' ห้อง</div><div class="l">จาก '+f(AG.pool)+' ห้องบน Agoda (อ.เมือง '+f(AG.hotels)+' แห่ง)</div></div></div>'+
+      '<div class="hs-spark">'+agN.map(function(x){var t=thDate(x.d);return '<div><b>'+x.a+'%</b><i data-h="'+Math.max(x.a,3)+'"></i>'+t.d+'</div>'}).join('')+'</div>'+
+      '<div class="note" style="margin-top:6px">ค้นบน Agoda '+esc(AG.checked)+'</div>';
+    function building(x){var t=thDate(x.d),we=/^(ศ\.|ส\.|อา\.)$/.test(t.dow),lit=Math.round(x.o.p/2),w='';
+      var cells=[];for(var r=0;r<10;r++)for(var c=0;c<5;c++){var fromBottom=(9-r)*5+c;cells.push('<i class="w'+(fromBottom<lit?(x.f?' bk':' on'):'')+'" style="transition-delay:'+(fromBottom*22)+'ms"></i>')}
+      return '<div class="hs-b'+(we?' we':'')+'"><div class="pc">'+Math.round(x.o.p)+'%</div><div class="roof"></div><div class="bd">'+cells.join('')+(x.a!=null?'<span class="agl" style="bottom:calc(5px + (100% - 10px) * '+(x.a/100)+')"></span>':'')+'</div><div class="gd"></div><div class="dl">'+t.dow+' '+t.d+'<small>'+f(x.o.r)+' ห้อง</small></div>'+(x.a!=null?'<div class="ag">Agoda '+x.a+'%</div>':'<div class="ag" style="color:var(--muted)">Agoda –</div>')+'</div>'}
+    el('hsPast').innerHTML=per.filter(function(x){return !x.f}).map(building).join('');
+    el('hsFut').innerHTML=per.filter(function(x){return x.f}).map(building).join('');
+    var wk=occ(HR,past.filter(function(d){var t=thDate(d);return !/^(ศ\.|ส\.|อา\.)$/.test(t.dow)}));
+    var sat28=per.filter(function(x){return x.d==='2026-11-28'})[0];
+    el('hsIns').innerHTML='<div>🌙 คืนที่เงียบที่สุด <b>'+dn(low.d)+'</b> เปิดไฟ '+Math.round(low.o.p)+'%</div>'+
+      '<div>📅 วันธรรมดา 23–24 พ.ย. เข้าพักเฉลี่ย <b>'+Math.round(wk.p)+'%</b> ส่วนสุดสัปดาห์แรก 20–22 พ.ย. <b>'+Math.round(occ(HR,['2026-11-20','2026-11-21','2026-11-22']).p)+'%</b></div>'+
+      (sat28?'<div>🔥 ส. 28 พ.ย. จองแล้ว <b>'+Math.round(sat28.o.p)+'%</b> ขณะที่ Agoda เต็มแล้ว <b>'+sat28.a+'%</b></div>':'');
+    var col=function(p){return 'color-mix(in srgb,var(--c-hotel) '+Math.round(15+p*0.85)+'%,var(--bar-bg))'};
     var rows=R.concat(SM.slice().sort(function(a,b){return b.rooms-a.rooms}));
-    el('hList').innerHTML='<table class="tbl"><thead><tr><th style="text-align:left">ที่พัก</th><th>ห้อง</th><th>เข้าพัก '+(past.length?rng(past):'')+'</th><th>จองแล้ว '+(fut.length?rng(fut):'')+'</th></tr></thead><tbody>'+rows.map(function(h){var a=occ([h],past),b=occ([h],fut);
-      function mb(o,c){return o.t?'<div class="mb"><i class="'+c+'" style="width:'+(o.p*.5)+'px"></i>'+Math.round(o.p)+'%</div>':'<span class="note">–</span>'}
-      return '<tr><td class="nm">'+esc(h.name)+(h.real?'<span class="chip r">ตอบจริง</span>':'<span class="chip s">จำลอง</span>')+'</td><td>'+f(h.rooms)+'</td><td>'+mb(a,'')+'</td><td>'+mb(b,'fut')+'</td></tr>'}).join('')+'</tbody></table>';
+    el('hsList').innerHTML=rows.map(function(h){var a=occ([h],past),b=occ([h],fut);
+      return '<div class="hs-ht"><div class="t"><span>'+esc(h.name)+(h.real?'<span class="chip r">ตอบจริง</span>':'<span class="chip s">จำลอง</span>')+'</span><em>'+f(h.rooms)+' ห้อง</em></div><div class="st">'+days.map(function(d){var n=(h.nights||{})[d];if(!n)return '<i title="'+dn(d)+' ไม่มีข้อมูล"></i>';var p=n.rooms/h.rooms*100;return '<i class="'+(n.booking?'fut':'')+'" style="background-color:'+col(p)+'" title="'+dn(d)+' '+Math.round(p)+'%"></i>'}).join('')+'</div>'+
+        '<div class="ft"><span>เข้าพัก <b>'+(a.t?Math.round(a.p)+'%':'–')+'</b></span><span>จองแล้ว <b>'+(b.t?Math.round(b.p)+'%':'–')+'</b></span></div></div>'}).join('');
+    // animate when visible
+    var sec=el('t-hotel');
+    function go(){sec.querySelectorAll('.hs-card,.hs-hero').forEach(function(c){c.classList.add('in')});
+      sec.querySelectorAll('.hs-sb i').forEach(function(i){i.style.width=i.dataset.w+'%'});
+      sec.querySelectorAll('.hs-spark i').forEach(function(i){i.style.height=i.dataset.h+'%'});
+      sec.querySelectorAll('[data-cu]').forEach(function(n){var v=+n.dataset.cu,sm=n.querySelector('small'),s=sm?sm.outerHTML:'',t0=performance.now();(function st(t){var k=Math.min(1,(t-t0)/900);n.innerHTML=f(Math.round(v*(1-Math.pow(1-k,3))))+s;if(k<1)requestAnimationFrame(st)})(t0)})}
+    var started=false;function chk(){if(!started&&sec.classList.contains('on')){started=true;setTimeout(go,60)}}
+    chk();window.addEventListener('hashchange',function(){setTimeout(chk,30)});document.addEventListener('click',function(){setTimeout(chk,30)});
   })();
 
   // check-in by area

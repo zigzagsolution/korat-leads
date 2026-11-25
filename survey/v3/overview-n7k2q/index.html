@@ -316,8 +316,8 @@ const S=[
      ['web','เว็บไซต์/ระบบลงทะเบียน','Website / registration system'],['overall','ภาพรวมของงาน','Overall event experience']]
    .map(([k,th,en],i)=>({id:'p7_'+k,part:7,no:String(i+1),type:'rate',pre2:SCALE_TH7,q:T(th,en)})),
  // Part 8
- {id:'p8_1',part:8,no:'1',type:'rate',labels:[T('น้อยที่สุด','Least likely'),T('น้อย','Unlikely'),T('ปานกลาง','Neutral'),T('มาก','Likely'),T('มากที่สุด','Most likely')],
-  q:T('ท่านจะแนะนำเทศกาลนี้ให้ผู้อื่นหรือไม่','How likely are you to recommend this festival to others?'),pre2:T('1 = น้อยที่สุด ถึง 5 = มากที่สุด','1 = Least likely to 5 = Most likely')},
+ {id:'p8_1',part:8,no:'1',type:'single',opts:[o('yes','ชวนแน่นอน','Yes, definitely'),o('think','เดี๋ยวคิดดูก่อน','Not sure yet'),o('no','ไม่ชวน','No')],
+  q:T('ท่านจะชวนคนอื่นมาเทศกาลนี้ไหม','Would you invite others to come to this festival?')},
  {id:'p8_2',part:8,no:'2',type:'text',q:T('สิ่งที่ประทับใจมากที่สุด','What impressed you the most about the event?')},
  {id:'p8_3',part:8,no:'3',type:'text',q:T('ปัญหาที่พบ','What issues or problems did you encounter?')},
  {id:'p8_4',part:8,no:'4',type:'text',q:T('ข้อเสนอแนะ','Additional suggestions or comments')},

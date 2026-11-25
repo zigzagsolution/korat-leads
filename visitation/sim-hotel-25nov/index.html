@@ -100,6 +100,7 @@ body.tceb .team-only{display:none!important}
 
 
 .hz-hero{background:#003674;color:#fff;border-radius:18px;padding:18px}
+.hz-big{display:flex;align-items:center;gap:14px;margin-bottom:6px}.hz-big b{font-family:var(--display);font-size:clamp(64px,14vw,96px);line-height:.9;color:#D3FF34;animation:hzPop .7s both}.hz-big strong{display:block;font-size:clamp(18px,4vw,24px);color:#fff}.hz-big span{font-size:13px;opacity:.8}
 .hz-hero .ey{font-size:12.5px;font-weight:600;color:#D3FF34}
 .hz-hero h2{font-family:var(--display);font-size:clamp(19px,4.4vw,26px);line-height:1.3;margin:4px 0 14px;color:#fff}
 .hz-hero h2 b{color:#FFD15C}
@@ -345,7 +346,7 @@ body.tceb .team-only{display:none!important}
 
 <section class="tab" id="t-hotel">
   <div class="hz-hero" id="hzHero"></div>
-  <div class="card hz-card"><h3>ห้องพักรายคืน</h3><p class="hz-sub" id="hzColsSub"></p><div class="hz-lg"><span><i class="g1"></i>เข้าพักแล้ว</span><span><i class="g2"></i>จองแล้ว</span><span><i class="g3"></i>ยังว่าง</span><span style="color:#c4431a">Agoda = % ห้องใน อ.เมืองที่เต็ม/ปิดขายบน Agoda</span></div><div id="hzCols"></div></div>
+  <div class="card hz-card"><h3>ห้องพักรายคืน</h3><p class="hz-sub" id="hzColsSub"></p><div class="hz-lg"><span><i class="g1"></i>เข้าพักแล้ว</span><span><i class="g2"></i>จองแล้ว</span><span><i class="g3"></i>ยังว่าง</span></div><div id="hzCols"></div></div>
   <div class="card hz-card"><h3>คำตอบจากแบบฟอร์ม</h3><p class="hz-sub" id="hzN"></p><div class="hz-q" id="hzQ"></div></div>
   <div class="card hz-card"><h3>อันดับโรงแรม</h3><p class="hz-sub">กดปุ่มเพื่อเรียงอันดับ · แถบเต็ม = ห้องเต็ม · แถบลายขีด = จองแล้ว</p><div id="hzList"></div></div>
   <p class="note" style="margin-top:10px"><a href="../../hotel/" target="_blank" rel="noopener">เปิดฟอร์มโรงแรม ↗</a></p>
@@ -473,12 +474,12 @@ function render(D){
       '<div><i>🛏️</i><b>'+mb(VA.rv)+'</b><span>ค่าห้องพัก (บาท)</span><em>'+f(VA.rn)+' ห้อง-คืน × ราคาห้อง</em></div>'+
       '<div class="big"><i>💰</i><b>'+mb(VA.sp)+'</b><span>ค่าใช้จ่ายรวมในโคราช (บาท)</span><em>คนไทย '+f(Math.round(VA.th))+' × 2,500 + ต่างชาติ '+f(Math.round(VA.fo))+' × 4,500</em></div>'+
       '</div><p class="vn">ราคาห้องใช้กึ่งกลางช่วงราคาที่โรงแรมตอบ · ค่าใช้จ่ายต่อทริปจากข้อมูล ททท./กก. ปี 2569 (รวมค่าที่พักแล้ว)</p></div>';
-    el('hzHero').innerHTML='<div class="ey">โรงแรม อ.เมืองนครราชสีมา · '+HR.length+' แห่ง · '+f(rooms)+' ห้อง</div><h2>คืนที่ห้องเต็มที่สุด <b>'+dn(top.d)+'</b> '+(top.f?'จองแล้ว':'เข้าพัก')+' <b>'+Math.round(top.o.p)+'%</b></h2>'+
+    el('hzHero').innerHTML='<div class="hz-big"><b data-cu="'+HR.length+'">'+HR.length+'</b><div><strong>โรงแรมตอบกลับแล้ว</strong><span>อ.เมืองนครราชสีมา · รวม '+f(rooms)+' ห้อง</span></div></div><h2>คืนที่ห้องเต็มที่สุด <b>'+dn(top.d)+'</b> '+(top.f?'จองแล้ว':'เข้าพัก')+' <b>'+Math.round(top.o.p)+'%</b></h2>'+
       '<div class="hz-st"><div><b>'+Math.round(op.p)+'<small>%</small></b><span>เข้าพักเฉลี่ย 20–24 พ.ย.</span></div><div><b>'+Math.round(of.p)+'<small>%</small></b><span>จองแล้ว 25–29 พ.ย.</span></div><div><b>'+f(gp)+'</b><span>ผู้เข้าพัก (คน-คืน) 20–24 พ.ย.</span></div><div><b>'+f(of.r)+'</b><span>ห้อง-คืนที่จองแล้ว 25–29 พ.ย.</span></div></div>'+valH;
     el('hzColsSub').textContent='แถบเต็ม 1 เส้น = ห้องพักทั้งหมด '+f(rooms)+' ห้อง จาก '+HR.length+' โรงแรม';
     function nrow(x){var t=thDate(x.d),we=/^(ศ\.|ส\.|อา\.)$/.test(t.dow),free=x.o.t-x.o.r,p=Math.round(x.o.p),fp=100-x.o.p;
       return '<div class="hz-n'+(we?' we':'')+'"><div class="d">'+t.dow+' '+t.d+'<small>พ.ย.</small></div><div><div class="hz-bar"><div class="a'+(x.f?' bk':'')+'" data-w="'+x.o.p+'"><b>'+p+'%</b>'+(x.f?'จองแล้ว ':'เข้าพักแล้ว ')+f(x.o.r)+' ห้อง</div><div class="e">'+(fp>=18?'ยังว่าง':'')+'</div></div>'+
-        '<div class="hz-agt"><span class="fr">ยังว่าง <b>'+f(free)+'</b> ห้อง</span>'+(x.a!=null?'<span class="ag2">Agoda เต็ม/ปิดขาย <b>'+x.a+'%</b></span>':'<span class="ag2 no">Agoda ไม่มีข้อมูล</span>')+'</div></div></div>'}
+        '<div class="hz-agt"><span class="fr">ยังว่าง <b>'+f(free)+'</b> ห้อง</span>'+'</div></div></div>'}
     var P=per.filter(function(x){return !x.f}),F=per.filter(function(x){return x.f});
     el('hzCols').innerHTML='<div class="hz-gh">เข้าพักแล้ว<small>20–24 พ.ย.</small></div>'+P.map(nrow).join('')+'<div class="hz-gh">จองล่วงหน้า<small>25–29 พ.ย. (ณ วันนี้)</small></div>'+F.map(nrow).join('');
     setTimeout(function(){el('hzCols').querySelectorAll('.a[data-w]').forEach(function(i){i.style.width=i.dataset.w+'%'})},250);

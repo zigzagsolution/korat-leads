@@ -200,25 +200,55 @@ body.tceb .team-only{display:none!important}
 .hz-qc{position:relative;overflow:hidden}
 .hz-qc h4{font-size:15px}
 .hz-qc h4 span{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--soft);font-size:17px;animation:hzPop .5s both}
-.hz-p{padding:8px 10px;border-radius:12px;margin:6px 0;background:var(--bg)}
-.hz-p.mx{background:color-mix(in srgb,var(--c-hotel) 12%,var(--surface));box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--c-hotel) 55%,transparent)}
-.hz-p .ph{display:flex;align-items:center;gap:8px}
-.hz-p .pi{font-size:18px;line-height:1;min-width:24px;text-align:center;animation:hzPop .5s both}
-.hz-p.mx .pi{animation:hzPop .5s both,hzBob 2.4s ease-in-out 1s infinite}
-.hz-p .pl{flex:1;font-size:13.5px;font-weight:500;min-width:0}
-.hz-p.mx .pl{font-weight:700}
-.hz-p .pn{font-size:12px;color:var(--muted);white-space:nowrap}
-.hz-p .pn b{font-family:var(--display);font-size:17px;color:var(--ink)}
-.hz-p .pn em{font-style:normal;margin-left:6px;padding:1px 6px;border-radius:99px;background:var(--surface);color:var(--ink);font-weight:600}
-.hz-p.mx .pn em{background:var(--c-hotel);color:#fff}
-.hz-p .pd{display:flex;flex-wrap:wrap;gap:3px;margin:6px 0 0 32px}
-.hz-p .pd i{display:block;width:10px;height:12px;border-radius:2px 2px 1px 1px;background:var(--c-hotel);opacity:.35;position:relative;animation:hzDrop .4s both}
-.hz-p.mx .pd i{opacity:1}
-.hz-p .pd i:after{content:"";position:absolute;left:2px;right:2px;top:3px;height:2px;background:rgba(255,255,255,.7);box-shadow:0 4px 0 rgba(255,255,255,.7)}
+.hz-q .w2{grid-column:span 2}
+@media (max-width:700px){.hz-q .w2{grid-column:auto}}
+.hz-qc .qs{margin:-4px 0 10px;font-size:12px;color:var(--muted)}
+.q-th .thw{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.rg{width:120px;height:120px;flex:0 0 auto}
+.rg circle,.mi circle{fill:none;stroke-width:12}.rg .bg{stroke:#E95429}.rg .fg{stroke:var(--c-hotel);stroke-linecap:round;stroke-dasharray:301.6;stroke-dashoffset:var(--o);transform:rotate(-90deg);transform-origin:center;animation:hzRing 1.2s ease-out both}
+.rg text{text-anchor:middle;font-family:var(--display);font-size:24px;font-weight:700;fill:var(--ink)}.rg text.s{font-size:11px;font-weight:500;fill:var(--muted);font-family:inherit}
+.tpr{flex:1;min-width:180px}.ppl{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;max-width:260px}
+.ppl i{height:22px;border-radius:50% 50% 4px 4px/40% 40% 4px 4px;animation:hzPop .45s both}.ppl i.t,.tl i.t{background:var(--c-hotel)}.ppl i.f,.tl i.f{background:#E95429}
+.tl{display:flex;flex-direction:column;gap:2px;margin-top:10px;font-size:13px}.tl i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+.q-ty .wf{display:flex;flex-wrap:wrap;gap:2px;font-size:19px;line-height:1.15}.q-ty .wf span{animation:hzDrop .35s both}
+.q-ty .tyl{display:flex;gap:16px;margin-top:10px}.q-ty .tyl b{font-family:var(--display);font-size:26px;display:block;line-height:1}.q-ty .tyl span{font-size:12px;color:var(--muted)}
+.q-pr .cols{display:flex;align-items:flex-end;gap:8px;height:150px;padding-top:4px}
+.q-pr .cl{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;text-align:center}
+.q-pr .cl em{font-style:normal;font-size:11.5px;font-weight:600;margin-bottom:3px;white-space:nowrap}
+.q-pr .st{width:100%;max-width:46px;height:var(--h);border-radius:8px 8px 3px 3px;background:repeating-linear-gradient(0deg,#F2B705 0 7px,#d99e00 7px 9px);animation:hzGrowY .9s cubic-bezier(.2,.8,.2,1) both;transform-origin:bottom}
+.q-pr .cl:not(.mx) .st{opacity:.55}.q-pr .cl small{font-size:10.5px;color:var(--muted);margin-top:4px;line-height:1.2;min-height:26px}
+.q-pv .rb{display:flex;height:34px;border-radius:99px;overflow:hidden;gap:2px}.q-pv .rb div{display:grid;place-items:center;color:#fff;font-weight:700;font-size:13px;animation:hzGrowX .9s ease-out both;transform-origin:left}
+.q-pv .pvl{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}.q-pv .pvl>div{flex:1;min-width:80px;font-size:13px}.q-pv .pvl b{font-family:var(--display);font-size:20px}
+.q-pv .ic,.q-sr .ic{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;margin-right:4px;font-size:14px;vertical-align:-6px}
+.q-pp .drs{display:flex;gap:10px;align-items:flex-end}.q-pp .dr{flex:1;text-align:center}
+.q-pp .door{height:84px;border-radius:24px 24px 4px 4px;background:color-mix(in srgb,var(--c-hotel) 14%,var(--surface));border:2px solid color-mix(in srgb,var(--c-hotel) 45%,transparent);display:grid;place-items:center;position:relative}
+.q-pp .dr.mx .door{height:110px;background:var(--c-hotel)}.q-pp .door:after{content:"";position:absolute;right:9px;top:50%;width:6px;height:6px;border-radius:50%;background:#F2B705}
+.q-pp .ps i{font-style:normal;font-size:20px;display:inline-block;animation:hzPop .4s both}.q-pp .dr b{display:block;font-family:var(--display);font-size:22px;margin-top:6px}.q-pp .dr small{font-size:11.5px;color:var(--muted)}
+.q-an .sky{display:flex;gap:8px}.q-an .nt{flex:1;border-radius:14px;padding:12px 8px;text-align:center;color:#eef1fb;background:linear-gradient(160deg,#0b2a5b,#19407e);position:relative;overflow:hidden}
+.q-an .nt.mx{background:linear-gradient(160deg,#061632,#003674);flex:1.3}.q-an .nt:before{content:"✦ · ✧ ·";position:absolute;top:4px;left:8px;font-size:9px;opacity:.5;letter-spacing:3px}
+.q-an .mn{min-height:30px;font-size:20px}.q-an .mn i{font-style:normal;display:inline-block;animation:hzPop .5s both}.q-an .nt b{display:block;font-family:var(--display);font-size:20px}.q-an .nt span{font-size:11.5px;opacity:.8}
+.q-fs .bub{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center}
+.q-fs .bb{display:flex;flex-direction:column;align-items:center;gap:4px;animation:hzPop .6s both}
+.q-fs .bb>div{width:var(--d);height:var(--d);border-radius:50%;background:var(--c);display:grid;place-content:center;text-align:center;color:#1b1b1b;box-shadow:0 6px 16px -8px var(--c)}
+.q-fs .bb b{font-family:var(--display);font-size:22px;line-height:1}.q-fs .bb small{font-size:10.5px}.q-fs .bb span{font-size:12px;font-weight:600}
+.q-sr .mr{display:flex;flex-direction:column;gap:10px}.q-sr .mi{display:flex;align-items:center;gap:10px;position:relative;font-size:13px}
+.q-sr svg{width:52px;height:52px;flex:0 0 auto}.mi circle{stroke-width:6}.mi .bg{stroke:var(--line)}.mi .fg{stroke:var(--c-hotel);stroke-linecap:round;stroke-dasharray:113.1;stroke-dashoffset:var(--o);transform:rotate(-90deg);transform-origin:center;animation:hzRing2 1s ease-out both}
+.q-sr .mi .ic{position:absolute;left:13px;top:50%;margin-top:-13px;background:none}.q-sr .mi b{font-family:var(--display);font-size:18px}.q-sr .mi small{color:var(--muted)}
+.q-ly .ar{display:flex;gap:8px;align-items:flex-end;height:150px}.q-ly .ac{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;text-align:center}
+.q-ly .ac b{font-family:var(--display);font-size:18px}.q-ly .ac small{font-size:10.5px;color:var(--muted);line-height:1.25;margin-top:4px;min-height:26px}
+.q-ly .aw{width:70%;max-width:46px;height:var(--h);background:var(--c);animation:hzGrowY .9s cubic-bezier(.2,.8,.2,1) both;transform-origin:bottom}
+.q-ly .aw.up{clip-path:polygon(50% 0,100% 22px,72% 22px,72% 100%,28% 100%,28% 22px,0 22px)}
+.q-ly .aw.dn{clip-path:polygon(28% 0,72% 0,72% calc(100% - 22px),100% calc(100% - 22px),50% 100%,0 calc(100% - 22px),28% calc(100% - 22px))}
+.q-ly .aw.fl,.q-ly .aw.na{border-radius:6px 6px 2px 2px}.q-ly .aw.na{background:repeating-linear-gradient(45deg,#d5d9e1 0 5px,#eef0f4 5px 10px)}
+.q-tq .tr{display:flex;align-items:center;gap:8px;margin:7px 0}.q-tq .fl{font-size:22px;width:28px;text-align:center}.q-tq .tr>b{font-family:var(--display);font-size:18px;min-width:24px;text-align:right}
+.q-tq .tb{flex:1;position:relative;height:28px;border-radius:8px;background:var(--bg);overflow:hidden}.q-tq .tb div{height:100%;background:linear-gradient(90deg,color-mix(in srgb,var(--c-hotel) 30%,transparent),color-mix(in srgb,var(--c-hotel) 60%,transparent));animation:hzGrowX .9s ease-out both;transform-origin:left}
+.q-tq .tb span{position:absolute;left:10px;top:0;line-height:28px;font-size:12.5px;font-weight:600}
+@keyframes hzRing{from{stroke-dashoffset:301.6}}@keyframes hzRing2{from{stroke-dashoffset:113.1}}
+@keyframes hzGrowY{from{transform:scaleY(0)}}@keyframes hzGrowX{from{transform:scaleX(0)}}
 @keyframes hzPop{0%{transform:scale(.4);opacity:0}70%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
 @keyframes hzDrop{from{transform:translateY(-8px) scale(.6);opacity:0}}
 @keyframes hzBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-@media (prefers-reduced-motion:reduce){.hz-p .pd i,.hz-p .pi,.hz-qc h4 span{animation:none}}
+@media (prefers-reduced-motion:reduce){.hz-qc *{animation:none!important}}
 </style>
 </head>
 <body>
@@ -412,20 +442,44 @@ function render(D){
     var P=per.filter(function(x){return !x.f}),F=per.filter(function(x){return x.f});
     el('hzCols').innerHTML='<div class="hz-gh">เข้าพักแล้ว<small>20–24 พ.ย.</small></div>'+P.map(nrow).join('')+'<div class="hz-gh">จองล่วงหน้า<small>25–29 พ.ย. (ณ วันนี้)</small></div>'+F.map(nrow).join('');
     setTimeout(function(){el('hzCols').querySelectorAll('.a[data-w]').forEach(function(i){i.style.width=i.dataset.w+'%'})},250);
-    // form answers
-    var Q=[['🏨','ประเภทที่พัก','type'],['💰','ราคาห้องต่อคืน (บาท)','price',['<500','500-1000','1001-1500','1501-2500','2501-4000','>4000']],['🏷️','ราคาช่วงงานเทียบปกติ','priceVsNormal'],['👥','ผู้เข้าพักต่อห้อง','ppr',null,' คน'],['🌙','พักเฉลี่ย','avgNights',null,' คืน'],['🎪','แขกที่มาเพราะเทศกาล','fest',['>50%','31-50%','10-30%','<10%','ไม่ทราบ']],['🔎','รู้ได้อย่างไรว่ามาเพราะเทศกาล','festSrc'],['📈','เทียบช่วงเดียวกันปีที่แล้ว','ly',['มากกว่ามาก','มากกว่าเล็กน้อย','ใกล้เคียง','น้อยกว่า','ไม่มีข้อมูล']],['🇹🇭','สัดส่วนแขกชาวไทย','thaiPct',[95,80,50,20],'%']];
-    var lab={'<10%':'น้อยกว่า 10%','>50%':'มากกว่า 50%','<500':'ต่ำกว่า 500','>4000':'มากกว่า 4,000','มากกว่ามาก':'เพิ่มขึ้นมาก','มากกว่าเล็กน้อย':'เพิ่มขึ้นเล็กน้อย','น้อยกว่า':'ลดลง','ใกล้เคียง':'ใกล้เคียงเดิม','ไม่มีข้อมูล':'ไม่มีข้อมูลปีก่อน','ต่ำกว่าปกติ/มีโปรโมชัน':'ต่ำกว่าปกติ / มีโปรโมชัน','ระบบโรงแรม/ทะเบียนผู้เข้าพัก':'ระบบโรงแรม / ทะเบียนผู้เข้าพัก','หมายเหตุการจอง/กรุ๊ปทัวร์':'หมายเหตุการจอง / กรุ๊ปทัวร์','สอบถามตอนเช็กอิน':'สอบถามตอนเช็กอิน','พนักงานประเมิน':'พนักงานประเมิน','95':'ไทยเกือบทั้งหมด (95%)','80':'ไทยส่วนใหญ่ (80%)','50':'ไทย-ต่างชาติพอ ๆ กัน','20':'ต่างชาติส่วนใหญ่'};
-    var OI={'โรงแรม':'🏨','รีสอร์ท':'🌴','เกสต์เฮาส์/โฮมสเตย์':'🏡','<500':'🪙','500-1000':'💵','1001-1500':'💵💵','1501-2500':'💳','2501-4000':'💎','>4000':'👑','เท่าเดิม':'⚖️','สูงกว่าปกติ':'📈','ต่ำกว่าปกติ/มีโปรโมชัน':'🏷️','1':'👤','2':'👥','3':'👨‍👩‍👦','4':'👨‍👩‍👧‍👦','>50%':'🔥','31-50%':'🎉','10-30%':'🎪','<10%':'🙂','ไม่ทราบ':'❔','สอบถามตอนเช็กอิน':'🛎️','พนักงานประเมิน':'🧑‍💼','หมายเหตุการจอง/กรุ๊ปทัวร์':'🚌','มากกว่ามาก':'🚀','มากกว่าเล็กน้อย':'↗️','ใกล้เคียง':'➡️','น้อยกว่า':'↘️','ไม่มีข้อมูล':'❔','95':'🇹🇭','80':'🇹🇭','50':'🌏','20':'✈️'};
-    var NI={'1':'🌙','2':'🌙🌙','3':'🌙🌙🌙','4':'🌙🌙🌙🌙'};
-    var qh=Q.map(function(q){var c={};HR.forEach(function(h){var v=h[q[2]];if(v===''||v==null)return;v=String(v);c[v]=(c[v]||0)+1});
-      var keys=Object.keys(c).sort(function(a,b){return c[b]-c[a]});
-      var tot=keys.reduce(function(a,k){return a+c[k]},0);
-      return '<div class="hz-qc"><h4><span>'+q[0]+'</span>'+q[1]+'</h4>'+keys.map(function(k,i){var l=lab[k]||(k+(q[4]||''));var ic=q[2]==='avgNights'?NI[k]:(OI[k]||'•');var pc=Math.round(c[k]/tot*100);
-        var dots='';for(var j=0;j<c[k];j++)dots+='<i style="animation-delay:'+(j*35+i*120)+'ms"></i>';
-        return '<div class="hz-p'+(i===0?' mx':'')+'"><div class="ph"><span class="pi">'+ic+'</span><span class="pl">'+esc(l)+'</span><span class="pn"><b data-cu="'+c[k]+'">'+c[k]+'</b> แห่ง<em>'+pc+'%</em></span></div><div class="pd">'+dots+'</div></div>'}).join('')+'</div>'}).join('');
-    var tp=th+fo?Math.round(th/(th+fo)*100):0;
-    el('hzQ').innerHTML='<div class="hz-qc"><h4><span>🌏</span>ผู้เข้าพักไทย / ต่างชาติ (20–24 พ.ย.)</h4><div class="hz-dn"><div class="ring" style="background:conic-gradient(var(--c-hotel) '+tp+'%,#E95429 0)"><b>'+tp+'%</b></div><ul><li><i style="background:var(--c-hotel)"></i>ชาวไทย <b>'+f(th)+'</b> คน-คืน</li><li><i style="background:#E95429"></i>ต่างชาติ <b>'+f(fo)+'</b> คน-คืน</li></ul></div></div>'+qh;
-    el('hzN').textContent='นับจากโรงแรมที่ตอบ '+HR.length+' แห่ง · 1 ตึกเล็ก = 1 โรงแรม';
+    // form answers: each block its own graphic
+    var lab={'<10%':'น้อยกว่า 10%','>50%':'มากกว่า 50%','<500':'ต่ำกว่า 500','>4000':'มากกว่า 4,000'};
+    function cnt(k){var c={};HR.forEach(function(h){var v=h[k];if(v===''||v==null)return;v=String(v);c[v]=(c[v]||0)+1});var t=0;var r=Object.keys(c).map(function(x){t+=c[x];return [x,c[x]]}).sort(function(x,y){return y[1]-x[1]});r.t=t;return r}
+    function pc(n,t){return Math.round(n/t*100)}
+    function hd(ic,t,sub){return '<h4><span>'+ic+'</span>'+t+'</h4>'+(sub?'<p class="qs">'+sub+'</p>':'')}
+    var B=[];
+    // 1 Thai / foreign: animated ring + people row
+    var tp=th+fo?Math.round(th/(th+fo)*100):0,ppl='';for(var j=0;j<20;j++)ppl+='<i class="'+(j<Math.round(tp/5)?'t':'f')+'" style="animation-delay:'+(j*40)+'ms"></i>';
+    B.push('<div class="hz-qc q-th w2">'+hd('🌏','ผู้เข้าพักไทย / ต่างชาติ','20–24 พ.ย. · 1 คน = 5%')+'<div class="thw"><svg viewBox="0 0 120 120" class="rg"><circle cx="60" cy="60" r="48" class="bg"/><circle cx="60" cy="60" r="48" class="fg" style="--o:'+(301.6*(1-tp/100)).toFixed(1)+'"/><text x="60" y="58">'+tp+'%</text><text x="60" y="78" class="s">คนไทย</text></svg><div class="tpr"><div class="ppl">'+ppl+'</div><div class="tl"><span><i class="t"></i>ชาวไทย <b>'+f(th)+'</b> คน-คืน</span><span><i class="f"></i>ต่างชาติ <b>'+f(fo)+'</b> คน-คืน</span></div></div></div></div>');
+    // 2 type: icon waffle
+    var ty=cnt('type'),TI={'โรงแรม':'🏨','รีสอร์ท':'🌴','เกสต์เฮาส์/โฮมสเตย์':'🏡'},wf='',n=0;ty.forEach(function(x){for(var j=0;j<x[1];j++){wf+='<span style="animation-delay:'+(n*25)+'ms">'+(TI[x[0]]||'🏠')+'</span>';n++}});
+    B.push('<div class="hz-qc q-ty">'+hd('🏨','ประเภทที่พัก','1 ไอคอน = 1 แห่ง')+'<div class="wf">'+wf+'</div><div class="tyl">'+ty.map(function(x){return '<div><b>'+x[1]+'</b><span>'+(TI[x[0]]||'')+' '+esc(x[0])+' · '+pc(x[1],ty.t)+'%</span></div>'}).join('')+'</div></div>');
+    // 3 price: coin-stack columns
+    var pr=cnt('price'),PL={'<500':'< 500','500-1000':'500–1,000','1001-1500':'1,001–1,500','1501-2500':'1,501–2,500','2501-4000':'2,501–4,000','>4000':'> 4,000'},pm=pr[0][1];
+    B.push('<div class="hz-qc q-pr">'+hd('💰','ราคาห้องต่อคืน (บาท)','เรียงจากมากไปน้อย')+'<div class="cols">'+pr.map(function(x,i){var h=Math.max(8,Math.round(x[1]/pm*100));return '<div class="cl'+(i?'':' mx')+'"><em>'+x[1]+' แห่ง</em><div class="st" style="--h:'+h+'%;animation-delay:'+(i*120)+'ms"></div><small>'+PL[x[0]]+'</small></div>'}).join('')+'</div></div>');
+    // 4 price vs normal: one stacked ribbon with arrows
+    var pv=cnt('priceVsNormal'),PV={'เท่าเดิม':['⚖️','เท่าเดิม','#8a94a6'],'สูงกว่าปกติ':['⬆️','สูงกว่าปกติ','#E95429'],'ต่ำกว่าปกติ/มีโปรโมชัน':['🏷️','ต่ำกว่า / โปรฯ','#2E9E6B']};
+    B.push('<div class="hz-qc q-pv">'+hd('🏷️','ราคาช่วงงานเทียบปกติ')+'<div class="rb">'+pv.map(function(x,i){var o=PV[x[0]]||['•',x[0],'#999'];return '<div style="flex:'+x[1]+';background:'+o[2]+';animation-delay:'+(i*150)+'ms">'+(pc(x[1],pv.t)>=12?pc(x[1],pv.t)+'%':'')+'</div>'}).join('')+'</div><div class="pvl">'+pv.map(function(x){var o=PV[x[0]]||['•',x[0],'#999'];return '<div><span class="ic" style="background:'+o[2]+'">'+o[0]+'</span><b>'+x[1]+'</b> แห่ง<br><small>'+o[1]+' · '+pc(x[1],pv.t)+'%</small></div>'}).join('')+'</div></div>');
+    // 5 people per room: room doors with people
+    var pp=cnt('ppr');
+    B.push('<div class="hz-qc q-pp">'+hd('👥','ผู้เข้าพักต่อห้อง')+'<div class="drs">'+pp.map(function(x,i){var ps='';for(var j=0;j<+x[0];j++)ps+='<i style="animation-delay:'+(i*150+j*120+300)+'ms">👤</i>';return '<div class="dr'+(i?'':' mx')+'"><div class="door"><div class="ps">'+ps+'</div></div><b>'+pc(x[1],pp.t)+'%</b><small>'+x[0]+' คน/ห้อง · '+x[1]+' แห่ง</small></div>'}).join('')+'</div></div>');
+    // 6 avg nights: night sky tiles
+    var an=cnt('avgNights');
+    B.push('<div class="hz-qc q-an">'+hd('🌙','พักเฉลี่ยกี่คืน')+'<div class="sky">'+an.map(function(x,i){var m='';for(var j=0;j<+x[0];j++)m+='<i style="animation-delay:'+(i*150+j*150)+'ms">🌙</i>';return '<div class="nt'+(i?'':' mx')+'"><div class="mn">'+m+'</div><b>'+x[0]+' คืน</b><span>'+x[1]+' แห่ง · '+pc(x[1],an.t)+'%</span></div>'}).join('')+'</div></div>');
+    // 7 festival guests: bubbles
+    var fs=cnt('fest'),FL={'>50%':'มากกว่า 50%','31-50%':'31–50%','10-30%':'10–30%','<10%':'น้อยกว่า 10%','ไม่ทราบ':'ไม่ทราบ'},FC={'>50%':'#E95429','31-50%':'#F28C28','10-30%':'#F2B705','<10%':'#9fb7b4','ไม่ทราบ':'#c9ced8'},fm=fs[0][1];
+    B.push('<div class="hz-qc q-fs w2">'+hd('🎪','แขกที่มาเพราะเทศกาล','สัดส่วนแขกของแต่ละโรงแรม · วงใหญ่ = โรงแรมมาก')+'<div class="bub">'+fs.map(function(x,i){var d=Math.round(46+54*Math.sqrt(x[1]/fm));return '<div class="bb" style="--d:'+d+'px;--c:'+FC[x[0]]+';animation-delay:'+(i*130)+'ms"><div><b>'+x[1]+'</b><small>แห่ง</small></div><span>'+FL[x[0]]+'</span></div>'}).join('')+'</div></div>');
+    // 8 how they know: mini rings
+    var sr=cnt('festSrc'),SI={'พนักงานประเมิน':'🧑‍💼','สอบถามตอนเช็กอิน':'🛎️','หมายเหตุการจอง/กรุ๊ปทัวร์':'🚌'};
+    B.push('<div class="hz-qc q-sr">'+hd('🔎','รู้ได้อย่างไรว่ามาเพราะเทศกาล')+'<div class="mr">'+sr.map(function(x,i){var p=pc(x[1],sr.t);return '<div class="mi"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" class="bg"/><circle cx="22" cy="22" r="18" class="fg" style="--o:'+(113.1*(1-p/100)).toFixed(1)+';animation-delay:'+(i*150)+'ms"/></svg><span class="ic">'+(SI[x[0]]||'•')+'</span><div><b>'+p+'%</b> <small>'+x[1]+' แห่ง</small><br>'+esc(x[0].replace('/',' / '))+'</div></div>'}).join('')+'</div></div>');
+    // 9 vs last year: arrow columns
+    var ly=cnt('ly'),LY={'มากกว่ามาก':['เพิ่มขึ้นมาก','up','#2E9E6B'],'มากกว่าเล็กน้อย':['เพิ่มขึ้นเล็กน้อย','up','#5cb88a'],'ใกล้เคียง':['ใกล้เคียงเดิม','fl','#8a94a6'],'น้อยกว่า':['ลดลง','dn','#E95429'],'ไม่มีข้อมูล':['ไม่มีข้อมูลปีก่อน','na','#c9ced8']},lm=ly[0][1];
+    B.push('<div class="hz-qc q-ly">'+hd('📈','เทียบช่วงเดียวกันปีที่แล้ว')+'<div class="ar">'+ly.map(function(x,i){var o=LY[x[0]]||[x[0],'na','#ccc'];return '<div class="ac"><b>'+x[1]+'</b><div class="aw '+o[1]+'" style="--h:'+Math.max(14,Math.round(x[1]/lm*100))+'%;--c:'+o[2]+';animation-delay:'+(i*130)+'ms"></div><small>'+o[0]+'<br>'+pc(x[1],ly.t)+'%</small></div>'}).join('')+'</div></div>');
+    // 10 Thai share per hotel: flag ribbon rows
+    var tq=cnt('thaiPct'),TQ={'95':['🇹🇭','ไทยเกือบทั้งหมด','95%'],'80':['🇹🇭','ไทยส่วนใหญ่','80%'],'50':['🌏','ไทย-ต่างชาติพอ ๆ กัน','50%'],'20':['✈️','ต่างชาติส่วนใหญ่','20%']};
+    B.push('<div class="hz-qc q-tq">'+hd('🇹🇭','สัดส่วนแขกไทยของแต่ละโรงแรม')+tq.map(function(x,i){var o=TQ[x[0]]||['•',x[0],''];return '<div class="tr"><span class="fl">'+o[0]+'</span><div class="tb"><div style="width:'+pc(x[1],tq.t)+'%;animation-delay:'+(i*150)+'ms"></div><span>'+o[1]+' ('+o[2]+')</span></div><b>'+x[1]+'</b></div>'}).join('')+'</div>');
+    el('hzQ').innerHTML=B.join('');
+    el('hzN').textContent='นับจากโรงแรมที่ตอบ '+HR.length+' แห่ง';
     var cardHost=el('hzList');
     var SK=[['rooms','ห้องมากสุด'],['stay','เข้าพักสูงสุด'],['book','จองสูงสุด'],['fest','แขกเทศกาลมากสุด']],FR={'>50%':4,'31-50%':3,'10-30%':2,'<10%':1,'ไม่ทราบ':0};
     var RW=HR.map(function(h){return {h:h,stay:occ([h],past).p,book:occ([h],fut).p,fest:FR[h.fest]||0,rooms:h.rooms}});

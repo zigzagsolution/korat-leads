@@ -407,19 +407,29 @@ const ACT={
  master:['Masterclass / Siam Events Orchestra Workshop','Masterclass / Orchestra Workshop','workshop','ม.ราชภัฏนครราชสีมา'],
  jkim:['Jennifer Kim x Siam Events Orchestra','Jennifer Kim x Siam Events Orchestra','perf','ลานย่าโม'],
  yusu:['Yusu Jazz & Pop Workshop','Yusu Jazz & Pop Workshop','workshop','ม.ราชภัฏนครราชสีมา'],
- jazz:['JAZZ ON STAGE','JAZZ ON STAGE','perf','ลานย่าโม'],
- warm:['K-BATTLE Warm Up: Cover Dance','K-BATTLE Warm Up: Cover Dance','kbattle','ลานย่าโม'],
- open:['พาเหรด + พิธีเปิด + คอนเสิร์ต','Parade + Opening Ceremony + Concert','perf','ลานย่าโม'],
- kb:['การแข่งขัน K-BATTLE','K-BATTLE Competitions','kbattle','ลานย่าโม'],
- kbatx:['KBATx Creative Industry EXPO','KBATx Creative Industry EXPO','kbatx','เซ็นทรัลโคราช'],
- band:['KORAT BAND MASTER','KORAT BAND MASTER','perf','ร.ร.สุรนารีวิทยา'],
- klang:['KLANG SAENG Street Fashion & Food','KLANG SAENG Street Fashion & Food','market','ลานย่าโม / ถ.สุรนารี'],
+ jazz:['คอนเสิร์ต SOUNDER Jazz on Stage','SOUNDER Jazz on Stage Concert','perf','ลานย่าโม'],
+ warm:['Warm Up K-BATTLE','Warm Up K-BATTLE','kbattle','ลานย่าโม'],
+ open:['ขบวนพาเหรดและพิธีเปิดงาน K-BATTLE','K-BATTLE Parade & Opening Ceremony','perf','ลานย่าโม'],
+ kb:['K-BATTLE Street Competition (Cover Dance / Breakdance / Openstyle / Parkour / Rapper / B-Boy)','K-BATTLE Street Competition','kbattle','ลานย่าโม'],
+ kbatx:['K-BATX Creative Industries Expo และเวทีเสวนา','K-BATX Creative Industries Expo & talks','kbatx','เซ็นทรัลโคราช'],
+ band:['เวิร์กช็อป KORAT BAND MASTER','KORAT BAND MASTER Workshop','workshop','ร.ร.สุรนารีวิทยา'],
+ klang:['ตลาดสตรีทแฟชั่น KLANG SAENG (คลังแสง)','KLANG SAENG Street Fashion Market','market','ลานย่าโม'],
  concert:['คอนเสิร์ต','Concert','perf','ลานย่าโม'],
  final:['ALL ELEMENT FINAL + DJ','ALL ELEMENT FINAL + DJ','kbattle','ลานย่าโม / เซ็นทรัล'],
- bball:['Korat 3x3 Street Basketball','Korat 3x3 Street Basketball','kbattle','Terminal 21'],
- ws28:['Workshop Beatbox / Breakdance','Beatbox / Breakdance Workshop','workshop','เซ็นทรัล / CATZY Studio'],
- ws29:['Workshop Krump','Krump Workshop','workshop','CATZY Studio']};
-const DAYACT={20:['sd_luk','chg','recipe','kpoint'],21:['sd_show','dcamp','andrea','chg','recipe','kpoint'],22:['sd_folk','dcamp','andrea','chg','recipe','kpoint'],23:['wind','recipe','kpoint'],24:['master','jkim','recipe','kpoint'],25:['yusu','jazz','recipe','kpoint'],26:['warm','recipe','kpoint'],27:['open','kb','kbatx','band','kpoint'],28:['kb','kbatx','bball','ws28','band','kpoint'],29:['kbatx','bball','ws29','band','kpoint']};
+ bball:['การแข่งขัน KORAT 3x3 Street Basketball','KORAT 3x3 Street Basketball','kbattle','เทอร์มินอล 21 โคราช'],
+ ws28:['เวิร์กช็อป Breakdance โดย B-Boy Wing','Breakdance Workshop by B-Boy Wing','workshop','CATZY STUDIO คลังพลาซ่า ชั้น 2'],
+ ws29:['เวิร์กช็อป KRUMP โดย 1NSAN3','KRUMP Workshop by 1NSAN3','workshop','CATZY STUDIO คลังพลาซ่า ชั้น 2'],
+ parkour:['เวิร์กช็อป Parkour โดย ARCHIE / CORKY / BOY SPINBOY','Parkour Workshop by ARCHIE / CORKY / BOY SPINBOY','workshop','ลานย่าโม'],
+ c27:['คอนเสิร์ต JARVIS x M-PEE','JARVIS x M-PEE Concert','perf','ลานย่าโม'],
+ c28:['คอนเสิร์ต MAIYARAP','MAIYARAP Concert','perf','ลานย่าโม'],
+ c29:['คอนเสิร์ต ชิน ชินวุฒ x DJ ลีโอ x ขันเงิน THAITANIUM','Chin Chinnawut x DJ Leo x Khanngoen THAITANIUM Concert','perf','ลานย่าโม'],
+ talk:['SOUNDER Artist Talk & Live Session with Andrea Giuffredi','SOUNDER Artist Talk & Live Session with Andrea Giuffredi','sounder','เซ็นทรัลโคราช'],
+ djs:['การแข่งขัน DJ Scratch','DJ Scratch Competition','kbattle','เซ็นทรัลโคราช'],
+ ride:['CITY RIDE PARTY ปั่นจักรยานรอบเมือง โดย KLANG SAENG','CITY RIDE PARTY: city bike ride by KLANG SAENG','kbattle','รอบเมืองโคราช'],
+ run:['CITY RUN PARTY วิ่งสำรวจเมืองยามค่ำคืน โดย KLANG SAENG','CITY RUN PARTY: night city run by KLANG SAENG','kbattle','รอบเมืองโคราช'],
+ graffiti:['Graffiti Painting: KORAT GRAFFITI CITY','Graffiti Painting: KORAT GRAFFITI CITY','exhibit','ถ.มหาดไทย – ถ.จอมพล'],
+ poster:['กิจกรรมตามล่าโปสเตอร์ (ถ่ายรูปกับกำแพงโปสเตอร์ อวดเมืองโคราช)','Poster Hunt: photo with the festival poster walls','exhibit','จุดติดโปสเตอร์ทั่วเมืองโคราช']};
+const DAYACT={20:['sd_luk','chg','poster','recipe','kpoint'],21:['sd_show','dcamp','andrea','chg','poster','recipe','kpoint'],22:['sd_folk','dcamp','andrea','chg','poster','recipe','kpoint'],23:['wind','poster','recipe','kpoint'],24:['master','jkim','poster','recipe','kpoint'],25:['yusu','jazz','poster','recipe','kpoint'],26:['warm','poster','recipe','kpoint'],27:['open','kb','parkour','c27','klang','ride','kbatx','talk','band','graffiti','poster','recipe','kpoint'],28:['kb','c28','klang','kbatx','ws28','band','bball','graffiti','run','poster','recipe','kpoint'],29:['kb','c29','klang','kbatx','djs','ws29','band','bball','graffiti','poster','recipe','kpoint']};
 const dayLab=(d,long)=>{const x=DAYS.find(y=>y[0]===d);return L==='th'?`${x[1]} ${d} พ.ย.`:`${x[2]} ${d} Nov`;};
 const partySize=a=>{const c=a.p2_7;if(!c)return 0;return c.v==='alone'?1:(+c.people||0);};
 

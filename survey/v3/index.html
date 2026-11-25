@@ -239,8 +239,8 @@ const S=[
  {id:'p2_8_5',part:2,no:'8.5',type:'single',head:T('ค่าใช้จ่ายทั้งหมดตลอดการเดินทางครั้งนี้ (บาท/คน)','Total Expenditure Throughout This Trip (THB per person)'),q:T('ค่าสินค้าท้องถิ่น ของฝาก ของที่ระลึก','Local Products, Gifts, and Souvenirs'),opts:expOpts()},
  {id:'p2_8_6',part:2,no:'8.6',type:'fields',head:T('ค่าใช้จ่ายทั้งหมดตลอดการเดินทางครั้งนี้ (บาท/คน)','Total Expenditure Throughout This Trip (THB per person)'),q:T('ค่าใช้จ่ายอื่น ๆ','Other Expenses'),fields:[['item',T('ระบุ','Please specify')],['amount',T('จำนวน (บาท)','Amount (THB)'),'number']]},
  // Part 3
- {id:'p3_1',part:3,no:'1',type:'multi',q:T('ท่านรับรู้ข้อมูลงานจากช่องทางใด','Through which channels did you hear about the event?'),groups:[
-  [T('ออนไลน์','Online Channels'),[o('web','เว็บไซต์งาน','Event Website'),o('fb','Facebook','Facebook'),o('ig','Instagram','Instagram'),o('tt','TikTok','TikTok'),o('yt','YouTube','YouTube'),o('line','Line OA','LINE Official Account (LINE OA)'),
+ {id:'p3_1',part:3,no:'1',type:'multi',q:T('ท่านรับรู้งานอวดเมืองโคราชและเทศกาลนี้จากช่องทางใด','Through which channels did you hear about อวดเมืองโคราช (Korat City Expo) and this festival?'),groups:[
+  [T('ออนไลน์','Online Channels'),[o('web','เว็บไซต์งาน','Event Website'),o('fb','Facebook อวดเมืองโคราช','Facebook: อวดเมืองโคราช (Korat City Expo)'),o('ig','Instagram','Instagram'),o('tt','TikTok','TikTok'),o('yt','YouTube','YouTube'),o('line','Line OA','LINE Official Account (LINE OA)'),
    o('banner','Banner/โฆษณาออนไลน์','Online Banners / Ads'),o('news','ข่าวออนไลน์/Podcast','Online News / Podcasts'),o('live','Live Streaming','Live Streaming'),
    o('influencer','อินฟลูเอนเซอร์/ครีเอเตอร์','Influencer / Creator',{fields:[['name',T('ชื่อ','Name')]]})]],
   [T('ออฟไลน์','Offline Channels'),[o('tv','โทรทัศน์ (TVC/ข่าว)','Television (TVC / News)'),o('radio','วิทยุ','Radio'),o('paper','หนังสือพิมพ์','Newspapers'),o('billboard','ป้ายโฆษณา/Billboard/Transit Media','Billboards / Transit Media'),

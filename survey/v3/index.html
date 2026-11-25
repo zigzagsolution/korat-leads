@@ -323,7 +323,7 @@ const S=[
  {id:'p8_2',part:8,no:'2',type:'text',q:T('สิ่งที่ประทับใจมากที่สุด','What impressed you the most about the event?')},
  {id:'p8_3',part:8,no:'3',type:'text',q:T('ปัญหาที่พบ','What issues or problems did you encounter?')},
  {id:'p8_4',part:8,no:'4',type:'text',q:T('ข้อเสนอแนะ','Additional suggestions or comments')},
- {id:'p8_5',part:9,no:'',type:'contact',q:T('ใส่ชื่อพร้อมเบอร์ติดต่อของท่าน เพื่อรับของรางวัลสำหรับการตอบแบบสอบถาม','Enter your name and phone number to receive a prize for completing this survey'),pre:T('ไม่บังคับ','Optional')},
+ {id:'p8_5',part:9,no:'',type:'contact',q:T('ท่านสนใจรับของที่ระลึกสำหรับการตอบแบบสอบถามหรือไม่','Would you like to receive a souvenir for completing this survey?'),pre:T('ไม่บังคับ','Optional')},
  {id:'done',type:'done',part:10}
 ];
 
@@ -490,11 +490,14 @@ function qHTML(s,prev){
     h+=`<div class="opts">${s.fields.map(f=>fieldHTML(s.id,f,a)).join('')}</div>`;
     if(s.sumTo) h+=`<p class="hint" id="sum_${s.id}" style="margin-top:8px">${sumTxt(s)}</p>`;
   } else if(s.type==='contact'){
-    h+=`<div class="prize"><p class="pt">🎁 ${L==='th'?'รับของรางวัลสำหรับการตอบแบบสอบถาม':'Get a prize for completing this survey'}</p>
+    const want=a?.want;
+    h+=`<div class="opts"><button type="button" class="opt r" role="radio" aria-checked="${want==='yes'}" data-want="yes"><span class="mk"></span><span>${L==='th'?'สนใจ':'Yes, I am interested'}</span></button><button type="button" class="opt r" role="radio" aria-checked="${want==='no'}" data-want="no"><span class="mk"></span><span>${L==='th'?'ไม่สนใจ':'No, thank you'}</span></button></div>`;
+    if(want==='yes') h+=`<div class="prize" style="margin-top:14px"><p class="pt">🎁 ${L==='th'?'กรอกชื่อและเบอร์โทรศัพท์ เพื่อให้เราติดต่อกลับ':'Leave your name and phone number so we can contact you'}</p>
       <div class="opts"><div><label class="fl" for="f_${s.id}_name">${L==='th'?'ชื่อ-นามสกุล':'Full name'}</label><input id="f_${s.id}_name" data-pk="name" type="text" autocomplete="name" value="${esc(a?.name??'')}"></div>
       <div><label class="fl" for="f_${s.id}_tel">${L==='th'?'เบอร์โทรศัพท์':'Phone number'}</label><input id="f_${s.id}_tel" data-pk="tel" type="text" inputmode="tel" autocomplete="tel" maxlength="15" placeholder="0XX-XXX-XXXX" value="${esc(a?.tel??'')}"></div>
       <button type="button" class="opt c" role="checkbox" aria-checked="${!!a?.ok}" data-okc="1"><span class="mk"></span><span>${L==='th'?'ยินยอมให้ติดต่อเพื่อรับของรางวัล และยอมรับข้อกำหนดด้านล่าง':'I consent to be contacted about the prize and accept the terms below'}</span></button></div></div>
       <div class="terms"><b>${L==='th'?'ข้อกำหนดและเงื่อนไข':'Terms and conditions'}</b><ol>${PRIZE_TERMS[L].map(t=>`<li>${esc(t)}</li>`).join('')}</ol></div>`;
+    h=h.replace('<div class="terms">',want==='yes'?'<div class="terms">':'<div class="terms" hidden>');
   }
   return h+'</section>';
 }
@@ -575,6 +578,7 @@ function bindQ(s,st){
   st.querySelectorAll('input[data-k]').forEach(inp=>inp.oninput=()=>{const cur=A[s.id]||(A[s.id]={});cur[inp.dataset.k]=inp.value;save();const sm=document.getElementById('sum_'+s.id);if(sm&&s.sumTo)sm.textContent=sumTxt(s);});
   st.querySelectorAll('[data-main]').forEach(inp=>inp.oninput=()=>{const cur=A[s.id]||(A[s.id]={});cur.v=inp.value;save();});
   st.querySelectorAll('[data-okc]').forEach(b=>b.onclick=()=>{const cur=A[s.id]||(A[s.id]={});cur.ok=!cur.ok;rerender();});
+  st.querySelectorAll('[data-want]').forEach(b=>b.onclick=()=>{const cur=A[s.id]||(A[s.id]={});cur.want=b.dataset.want;if(cur.want==='no'){delete cur.name;delete cur.tel;delete cur.v;cur.ok=false;}rerender();});
   st.querySelectorAll('[data-pk]').forEach(inp=>inp.oninput=()=>{const cur=A[s.id]||(A[s.id]={});cur[inp.dataset.pk]=inp.value.trim();cur.v=[cur.name,cur.tel].filter(Boolean).join(' / ');save();});
 }
 function syncDaily(){const p=A.p4_1;if(!p)return;const days=p.days||{};let vis=0;const u=new Set();

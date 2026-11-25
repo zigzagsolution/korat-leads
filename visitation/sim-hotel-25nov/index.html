@@ -1,0 +1,329 @@
+<!doctype html>
+<html data-theme="light" lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Visitation อวดเมืองโคราช</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f4f3fa; --surface:#ffffff; --ink:#0d1f3d; --muted:#56627c; --line:#e1e0ee;
+  --navy:#003674; --soft:#ece4fe; --bar-bg:#ebeaf4; --ok:#00756e; --warn:#a33a10;
+  --c-area:#003674; --c-kpci:#5a7d00; --c-kpeng:#D34016; --c-hotel:#00837B; --c-rep:#7a5a00; --c-partner:#b0306a; --c-tour:#8a4fd1;
+  --display:"Prompt","IBM Plex Sans Thai",system-ui,sans-serif; --body:"IBM Plex Sans Thai",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark) and (max-width:0px){:root:not([data-theme="light"]){--bg:#061632;--surface:#0c2347;--ink:#eef1fb;--muted:#a7b3cf;--line:#1f3a66;--soft:#25306a;--bar-bg:#18325c;--ok:#4fd1c5;--warn:#ff9a73;--c-area:#7fb2ff;--c-kpci:#D3FF34;--c-kpeng:#ff8a5c;--c-hotel:#3fd0c4;--c-rep:#ffd15c;--c-partner:#ff7fb5;--c-tour:#c9a2ff;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#061632;--surface:#0c2347;--ink:#eef1fb;--muted:#a7b3cf;--line:#1f3a66;--soft:#25306a;--bar-bg:#18325c;--ok:#4fd1c5;--warn:#ff9a73;--c-area:#7fb2ff;--c-kpci:#D3FF34;--c-kpeng:#ff8a5c;--c-hotel:#3fd0c4;--c-rep:#ffd15c;--c-partner:#ff7fb5;--c-tour:#c9a2ff;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;margin:0}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.top{background:#003674;color:#fff;padding:16px 0 0}
+.tags{color:#D3FF34;font-weight:600;font-size:12.5px;letter-spacing:.03em}
+.top h1{font-family:var(--display);font-weight:700;font-size:clamp(20px,3.4vw,30px);line-height:1.25;margin:4px 0 2px}
+.top .sub{color:#c8d2ea;font-size:13px;margin:0 0 12px}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs a{flex:0 0 auto;color:#dfe6f7;text-decoration:none;font-weight:600;font-size:14px;padding:10px 14px;border-radius:10px 10px 0 0;white-space:nowrap}
+nav.tabs a.on{background:var(--bg);color:var(--ink)}
+nav.tabs a:not(.on):hover{background:rgba(255,255,255,.1)}
+.kvline{height:5px;background:linear-gradient(90deg,#D34016 0 20%,#D3FF34 20% 40%,#00837B 40% 60%,#C0393B 60% 80%,#DCB8FE 80%)}
+section.tab{display:none;padding-bottom:10px}
+section.tab.on{display:block}
+h2{font-family:var(--display);font-weight:600;font-size:20px;margin:26px 0 4px}
+.lead{color:var(--muted);margin:0 0 14px;font-size:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.hero{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:18px}
+.big{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.big .n{font-family:var(--display);font-weight:700;font-size:clamp(44px,9vw,68px);line-height:1;font-variant-numeric:tabular-nums}
+.big .of{font-size:17px;color:var(--muted)}
+.pbar{height:18px;background:var(--bar-bg);border-radius:9px;overflow:hidden;display:flex;margin-top:14px}
+.pbar i{display:block;height:100%}
+.plabel{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:6px;gap:8px;flex-wrap:wrap}
+.srow{display:grid;grid-template-columns:14px 1fr auto;gap:4px 12px;align-items:center;padding:12px 2px;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.srow .dot{width:14px;height:14px;border-radius:4px}
+.srow .nm{font-weight:600;font-size:15px}
+.srow .ds{grid-column:2/4;font-size:12.5px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.srow .v{font-family:var(--display);font-weight:700;font-size:22px;font-variant-numeric:tabular-nums;text-align:right}
+.srow .go{color:var(--muted);font-size:12.5px}
+.srow.total{border-top:2px solid var(--ink);border-bottom:0}
+.srow.total .nm,.srow.total .v{font-size:18px}
+.badge{font-size:11.5px;font-weight:600;border-radius:999px;padding:1px 9px;white-space:nowrap;border:1px solid currentColor}
+.b-wait{color:var(--muted)} .b-manual{color:var(--warn)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.kpi{background:var(--soft);border-radius:12px;padding:12px 14px}
+.kpi .v{font-family:var(--display);font-weight:700;font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:13px;font-weight:500;opacity:.85}
+.kpi .l{font-size:12.5px;color:var(--muted);margin-top:3px}
+.chart{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;align-items:end;height:210px;padding-top:10px}
+.col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative}
+.col .tg{position:absolute;left:8%;right:8%;border-top:2px dashed var(--muted);opacity:.8}
+.col .stk{width:70%;display:flex;flex-direction:column-reverse;border-radius:6px 6px 0 0;overflow:hidden;background:var(--bar-bg)}
+.col .val{font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;margin-bottom:3px}
+.xl{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-top:6px;text-align:center;font-size:12px;color:var(--muted)}
+.xl .we{color:var(--ink);font-weight:600}
+.xl span small{display:block;font-size:11px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;margin-top:12px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.legend .dash{width:18px;height:0;border-top:2px dashed var(--muted);border-radius:0}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th,.tbl td{padding:8px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+.tbl th:first-child,.tbl td:first-child{text-align:left;min-width:120px}
+.tbl thead th{font-size:12.5px;color:var(--muted);font-weight:600}
+.tbl tfoot td{font-weight:600}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.heat{display:inline-block;min-width:44px;padding:2px 6px;border-radius:6px}
+.empty{color:var(--muted);font-size:13.5px;background:var(--soft);border-radius:10px;padding:12px 14px}
+.empty b{color:var(--ink)}
+.rules{margin:0;padding-left:20px;font-size:14px}
+.rules li{margin:4px 0}
+.note{font-size:12.5px;color:var(--muted)}
+.btn{display:inline-block;font:inherit;font-size:14px;font-weight:600;background:var(--navy);color:#fff;border:0;border-radius:10px;padding:9px 14px;cursor:pointer;text-decoration:none}
+@media (prefers-color-scheme: dark) and (max-width:0px){:root:not([data-theme="light"]) .btn{background:#2b5fb0}}
+:root[data-theme="dark"] .btn{background:#2b5fb0}
+.pts{display:grid;gap:8px}
+.pt{display:grid;grid-template-columns:minmax(110px,40%) 1fr 56px;gap:10px;align-items:center;font-size:13.5px}
+.pt .tr{height:12px;background:var(--bar-bg);border-radius:6px;overflow:hidden}
+.pt .tr i{display:block;height:100%}
+.pt .n{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.frame{width:100%;height:80vh;min-height:620px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.reach{display:flex;flex-direction:column;gap:6px;font-size:13.5px}
+.reach b{font-family:var(--display);font-size:17px}
+footer{color:var(--muted);font-size:12.5px;text-align:center;padding:30px 0 40px}
+body.tceb .team-only{display:none!important}
+@media (max-width:560px){.chart{height:170px}.col .val{font-size:10px}.xl{font-size:11px}.srow .v{font-size:19px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="tags">K-BATTLE INTERNATIONAL STREET CULTURE FESTIVAL 2026 · 20–29 พ.ย. 2569</div>
+    <h1>ผู้เข้าร่วมงาน (Visitation) อวดเมืองโคราช</h1>
+    <p class="sub">อัปเดตล่าสุด <span id="upd">–</span></p>
+    <nav class="tabs" id="tabs">
+      <a href="#overview" data-t="overview">ภาพรวม 200,000</a>
+      <a href="#survey" data-t="survey">แบบสอบถามนักท่องเที่ยว (LINE)</a>
+      <a href="#hotel" data-t="hotel">แบบสอบถามโรงแรม</a>
+      <a href="#checkin" data-t="checkin">เช็คอินรายพื้นที่</a>
+      <a href="#kpoint" data-t="kpoint">KORAT POINT</a>
+    </nav>
+  </div>
+</header>
+<div class="kvline"></div>
+<main class="wrap">
+
+<section class="tab" id="t-overview">
+  <div class="hero">
+    <div class="note">Visitation สะสม 20–29 พ.ย.</div>
+    <div class="big"><span class="n" id="total">0</span><span class="of">/ 200,000</span></div>
+    <div class="pbar" id="pbar"></div>
+    <div class="plabel"><span id="pct"></span><span id="pace"></span></div>
+  </div>
+
+  <h2>200,000 มาจากไหน</h2>
+  <p class="lead">นับ 1 ครั้งต่อคนต่อกิจกรรม ร่วมหลายกิจกรรมนับทุกครั้ง · กดแต่ละแถวเพื่อดูรายละเอียด</p>
+  <div class="card" id="src"></div>
+
+  <h2>รายวัน</h2>
+  <p class="lead">แท่ง = ยอดที่นับได้ · เส้นประ = เป้ารายวัน</p>
+  <div class="card">
+    <div class="chart" id="chart"></div>
+    <div class="xl" id="xl"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+
+  <h2>ใช้ยืนยัน (ไม่บวกเพิ่ม)</h2>
+  <div class="grid g2">
+    <a class="card" href="#survey" style="text-decoration:none"><div class="note">แบบสอบถามนักท่องเที่ยวผ่าน LINE</div><div id="svCount" style="font-family:var(--display);font-weight:700;font-size:26px">–</div><div class="note">ยืนยันว่ามาจากไหน มากี่คน อยู่กี่วัน ร่วมกี่กิจกรรม</div></a>
+    <div class="card"><div class="note">Reach (คนเห็นสื่อ ไม่นับเป็น Visitation)</div><div class="reach" id="reach" style="margin-top:6px"></div></div>
+  </div>
+
+  <h2>กติกาการนับ</h2>
+  <div class="card">
+    <ol class="rules">
+      <li>1 คน ร่วม 1 กิจกรรม = 1 Visitation ร่วมหลายกิจกรรมหรือกลับมาวันอื่นนับทุกครั้ง</li>
+      <li>นับจาก เช็คอินหน้างาน · KORAT POINT · ผู้เข้าพักโรงแรม · ยอดผู้เข้าร่วมที่แจ้งรายวัน · ยอดจากพันธมิตร · ยอดทัวร์</li>
+      <li>ไม่นับ การลงทะเบียนล่วงหน้า ยอดเห็นโฆษณา และยอดดูออนไลน์</li>
+      <li>แบบสอบถามใช้ยืนยันสัดส่วน ไม่นำมาบวกเพิ่ม</li>
+      <li>ทุกแถวระบุแหล่งที่มา แยก "นับจริง" กับ "ประมาณการ" และไม่นำข้อมูลทดสอบระบบมารวม</li>
+    </ol>
+    <div style="margin-top:14px"><button class="btn" id="csv">ดาวน์โหลดข้อมูลดิบ (CSV)</button></div>
+  </div>
+</section>
+
+<section class="tab" id="t-survey">
+  <h2>แบบสอบถามนักท่องเที่ยว (ผ่าน LINE)</h2>
+  <p class="lead">ผลจริงทุกข้อ 8 ส่วน ดึงจากระบบโดยตรง ต้องใส่ PIN ก่อนดู · <a href="../survey/dashboard/live/" target="_blank" rel="noopener">เปิดเต็มจอ ↗</a></p>
+  <iframe class="frame" id="svFrame" title="ผลแบบสอบถามนักท่องเที่ยว"></iframe>
+</section>
+
+<section class="tab" id="t-hotel">
+  <h2>แบบสอบถามโรงแรม / ที่พัก</h2>
+  <p class="lead">โรงแรมรายงานห้องและผู้เข้าพักรายคืน 20–29 พ.ย. · <a href="../hotel/" target="_blank" rel="noopener">เปิดฟอร์มโรงแรม ↗</a></p>
+  <div class="kpis" id="hKpi"></div>
+  <div class="card" style="margin-top:12px"><h3 style="margin:0 0 10px;font-size:15px">ผู้เข้าพักรายคืน (รวมทุกแห่ง)</h3><div id="hNight"></div></div>
+  <div class="card scroll" style="margin-top:12px"><h3 style="margin:0 0 10px;font-size:15px">รายชื่อที่พักที่ตอบแล้ว</h3><div id="hList"></div></div>
+</section>
+
+<section class="tab" id="t-checkin">
+  <h2>เช็คอินรายพื้นที่</h2>
+  <p class="lead">จากสรุปของทีมงานหน้างานทุกวัน · "คนไม่ซ้ำ" นับไม่ซ้ำภายในวันเดียวกัน</p>
+  <div class="kpis" id="cKpi"></div>
+  <div class="grid g2" style="margin-top:12px">
+    <div class="card"><h3 style="margin:0 0 12px;font-size:15px">รวมทุกวัน แยกตามจุด</h3><div class="pts" id="pts"></div></div>
+    <div class="card"><h3 style="margin:0 0 12px;font-size:15px">รายวัน</h3><div id="rep"></div></div>
+  </div>
+  <div class="card scroll" style="margin-top:12px"><table class="tbl" id="heat"></table></div>
+</section>
+
+<section class="tab" id="t-kpoint">
+  <h2>KORAT POINT</h2>
+  <p class="lead">สรุป 2 แบบ: เช็คอิน และการมีส่วนร่วม (ส่งหลักฐานการซื้อเพื่อสะสมแต้ม) · ไม่รวมบัญชีทดสอบ</p>
+  <h2 style="font-size:17px">เช็คอิน</h2>
+  <div class="kpis" id="kcKpi"></div>
+  <div class="card scroll" style="margin-top:12px" id="kcTbl"></div>
+  <h2 style="font-size:17px">การมีส่วนร่วม (ซื้อสินค้าสะสมแต้ม)</h2>
+  <div class="kpis" id="keKpi"></div>
+  <div class="card scroll" style="margin-top:12px" id="keTbl"></div>
+</section>
+
+</main>
+<footer>พัฒนาข้อมูลโดย MIDI Digital</footer>
+
+<script>
+(function(){
+var P=new URLSearchParams(location.search);
+if(P.get('view')==='tceb')document.body.classList.add('tceb');
+var TEAM=!document.body.classList.contains('tceb');
+var S=[
+ {k:'area',name:'เช็คอินรายพื้นที่',c:'var(--c-area)',tab:'checkin'},
+ {k:'kpci',name:'KORAT POINT · เช็คอิน',c:'var(--c-kpci)',tab:'kpoint',nocount:true},
+ {k:'kpeng',name:'KORAT POINT · ซื้อสินค้า (ใบที่อนุมัติ)',c:'var(--c-kpeng)',tab:'kpoint'},
+ {k:'hotel',name:'ผู้เข้าพักโรงแรม/ที่พัก',c:'var(--c-hotel)',tab:'hotel'},
+ {k:'reported',name:'ยอดผู้เข้าร่วมงานที่แจ้งรายวัน',c:'var(--c-rep)',tab:null},
+ {k:'partner',name:'ยอดจากพันธมิตร (ห้าง ร้านค้า)',c:'var(--c-partner)',tab:null},
+ {k:'tour',name:'ยอดทัวร์',c:'var(--c-tour)',tab:null}
+];
+var DOW=['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
+function f(n){return (n==null||n==='')?'–':Math.round(n).toLocaleString('en-US')}
+function el(id){return document.getElementById(id)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function thDate(iso){return {d:parseInt(iso.slice(8),10),dow:DOW[new Date(iso+'T12:00:00Z').getUTCDay()]}}
+function sum(a,k){return (a||[]).reduce(function(s,r){return s+(+(k?r[k]:r)||0)},0)}
+function kpis(id,arr){el(id).innerHTML=arr.map(function(x){return '<div class="kpi"><div class="v">'+x[0]+'</div><div class="l">'+x[1]+'</div></div>'}).join('')}
+
+var tabs=['overview','survey','hotel','checkin','kpoint'];
+function show(){var t=(location.hash||'#overview').slice(1);if(tabs.indexOf(t)<0)t='overview';
+  tabs.forEach(function(x){el('t-'+x).classList.toggle('on',x===t)});
+  [].forEach.call(document.querySelectorAll('#tabs a'),function(a){a.classList.toggle('on',a.dataset.t===t)});
+  if(t==='survey'&&!el('svFrame').getAttribute('src'))el('svFrame').setAttribute('src','../survey/dashboard/live/');
+  window.scrollTo(0,0)}
+window.addEventListener('hashchange',show);show();
+
+fetch('data.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(render).catch(function(){el('src').innerHTML='<div class="empty">โหลดข้อมูลไม่สำเร็จ ลองรีเฟรชอีกครั้ง</div>'});
+
+function render(D){
+  var days=D.days, idx={};days.forEach(function(d,i){idx[d]=i});
+  var per={},nDays={};S.forEach(function(s){per[s.k]=new Array(10).fill(0);nDays[s.k]={}});
+  function add(k,date,v){if(idx[date]!=null&&v){per[k][idx[date]]+=+v;nDays[k][date]=1}}
+  var ci=D.checkin||[], kp=D.kpoint||{}, kc=kp.checkin||[], ke=kp.engage||[], HR=(D.hotelRows||[]).filter(function(r){return !r.test});
+  function real(a){return (a||[]).filter(function(r){return !r.test})}
+  ci.forEach(function(r){add('area',r.date,r.total)});
+  ke.forEach(function(r){add('kpeng',r.date,r.total)});
+  HR.forEach(function(h){Object.keys(h.nights||{}).forEach(function(d){add('hotel',d,(h.nights[d]||{}).guests)})});
+  ['reported','partner','tour'].forEach(function(k){real(D[k]).forEach(function(r){add(k,r.date,r.count)})});
+  var tot={},all=0;S.forEach(function(s){tot[s.k]=sum(per[s.k]);all+=tot[s.k]});tot.kpci=(kp.checkinCum&&kp.checkinCum.people)||sum(kc,'unique');kc.forEach(function(r){nDays.kpci[r.date]=1});
+  var dayTot=days.map(function(_,i){return S.reduce(function(a,s){return a+per[s.k][i]},0)});
+  var lastI=-1;dayTot.forEach(function(v,i){if(v>0)lastI=i});
+  el('upd').textContent=new Date(D.updated).toLocaleString('th-TH',{timeZone:'Asia/Bangkok',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' น.';
+
+  // overview
+  countUp(el('total'),all);
+  el('pbar').innerHTML=S.map(function(s){return (tot[s.k]&&!s.nocount)?'<i style="width:'+Math.max(.4,tot[s.k]/D.target*100)+'%;background:'+s.c+'"></i>':''}).join('');
+  var pct=all/D.target*100;
+  el('pct').textContent=(pct<1?pct.toFixed(2):pct.toFixed(1))+'% ของเป้า · เหลืออีก '+f(Math.max(0,D.target-all));
+  var rem=10-(lastI+1);
+  el('pace').textContent=rem>0?('ต้องได้เฉลี่ยวันละ '+f(Math.max(0,D.target-all)/rem)+' ใน '+rem+' วันที่เหลือ'):'';
+  var MT=D.methodTarget||{};
+  var waitTxt={area:'รอข้อมูล',kpci:'รอสรุปจากทีม',kpeng:'รอสรุปจากทีม',hotel:'รอคำตอบจริงจากโรงแรม',reported:'รอข้อมูล',partner:'รอข้อมูล',tour:'รอข้อมูล'};
+  el('src').innerHTML=S.map(function(s){
+    var n=Object.keys(nDays[s.k]).length;
+    var st=n?'<span class="badge b-manual">มีข้อมูล '+n+' วัน</span>':'<span class="badge b-wait">'+waitTxt[s.k]+'</span>';
+    if(s.nocount){return '<a class="srow" href="#'+s.tab+'"><span class="dot" style="background:'+s.c+'"></span><span class="nm">'+s.name+'</span><span class="v" style="color:var(--muted)">'+f(tot[s.k])+' <small style="font-size:13px">คน</small></span><span class="ds"><span class="badge b-wait">คนกลุ่มเดียวกับเช็คอินรายพื้นที่ ไม่บวกซ้ำ</span><span class="go">ดูรายละเอียด →</span></span></a>'}
+    var share=(all&&tot[s.k])?'<span>'+Math.round(tot[s.k]/all*100)+'% ของยอดรวม</span>':'';
+    var tg=(TEAM&&MT[s.k])?'<span class="team-only">เป้า '+f(MT[s.k])+'</span>':'';
+    var inner='<span class="dot" style="background:'+s.c+'"></span><span class="nm">'+s.name+'</span><span class="v">'+f(tot[s.k])+'</span><span class="ds">'+st+share+tg+(s.tab?'<span class="go">ดูรายละเอียด →</span>':'')+'</span>';
+    return s.tab?'<a class="srow" href="#'+s.tab+'">'+inner+'</a>':'<div class="srow">'+inner+'</div>';
+  }).join('')+'<div class="srow total"><span></span><span class="nm">รวม Visitation</span><span class="v">'+f(all)+'</span></div>';
+  var mx=Math.max.apply(null,D.dailyTarget.concat(dayTot))*1.08;
+  el('chart').innerHTML=days.map(function(d,i){
+    return '<div class="col"><div class="tg" style="bottom:'+(D.dailyTarget[i]/mx*100)+'%"></div>'+(dayTot[i]?'<div class="val">'+f(dayTot[i])+'</div>':'')+
+      '<div class="stk" style="height:'+(dayTot[i]?Math.max(dayTot[i]/mx*100,1):0.5)+'%">'+S.map(function(s){var v=per[s.k][i];return v?'<i style="display:block;flex:'+v+' 0 0;background:'+s.c+'"></i>':''}).join('')+'</div></div>'}).join('');
+  el('xl').innerHTML=days.map(function(d,i){var t=thDate(d);var we=/^(ศ\.|ส\.|อา\.)$/.test(t.dow);return '<span class="'+(we?'we':'')+'">'+t.d+'<small>'+t.dow+'</small>'+(TEAM?'<small class="team-only">'+f(D.dailyTarget[i]/1000)+'k</small>':'')+'</span>'}).join('');
+  el('legend').innerHTML=S.filter(function(s){return !s.nocount}).map(function(s){return '<span><i style="background:'+s.c+'"></i>'+s.name+'</span>'}).join('')+'<span><i class="dash"></i>เป้ารายวัน</span>';
+  var R=D.reach||{}, op=sum(R.online,'participants');
+  el('reach').innerHTML=(R.ooh?'<span><b>'+f(R.ooh.perDay)+'</b> ครั้ง/วัน ป้าย OOH</span>':'')+'<span><b>'+f(op)+'</b> / '+f(R.onlineTarget)+' ยอดการมีส่วนร่วมกิจกรรมออนไลน์</span><span><b>'+(R.live?f(R.live):'รอข้อมูล')+'</b> Live viewers</span>'+(R.lineOA?'<span><b>'+f(R.lineOA.friends)+'</b> เพื่อน LINE OA (เพิ่มสุทธิ +'+f(R.lineOA.net)+' ตั้งแต่ 20 พ.ย.)</span>':'')+(R.web?'<span><b>'+f(R.web.users)+'</b> ผู้ใช้งานเว็บไซต์ ('+esc(R.web.asof)+')</span>':'');
+  fetch('https://korat.mididigitalevent.workers.dev/api/survey/count',{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+    var n=(typeof j==='number')?j:(j.real!=null?j.real:(j.count!=null?j.count:j.total));if(n==null)throw 0;el('svCount').innerHTML=f(n)+' <small style="font-size:14px;font-weight:500">ผู้ตอบ</small>'}).catch(function(){el('svCount').innerHTML='<small style="font-size:14px;font-weight:500">ดูผลในเมนูแบบสอบถาม →</small>'});
+
+  // hotel
+  if(!HR.length){kpis('hKpi',[['0','ที่พักที่ตอบแล้ว'],['–','ห้องพักรวม'],['–','ผู้เข้าพัก-คืน รวม']]);
+    el('hNight').innerHTML='<div class="empty"><b>ยังไม่มีคำตอบจริงจากโรงแรม</b> เมื่อโรงแรมเริ่มตอบ หน้านี้จะแสดงจำนวนผู้เข้าพักรายคืน แยกไทย/ต่างชาติ</div>';
+    el('hList').innerHTML='<div class="empty">รอข้อมูล</div>';
+  }else{
+    var rooms=sum(HR,'rooms'), nightG=days.map(function(d){return HR.reduce(function(a,h){return a+(((h.nights||{})[d]||{}).guests||0)},0)}), est=HR.some(function(h){return h.estimate});
+    kpis('hKpi',[[f(HR.length),'ที่พักที่ตอบแล้ว'],[f(rooms),'ห้องพักรวม'],[f(sum(nightG)),'ผู้เข้าพัก-คืน รวม'+(est?' (มีประมาณการ)':'')]]);
+    var nm=Math.max.apply(null,nightG.concat([1]));
+    el('hNight').innerHTML='<div class="pts">'+days.map(function(d,i){var t=thDate(d);return '<div class="pt"><span>'+t.dow+' '+t.d+' พ.ย.</span><div class="tr"><i style="width:'+(nightG[i]/nm*100)+'%;background:var(--c-hotel)"></i></div><span class="n">'+f(nightG[i])+'</span></div>'}).join('')+'</div>';
+    el('hList').innerHTML='<table class="tbl"><thead><tr><th>ที่พัก</th><th>อำเภอ</th><th>ห้อง</th><th>ผู้เข้าพัก-คืน</th></tr></thead><tbody>'+HR.map(function(h){var g=Object.keys(h.nights||{}).reduce(function(a,d){return a+(h.nights[d].guests||0)},0);return '<tr><td>'+esc(h.name)+(h.estimate?' <span class="note">(ประมาณการ)</span>':'')+'</td><td>'+esc(h.district)+'</td><td>'+f(h.rooms)+'</td><td>'+f(g)+'</td></tr>'}).join('')+'</tbody></table>';
+  }
+
+  // check-in by area
+  var ct=sum(ci,'total'), uq=sum(ci,'unique');
+  kpis('cKpi',[[f(ct)+'<small> ครั้ง</small>','เช็คอินรวม'],[f(uq)+'<small> คน</small>','คนไม่ซ้ำ (รวมรายวัน)'],[(uq?(ct/uq).toFixed(2):'–')+'<small> ครั้ง/คน</small>','เฉลี่ยต่อคนต่อวัน'],[f(Object.keys(nDays.area).length)+'<small> / 10 วัน</small>','วันที่มีข้อมูล']]);
+  pointsUI(ci,'pts','rep','heat','var(--c-area)');
+
+  // K POINT
+  var ccum=kp.checkinCum||{}, st=kp.status||{};
+  kpis('kcKpi',kc.map(function(r){var t=thDate(r.date);return [f(r.unique)+'<small> คน</small>','เช็คอินที่งาน '+t.dow+' '+t.d+' พ.ย.']}).concat(ccum.people?[[f(ccum.people)+'<small> คน</small>','สะสมถึง '+esc(ccum.asof)+(ccum.times?' ('+f(ccum.times)+' ครั้ง)':'')]]:[]).concat(kp.members&&kp.members.new?[[f(kp.members.new)+'<small> คน</small>','สมาชิกใหม่ KORAT POINT (สะสมถึง '+esc(kp.members.asof)+')']]:[]));
+  var KD=kp.daily||[], kdT=KD.length?'<table class="tbl" style="margin-bottom:10px"><thead><tr><th>วัน</th><th>เช็คอิน (ครั้ง)</th><th>คน</th><th>สมาชิกใหม่</th><th>แลกของ (ชิ้น · แต้ม)</th><th>สลิป (รายการ · แต้ม)</th></tr></thead><tbody>'+KD.map(function(r){var t=thDate(r.date);return '<tr><td>'+t.dow+' '+t.d+' พ.ย.</td><td>'+f(r.checkin)+'</td><td>'+f(r.people)+'</td><td>'+f(r.newMembers)+'</td><td>'+f(r.redeemItems)+' · '+f(r.redeemPoints)+'</td><td>'+f(r.slips)+' · '+f(r.slipPoints)+'</td></tr>'}).join('')+'<tr style="font-weight:700"><td>รวม</td><td>'+f(sum(KD,'checkin'))+'</td><td>'+f(ccum.people||sum(KD,'people'))+' <span class="note">ไม่ซ้ำ</span></td><td>'+f(sum(KD,'newMembers'))+'</td><td>'+f(sum(KD,'redeemItems'))+' · '+f(sum(KD,'redeemPoints'))+'</td><td>'+f(sum(KD,'slips'))+' · '+f(sum(KD,'slipPoints'))+'</td></tr></tbody></table>':'';
+  el('kcTbl').innerHTML=kdT+(kc.length?'<div class="note">ตัวเลขคนเช็คอินของ KORAT POINT ตรงกับ "คนไม่ซ้ำ" ในเมนูเช็คอินรายพื้นที่ เป็นระบบเดียวกัน จึงแสดงไว้ดูอย่างเดียว ไม่บวกเข้ายอด 200,000 ซ้ำ</div>':'<div class="empty"><b>รอสรุปเช็คอิน KORAT POINT</b></div>');
+  var RD=kp.redeem||{},SH=kp.shops||{};kpis('keKpi',(st.spend!=null?[[f(st.spend)+'<small> บาท</small>','ยอดซื้อที่อนุมัติแล้ว (สะสม)']]:[]).concat([[f(st.approved!=null?st.approved:sum(ke,'total'))+'<small> ใบ</small>','ใบที่อนุมัติ'+(st.people?' จาก '+f(st.people)+' คน':'')]].concat(st.submitted!=null?[[f(st.submitted)+'<small> ใบ</small>','หลักฐานการซื้อที่ส่งเข้ามา'],[f(st.pending)+'<small> ใบ</small>','รอเจ้าหน้าที่ตรวจ'+(st.paper?' (ใบเสร็จกระดาษ '+f(st.paper)+')':'')]]:[])).concat(RD.items?[[f(RD.items)+'<small> ชิ้น</small>','แลกของที่ระลึก'+(RD.points?' ('+f(RD.points)+' แต้ม)':'')+(RD.asof?' ถึง '+esc(RD.asof):'')]]:[]).concat(SH.approved?[[f(SH.approved)+'<small> ร้าน</small>','ร้านค้าที่อนุมัติเข้าร่วม']]:[]));
+  var bar='';if(st.submitted){var W=function(n){return (n/st.submitted*100)+'%'};bar='<div class="note" style="margin-bottom:6px">สถานะหลักฐานการซื้อ ณ '+esc(st.asof)+'</div><div class="pbar" style="margin:0 0 6px"><i style="width:'+W(st.approved)+';background:var(--ok)"></i><i style="width:'+W(st.rejected)+';background:var(--warn)"></i><i style="width:'+W(st.pending)+';background:var(--muted);opacity:.5"></i></div><div class="legend" style="margin:0 0 14px"><span><i style="background:var(--ok)"></i>อนุมัติ '+f(st.approved)+'</span><span><i style="background:var(--warn)"></i>ปฏิเสธ '+f(st.rejected)+'</span><span><i style="background:var(--muted);opacity:.5"></i>รอตรวจ '+f(st.pending)+'</span></div>'}
+  el('keTbl').innerHTML=ke.length?bar+'<table class="tbl"><thead><tr><th>วัน</th><th>ส่งหลักฐาน</th><th>อนุมัติ (ใบ)</th><th>คน</th><th>ยอดซื้อ (บาท)</th><th>ร้านร่วมรายการ</th><th>ร้านทั่วไป</th></tr></thead><tbody>'+ke.map(function(r){var t=thDate(r.date);return '<tr><td>'+(r.label?esc(r.label):t.dow+' '+t.d+' พ.ย.')+(r.partial?' <span class="note">(ถึงตอนนี้)</span>':'')+'</td><td>'+f(r.submitted)+'</td><td>'+f(r.total)+'</td><td>'+f(r.people)+'</td><td>'+f(r.spend)+'</td><td>'+f(r.spendReg)+'</td><td>'+f(r.spendGen)+'</td></tr>'}).join('')+'</tbody></table><div class="note" style="margin-top:8px">นับเข้ายอด Visitation เฉพาะใบที่อนุมัติแล้ว 1 ใบ = 1 ครั้ง · ใบที่รอตรวจจะนับเมื่ออนุมัติ</div>':'<div class="empty"><b>รอสรุปการซื้อสินค้า KORAT POINT</b></div>';
+
+  el('csv').onclick=function(){
+    var L=[['แหล่ง','วันที่','จุด/รายละเอียด','จำนวน','คนไม่ซ้ำ','สถานะข้อมูล','แหล่งที่มา']];
+    ci.forEach(function(r){(r.points||[]).forEach(function(p){L.push(['เช็คอินรายพื้นที่',r.date,p.name,p.count,'','นับจริง',r.source||''])});L.push(['เช็คอินรายพื้นที่',r.date,'รวมทั้งวัน',r.total,r.unique,'นับจริง',r.source||''])});
+    kc.forEach(function(r){L.push(['KORAT POINT เช็คอิน (ไม่บวกซ้ำ)',r.date,'คนเช็คอิน','',r.unique||'','นับจริง',r.source||''])});
+    ke.forEach(function(r){L.push(['KORAT POINT ซื้อสินค้า (ใบที่อนุมัติ)',r.date,'ยอดซื้อ '+(r.spend||0)+' บาท',r.total,r.people||'',r.partial?'นับจริง (ยังไม่จบวัน)':'นับจริง',r.source||''])});
+    HR.forEach(function(h){Object.keys(h.nights||{}).forEach(function(d){L.push(['โรงแรม',d,h.name,h.nights[d].guests,'',h.estimate?'ประมาณการ':'นับจริง','แบบสอบถามโรงแรม'])})});
+    [['reported','ยอดผู้เข้าร่วมที่แจ้ง'],['partner','พันธมิตร'],['tour','ทัวร์']].forEach(function(k){real(D[k[0]]).forEach(function(r){L.push([k[1],r.date,r.name||'',r.count,'',r.estimate?'ประมาณการ':'นับจริง',r.source||''])})});
+    var s='﻿'+L.map(function(r){return r.map(function(c){c=String(c);return /[",\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c}).join(',')}).join('\n');
+    var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([s],{type:'text/csv'}));a.download='visitation-korat.csv';a.click();
+  };
+
+  function dayTable(rows,cols){return '<table class="tbl"><thead><tr><th>วัน</th>'+cols.map(function(c){return '<th>'+c[1]+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r){var t=thDate(r.date);return '<tr><td>'+t.dow+' '+t.d+' พ.ย.</td>'+cols.map(function(c){return '<td>'+f(r[c[0]])+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table>'}
+  function pointsUI(rows,ptsId,repId,heatId,color){
+    var pts={};rows.forEach(function(r){(r.points||[]).forEach(function(p){pts[p.name]=(pts[p.name]||0)+p.count})});
+    var pk=Object.keys(pts).sort(function(a,b){return pts[b]-pts[a]}), pm=pk.length?pts[pk[0]]:1;
+    el(ptsId).innerHTML=pk.length?pk.map(function(n){return '<div class="pt"><span>'+esc(n)+'</span><div class="tr"><i style="width:'+(pts[n]/pm*100)+'%;background:'+color+'"></i></div><span class="n">'+f(pts[n])+'</span></div>'}).join(''):'<div class="empty">ยังไม่มีข้อมูล</div>';
+    el(repId).innerHTML=rows.length?'<table class="tbl"><thead><tr><th>วัน</th><th>เช็คอิน</th><th>คนไม่ซ้ำ</th><th>ครั้ง/คน</th></tr></thead><tbody>'+rows.map(function(r){var t=thDate(r.date);return '<tr><td>'+t.dow+' '+t.d+' พ.ย.</td><td>'+f(r.total)+'</td><td>'+f(r.unique)+'</td><td>'+(r.unique?(r.total/r.unique).toFixed(2):'–')+'</td></tr>'}).join('')+'</tbody></table>':'<div class="empty">ยังไม่มีข้อมูล</div>';
+    var hmax=1;rows.forEach(function(r){(r.points||[]).forEach(function(p){hmax=Math.max(hmax,p.count)})});
+    var byDay={};rows.forEach(function(r){byDay[r.date]=r});
+    var head='<thead><tr><th>จุด</th>'+days.map(function(d){return '<th>'+thDate(d).d+'</th>'}).join('')+'<th>รวม</th></tr></thead>';
+    var body=pk.map(function(n){return '<tr><td>'+esc(n)+'</td>'+days.map(function(d){var r=byDay[d];if(!r)return '<td style="color:var(--muted)">·</td>';var p=(r.points||[]).filter(function(x){return x.name===n})[0];if(!p)return '<td>0</td>';var a=0.12+0.6*p.count/hmax;return '<td><span class="heat" style="background:color-mix(in srgb,'+color+' '+Math.round(a*100)+'%,transparent);'+(a>0.45?'color:#fff':'')+'">'+f(p.count)+'</span></td>'}).join('')+'<td>'+f(pts[n])+'</td></tr>'}).join('');
+    var foot='<tfoot><tr><td>รวมรายวัน</td>'+days.map(function(d){return '<td>'+(byDay[d]?f(byDay[d].total):'·')+'</td>'}).join('')+'<td>'+f(sum(rows,'total'))+'</td></tr></tfoot>';
+    el(heatId).innerHTML=pk.length?head+'<tbody>'+body+'</tbody>'+foot:'<tbody><tr><td><div class="empty">ยังไม่มีข้อมูล</div></td></tr></tbody>';
+  }
+}
+function countUp(e,n){var t0=null;function s(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/900);e.textContent=Math.round(n*(1-Math.pow(1-p,3))).toLocaleString('en-US');if(p<1)requestAnimationFrame(s)}
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){e.textContent=n.toLocaleString('en-US')}else requestAnimationFrame(s)}
+})();
+</script>
+</body>
+</html>

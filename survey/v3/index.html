@@ -88,6 +88,7 @@ footer{position:sticky;bottom:0;background:var(--surface);border-top:1px solid v
 .kpgot{font-weight:700;color:var(--accent);margin:12px 0 4px}
 a.btn.kpbtn{display:inline-block;max-width:240px;text-decoration:none;margin-top:10px}
 .done .ok{width:64px;height:64px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin:0 auto 14px;font-size:32px}
+.prize{border:2px solid var(--accent);background:var(--accent-soft);border-radius:16px;padding:16px;margin:6px 0 14px}.prize .pt{font-size:1.15rem;font-weight:800;color:var(--accent);margin:0 0 6px}.terms{margin-top:16px;font-size:.88rem;line-height:1.55;color:var(--muted,#555)}.terms ol{margin:6px 0 0;padding-left:20px}
 details{margin-top:22px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px}
 summary{cursor:pointer;font-weight:600;font-size:14px}
 pre{overflow-x:auto;font-size:12px;white-space:pre-wrap;word-break:break-word}
@@ -169,7 +170,10 @@ const PARTS=[null,
  T('ส่วนที่ 5 ผลกระทบทางธุรกิจและการลงทุน','Part 5: Business and Investment Impact'),
  T('ส่วนที่ 6 ภาพลักษณ์เมือง (City Branding)','Part 6: City Branding Perception'),
  T('ส่วนที่ 7 ความพึงพอใจต่อการจัดงาน','Part 7: Event Satisfaction'),
- T('ส่วนที่ 8 ความตั้งใจในอนาคตและข้อเสนอแนะ','Part 8: Future Intentions and Suggestions')];
+ T('ส่วนที่ 8 ความตั้งใจในอนาคตและข้อเสนอแนะ','Part 8: Future Intentions and Suggestions'),
+ T('ส่วนที่ 9 ลงทะเบียนรับของรางวัล','Part 9: Prize Registration')];
+const DL={province:{"th": ["กระบี่", "กรุงเทพมหานคร", "กาญจนบุรี", "กาฬสินธุ์", "กำแพงเพชร", "ขอนแก่น", "จันทบุรี", "ฉะเชิงเทรา", "ชลบุรี", "ชัยนาท", "ชัยภูมิ", "ชุมพร", "เชียงราย", "เชียงใหม่", "ตรัง", "ตราด", "ตาก", "นครนายก", "นครปฐม", "นครพนม", "นครราชสีมา", "นครศรีธรรมราช", "นครสวรรค์", "นนทบุรี", "นราธิวาส", "น่าน", "บึงกาฬ", "บุรีรัมย์", "ปทุมธานี", "ประจวบคีรีขันธ์", "ปราจีนบุรี", "ปัตตานี", "พระนครศรีอยุธยา", "พะเยา", "พังงา", "พัทลุง", "พิจิตร", "พิษณุโลก", "เพชรบุรี", "เพชรบูรณ์", "แพร่", "ภูเก็ต", "มหาสารคาม", "มุกดาหาร", "แม่ฮ่องสอน", "ยโสธร", "ยะลา", "ร้อยเอ็ด", "ระนอง", "ระยอง", "ราชบุรี", "ลพบุรี", "ลำปาง", "ลำพูน", "เลย", "ศรีสะเกษ", "สกลนคร", "สงขลา", "สตูล", "สมุทรปราการ", "สมุทรสงคราม", "สมุทรสาคร", "สระแก้ว", "สระบุรี", "สิงห์บุรี", "สุโขทัย", "สุพรรณบุรี", "สุราษฎร์ธานี", "สุรินทร์", "หนองคาย", "หนองบัวลำภู", "อ่างทอง", "อำนาจเจริญ", "อุดรธานี", "อุตรดิตถ์", "อุทัยธานี", "อุบลราชธานี"], "en": ["Amnat Charoen", "Ang Thong", "Bangkok", "Bueng Kan", "Buriram", "Chachoengsao", "Chai Nat", "Chaiyaphum", "Chanthaburi", "Chiang Mai", "Chiang Rai", "Chonburi", "Chumphon", "Kalasin", "Kamphaeng Phet", "Kanchanaburi", "Khon Kaen", "Krabi", "Lampang", "Lamphun", "Loei", "Lopburi", "Mae Hong Son", "Maha Sarakham", "Mukdahan", "Nakhon Nayok", "Nakhon Pathom", "Nakhon Phanom", "Nakhon Ratchasima", "Nakhon Sawan", "Nakhon Si Thammarat", "Nan", "Narathiwat", "Nong Bua Lamphu", "Nong Khai", "Nonthaburi", "Pathum Thani", "Pattani", "Phang Nga", "Phatthalung", "Phayao", "Phetchabun", "Phetchaburi", "Phichit", "Phitsanulok", "Phra Nakhon Si Ayutthaya", "Phrae", "Phuket", "Prachinburi", "Prachuap Khiri Khan", "Ranong", "Ratchaburi", "Rayong", "Roi Et", "Sa Kaeo", "Sakon Nakhon", "Samut Prakan", "Samut Sakhon", "Samut Songkhram", "Saraburi", "Satun", "Sing Buri", "Sisaket", "Songkhla", "Sukhothai", "Suphan Buri", "Surat Thani", "Surin", "Tak", "Trang", "Trat", "Ubon Ratchathani", "Udon Thani", "Uthai Thani", "Uttaradit", "Yala", "Yasothon"]},country:{"th": ["จีน", "ญี่ปุ่น", "เกาหลีใต้", "ไต้หวัน", "ฮ่องกง", "สิงคโปร์", "มาเลเซีย", "ลาว", "กัมพูชา", "เวียดนาม", "เมียนมา", "อินโดนีเซีย", "ฟิลิปปินส์", "อินเดีย", "ออสเตรเลีย", "นิวซีแลนด์", "สหรัฐอเมริกา", "แคนาดา", "สหราชอาณาจักร", "ฝรั่งเศส", "เยอรมนี", "อิตาลี", "สเปน", "เนเธอร์แลนด์", "สวิตเซอร์แลนด์", "สวีเดน", "รัสเซีย", "อิสราเอล"], "en": ["China", "Japan", "South Korea", "Taiwan", "Hong Kong", "Singapore", "Malaysia", "Laos", "Cambodia", "Vietnam", "Myanmar", "Indonesia", "Philippines", "India", "Australia", "New Zealand", "United States", "Canada", "United Kingdom", "France", "Germany", "Italy", "Spain", "Netherlands", "Switzerland", "Sweden", "Russia", "Israel"]}};DL.nationality=DL.country;
+const PRIZE_TERMS={"th": ["สิทธิ์สำหรับผู้ที่ตอบแบบสอบถามครบถ้วน และกรอกชื่อพร้อมเบอร์โทรศัพท์ที่ติดต่อได้ 1 บัญชี LINE ต่อ 1 สิทธิ์", "จำนวน ประเภท และมูลค่าของรางวัล เป็นไปตามที่คณะกรรมการกำหนด", "ประกาศรายชื่อผู้ได้รับของรางวัลในวันที่ 28 พฤศจิกายน 2569 ทางช่องทางทางการของงานอวดเมืองโคราช", "ของรางวัลไม่สามารถเปลี่ยนเป็นเงินสด หรือโอนสิทธิ์ให้ผู้อื่นได้", "ชื่อและเบอร์โทรศัพท์จะใช้เพื่อติดต่อผู้ได้รับรางวัลเท่านั้น และดูแลตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562", "คำตัดสินของคณะกรรมการถือเป็นที่สิ้นสุด"], "en": ["One entry per LINE account, for respondents who complete the survey and give a reachable name and phone number.", "The number, type and value of prizes are as determined by the committee.", "Winners will be announced on 28 November 2026 on the official channels of Awd Mueang Korat.", "Prizes cannot be exchanged for cash or transferred to others.", "Your name and phone number are used only to contact winners and are handled under Thailand’s Personal Data Protection Act B.E. 2562 (2019).", "The committee’s decision is final."]};
 const o=(v,th,en,x)=>Object.assign({v,t:T(th,en)},x||{});
 const OTHER=(th='อื่น ๆ',en='Other')=>o('other',th,en,{text:true});
 const RL5=[T('น้อยที่สุด','Least'),T('น้อย','Low'),T('ปานกลาง','Fair'),T('มาก','Good'),T('มากที่สุด','Excellent')];
@@ -319,8 +323,8 @@ const S=[
  {id:'p8_2',part:8,no:'2',type:'text',q:T('สิ่งที่ประทับใจมากที่สุด','What impressed you the most about the event?')},
  {id:'p8_3',part:8,no:'3',type:'text',q:T('ปัญหาที่พบ','What issues or problems did you encounter?')},
  {id:'p8_4',part:8,no:'4',type:'text',q:T('ข้อเสนอแนะ','Additional suggestions or comments')},
- {id:'p8_5',part:8,no:'',type:'contact',q:T('ชื่อ/เบอร์/อีเมลสำหรับติดตามผล','Name / Phone Number / Email for follow-up'),pre:T('ไม่บังคับ','Optional')},
- {id:'done',type:'done',part:9}
+ {id:'p8_5',part:9,no:'',type:'contact',q:T('ใส่ชื่อพร้อมเบอร์ติดต่อของท่าน เพื่อรับของรางวัลสำหรับการตอบแบบสอบถาม','Enter your name and phone number to receive a prize for completing this survey'),pre:T('ไม่บังคับ','Optional')},
+ {id:'done',type:'done',part:10}
 ];
 
 let L='th', A={}, i=0, err='';
@@ -348,7 +352,7 @@ async function initKP(){
     const j=await r.json().catch(()=>({}));const k=j.kp||{};
     const member=k.member===true||k.status==='member';
     if(A._sent&&!j.answered){A={};i=0;SUB='';save();}
-    else if(A._sent&&PAGES[i]===9){render();return;}
+    else if(A._sent&&PAGES[i]===10){render();return;}
     if(k.status==='already'){KPV='already';}
     else if(j.answered&&!(k.status==='ok'&&member)){KPV='answered';}
     else if(k.status==='ok'&&member){KPS='earn';}
@@ -361,9 +365,9 @@ async function submit(){if(SUB==='wait')return;SUB='wait';render();
   try{const r=await fetch(SURVEY_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({sid:A._sid,uid:UID||'',form:FORM,lang:L,test:TEST,answers:A},idTok()?{idToken:idTok()}:{}))});
     const j=await r.json().catch(()=>({}));if(!r.ok||!j.ok)throw new Error('x');SUB='ok';A._sent=new Date().toISOString();
     const ks=(j.kp&&j.kp.status)||'';A._kp=ks;
-    if(ks==='not_member'&&LIFFOK){save();if(PAGES[i]===9)render();setTimeout(()=>{try{window.liff.closeWindow();}catch(e){}},1500);return;}}
+    if(ks==='not_member'&&LIFFOK){save();if(PAGES[i]===10)render();setTimeout(()=>{try{window.liff.closeWindow();}catch(e){}},1500);return;}}
   catch(e){SUB='fail';}
-  save();if(PAGES[i]===9)render();}
+  save();if(PAGES[i]===10)render();}
 const tx=x=>x?x[L]:'';
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const visible=()=>S.filter(s=>!s.show||s.show(A));
@@ -372,7 +376,7 @@ const $=id=>document.getElementById(id);
 function fieldHTML(path,f,val){
   const [k,lab,typ]=f; const v=(val||{})[k]??'';
   const label=lab?tx(lab):tx(UI.people);
-  return `<div><label class="fl" for="f_${path}_${k}">${esc(label)}</label><input id="f_${path}_${k}" data-path="${path}" data-k="${k}" type="${typ==='number'?'number':'text'}" ${typ==='number'?'inputmode="numeric" min="0"':''} value="${esc(v)}"></div>`;
+  return `<div><label class="fl" for="f_${path}_${k}">${esc(label)}</label><input id="f_${path}_${k}" data-path="${path}" data-k="${k}" type="${typ==='number'?'number':'text'}" ${typ==='number'?'inputmode="numeric" min="0"':''}${DL[k]?` list="dl_${k}_${L}" autocomplete="off"`:''} value="${esc(v)}"></div>${DL[k]?`<datalist id="dl_${k}_${L}">${DL[k][L].map(x=>`<option value="${esc(x)}">`).join('')}</datalist>`:''}`;
 }
 function optHTML(s,opt,checked,kind,cur){
   let h=`<button type="button" class="opt ${kind}" role="${kind==='r'?'radio':'checkbox'}" aria-checked="${checked}" data-v="${opt.v}"><span class="mk"></span><span>${esc(tx(opt.t))}</span></button>`;
@@ -433,7 +437,7 @@ const DAYACT={20:['sd_luk','chg','poster','recipe','kpoint'],21:['sd_show','dcam
 const dayLab=(d,long)=>{const x=DAYS.find(y=>y[0]===d);return L==='th'?`${x[1]} ${d} พ.ย.`:`${x[2]} ${d} Nov`;};
 const partySize=a=>{const c=a.p2_7;if(!c)return 0;return c.v==='alone'?1:(+c.people||0);};
 
-const PAGES=[0,1,2,3,4,5,6,7,8,9];
+const PAGES=[0,1,2,3,4,5,6,7,8,9,10];
 function shufOpts(s){if(!s.shuf)return s.opts;if(!s._o){const x=s.opts.filter(p=>p.v!=='other');for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]];}s._o=x.concat(s.opts.filter(p=>p.v==='other'));}return s._o;}
 function sumTxt(s){const a=A[s.id]||{}, n=partySize(A), t=s.fields.filter(f=>f[3]==='sum').reduce((x,f)=>x+(+a[f[0]]||0),0);return (L==='th'?'รวม ':'Total ')+t+' / '+n+(L==='th'?' คน':'')+(t===n?' ✓':(t>n?(L==='th'?' · เกินจำนวนคนในกลุ่ม':' · more than your group'):''));}
 function qHTML(s,prev){
@@ -486,8 +490,11 @@ function qHTML(s,prev){
     h+=`<div class="opts">${s.fields.map(f=>fieldHTML(s.id,f,a)).join('')}</div>`;
     if(s.sumTo) h+=`<p class="hint" id="sum_${s.id}" style="margin-top:8px">${sumTxt(s)}</p>`;
   } else if(s.type==='contact'){
-    h+=`<div class="opts"><input id="f_${s.id}" data-main="1" type="text" value="${esc(a?.v??'')}" aria-label="${esc(tx(s.q))}">
-      <button type="button" class="opt c" role="checkbox" aria-checked="${!!a?.ok}" data-okc="1"><span class="mk"></span><span>${L==='th'?'ยินยอมให้ติดต่อ':'I consent to be contacted'}</span></button></div>`;
+    h+=`<div class="prize"><p class="pt">🎁 ${L==='th'?'รับของรางวัลสำหรับการตอบแบบสอบถาม':'Get a prize for completing this survey'}</p>
+      <div class="opts"><div><label class="fl" for="f_${s.id}_name">${L==='th'?'ชื่อ-นามสกุล':'Full name'}</label><input id="f_${s.id}_name" data-pk="name" type="text" autocomplete="name" value="${esc(a?.name??'')}"></div>
+      <div><label class="fl" for="f_${s.id}_tel">${L==='th'?'เบอร์โทรศัพท์':'Phone number'}</label><input id="f_${s.id}_tel" data-pk="tel" type="text" inputmode="tel" autocomplete="tel" maxlength="15" placeholder="0XX-XXX-XXXX" value="${esc(a?.tel??'')}"></div>
+      <button type="button" class="opt c" role="checkbox" aria-checked="${!!a?.ok}" data-okc="1"><span class="mk"></span><span>${L==='th'?'ยินยอมให้ติดต่อเพื่อรับของรางวัล และยอมรับข้อกำหนดด้านล่าง':'I consent to be contacted about the prize and accept the terms below'}</span></button></div></div>
+      <div class="terms"><b>${L==='th'?'ข้อกำหนดและเงื่อนไข':'Terms and conditions'}</b><ol>${PRIZE_TERMS[L].map(t=>`<li>${esc(t)}</li>`).join('')}</ol></div>`;
   }
   return h+'</section>';
 }
@@ -498,11 +505,11 @@ function render(){
   $('brand').innerHTML=`${esc(tx(UI.brand))}<small>${esc(tx(UI.brandsub))}</small>`;
   if(i<0)i=0; if(i>=PAGES.length)i=PAGES.length-1;
   const part=PAGES[i];
-  $('partl').textContent=part===0?tx(UI.intro):part===9?'':(L==='th'?'ส่วนที่ ':'Part ')+part+(L==='th'?' จาก 8':' of 8');
-  $('cnt').textContent=part>=1&&part<=8?`${part}/8`:'';
-  $('barf').style.width=(part===9?100:part/8*100)+'%';
-  $('back').textContent=tx(UI.back); $('back').disabled=i===0; $('foot').hidden=part===9;
-  $('next').textContent=part===0?tx(UI.start):(part===8?tx(UI.send):(L==='th'?'ถัดไป ส่วนที่ '+(part+1):'Next: Part '+(part+1)));
+  $('partl').textContent=part===0?tx(UI.intro):part===10?'':(L==='th'?'ส่วนที่ ':'Part ')+part+(L==='th'?' จาก 9':' of 9');
+  $('cnt').textContent=part>=1&&part<=9?`${part}/9`:'';
+  $('barf').style.width=(part===10?100:part/9*100)+'%';
+  $('back').textContent=tx(UI.back); $('back').disabled=i===0; $('foot').hidden=part===10;
+  $('next').textContent=part===0?tx(UI.start):(part===9?tx(UI.send):(L==='th'?'ถัดไป ส่วนที่ '+(part+1):'Next: Part '+(part+1)));
   let h='';
   if(KPV){$('foot').hidden=true;$('partl').textContent='';$('cnt').textContent='';
     $('stage').innerHTML=`<div class="done">${KVIMG}<div class="ok">✓</div><h1>${esc(tx(KPV==='already'?UI.kpAlready:UI.kpAnswered))}</h1><p class="hint">${esc(tx(UI.kpAlready2))}</p>${KPV==='already'?`<a class="btn kpbtn" href="${KP_POINTS}">${esc(tx(UI.kpMy))}</a>`:''}</div>`;return;}
@@ -518,7 +525,7 @@ function render(){
      <button type="button" class="opt c" role="checkbox" aria-checked="${!!c.agree}" data-cons="agree"><span class="mk"></span><span>${L==='th'?'ข้าพเจ้ายินยอมให้เก็บและใช้ข้อมูลตามวัตถุประสงค์ข้างต้น':'I consent to the collection and use of my data for the purposes stated above.'}</span></button>
      <button type="button" class="opt c" role="checkbox" aria-checked="${!!c.guardian}" data-cons="guardian"><span class="mk"></span><span>${L==='th'?'(กรณีผู้ตอบอายุต่ำกว่า 20 ปี) ผู้ปกครองให้ความยินยอมแล้ว':'(For respondents under 20 years of age) Parental/guardian consent has been obtained.'}</span></button>
     </div>${err?`<div class="err" role="alert">${esc(err)}</div>`:''}</div>`;
-  } else if(part===9){
+  } else if(part===10){
     h=`<div class="done">${KVIMG}<div class="ok">✓</div><h1>${esc(tx(UI.thanks))}</h1><p class="hint">${esc(tx(UI.thanks2))}</p>
       ${A._kp==='credited'?`<p class="kpgot">★ ${esc(tx(UI.kpGot))}</p><a class="btn kpbtn" href="${KP_POINTS}">${esc(tx(UI.kpMy))}</a>`:LIFFOK?'':`<button class="btn" id="again" style="max-width:220px">${esc(tx(UI.again))}</button>`}
       
@@ -568,19 +575,20 @@ function bindQ(s,st){
   st.querySelectorAll('input[data-k]').forEach(inp=>inp.oninput=()=>{const cur=A[s.id]||(A[s.id]={});cur[inp.dataset.k]=inp.value;save();const sm=document.getElementById('sum_'+s.id);if(sm&&s.sumTo)sm.textContent=sumTxt(s);});
   st.querySelectorAll('[data-main]').forEach(inp=>inp.oninput=()=>{const cur=A[s.id]||(A[s.id]={});cur.v=inp.value;save();});
   st.querySelectorAll('[data-okc]').forEach(b=>b.onclick=()=>{const cur=A[s.id]||(A[s.id]={});cur.ok=!cur.ok;rerender();});
+  st.querySelectorAll('[data-pk]').forEach(inp=>inp.oninput=()=>{const cur=A[s.id]||(A[s.id]={});cur[inp.dataset.pk]=inp.value.trim();cur.v=[cur.name,cur.tel].filter(Boolean).join(' / ');save();});
 }
 function syncDaily(){const p=A.p4_1;if(!p)return;const days=p.days||{};let vis=0;const u=new Set();
   Object.entries(days).forEach(([d,x])=>{(x.a||[]).forEach(k=>{u.add(k);const n=x.full===false&&x.pa&&x.pa[k]!=null?x.pa[k]:(x.p||partySize(A)||1);vis+=n;});});
   p.v=[...u]; p.cats=[...new Set(p.v.map(k=>ACT[k][2]))]; p.visitation=vis; save();}
 function go(){
   if(PAGES[i]===0&&!(A.consent&&A.consent.agree)){err=tx(UI.needc);render();return;}
-  if(i<PAGES.length-1){i++;if(PAGES[i]===9){A._submitted=new Date().toISOString();A._sid=A._sid||newSid();SUB='';render();window.scrollTo(0,0);submit();return;}render();window.scrollTo(0,0);}
+  if(i<PAGES.length-1){i++;if(PAGES[i]===10){A._submitted=new Date().toISOString();A._sid=A._sid||newSid();SUB='';render();window.scrollTo(0,0);submit();return;}render();window.scrollTo(0,0);}
 }
 $('next').onclick=go;
 $('back').onclick=()=>{if(i>0){i--;render();window.scrollTo(0,0);}};
 $('lth').onclick=()=>{L='th';err='';rerender();};$('len').onclick=()=>{L='en';err='';rerender();};
 render();
-if(PAGES[i]===9&&!A._sent&&A.consent&&A.consent.agree)submit();
+if(PAGES[i]===10&&!A._sent&&A.consent&&A.consent.agree)submit();
 initKP();
 </script>
 </body>

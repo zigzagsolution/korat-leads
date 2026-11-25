@@ -165,7 +165,7 @@ const PARTS=[null,
  T('ส่วนที่ 1 ข้อมูลส่วนบุคคลของผู้ตอบ','Part 1: Respondent Demographics'),
  T('ส่วนที่ 2 ข้อมูลการเดินทางและค่าใช้จ่าย','Part 2: Travel and Expenditure Information'),
  T('ส่วนที่ 3 การรับรู้สื่อประชาสัมพันธ์และการมีส่วนร่วม','Part 3: Media Awareness and Engagement'),
- T('ส่วนที่ 4 วัตถุประสงค์ในการเข้าร่วมงาน','Part 4: Purpose of Attending the Event'),
+ T('ส่วนที่ 4 กิจกรรมและความสนใจในงาน','Part 4: Event Activities and Interests'),
  T('ส่วนที่ 5 ผลกระทบทางธุรกิจและการลงทุน','Part 5: Business and Investment Impact'),
  T('ส่วนที่ 6 ภาพลักษณ์เมือง (City Branding)','Part 6: City Branding Perception'),
  T('ส่วนที่ 7 ความพึงพอใจต่อการจัดงาน','Part 7: Event Satisfaction'),
@@ -204,20 +204,25 @@ const S=[
  // Part 2
  {id:'p2_1',part:2,no:'1',type:'single',one:true,q:T('วัตถุประสงค์ของการเดินทางครั้งนี้','Primary Purpose of This Trip'),opts:[
   o('festival','เข้าร่วมเทศกาลอวดเมืองโคราช','Attend Korat City Expo'),o('leisure','ท่องเที่ยว/พักผ่อน','Leisure / Sightseeing'),o('visit','เยี่ยมเพื่อน/ญาติ','Visit Friends / Relatives'),
-  o('kbattle','ชมการแข่งขัน/กิจกรรม K-Battle','Watch K-Battle Competition / Activities'),o('merit','ไหว้พระ/ทำบุญ','Religious Pilgrimage / Merit-Making'),o('shop','ซื้อสินค้า/ของที่ระลึก','Shopping / Buy Souvenirs'),
-  o('sounder','ชมดนตรี/กิจกรรม SOUNDER','Attend SOUNDER Music / Activities'),o('kbatx','ประชุม/สัมมนา/งานแสดงสินค้า (KBATx)','Conference / Seminar / Trade Expo (KBATx)'),
+  o('merit','ไหว้พระ/ทำบุญ','Religious Pilgrimage / Merit-Making'),o('shop','ซื้อสินค้า/ของที่ระลึก','Shopping / Buy Souvenirs'),
   o('business','ธุรกิจ/ลงทุน','Business / Investment'),OTHER()]},
  {id:'p2_2',part:2,no:'2',type:'single',show:a=>FEST.includes(a.p2_1?.v),
   q:T('นอกจากเข้างานแล้ว ท่านท่องเที่ยวในโคราชด้วยหรือไม่','In addition to attending the event, did you also go sightseeing in Korat?'),
-  pre:T('เฉพาะผู้ตอบข้อ 1 ว่าเข้าร่วมเทศกาล/K-Battle/KBATx/SOUNDER','Only for respondents who selected Korat City Expo / K-Battle / KBATx / SOUNDER in Q1'),
+  pre:T('เฉพาะผู้ตอบข้อ 1 ว่ามาเข้าร่วมเทศกาลอวดเมืองโคราช','Only for respondents who selected Korat City Expo in Q1'),
   opts:[o('yes','ท่องเที่ยวด้วย','Yes, I also went sightseeing'),o('no','ไม่ท่องเที่ยว','No, I only attended the event')]},
+ {id:'p2_why',part:2,no:'2',type:'single',show:a=>!!a.p2_1&&!FEST.includes(a.p2_1.v),
+  q:T('งานอวดเมืองโคราชมีผลต่อการมาโคราชครั้งนี้อย่างไร','How did Korat City Expo influence this trip to Korat?'),
+  pre:T('เฉพาะผู้ตอบข้อ 1 ว่ามาด้วยเหตุผลอื่น','Only for respondents who came for another reason in Q1'),
+  opts:[o('part','งานเป็นเหตุผลหนึ่งที่มา','The event was one of the reasons I came'),
+   o('knew','รู้ว่ามีงานก่อนมา แต่ไม่ใช่เหตุผลที่มา','I knew about the event before coming, but it was not a reason'),
+   o('found','ไม่รู้มาก่อน มาเจองานที่นี่เลยเข้าร่วม','I did not know beforehand; I came across the event here and joined')]},
  {id:'p2_3',part:2,no:'3',type:'dates',q:T('วันที่ท่านมาร่วมงานแล้ว','Which days have you attended so far?'),pre2:T('เลือกได้หลายวัน · นับเฉพาะวันที่มาแล้ว','Select all that apply · only days you have already attended')},
  {id:'p2_4',part:2,no:'4',type:'nights',q:T('จำนวนคืนที่พักในโคราช','Number of Nights Staying in Korat')},
- {id:'p2_5',part:2,no:'5',type:'single',show:a=>a.p2_4&&a.p2_4.v!=='0',q:T('ประเภทที่พักในโคราช (ถ้าพักค้างคืน)','Type of Accommodation in Korat (If staying overnight)'),opts:[
+ {id:'p2_5',part:2,no:'5',type:'single',show:a=>a.p2_4&&!['0','local'].includes(a.p2_4.v),q:T('ประเภทที่พักในโคราช (ถ้าพักค้างคืน)','Type of Accommodation in Korat (If staying overnight)'),opts:[
   o('hotel','โรงแรม','Hotel',{fields:[['place',T('ชื่อที่พัก (ไม่บังคับ)','Name of accommodation (optional)')]]}),o('resort','รีสอร์ท/บังกะโล','Resort / Bungalow',{fields:[['place',T('ชื่อที่พัก (ไม่บังคับ)','Name of accommodation (optional)')]]}),o('guesthouse','เกสต์เฮาส์/โฮสเทล','Guesthouse / Hostel',{fields:[['place',T('ชื่อที่พัก (ไม่บังคับ)','Name of accommodation (optional)')]]}),o('homestay','โฮมสเตย์','Homestay',{fields:[['place',T('ชื่อที่พัก (ไม่บังคับ)','Name of accommodation (optional)')]]}),
   o('app','ที่พักแบบแอปพลิเคชัน/Airbnb','App-based Accommodation / Airbnb'),o('relative','บ้านญาติ/เพื่อน','Relative’s / Friend’s Home'),OTHER()]},
  {id:'p2_6',part:2,no:'6',type:'single',q:T('พาหนะที่ใช้เดินทางมาโคราช','Mode of Transportation to Korat'),opts:[
-  o('car','รถยนต์ส่วนตัว','Private Car'),o('rental','รถเช่า','Rental Car'),o('public','รถสาธารณะ','Public Transportation'),o('moto','จักรยานยนต์','Motorcycle'),
+  o('local','อาศัยอยู่ในโคราช (ไม่ได้เดินทางมา)','I live in Korat (did not travel here)'),o('car','รถยนต์ส่วนตัว','Private Car'),o('rental','รถเช่า','Rental Car'),o('public','รถสาธารณะ','Public Transportation'),o('moto','จักรยานยนต์','Motorcycle'),
   o('train','รถไฟ/รถไฟความเร็วสูง','Train / High-Speed Rail'),o('plane','เครื่องบิน','Airplane'),o('coach','รถทัวร์','Intercity Bus / Coach'),OTHER()]},
  {id:'p2_7',part:2,no:'7',type:'single',one:true,q:T('ผู้ร่วมเดินทาง','Travel Companions'),opts:[
   o('alone','มาคนเดียว','Traveling alone'),
@@ -225,38 +230,75 @@ const S=[
   o('group','เป็นหมู่คณะ','Traveling as an organized group',{fields:[['people',null,'number']],subq:{key:'gtype',opts:[
     o('tour','ทัวร์','Tour group'),o('org','องค์กร/บริษัทเดียวกัน','Same organization / company'),o('merit','คณะทำบุญ','Merit-making group'),
     o('school','สถานศึกษา','Educational institution'),OTHER()]}})]},
- {id:'p2_8_1',part:2,no:'8.1',type:'single',head:T('ค่าใช้จ่ายทั้งหมดตลอดการเดินทางครั้งนี้ (บาท/คน)','Total Expenditure Throughout This Trip (THB per person)'),q:T('ค่าที่พัก','Accommodation'),opts:expOpts()},
+ {id:'p2_stay',part:2,no:'7.1',type:'fields',sumTo:true,show:a=>(a=>{const c=a.p2_7;return c?(c.v==='alone'?1:(+c.people||0)):0;})(a)>1&&!!a.p2_4&&a.p2_4.v!=='local',q:T('คนในกลุ่มของท่าน ค้างคืนในโคราชที่ไหนบ้าง','Where did the people in your group stay overnight in Korat?'),get pre(){const n=(a=>{const c=a.p2_7;return c?(c.v==='alone'?1:(+c.people||0)):0;})(typeof A!=='undefined'?A:{});return T('กลุ่มของท่านมา '+n+' คน (ข้อ 2.7) · ใส่จำนวนคนให้รวมกันได้ '+n+' คน','Your group: '+n+' people (Q2.7) · numbers should add up to '+n);},fields:[['same',T('ค้างคืนที่เดียวกับท่าน (รวมตัวท่าน ถ้าท่านค้างคืน)','Stayed at the same place as you (including you, if you stayed)'),'number','sum'],['other',T('ค้างโรงแรม/ที่พักอื่น','Stayed at another hotel / accommodation'),'number','sum'],['rel',T('ค้างบ้านญาติ/เพื่อน','Stayed with relatives / friends'),'number','sum'],['none',T('ไม่ได้ค้างคืน (ไป-กลับ หรืออยู่โคราชอยู่แล้ว)','Did not stay overnight (day trip or lives in Korat)'),'number','sum']]},
+ {id:'p2_go',part:2,no:'7.2',type:'fields',sumTo:true,show:a=>(a=>{const c=a.p2_7;return c?(c.v==='alone'?1:(+c.people||0)):0;})(a)>1&&!!a.p2_6&&a.p2_6.v!=='local',q:T('คนในกลุ่มของท่าน เดินทางมาโคราชอย่างไร','How did the people in your group travel to Korat?'),get pre(){const n=(a=>{const c=a.p2_7;return c?(c.v==='alone'?1:(+c.people||0)):0;})(typeof A!=='undefined'?A:{});return T('กลุ่มของท่านมา '+n+' คน (ข้อ 2.7) · ใส่จำนวนคนให้รวมกันได้ '+n+' คน','Your group: '+n+' people (Q2.7) · numbers should add up to '+n);},fields:[['same',T('มาด้วยพาหนะเดียวกับท่านในข้อ 2.6 (รวมตัวท่าน)','Came by the same transport as you in Q2.6 (including you)'),'number','sum'],['veh',T('พาหนะนั้นมากี่คัน (รถยนต์/รถเช่า/รถทัวร์/จักรยานยนต์)','How many vehicles of that type (car / rental / coach / motorcycle)?'),'number'],['other',T('แยกกันมาด้วยพาหนะอื่น','Came separately by other transport'),'number','sum'],['local',T('อยู่โคราชอยู่แล้ว (ไม่ได้เดินทางมา)','Already live in Korat (did not travel)'),'number','sum']]},
+ {id:'p2_8_1',part:2,no:'8.1',type:'single',show:a=>a.p2_4&&!['0','local'].includes(a.p2_4.v),head:T('ค่าใช้จ่ายทั้งหมดตลอดการเดินทางครั้งนี้ (บาท/คน)','Total Expenditure Throughout This Trip (THB per person)'),q:T('ค่าที่พัก','Accommodation'),opts:expOpts()},
  {id:'p2_8_2',part:2,no:'8.2',type:'single',head:T('ค่าใช้จ่ายทั้งหมดตลอดการเดินทางครั้งนี้ (บาท/คน)','Total Expenditure Throughout This Trip (THB per person)'),q:T('ค่าอาหารและเครื่องดื่ม','Food and Beverages'),opts:expOpts(true)},
  {id:'p2_8_3',part:2,no:'8.3',type:'single',head:T('ค่าใช้จ่ายทั้งหมดตลอดการเดินทางครั้งนี้ (บาท/คน)','Total Expenditure Throughout This Trip (THB per person)'),q:T('ค่าพาหนะในการเดินทาง','Transportation'),pre2:T('ค่าน้ำมันเชื้อเพลิง ค่าชาร์จรถไฟฟ้า ค่าเช่ารถ ค่ารถโดยสาร','Fuel, EV charging, car rental, public transit fares'),opts:expOpts()},
  {id:'p2_8_4',part:2,no:'8.4',type:'single',head:T('ค่าใช้จ่ายทั้งหมดตลอดการเดินทางครั้งนี้ (บาท/คน)','Total Expenditure Throughout This Trip (THB per person)'),q:T('ค่าบัตรเข้างาน/เข้าชมกิจกรรม/เวิร์กช็อป','Event / Activity / Workshop Admission Tickets'),opts:expOpts()},
  {id:'p2_8_5',part:2,no:'8.5',type:'single',head:T('ค่าใช้จ่ายทั้งหมดตลอดการเดินทางครั้งนี้ (บาท/คน)','Total Expenditure Throughout This Trip (THB per person)'),q:T('ค่าสินค้าท้องถิ่น ของฝาก ของที่ระลึก','Local Products, Gifts, and Souvenirs'),opts:expOpts()},
  {id:'p2_8_6',part:2,no:'8.6',type:'fields',head:T('ค่าใช้จ่ายทั้งหมดตลอดการเดินทางครั้งนี้ (บาท/คน)','Total Expenditure Throughout This Trip (THB per person)'),q:T('ค่าใช้จ่ายอื่น ๆ','Other Expenses'),fields:[['item',T('ระบุ','Please specify')],['amount',T('จำนวน (บาท)','Amount (THB)'),'number']]},
  // Part 3
- {id:'p3_1',part:3,no:'1',type:'multi',q:T('ท่านรับรู้ข้อมูลงานจากช่องทางใด','Through which channels did you hear about the event?'),groups:[
-  [T('ออนไลน์','Online Channels'),[o('web','เว็บไซต์งาน','Event Website'),o('fb','Facebook','Facebook'),o('ig','Instagram','Instagram'),o('tt','TikTok','TikTok'),o('yt','YouTube','YouTube'),o('line','Line OA','LINE Official Account (LINE OA)'),
+ {id:'p3_1',part:3,no:'1',type:'multi',q:T('ท่านรับรู้งานอวดเมืองโคราชและเทศกาลนี้จากช่องทางใด','Through which channels did you hear about อวดเมืองโคราช (Korat City Expo) and this festival?'),groups:[
+  [T('ออนไลน์','Online Channels'),[o('web','เว็บไซต์งาน','Event Website'),o('fb','Facebook อวดเมืองโคราช','Facebook: อวดเมืองโคราช (Korat City Expo)'),o('ig','Instagram','Instagram'),o('tt','TikTok','TikTok'),o('yt','YouTube','YouTube'),o('line','Line OA','LINE Official Account (LINE OA)'),
    o('banner','Banner/โฆษณาออนไลน์','Online Banners / Ads'),o('news','ข่าวออนไลน์/Podcast','Online News / Podcasts'),o('live','Live Streaming','Live Streaming'),
    o('influencer','อินฟลูเอนเซอร์/ครีเอเตอร์','Influencer / Creator',{fields:[['name',T('ชื่อ','Name')]]})]],
   [T('ออฟไลน์','Offline Channels'),[o('tv','โทรทัศน์ (TVC/ข่าว)','Television (TVC / News)'),o('radio','วิทยุ','Radio'),o('paper','หนังสือพิมพ์','Newspapers'),o('billboard','ป้ายโฆษณา/Billboard/Transit Media','Billboards / Transit Media'),
    o('caravan','รถแห่/Caravan','Sound Truck / Roadshow Caravan'),o('flyer','ใบปลิว/โปสเตอร์','Flyers / Posters'),o('wom','บอกเล่า/เพื่อนแนะนำ','Word of Mouth / Friends'),o('agency','บริษัทนำเที่ยว','Travel Agency'),OTHER()]]]},
  {id:'p3_2',part:3,no:'2',type:'single',q:T('ท่านเคยเห็นภาพยนตร์โฆษณา/วิดีโอประชาสัมพันธ์ของงานหรือไม่','Have you ever seen the event’s commercial film or promotional video?'),opts:[o('yes','เคย','Yes'),o('no','ไม่เคย','No')]},
- {id:'p3_3',part:3,no:'3',type:'multi',q:T('กิจกรรมที่ท่านเข้าร่วม','Which event activities did you participate in?'),groups:[[null,[
+ {id:'p3_3',part:3,no:'3',type:'multi',q:T('กิจกรรมออนไลน์ที่ท่านร่วม','Which online event activities did you join?'),groups:[[null,[
   o('reg','ลงทะเบียนผ่านเว็บไซต์','Registered via website'),o('checkin','เช็กอิน/โพสต์ภาพพร้อมแฮชแท็กงาน','Checked in / Posted photos with event hashtags'),o('share','แชร์คลิป/ภาพ','Shared video clips / photos'),
   o('online','ร่วมกิจกรรมออนไลน์/ตอบคำถาม','Joined online activities / quizzes'),o('points','สะสมแต้ม/แลกของที่ระลึก','Collected points / Redeemed souvenirs'),
   o('follow','ติดตามเพจ/Line OA ของงาน','Followed the event’s page / LINE OA'),o('none','ไม่ได้ร่วมกิจกรรมใด','Did not participate in any activity',{excl:true})]]]},
+ {id:'p3_kpmem',part:3,no:'4',type:'single',q:T('ท่านเป็นสมาชิกสะสมแต้ม KORAT POINT หรือไม่','Are you a KORAT POINT points member?'),opts:[
+  o('earn','เป็นสมาชิก และสะสมแต้มแล้ว','Yes, a member and I have collected points'),o('member','เป็นสมาชิกแล้ว แต่ยังไม่เคยสะสมแต้ม','Yes, a member but I have not collected points yet'),
+  o('lineonly','แอดไลน์ KORAT POINT อย่างเดียว ยังไม่ได้สมัครสมาชิก','I only added the KORAT POINT LINE account, not signed up as a member')]},
+ {id:'p3_kp',part:3,no:'5',type:'single',q:T('ท่านเช็กอินผ่าน KORAT POINT (สแกน QR ที่จุดจัดงาน) หรือไม่','Did you check in with KORAT POINT (scan the QR code at event spots)?'),opts:[
+  o('all','เช็กอินทุกจุดที่ไป','Yes, at every spot I visited'),o('some','เช็กอินบางจุด','Yes, at some spots'),o('none','ไม่ได้เช็กอินเลย','No, I did not check in')]},
+ {id:'p3_kpwhy',part:3,no:'6',type:'multi',show:a=>['some','none'].includes(a.p3_kp?.v),q:T('เหตุผลที่ไม่ได้เช็กอิน (บางจุดหรือทั้งหมด)','Why did you not check in (at some or all spots)?'),
+  pre:T('เฉพาะผู้ตอบข้อ 5 ว่าเช็กอินบางจุดหรือไม่ได้เช็กอิน','Only for respondents who checked in at some spots or not at all in Q5'),groups:[[null,[
+  o('nomember','ยังไม่ได้สมัครสมาชิก/ไม่รู้วิธีสมัคร','Not a member yet / do not know how to sign up'),o('unaware','ไม่รู้ว่ามีให้เช็กอิน','Did not know check-in was available'),o('noqr','หาจุดสแกน QR ไม่เจอ','Could not find the QR code'),
+  o('busy','ไม่สะดวก/ไม่มีเวลา','Inconvenient / no time'),o('error','สแกนแล้วระบบมีปัญหา','The system had a problem when scanning'),
+  o('noline','ไม่ได้ใช้ LINE เป็นประจำ','I do not use LINE regularly'),o('nointerest','ไม่สนใจสะสมแต้ม','Not interested in collecting points'),OTHER()]]]},
+ {id:'p3_kb',part:3,no:'7.1',type:'single',head:T('ท่านรู้จักกิจกรรมเหล่านี้มาก่อนหรือไม่','Did you know these festival programmes before?'),q:T('K-BATTLE','K-BATTLE'),opts:[
+  o('before','รู้จักมาก่อนแล้ว','Yes, I knew it before'),o('now','เพิ่งรู้จักจากงานอวดเมืองโคราชครั้งนี้','I just got to know it through Korat City Expo this time'),o('no','ไม่รู้จัก','No, I do not know it')]},
+ {id:'p3_sd',part:3,no:'7.2',type:'single',head:T('ท่านรู้จักกิจกรรมเหล่านี้มาก่อนหรือไม่','Did you know these festival programmes before?'),q:T('K-SOUNDER (ซาวด์เด้อ)','SOUNDER'),opts:[
+  o('before','รู้จักมาก่อนแล้ว','Yes, I knew it before'),o('now','เพิ่งรู้จักจากงานอวดเมืองโคราชครั้งนี้','I just got to know it through Korat City Expo this time'),o('no','ไม่รู้จัก','No, I do not know it')]},
+ {id:'p3_kbx',part:3,no:'7.3',type:'single',head:T('ท่านรู้จักกิจกรรมเหล่านี้มาก่อนหรือไม่','Did you know these festival programmes before?'),q:T('K-BATx (KBATx Creative Industry EXPO)','K-BATx (KBATx Creative Industry EXPO)'),opts:[
+  o('before','รู้จักมาก่อนแล้ว','Yes, I knew it before'),o('now','เพิ่งรู้จักจากงานอวดเมืองโคราชครั้งนี้','I just got to know it through Korat City Expo this time'),o('no','ไม่รู้จัก','No, I do not know it')]},
+ {id:'p3_kbsrc',part:3,no:'8',type:'single',shuf:true,show:a=>['before','now'].includes(a.p3_kb?.v),q:T('ท่านได้ยินหรือเห็นข้อมูล K-BATTLE ครั้งแรกจากช่องทางใด','Where did you first hear about or see K-BATTLE?'),
+  pre:T('เฉพาะผู้ตอบข้อ 7.1 ว่ารู้จัก K-BATTLE · ตอบข้อเดียว','Only for respondents who know K-BATTLE in Q7.1 · choose one'),opts:[
+  o('wom','เพื่อน / ครอบครัวบอกต่อ','Friends / family'),o('onsite','ป้าย / จอโฆษณา / หน้างาน','Signs / screens / at the venue'),o('fb_awd','Facebook อวดเมืองโคราช','Facebook: อวดเมืองโคราช (Korat City Expo)'),o('fb_kb','Facebook K-BATTLE','Facebook: K-BATTLE'),o('tt','TikTok / Instagram','TikTok / Instagram'),o('web','เว็บไซต์ / ข่าว','Website / news'),o('line','LINE','LINE'),OTHER()]},
+ {id:'p3_scan',part:3,no:'9',type:'single',q:T('ท่านคิดอย่างไรกับการสแกน QR เช็กอินก่อนเข้างานในแต่ละจุด','What do you think about scanning the QR code to check in at each event spot?'),opts:[
+  o('meh','เฉย ๆ','Neutral'),o('points','ดี ได้แต้ม','Good, I get points'),o('queue','รอคิวนาน','The queue was too long'),o('notint','ไม่ได้สนใจเช็กอิน','Not interested in checking in')]},
  // Part 4
  {id:'p4_1',part:4,no:'1',type:'daily',q:T('กิจกรรมที่ท่านเข้าร่วมในแต่ละวัน','Activities you joined on each day'),pre2:T('แสดงตามวันที่เลือกในข้อ 2.3 · ติ๊กได้หลายกิจกรรม','Based on the days selected in Q2.3 · select all that apply')},
  {id:'p4_2',part:4,no:'2',type:'multi',q:T('จุดประสงค์หลักที่เข้าร่วมงาน','What were your main objectives for attending the event?'),groups:[[null,[
+  o('kbattle','ชมการแข่งขัน K-Battle','Watch K-Battle competitions'),o('sounder','ชมดนตรี/กิจกรรม SOUNDER','Attend SOUNDER music / activities'),o('kbatx','ประชุม/สัมมนา/งานแสดงสินค้า KBATx','Conference / seminar / trade expo (KBATx)'),
   o('show','ชมการแสดง/ความบันเทิง','Watch performances / entertainment'),o('culture','ศึกษาวัฒนธรรม/อัตลักษณ์โคราช','Explore Korat’s culture and identity'),o('buy','ซื้อสินค้าท้องถิ่น','Purchase local products'),
   o('innov','ศึกษานวัตกรรม/Street Culture','Explore innovation / Street Culture'),o('network','หาเครือข่าย/พาร์ตเนอร์ธุรกิจ','Business networking / Find partners'),
   o('invest','ดูลู่ทางลงทุน','Explore investment opportunities'),OTHER()]]]},
+ {id:'p4_main',part:4,no:'3',type:'single',show:a=>(a.p2_3?.v||[]).map(String).includes('24'),q:T('วันที่ 24 พ.ย. อะไรคือเหตุผลหลักที่ท่านมา','On 24 Nov, what was your main reason for coming?'),
+  pre:T('เฉพาะผู้ที่เลือกวันที่ 24 พ.ย. ในข้อ 2.3','Only for respondents who selected 24 Nov in Q2.3'),get opts(){return (DAYACT[24]||[]).map(k=>o(k,ACT[k][0],ACT[k][1])).concat([o('none','ไม่ได้ตั้งใจมาเพื่อกิจกรรมใดโดยเฉพาะ','I did not come for any particular activity')]);}},
+ {id:'p4_other',part:4,no:'4',type:'single',show:a=>!!a.p4_main&&a.p4_main.v!=='none',q:T('นอกจากเหตุผลหลัก ท่านสนใจกิจกรรมอื่นของงาน (K-BATTLE, K-SOUNDER ซาวด์เด้อ, K-BATx Creative Industry EXPO) หรือไม่','Besides your main reason, are you interested in other festival activities (K-BATTLE, K-SOUNDER, K-BATx Creative Industry EXPO)?'),opts:[
+  o('joined','สนใจ และได้ร่วมกิจกรรมอื่นแล้ว','Yes, and I joined other activities'),o('later','สนใจ แต่ยังไม่ได้ร่วม','Yes, but I have not joined yet'),o('only','เฉย ๆ ไว้ดูกิจกรรมก่อน','Neutral, I will see the activities first')]},
+ {id:'p4_5',part:4,no:'5',type:'single',show:a=>(a.p2_3?.v||[]).map(String).includes('24'),pre:T('เฉพาะผู้ที่เลือกวันที่ 24 พ.ย. ในข้อ 2.3','Only for respondents who selected 24 Nov in Q2.3'),q:T('คุณสนใจงานนี้เพราะอะไร','Why are you interested in this event?'),opts:[
+  o('new','เป็นงานที่แสดงถึงการอวดความใหม่ของโคราช','It showcases what is new in Korat'),o('opp','เป็นงานที่แสดงถึงโอกาสของโคราช','It shows the opportunities of Korat'),o('youth','เป็นงานที่ส่งเสริมให้คนรุ่นใหม่ได้แสดงออก','It lets young people express themselves'),
+  o('nohl','เป็นงานที่ไม่มีจุดเด่น','It has no highlight'),o('notint','เป็นงานที่ไม่ได้สนใจ','I am not interested in it'),o('else','งานหรือจุดอื่นน่าสนใจมากกว่า','Other events or spots are more interesting')]},
+ {id:'p4_6',part:4,no:'6',type:'multi',show:a=>(a.p2_3?.v||[]).map(String).includes('24'),pre:T('เฉพาะผู้ที่เลือกวันที่ 24 พ.ย. ในข้อ 2.3','Only for respondents who selected 24 Nov in Q2.3'),q:T('ช่วงที่มางานนี้ ท่านไปงานอื่นในโคราชที่ไหนมาบ้าง','While attending this event, which other events in Korat did you also go to?'),groups:[[null,[
+  o('bht','ลอยกระทงพระประทีปพระราชทาน ตลาดน้ำบึงหัวทะเล (18–24 พ.ย.)','Royal Loy Krathong, Bueng Hua Thale floating market (18–24 Nov)'),o('cen','Loy Krathong Festival 2026 ลานหน้าเซ็นทรัลโคราช (21–29 พ.ย.)','Loy Krathong Festival 2026, Central Korat plaza (21–29 Nov)'),
+  o('moat','ลอยกระทงโคราช "นทีชีวา" ริมคูเมือง (23–24 พ.ย.)','Korat Loy Krathong "Nathee Cheewa" by the city moat (23–24 Nov)'),o('watjaeng','ลอยกระทง อบจ.นครราชสีมา วัดแจ้งใน','Loy Krathong by the Provincial Administration, Wat Chaeng Nai'),
+  OTHER(),o('none','ไม่ได้ไปงานอื่น','No other events')]]]},
  // Part 5
  {id:'p5_1',part:5,no:'1',type:'single',q:T('ท่านมีแผนทำธุรกิจ/ร่วมมือทางธุรกิจในโคราชภายหลังงานนี้หรือไม่','Do you plan to do business or form business partnerships in Korat following this event?'),opts:[
   o('no','ไม่มี','No'),
   o('yes','มีแผน','Yes, I plan to',{subm:{key:'plans',opts:[o('invest','ลงทุน','Invest'),o('partner','ร่วมธุรกิจกับผู้ประกอบการท้องถิ่น','Partner with local entrepreneurs'),
     o('event','จัดอีเวนต์/ประชุม','Organize events / conferences'),o('procure','จัดซื้อสินค้า','Source / procure products'),OTHER()]},
     fields:[['value',T('มูลค่าโดยประมาณ (บาท)','Estimated value (THB)')]]})]},
- {id:'p5_2',part:5,no:'2',type:'single',q:T('ท่านสนใจย้ายกลับ/ย้ายมาอยู่อาศัยหรือทำงานในโคราชหรือไม่','Are you interested in relocating back to or moving to Korat to live or work?'),opts:[
+ {id:'p5_2',part:5,no:'2',type:'single',show:a=>a.p1_2?.v!=='korat',q:T('ท่านสนใจย้ายกลับ/ย้ายมาอยู่อาศัยหรือทำงานในโคราชหรือไม่','Are you interested in relocating back to or moving to Korat to live or work?'),opts:[
   o('no','ไม่สนใจ','Not interested'),o('yes','สนใจ','Interested'),o('decided','ตัดสินใจแล้ว','Already decided to relocate')]},
+ {id:'p5_3',part:5,no:'3',type:'single',q:T('ท่านคิดว่าเทศกาลหรือการมีกิจกรรมแบบนี้จะกระตุ้นเศรษฐกิจได้ในระยะยาวหรือไม่','Do you think festivals and activities like this can stimulate the economy in the long term?'),opts:[
+  o('much','กระตุ้นได้มาก','Strongly'),o('some','กระตุ้นพอสมควร','Moderately'),o('little','ไม่กระตุ้นเท่าไร','Not much'),OTHER()]},
  // Part 6
  ...[['livable','โคราชเป็นเมืองที่ น่าอยู่','Korat is a livable city (great place to live)'],['tour','โคราชเป็นเมืองที่ น่าเที่ยว','Korat is an attractive tourist destination'],
      ['invest','โคราชเป็นเมืองที่ น่าลงทุน','Korat is an attractive city for investment'],['identity','โคราชมีอัตลักษณ์/วัฒนธรรมโดดเด่น','Korat has a distinctive identity and culture']]
@@ -352,7 +394,7 @@ const ACT={
  sd_luk:['ซาวด์เด้อ ประกวดร้องเพลงลูกทุ่ง','Sounder: Luk Thung Singing Contest','sounder','ลานย่าโม'],
  chg:['นิทรรศการ “เชิงคือ” Art is Architecture','“Choeng Khue” Art is Architecture Exhibition','exhibit','ลานย่าโม'],
  recipe:['ร้านอาหาร/ตลาด KORAT City Recipe','KORAT City Recipe food & local market','market','ร้านที่ร่วมโครงการ'],
- kpoint:['บูธสะสมแต้ม/แลกของ KORAT POINT','KORAT POINT booth (collect & redeem)','points','ลานย่าโม'],
+ kpoint:['ร่วมเข้า KORAT POINT ในเทศกาล (บูธสะสมแต้ม/แลกของ)','Joined KORAT POINT at the festival (collect & redeem booth)','points','ลานย่าโม'],
  sd_show:['Sounder x KORAT ARTIST Showcase','Sounder x KORAT ARTIST Showcase','sounder','ลานย่าโม'],
  dcamp:['Dance Camp 2 Workshop','Dance Camp 2 Workshop','workshop','เซ็นทรัลโคราช'],
  andrea:['Workshop x Andrea Giuffredi','Workshop x Andrea Giuffredi','workshop','วิทยาลัยนาฏศิลป'],
@@ -368,16 +410,18 @@ const ACT={
  kbatx:['KBATx Creative Industry EXPO','KBATx Creative Industry EXPO','kbatx','เซ็นทรัลโคราช'],
  band:['KORAT BAND MASTER','KORAT BAND MASTER','perf','ร.ร.สุรนารีวิทยา'],
  klang:['KLANG SAENG Street Fashion & Food','KLANG SAENG Street Fashion & Food','market','ลานย่าโม / ถ.สุรนารี'],
- bball:['Korat 3x3 Street Basketball','Korat 3x3 Street Basketball','kbattle','Terminal 21'],
- ws28:['Workshop Beatbox / Breakdance','Beatbox / Breakdance Workshop','workshop','เซ็นทรัล / CATZY Studio'],
  concert:['คอนเสิร์ต','Concert','perf','ลานย่าโม'],
  final:['ALL ELEMENT FINAL + DJ','ALL ELEMENT FINAL + DJ','kbattle','ลานย่าโม / เซ็นทรัล'],
+ bball:['Korat 3x3 Street Basketball','Korat 3x3 Street Basketball','kbattle','Terminal 21'],
+ ws28:['Workshop Beatbox / Breakdance','Beatbox / Breakdance Workshop','workshop','เซ็นทรัล / CATZY Studio'],
  ws29:['Workshop Krump','Krump Workshop','workshop','CATZY Studio']};
-const DAYACT={20:['sd_luk','chg','recipe','kpoint'],21:['sd_show','dcamp','andrea','chg','recipe','kpoint'],22:['sd_folk','dcamp','andrea','chg','recipe','kpoint'],23:['wind','recipe','kpoint'],24:['master','jkim','recipe','kpoint'],25:['yusu','jazz','recipe','kpoint'],26:['warm','recipe','kpoint'],27:['open','kb','kbatx','band','klang','kpoint'],28:['kb','concert','kbatx','bball','ws28','band','klang','kpoint'],29:['final','concert','kbatx','bball','ws29','band','klang','kpoint']};
+const DAYACT={20:['sd_luk','chg','recipe','kpoint'],21:['sd_show','dcamp','andrea','chg','recipe','kpoint'],22:['sd_folk','dcamp','andrea','chg','recipe','kpoint'],23:['wind','recipe','kpoint'],24:['master','jkim','recipe','kpoint'],25:['yusu','jazz','recipe','kpoint'],26:['warm','recipe','kpoint'],27:['open','kb','kbatx','band','kpoint'],28:['kb','kbatx','bball','ws28','band','kpoint'],29:['kbatx','bball','ws29','band','kpoint']};
 const dayLab=(d,long)=>{const x=DAYS.find(y=>y[0]===d);return L==='th'?`${x[1]} ${d} พ.ย.`:`${x[2]} ${d} Nov`;};
 const partySize=a=>{const c=a.p2_7;if(!c)return 0;return c.v==='alone'?1:(+c.people||0);};
 
 const PAGES=[0,1,2,3,4,5,6,7,8,9];
+function shufOpts(s){if(!s.shuf)return s.opts;if(!s._o){const x=s.opts.filter(p=>p.v!=='other');for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]];}s._o=x.concat(s.opts.filter(p=>p.v==='other'));}return s._o;}
+function sumTxt(s){const a=A[s.id]||{}, n=partySize(A), t=s.fields.filter(f=>f[3]==='sum').reduce((x,f)=>x+(+a[f[0]]||0),0);return (L==='th'?'รวม ':'Total ')+t+' / '+n+(L==='th'?' คน':'')+(t===n?' ✓':(t>n?(L==='th'?' · เกินจำนวนคนในกลุ่ม':' · more than your group'):''));}
 function qHTML(s,prev){
   const a=A[s.id]; let h='';
   if(s.head&&(!prev||prev.head!==s.head)) h+=`<div class="sec">${esc(tx(s.head))}</div>`;
@@ -389,11 +433,12 @@ function qHTML(s,prev){
   const hint=[s.pre2&&s.type!=='rate'?tx(s.pre2):'',s.type==='multi'?tx(UI.multi):(s.one?tx(UI.one):'')].filter(Boolean).join(' · ');
   if(hint) h+=`<p class="hint">${esc(hint)}</p>`;
   if(s.type==='single'){
-    h+=`<div class="opts" role="radiogroup">${s.opts.map(op=>optHTML(s,op,a?.v===op.v,'r',a)).join('')}</div>`;
+    h+=`<div class="opts" role="radiogroup">${shufOpts(s).map(op=>optHTML(s,op,a?.v===op.v,'r',a)).join('')}</div>`;
   } else if(s.type==='chips'){
     h+=`<div class="chips" role="radiogroup">${s.opts.map(op=>`<button type="button" class="chip" role="radio" aria-checked="${a?.v===op.v}" data-v="${op.v}">${esc(tx(op.t))}</button>`).join('')}</div>`;
   } else if(s.type==='nights'){
     h+=`<div class="opts" role="radiogroup">
+      <button type="button" class="opt r" role="radio" aria-checked="${a?.v==='local'}" data-v="local"><span class="mk"></span><span>${L==='th'?'อาศัยอยู่ในโคราช (ไม่ได้เดินทางมา)':'I live in Korat (not travelling)'}</span></button>
       <button type="button" class="opt r" role="radio" aria-checked="${a?.v==='0'}" data-v="0"><span class="mk"></span><span>${L==='th'?'เดินทางไป-กลับในวันเดียว':'Same-day trip (No overnight stay)'}</span></button>
       <div class="grp">${L==='th'?'พักค้างคืน':'Overnight stay'}</div>
       <div class="chips">${[1,2,3,4,5].map(n=>`<button type="button" class="chip" role="radio" aria-checked="${a?.v===String(n)}" data-v="${n}">${n} ${L==='th'?'คืน':(n>1?'nights':'night')}</button>`).join('')}</div></div>`;
@@ -425,6 +470,7 @@ function qHTML(s,prev){
     h+=`<textarea id="f_${s.id}" data-main="1" aria-label="${esc(tx(s.q))}">${esc(a?.v??'')}</textarea>`;
   } else if(s.type==='fields'){
     h+=`<div class="opts">${s.fields.map(f=>fieldHTML(s.id,f,a)).join('')}</div>`;
+    if(s.sumTo) h+=`<p class="hint" id="sum_${s.id}" style="margin-top:8px">${sumTxt(s)}</p>`;
   } else if(s.type==='contact'){
     h+=`<div class="opts"><input id="f_${s.id}" data-main="1" type="text" value="${esc(a?.v??'')}" aria-label="${esc(tx(s.q))}">
       <button type="button" class="opt c" role="checkbox" aria-checked="${!!a?.ok}" data-okc="1"><span class="mk"></span><span>${L==='th'?'ยินยอมให้ติดต่อ':'I consent to be contacted'}</span></button></div>`;
@@ -505,7 +551,7 @@ function bindQ(s,st){
     if(multi){const arr=cur[k]||[];cur[k]=arr.includes(c.dataset.sv)?arr.filter(x=>x!==c.dataset.sv):arr.concat(c.dataset.sv);} else cur[k]=c.dataset.sv;
     rerender();
   }));
-  st.querySelectorAll('input[data-k]').forEach(inp=>inp.oninput=()=>{const cur=A[s.id]||(A[s.id]={});cur[inp.dataset.k]=inp.value;save();});
+  st.querySelectorAll('input[data-k]').forEach(inp=>inp.oninput=()=>{const cur=A[s.id]||(A[s.id]={});cur[inp.dataset.k]=inp.value;save();const sm=document.getElementById('sum_'+s.id);if(sm&&s.sumTo)sm.textContent=sumTxt(s);});
   st.querySelectorAll('[data-main]').forEach(inp=>inp.oninput=()=>{const cur=A[s.id]||(A[s.id]={});cur.v=inp.value;save();});
   st.querySelectorAll('[data-okc]').forEach(b=>b.onclick=()=>{const cur=A[s.id]||(A[s.id]={});cur.ok=!cur.ok;rerender();});
 }

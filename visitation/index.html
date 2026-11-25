@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="th">
+<html data-theme="light" lang="th">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -14,7 +14,7 @@
   --c-area:#003674; --c-kpci:#5a7d00; --c-kpeng:#D34016; --c-hotel:#00837B; --c-rep:#7a5a00; --c-partner:#b0306a; --c-tour:#8a4fd1;
   --display:"Prompt","IBM Plex Sans Thai",system-ui,sans-serif; --body:"IBM Plex Sans Thai",system-ui,sans-serif;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#061632;--surface:#0c2347;--ink:#eef1fb;--muted:#a7b3cf;--line:#1f3a66;--soft:#25306a;--bar-bg:#18325c;--ok:#4fd1c5;--warn:#ff9a73;--c-area:#7fb2ff;--c-kpci:#D3FF34;--c-kpeng:#ff8a5c;--c-hotel:#3fd0c4;--c-rep:#ffd15c;--c-partner:#ff7fb5;--c-tour:#c9a2ff;color-scheme:dark}}
+@media (prefers-color-scheme: dark) and (max-width:0px){:root:not([data-theme="light"]){--bg:#061632;--surface:#0c2347;--ink:#eef1fb;--muted:#a7b3cf;--line:#1f3a66;--soft:#25306a;--bar-bg:#18325c;--ok:#4fd1c5;--warn:#ff9a73;--c-area:#7fb2ff;--c-kpci:#D3FF34;--c-kpeng:#ff8a5c;--c-hotel:#3fd0c4;--c-rep:#ffd15c;--c-partner:#ff7fb5;--c-tour:#c9a2ff;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#061632;--surface:#0c2347;--ink:#eef1fb;--muted:#a7b3cf;--line:#1f3a66;--soft:#25306a;--bar-bg:#18325c;--ok:#4fd1c5;--warn:#ff9a73;--c-area:#7fb2ff;--c-kpci:#D3FF34;--c-kpeng:#ff8a5c;--c-hotel:#3fd0c4;--c-rep:#ffd15c;--c-partner:#ff7fb5;--c-tour:#c9a2ff;color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;margin:0}
@@ -83,7 +83,7 @@ h2{font-family:var(--display);font-weight:600;font-size:20px;margin:26px 0 4px}
 .rules li{margin:4px 0}
 .note{font-size:12.5px;color:var(--muted)}
 .btn{display:inline-block;font:inherit;font-size:14px;font-weight:600;background:var(--navy);color:#fff;border:0;border-radius:10px;padding:9px 14px;cursor:pointer;text-decoration:none}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn{background:#2b5fb0}}
+@media (prefers-color-scheme: dark) and (max-width:0px){:root:not([data-theme="light"]) .btn{background:#2b5fb0}}
 :root[data-theme="dark"] .btn{background:#2b5fb0}
 .pts{display:grid;gap:8px}
 .pt{display:grid;grid-template-columns:minmax(110px,40%) 1fr 56px;gap:10px;align-items:center;font-size:13.5px}
@@ -289,9 +289,10 @@ function render(D){
 
   // K POINT
   var ccum=kp.checkinCum||{}, st=kp.status||{};
-  kpis('kcKpi',kc.map(function(r){var t=thDate(r.date);return [f(r.unique)+'<small> คน</small>','เช็คอินที่งาน '+t.dow+' '+t.d+' พ.ย.']}).concat(ccum.people?[[f(ccum.people)+'<small> คน</small>','สะสมถึง '+esc(ccum.asof)+(ccum.times?' ('+f(ccum.times)+' ครั้ง)':'')]]:[]));
-  el('kcTbl').innerHTML=kc.length?'<div class="note">ตัวเลขคนเช็คอินของ KORAT POINT ตรงกับ "คนไม่ซ้ำ" ในเมนูเช็คอินรายพื้นที่ (เช่น 20 พ.ย. 371 = 371 คน) เป็นระบบเดียวกัน จึงแสดงไว้ดูอย่างเดียว ไม่บวกเข้ายอด 200,000 ซ้ำ</div>':'<div class="empty"><b>รอสรุปเช็คอิน KORAT POINT</b></div>';
-  var RD=kp.redeem||{},SH=kp.shops||{};kpis('keKpi',(st.spend!=null?[[f(st.spend)+'<small> บาท</small>','ยอดซื้อที่อนุมัติแล้ว (สะสม)']]:[]).concat([[f(st.approved!=null?st.approved:sum(ke,'total'))+'<small> ใบ</small>','ใบที่อนุมัติ'+(st.people?' จาก '+f(st.people)+' คน':'')],[f(st.submitted)+'<small> ใบ</small>','หลักฐานการซื้อที่ส่งเข้ามา'],[f(st.pending)+'<small> ใบ</small>','รอเจ้าหน้าที่ตรวจ'+(st.paper?' (ใบเสร็จกระดาษ '+f(st.paper)+')':'')]]).concat(RD.people?[[f(RD.people)+'<small> คน</small>','แลกของที่ระลึก ('+f(RD.items)+' ชิ้น)']]:[]).concat(SH.approved?[[f(SH.approved)+'<small> ร้าน</small>','ร้านค้าที่อนุมัติเข้าร่วม']]:[]));
+  kpis('kcKpi',kc.map(function(r){var t=thDate(r.date);return [f(r.unique)+'<small> คน</small>','เช็คอินที่งาน '+t.dow+' '+t.d+' พ.ย.']}).concat(ccum.people?[[f(ccum.people)+'<small> คน</small>','สะสมถึง '+esc(ccum.asof)+(ccum.times?' ('+f(ccum.times)+' ครั้ง)':'')]]:[]).concat(kp.members&&kp.members.new?[[f(kp.members.new)+'<small> คน</small>','สมาชิกใหม่ KORAT POINT (สะสมถึง '+esc(kp.members.asof)+')']]:[]));
+  var KD=kp.daily||[], kdT=KD.length?'<table class="tbl" style="margin-bottom:10px"><thead><tr><th>วัน</th><th>เช็คอิน (ครั้ง)</th><th>คน</th><th>สมาชิกใหม่</th><th>แลกของ (ชิ้น · แต้ม)</th><th>สลิป (รายการ · แต้ม)</th></tr></thead><tbody>'+KD.map(function(r){var t=thDate(r.date);return '<tr><td>'+t.dow+' '+t.d+' พ.ย.</td><td>'+f(r.checkin)+'</td><td>'+f(r.people)+'</td><td>'+f(r.newMembers)+'</td><td>'+f(r.redeemItems)+' · '+f(r.redeemPoints)+'</td><td>'+f(r.slips)+' · '+f(r.slipPoints)+'</td></tr>'}).join('')+'<tr style="font-weight:700"><td>รวม</td><td>'+f(sum(KD,'checkin'))+'</td><td>'+f(ccum.people||sum(KD,'people'))+' <span class="note">ไม่ซ้ำ</span></td><td>'+f(sum(KD,'newMembers'))+'</td><td>'+f(sum(KD,'redeemItems'))+' · '+f(sum(KD,'redeemPoints'))+'</td><td>'+f(sum(KD,'slips'))+' · '+f(sum(KD,'slipPoints'))+'</td></tr></tbody></table>':'';
+  el('kcTbl').innerHTML=kdT+(kc.length?'<div class="note">ตัวเลขคนเช็คอินของ KORAT POINT ตรงกับ "คนไม่ซ้ำ" ในเมนูเช็คอินรายพื้นที่ เป็นระบบเดียวกัน จึงแสดงไว้ดูอย่างเดียว ไม่บวกเข้ายอด 200,000 ซ้ำ</div>':'<div class="empty"><b>รอสรุปเช็คอิน KORAT POINT</b></div>');
+  var RD=kp.redeem||{},SH=kp.shops||{};kpis('keKpi',(st.spend!=null?[[f(st.spend)+'<small> บาท</small>','ยอดซื้อที่อนุมัติแล้ว (สะสม)']]:[]).concat([[f(st.approved!=null?st.approved:sum(ke,'total'))+'<small> ใบ</small>','ใบที่อนุมัติ'+(st.people?' จาก '+f(st.people)+' คน':'')]].concat(st.submitted!=null?[[f(st.submitted)+'<small> ใบ</small>','หลักฐานการซื้อที่ส่งเข้ามา'],[f(st.pending)+'<small> ใบ</small>','รอเจ้าหน้าที่ตรวจ'+(st.paper?' (ใบเสร็จกระดาษ '+f(st.paper)+')':'')]]:[])).concat(RD.items?[[f(RD.items)+'<small> ชิ้น</small>','แลกของที่ระลึก'+(RD.points?' ('+f(RD.points)+' แต้ม)':'')+(RD.asof?' ถึง '+esc(RD.asof):'')]]:[]).concat(SH.approved?[[f(SH.approved)+'<small> ร้าน</small>','ร้านค้าที่อนุมัติเข้าร่วม']]:[]));
   var bar='';if(st.submitted){var W=function(n){return (n/st.submitted*100)+'%'};bar='<div class="note" style="margin-bottom:6px">สถานะหลักฐานการซื้อ ณ '+esc(st.asof)+'</div><div class="pbar" style="margin:0 0 6px"><i style="width:'+W(st.approved)+';background:var(--ok)"></i><i style="width:'+W(st.rejected)+';background:var(--warn)"></i><i style="width:'+W(st.pending)+';background:var(--muted);opacity:.5"></i></div><div class="legend" style="margin:0 0 14px"><span><i style="background:var(--ok)"></i>อนุมัติ '+f(st.approved)+'</span><span><i style="background:var(--warn)"></i>ปฏิเสธ '+f(st.rejected)+'</span><span><i style="background:var(--muted);opacity:.5"></i>รอตรวจ '+f(st.pending)+'</span></div>'}
   el('keTbl').innerHTML=ke.length?bar+'<table class="tbl"><thead><tr><th>วัน</th><th>ส่งหลักฐาน</th><th>อนุมัติ (ใบ)</th><th>คน</th><th>ยอดซื้อ (บาท)</th><th>ร้านร่วมรายการ</th><th>ร้านทั่วไป</th></tr></thead><tbody>'+ke.map(function(r){var t=thDate(r.date);return '<tr><td>'+(r.label?esc(r.label):t.dow+' '+t.d+' พ.ย.')+(r.partial?' <span class="note">(ถึงตอนนี้)</span>':'')+'</td><td>'+f(r.submitted)+'</td><td>'+f(r.total)+'</td><td>'+f(r.people)+'</td><td>'+f(r.spend)+'</td><td>'+f(r.spendReg)+'</td><td>'+f(r.spendGen)+'</td></tr>'}).join('')+'</tbody></table><div class="note" style="margin-top:8px">นับเข้ายอด Visitation เฉพาะใบที่อนุมัติแล้ว 1 ใบ = 1 ครั้ง · ใบที่รอตรวจจะนับเมื่ออนุมัติ</div>':'<div class="empty"><b>รอสรุปการซื้อสินค้า KORAT POINT</b></div>';
 

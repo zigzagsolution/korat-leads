@@ -337,6 +337,8 @@ const newSid=()=>Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,
 let SUB=A._sent?'ok':'';
 const LIFF_ID='2012143290-kTb1tp78', KP_POINTS='https://liff.line.me/2012143290-6Evv3ir6/points';
 let LIFFOK=false, KPS='', KPV='';
+const LIFF_URL='https://liff.line.me/'+LIFF_ID;
+let GATE=false;try{const q=new URLSearchParams(location.search);GATE=!/\bLine\//i.test(navigator.userAgent)&&!q.get('uid')&&q.get('test')!=='1'&&q.get('web')!=='1'&&!q.get('liff.state');}catch(e){}
 const withTO=(p,ms)=>Promise.race([p,new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),ms))]);
 function loadLiff(){return new Promise(res=>{if(window.liff)return res(window.liff);const sc=document.createElement('script');sc.src='https://static.line-scdn.net/liff/edge/2/sdk.js';sc.onload=()=>res(window.liff||null);sc.onerror=()=>res(null);document.head.appendChild(sc);});}
 function idTok(){try{return LIFFOK&&window.liff?(window.liff.getIDToken()||''):'';}catch(e){return '';}}
@@ -505,6 +507,8 @@ function render(){
   $('back').textContent=tx(UI.back); $('back').disabled=i===0; $('foot').hidden=part===9;
   $('next').textContent=part===0?tx(UI.start):(part===8?tx(UI.send):(L==='th'?'ถัดไป ส่วนที่ '+(part+1):'Next: Part '+(part+1)));
   let h='';
+  if(GATE){$('foot').hidden=true;$('partl').textContent='';$('cnt').textContent='';
+    $('stage').innerHTML=`<div class="done">${KVIMG}<h1>${L==='th'?'กรุณาเปิดแบบสำรวจผ่าน LINE':'Please open this survey in LINE'}</h1><p class="hint">${L==='th'?'แบบสำรวจนี้ตอบได้ผ่านแอป LINE เท่านั้น กดปุ่มด้านล่างเพื่อเปิดใน LINE':'This survey can only be answered in the LINE app. Tap the button below to open it in LINE.'}</p><a class="btn kpbtn" style="background:#06C755;color:#fff;border-color:#06C755" href="${LIFF_URL}">${L==='th'?'เปิดใน LINE':'Open in LINE'}</a></div>`;return;}
   if(KPV){$('foot').hidden=true;$('partl').textContent='';$('cnt').textContent='';
     $('stage').innerHTML=`<div class="done">${KVIMG}<div class="ok">✓</div><h1>${esc(tx(KPV==='already'?UI.kpAlready:UI.kpAnswered))}</h1><p class="hint">${esc(tx(UI.kpAlready2))}</p>${KPV==='already'?`<a class="btn kpbtn" href="${KP_POINTS}">${esc(tx(UI.kpMy))}</a>`:''}</div>`;return;}
   if(part===0){

@@ -1,0 +1,3505 @@
+{
+ "updated": "2026-11-25T00:45:00+07:00",
+ "target": 200000,
+ "days": [
+  "2026-11-20",
+  "2026-11-21",
+  "2026-11-22",
+  "2026-11-23",
+  "2026-11-24",
+  "2026-11-25",
+  "2026-11-26",
+  "2026-11-27",
+  "2026-11-28",
+  "2026-11-29"
+ ],
+ "dailyTarget": [
+  16000,
+  28000,
+  27000,
+  18000,
+  17000,
+  17000,
+  17000,
+  18000,
+  20000,
+  22000
+ ],
+ "methodTarget": {
+  "area": 152000,
+  "hotel": 20000,
+  "partner": 20000,
+  "tour": 8000
+ },
+ "checkin": [
+  {
+   "date": "2026-11-20",
+   "total": 630,
+   "unique": 358,
+   "points": [
+    {
+     "name": "อนุสาวรีย์ท้าวสุรนารี (ลานย่าโม)",
+     "count": 273
+    },
+    {
+     "name": "ประตูเมืองจำลอง",
+     "count": 33
+    },
+    {
+     "name": "สวนภูมิรักษ์",
+     "count": 345
+    }
+   ],
+   "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42) · แยกจุดตามสรุปเดิม (รวม 651 ครั้ง)"
+  },
+  {
+   "date": "2026-11-21",
+   "total": 535,
+   "unique": 482,
+   "points": [
+    {
+     "name": "อนุสาวรีย์ท้าวสุรนารี (ลานย่าโม)",
+     "count": 422
+    },
+    {
+     "name": "ประตูเมืองจำลอง",
+     "count": 39
+    },
+    {
+     "name": "สวนภูมิรักษ์",
+     "count": 0
+    },
+    {
+     "name": "โรงเรียนสุรนารีวิทยา",
+     "count": 0
+    },
+    {
+     "name": "เซ็นทรัล โคราช",
+     "count": 51
+    },
+    {
+     "name": "มหาวิทยาลัยราชภัฏนครราชสีมา",
+     "count": 0
+    },
+    {
+     "name": "วิทยาลัยนาฏศิลปนครราชสีมา",
+     "count": 37
+    }
+   ],
+   "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42) · แยกจุดตามสรุปเดิม (รวม 549 ครั้ง)"
+  },
+  {
+   "date": "2026-11-22",
+   "total": 581,
+   "unique": 476,
+   "points": [
+    {
+     "name": "อนุสาวรีย์ท้าวสุรนารี (ลานย่าโม)",
+     "count": 281
+    },
+    {
+     "name": "ประตูเมืองจำลอง",
+     "count": 34
+    },
+    {
+     "name": "จุดอื่น (รอรายละเอียดแยกจุด)",
+     "count": 266
+    }
+   ],
+   "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
+  },
+  {
+   "date": "2026-11-23",
+   "total": 846,
+   "unique": 685,
+   "points": [
+    {
+     "name": "อนุสาวรีย์ท้าวสุรนารี (ลานย่าโม)",
+     "count": 563
+    },
+    {
+     "name": "ประตูเมืองจำลอง",
+     "count": 80
+    },
+    {
+     "name": "สวนภูมิรักษ์",
+     "count": 0
+    },
+    {
+     "name": "จุดอื่น (รอรายละเอียดแยกจุด)",
+     "count": 203
+    }
+   ],
+   "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
+  },
+  {
+   "date": "2026-11-24",
+   "points": [
+    {
+     "name": "รวมทุกจุด (รอรายละเอียดแยกจุด)",
+     "count": 1366
+    }
+   ],
+   "total": 1366,
+   "unique": 1076,
+   "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
+  }
+ ],
+ "partner": [],
+ "tour": [],
+ "reach": {
+  "ooh": {
+   "perDay": 1260000,
+   "note": "ป้าย OOH ที่ยืนยันแล้ว 13 จุด (ตัวเลขจากเจ้าของสื่อ ÷30)"
+  },
+  "online": [
+   {
+    "name": "กิจกรรมออนไลน์รอบที่ 1 “หยิบของดีโคราช” (Facebook)",
+    "participants": 4985
+   }
+  ],
+  "onlineTarget": 10000,
+  "live": null,
+  "lineOA": {
+   "friends": 14892,
+   "net": 2719,
+   "asof": "25 พ.ย."
+  },
+  "web": {
+   "users": 1993,
+   "sessions": 2639,
+   "pageviews": 4019,
+   "asof": "1 ต.ค.–23 พ.ย."
+  }
+ },
+ "prefestival": [
+  {
+   "name": "เวิร์กช็อป 10 คุณค่าโคราช",
+   "date": "16 ต.ค. 2569",
+   "checkin": 137,
+   "registered": 181
+  },
+  {
+   "name": "KICK OFF อวดเมือง.โคราช (Lido Connect)",
+   "date": "12 พ.ย. 2569",
+   "checkin": null,
+   "registered": null
+  }
+ ],
+ "hotelRows": [
+  {
+   "name": "โรงแรมฟอร์จูน โคราช",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 155,
+   "price": "1501-2500",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "10-30%",
+   "festSrc": "สอบถามตอนเช็กอิน",
+   "ly": "ไม่มีข้อมูล",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 109,
+     "guests": 218,
+     "thai": 207,
+     "foreign": 11
+    },
+    "2026-11-21": {
+     "rooms": 109,
+     "guests": 218,
+     "thai": 207,
+     "foreign": 11
+    },
+    "2026-11-22": {
+     "rooms": 109,
+     "guests": 218,
+     "thai": 207,
+     "foreign": 11
+    },
+    "2026-11-23": {
+     "rooms": 78,
+     "guests": 156,
+     "thai": 148,
+     "foreign": 8
+    },
+    "2026-11-24": {
+     "rooms": 78,
+     "guests": 156,
+     "thai": 148,
+     "foreign": 8
+    },
+    "2026-11-25": {
+     "rooms": 109,
+     "guests": 218,
+     "thai": 207,
+     "foreign": 11,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 109,
+     "guests": 218,
+     "thai": 207,
+     "foreign": 11,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 109,
+     "guests": 218,
+     "thai": 207,
+     "foreign": 11,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 109,
+     "guests": 218,
+     "thai": 207,
+     "foreign": 11,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 109,
+     "guests": 218,
+     "thai": 207,
+     "foreign": 11,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมเซนเตอร์ พอยต์ เทอร์มินอล21 โคราช",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 180,
+   "price": "1501-2500",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 80,
+   "ppr": 2,
+   "avgNights": 1,
+   "fest": "ไม่ทราบ",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "น้อยกว่า",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 162,
+     "guests": 324,
+     "thai": 259,
+     "foreign": 65
+    },
+    "2026-11-21": {
+     "rooms": 162,
+     "guests": 324,
+     "thai": 259,
+     "foreign": 65
+    },
+    "2026-11-22": {
+     "rooms": 126,
+     "guests": 252,
+     "thai": 202,
+     "foreign": 50
+    },
+    "2026-11-23": {
+     "rooms": 90,
+     "guests": 180,
+     "thai": 144,
+     "foreign": 36
+    },
+    "2026-11-24": {
+     "rooms": 90,
+     "guests": 180,
+     "thai": 144,
+     "foreign": 36
+    },
+    "2026-11-25": {
+     "rooms": 90,
+     "guests": 180,
+     "thai": 144,
+     "foreign": 36,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 162,
+     "guests": 324,
+     "thai": 259,
+     "foreign": 65,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 18,
+     "guests": 36,
+     "thai": 29,
+     "foreign": 7,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 90,
+     "guests": 180,
+     "thai": 144,
+     "foreign": 36,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 54,
+     "guests": 108,
+     "thai": 86,
+     "foreign": 22,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "Wind hotel",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 57,
+   "price": "500-1000",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "<10%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 44,
+     "guests": 88,
+     "thai": 84,
+     "foreign": 4
+    },
+    "2026-11-21": {
+     "rooms": 57,
+     "guests": 114,
+     "thai": 108,
+     "foreign": 6
+    },
+    "2026-11-22": {
+     "rooms": 36,
+     "guests": 72,
+     "thai": 68,
+     "foreign": 4
+    },
+    "2026-11-23": {
+     "rooms": 36,
+     "guests": 72,
+     "thai": 68,
+     "foreign": 4
+    },
+    "2026-11-24": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4
+    },
+    "2026-11-25": {
+     "rooms": 50,
+     "guests": 100,
+     "thai": 95,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 30,
+     "guests": 60,
+     "thai": 57,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 57,
+     "guests": 114,
+     "thai": 108,
+     "foreign": 6,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 30,
+     "guests": 60,
+     "thai": 57,
+     "foreign": 3,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรม วินดี โฮเทล",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 57,
+   "price": "500-1000",
+   "priceVsNormal": "",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "ไม่ทราบ",
+   "festSrc": "สอบถามตอนเช็กอิน",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4
+    },
+    "2026-11-21": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4
+    },
+    "2026-11-22": {
+     "rooms": 29,
+     "guests": 58,
+     "thai": 55,
+     "foreign": 3
+    },
+    "2026-11-23": {
+     "rooms": 29,
+     "guests": 58,
+     "thai": 55,
+     "foreign": 3
+    },
+    "2026-11-24": {
+     "rooms": 29,
+     "guests": 58,
+     "thai": 55,
+     "foreign": 3
+    },
+    "2026-11-25": {
+     "rooms": 29,
+     "guests": 58,
+     "thai": 55,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 29,
+     "guests": 58,
+     "thai": 55,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 51,
+     "guests": 102,
+     "thai": 97,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 29,
+     "guests": 58,
+     "thai": 55,
+     "foreign": 3,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมสีมาธานี",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 265,
+   "price": "2501-4000",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 80,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "10-30%",
+   "festSrc": "สอบถามตอนเช็กอิน",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 238,
+     "guests": 476,
+     "thai": 381,
+     "foreign": 95
+    },
+    "2026-11-21": {
+     "rooms": 238,
+     "guests": 476,
+     "thai": 381,
+     "foreign": 95
+    },
+    "2026-11-22": {
+     "rooms": 186,
+     "guests": 372,
+     "thai": 298,
+     "foreign": 74
+    },
+    "2026-11-23": {
+     "rooms": 186,
+     "guests": 372,
+     "thai": 298,
+     "foreign": 74
+    },
+    "2026-11-24": {
+     "rooms": 186,
+     "guests": 372,
+     "thai": 298,
+     "foreign": 74
+    },
+    "2026-11-25": {
+     "rooms": 186,
+     "guests": 372,
+     "thai": 298,
+     "foreign": 74,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 186,
+     "guests": 372,
+     "thai": 298,
+     "foreign": 74,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 238,
+     "guests": 476,
+     "thai": 381,
+     "foreign": 95,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 238,
+     "guests": 476,
+     "thai": 381,
+     "foreign": 95,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 186,
+     "guests": 372,
+     "thai": 298,
+     "foreign": 74,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรม แคนทารี โคราช",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 248,
+   "price": "1501-2500",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 1,
+   "fest": "31-50%",
+   "festSrc": "สอบถามตอนเช็กอิน",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 174,
+     "guests": 348,
+     "thai": 331,
+     "foreign": 17
+    },
+    "2026-11-21": {
+     "rooms": 223,
+     "guests": 446,
+     "thai": 424,
+     "foreign": 22
+    },
+    "2026-11-22": {
+     "rooms": 174,
+     "guests": 348,
+     "thai": 331,
+     "foreign": 17
+    },
+    "2026-11-23": {
+     "rooms": 124,
+     "guests": 248,
+     "thai": 236,
+     "foreign": 12
+    },
+    "2026-11-24": {
+     "rooms": 124,
+     "guests": 248,
+     "thai": 236,
+     "foreign": 12
+    },
+    "2026-11-25": {
+     "rooms": 124,
+     "guests": 248,
+     "thai": 236,
+     "foreign": 12,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 174,
+     "guests": 348,
+     "thai": 331,
+     "foreign": 17,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 223,
+     "guests": 446,
+     "thai": 424,
+     "foreign": 22,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 223,
+     "guests": 446,
+     "thai": 424,
+     "foreign": 22,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 174,
+     "guests": 348,
+     "thai": 331,
+     "foreign": 17,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมเซ็นทารา โคราช",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 210,
+   "price": "1501-2500",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "10-30%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 189,
+     "guests": 378,
+     "thai": 359,
+     "foreign": 19
+    },
+    "2026-11-21": {
+     "rooms": 189,
+     "guests": 378,
+     "thai": 359,
+     "foreign": 19
+    },
+    "2026-11-22": {
+     "rooms": 147,
+     "guests": 294,
+     "thai": 279,
+     "foreign": 15
+    },
+    "2026-11-23": {
+     "rooms": 147,
+     "guests": 294,
+     "thai": 279,
+     "foreign": 15
+    },
+    "2026-11-24": {
+     "rooms": 147,
+     "guests": 294,
+     "thai": 279,
+     "foreign": 15
+    },
+    "2026-11-25": {
+     "rooms": 147,
+     "guests": 294,
+     "thai": 279,
+     "foreign": 15,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 105,
+     "guests": 210,
+     "thai": 200,
+     "foreign": 10,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 189,
+     "guests": 378,
+     "thai": 359,
+     "foreign": 19,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 189,
+     "guests": 378,
+     "thai": 359,
+     "foreign": 19,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 147,
+     "guests": 294,
+     "thai": 279,
+     "foreign": 15,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมดิ อิมพีเรียล โฮเทล แอนด์ คอนเวนชั่น เซ็นเตอร์ โคราช",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 186,
+   "price": "1001-1500",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 80,
+   "ppr": 1,
+   "avgNights": 3,
+   "fest": "10-30%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 167,
+     "guests": 167,
+     "thai": 134,
+     "foreign": 33
+    },
+    "2026-11-21": {
+     "rooms": 167,
+     "guests": 167,
+     "thai": 134,
+     "foreign": 33
+    },
+    "2026-11-22": {
+     "rooms": 130,
+     "guests": 130,
+     "thai": 104,
+     "foreign": 26
+    },
+    "2026-11-23": {
+     "rooms": 130,
+     "guests": 130,
+     "thai": 104,
+     "foreign": 26
+    },
+    "2026-11-24": {
+     "rooms": 130,
+     "guests": 130,
+     "thai": 104,
+     "foreign": 26
+    },
+    "2026-11-25": {
+     "rooms": 130,
+     "guests": 130,
+     "thai": 104,
+     "foreign": 26,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 130,
+     "guests": 130,
+     "thai": 104,
+     "foreign": 26,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 167,
+     "guests": 167,
+     "thai": 134,
+     "foreign": 33,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 167,
+     "guests": 167,
+     "thai": 134,
+     "foreign": 33,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 130,
+     "guests": 130,
+     "thai": 104,
+     "foreign": 26,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมสบายโฮเทล โคราช",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 124,
+   "price": "<500",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 80,
+   "ppr": 2,
+   "avgNights": 1,
+   "fest": "10-30%",
+   "festSrc": "สอบถามตอนเช็กอิน",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 87,
+     "guests": 174,
+     "thai": 139,
+     "foreign": 35
+    },
+    "2026-11-21": {
+     "rooms": 112,
+     "guests": 224,
+     "thai": 179,
+     "foreign": 45
+    },
+    "2026-11-22": {
+     "rooms": 62,
+     "guests": 124,
+     "thai": 99,
+     "foreign": 25
+    },
+    "2026-11-23": {
+     "rooms": 37,
+     "guests": 74,
+     "thai": 59,
+     "foreign": 15
+    },
+    "2026-11-24": {
+     "rooms": 62,
+     "guests": 124,
+     "thai": 99,
+     "foreign": 25
+    },
+    "2026-11-25": {
+     "rooms": 37,
+     "guests": 74,
+     "thai": 59,
+     "foreign": 15,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 62,
+     "guests": 124,
+     "thai": 99,
+     "foreign": 25,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 87,
+     "guests": 174,
+     "thai": 139,
+     "foreign": 35,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 112,
+     "guests": 224,
+     "thai": 179,
+     "foreign": 45,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 62,
+     "guests": 124,
+     "thai": 99,
+     "foreign": 25,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมเมย์ฟลาวเวอร์ แกรนด์ โคราช",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 120,
+   "price": "500-1000",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 1,
+   "fest": "31-50%",
+   "festSrc": "สอบถามตอนเช็กอิน",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 108,
+     "guests": 216,
+     "thai": 205,
+     "foreign": 11
+    },
+    "2026-11-21": {
+     "rooms": 108,
+     "guests": 216,
+     "thai": 205,
+     "foreign": 11
+    },
+    "2026-11-22": {
+     "rooms": 84,
+     "guests": 168,
+     "thai": 160,
+     "foreign": 8
+    },
+    "2026-11-23": {
+     "rooms": 60,
+     "guests": 120,
+     "thai": 114,
+     "foreign": 6
+    },
+    "2026-11-24": {
+     "rooms": 84,
+     "guests": 168,
+     "thai": 160,
+     "foreign": 8
+    },
+    "2026-11-25": {
+     "rooms": 84,
+     "guests": 168,
+     "thai": 160,
+     "foreign": 8,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 84,
+     "guests": 168,
+     "thai": 160,
+     "foreign": 8,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 108,
+     "guests": 216,
+     "thai": 205,
+     "foreign": 11,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 108,
+     "guests": 216,
+     "thai": 205,
+     "foreign": 11,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 60,
+     "guests": 120,
+     "thai": 114,
+     "foreign": 6,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมบีทู โคราช ไนท์มาร์เก็ต บูติค แอนด์ บัดเจท",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 120,
+   "price": "1001-1500",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 3,
+   "fest": ">50%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 84,
+     "guests": 168,
+     "thai": 160,
+     "foreign": 8
+    },
+    "2026-11-21": {
+     "rooms": 108,
+     "guests": 216,
+     "thai": 205,
+     "foreign": 11
+    },
+    "2026-11-22": {
+     "rooms": 60,
+     "guests": 120,
+     "thai": 114,
+     "foreign": 6
+    },
+    "2026-11-23": {
+     "rooms": 36,
+     "guests": 72,
+     "thai": 68,
+     "foreign": 4
+    },
+    "2026-11-24": {
+     "rooms": 60,
+     "guests": 120,
+     "thai": 114,
+     "foreign": 6
+    },
+    "2026-11-25": {
+     "rooms": 84,
+     "guests": 168,
+     "thai": 160,
+     "foreign": 8,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 84,
+     "guests": 168,
+     "thai": 160,
+     "foreign": 8,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 84,
+     "guests": 168,
+     "thai": 160,
+     "foreign": 8,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 108,
+     "guests": 216,
+     "thai": 205,
+     "foreign": 11,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 60,
+     "guests": 120,
+     "thai": 114,
+     "foreign": 6,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "Koranaree Courtyard Boutique Hotel",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 103,
+   "price": "1001-1500",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 50,
+   "ppr": 3,
+   "avgNights": 1,
+   "fest": "10-30%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 72,
+     "guests": 216,
+     "thai": 108,
+     "foreign": 108
+    },
+    "2026-11-21": {
+     "rooms": 93,
+     "guests": 279,
+     "thai": 140,
+     "foreign": 139
+    },
+    "2026-11-22": {
+     "rooms": 72,
+     "guests": 216,
+     "thai": 108,
+     "foreign": 108
+    },
+    "2026-11-23": {
+     "rooms": 52,
+     "guests": 156,
+     "thai": 78,
+     "foreign": 78
+    },
+    "2026-11-24": {
+     "rooms": 31,
+     "guests": 93,
+     "thai": 46,
+     "foreign": 47
+    },
+    "2026-11-25": {
+     "rooms": 52,
+     "guests": 156,
+     "thai": 78,
+     "foreign": 78,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 52,
+     "guests": 156,
+     "thai": 78,
+     "foreign": 78,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 93,
+     "guests": 279,
+     "thai": 140,
+     "foreign": 139,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 93,
+     "guests": 279,
+     "thai": 140,
+     "foreign": 139,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 52,
+     "guests": 156,
+     "thai": 78,
+     "foreign": 78,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "The Rich Hotel Korat",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 90,
+   "price": "500-1000",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 3,
+   "avgNights": 1,
+   "fest": "<10%",
+   "festSrc": "สอบถามตอนเช็กอิน",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 45,
+     "guests": 135,
+     "thai": 128,
+     "foreign": 7
+    },
+    "2026-11-21": {
+     "rooms": 63,
+     "guests": 189,
+     "thai": 180,
+     "foreign": 9
+    },
+    "2026-11-22": {
+     "rooms": 45,
+     "guests": 135,
+     "thai": 128,
+     "foreign": 7
+    },
+    "2026-11-23": {
+     "rooms": 45,
+     "guests": 135,
+     "thai": 128,
+     "foreign": 7
+    },
+    "2026-11-24": {
+     "rooms": 45,
+     "guests": 135,
+     "thai": 128,
+     "foreign": 7
+    },
+    "2026-11-25": {
+     "rooms": 45,
+     "guests": 135,
+     "thai": 128,
+     "foreign": 7,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 45,
+     "guests": 135,
+     "thai": 128,
+     "foreign": 7,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 63,
+     "guests": 189,
+     "thai": 180,
+     "foreign": 9,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 81,
+     "guests": 243,
+     "thai": 231,
+     "foreign": 12,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 45,
+     "guests": 135,
+     "thai": 128,
+     "foreign": 7,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมปัญจดารา",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 79,
+   "price": "500-1000",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "10-30%",
+   "festSrc": "หมายเหตุการจอง/กรุ๊ปทัวร์",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 55,
+     "guests": 110,
+     "thai": 104,
+     "foreign": 6
+    },
+    "2026-11-21": {
+     "rooms": 71,
+     "guests": 142,
+     "thai": 135,
+     "foreign": 7
+    },
+    "2026-11-22": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4
+    },
+    "2026-11-23": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4
+    },
+    "2026-11-24": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4
+    },
+    "2026-11-25": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 55,
+     "guests": 110,
+     "thai": 104,
+     "foreign": 6,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 55,
+     "guests": 110,
+     "thai": 104,
+     "foreign": 6,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 71,
+     "guests": 142,
+     "thai": 135,
+     "foreign": 7,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมฮ็อป อินน์ นครราชสีมา ซิตี้ เซ็นเตอร์",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 79,
+   "price": "500-1000",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "10-30%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 55,
+     "guests": 110,
+     "thai": 104,
+     "foreign": 6
+    },
+    "2026-11-21": {
+     "rooms": 71,
+     "guests": 142,
+     "thai": 135,
+     "foreign": 7
+    },
+    "2026-11-22": {
+     "rooms": 55,
+     "guests": 110,
+     "thai": 104,
+     "foreign": 6
+    },
+    "2026-11-23": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4
+    },
+    "2026-11-24": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4
+    },
+    "2026-11-25": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 55,
+     "guests": 110,
+     "thai": 104,
+     "foreign": 6,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 71,
+     "guests": 142,
+     "thai": 135,
+     "foreign": 7,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 71,
+     "guests": 142,
+     "thai": 135,
+     "foreign": 7,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมบีทู โคราช บูติค แอนด์ บัดเจท",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 79,
+   "price": "500-1000",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 80,
+   "ppr": 2,
+   "avgNights": 1,
+   "fest": "ไม่ทราบ",
+   "festSrc": "",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 55,
+     "guests": 110,
+     "thai": 88,
+     "foreign": 22
+    },
+    "2026-11-21": {
+     "rooms": 71,
+     "guests": 142,
+     "thai": 114,
+     "foreign": 28
+    },
+    "2026-11-22": {
+     "rooms": 55,
+     "guests": 110,
+     "thai": 88,
+     "foreign": 22
+    },
+    "2026-11-23": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 64,
+     "foreign": 16
+    },
+    "2026-11-24": {
+     "rooms": 55,
+     "guests": 110,
+     "thai": 88,
+     "foreign": 22
+    },
+    "2026-11-25": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 64,
+     "foreign": 16,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 64,
+     "foreign": 16,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 55,
+     "guests": 110,
+     "thai": 88,
+     "foreign": 22,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 71,
+     "guests": 142,
+     "thai": 114,
+     "foreign": 28,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 55,
+     "guests": 110,
+     "thai": 88,
+     "foreign": 22,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "The Finn Hotel",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 79,
+   "price": "500-1000",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 95,
+   "ppr": 3,
+   "avgNights": 2,
+   "fest": "ไม่ทราบ",
+   "festSrc": "",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 55,
+     "guests": 165,
+     "thai": 157,
+     "foreign": 8
+    },
+    "2026-11-21": {
+     "rooms": 71,
+     "guests": 213,
+     "thai": 202,
+     "foreign": 11
+    },
+    "2026-11-22": {
+     "rooms": 40,
+     "guests": 120,
+     "thai": 114,
+     "foreign": 6
+    },
+    "2026-11-23": {
+     "rooms": 24,
+     "guests": 72,
+     "thai": 68,
+     "foreign": 4
+    },
+    "2026-11-24": {
+     "rooms": 24,
+     "guests": 72,
+     "thai": 68,
+     "foreign": 4
+    },
+    "2026-11-25": {
+     "rooms": 40,
+     "guests": 120,
+     "thai": 114,
+     "foreign": 6,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 55,
+     "guests": 165,
+     "thai": 157,
+     "foreign": 8,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 55,
+     "guests": 165,
+     "thai": 157,
+     "foreign": 8,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 55,
+     "guests": 165,
+     "thai": 157,
+     "foreign": 8,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 40,
+     "guests": 120,
+     "thai": 114,
+     "foreign": 6,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "De v loft hotel korat",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 78,
+   "price": "500-1000",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 95,
+   "ppr": 1,
+   "avgNights": 2,
+   "fest": "31-50%",
+   "festSrc": "สอบถามตอนเช็กอิน",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 55,
+     "guests": 55,
+     "thai": 52,
+     "foreign": 3
+    },
+    "2026-11-21": {
+     "rooms": 70,
+     "guests": 70,
+     "thai": 66,
+     "foreign": 4
+    },
+    "2026-11-22": {
+     "rooms": 55,
+     "guests": 55,
+     "thai": 52,
+     "foreign": 3
+    },
+    "2026-11-23": {
+     "rooms": 39,
+     "guests": 39,
+     "thai": 37,
+     "foreign": 2
+    },
+    "2026-11-24": {
+     "rooms": 39,
+     "guests": 39,
+     "thai": 37,
+     "foreign": 2
+    },
+    "2026-11-25": {
+     "rooms": 55,
+     "guests": 55,
+     "thai": 52,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 55,
+     "guests": 55,
+     "thai": 52,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 70,
+     "guests": 70,
+     "thai": 66,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 70,
+     "guests": 70,
+     "thai": 66,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 55,
+     "guests": 55,
+     "thai": 52,
+     "foreign": 3,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมบีทู โคราช พรีเมียร์",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 77,
+   "price": "1001-1500",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "<10%",
+   "festSrc": "สอบถามตอนเช็กอิน",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 54,
+     "guests": 108,
+     "thai": 103,
+     "foreign": 5
+    },
+    "2026-11-21": {
+     "rooms": 69,
+     "guests": 138,
+     "thai": 131,
+     "foreign": 7
+    },
+    "2026-11-22": {
+     "rooms": 54,
+     "guests": 108,
+     "thai": 103,
+     "foreign": 5
+    },
+    "2026-11-23": {
+     "rooms": 38,
+     "guests": 76,
+     "thai": 72,
+     "foreign": 4
+    },
+    "2026-11-24": {
+     "rooms": 38,
+     "guests": 76,
+     "thai": 72,
+     "foreign": 4
+    },
+    "2026-11-25": {
+     "rooms": 54,
+     "guests": 108,
+     "thai": 103,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 54,
+     "guests": 108,
+     "thai": 103,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 69,
+     "guests": 138,
+     "thai": 131,
+     "foreign": 7,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 69,
+     "guests": 138,
+     "thai": 131,
+     "foreign": 7,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 54,
+     "guests": 108,
+     "thai": 103,
+     "foreign": 5,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมส้มโอเฮ้าส์ โคราช",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 77,
+   "price": "500-1000",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "ไม่ทราบ",
+   "festSrc": "",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 54,
+     "guests": 108,
+     "thai": 103,
+     "foreign": 5
+    },
+    "2026-11-21": {
+     "rooms": 54,
+     "guests": 108,
+     "thai": 103,
+     "foreign": 5
+    },
+    "2026-11-22": {
+     "rooms": 38,
+     "guests": 76,
+     "thai": 72,
+     "foreign": 4
+    },
+    "2026-11-23": {
+     "rooms": 38,
+     "guests": 76,
+     "thai": 72,
+     "foreign": 4
+    },
+    "2026-11-24": {
+     "rooms": 38,
+     "guests": 76,
+     "thai": 72,
+     "foreign": 4
+    },
+    "2026-11-25": {
+     "rooms": 38,
+     "guests": 76,
+     "thai": 72,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 38,
+     "guests": 76,
+     "thai": 72,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 54,
+     "guests": 108,
+     "thai": 103,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 69,
+     "guests": 138,
+     "thai": 131,
+     "foreign": 7,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 38,
+     "guests": 76,
+     "thai": 72,
+     "foreign": 4,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมลีโอซอ (Leosor Hotel)",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 74,
+   "price": "500-1000",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 1,
+   "fest": "<10%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 37,
+     "guests": 74,
+     "thai": 70,
+     "foreign": 4
+    },
+    "2026-11-21": {
+     "rooms": 52,
+     "guests": 104,
+     "thai": 99,
+     "foreign": 5
+    },
+    "2026-11-22": {
+     "rooms": 37,
+     "guests": 74,
+     "thai": 70,
+     "foreign": 4
+    },
+    "2026-11-23": {
+     "rooms": 37,
+     "guests": 74,
+     "thai": 70,
+     "foreign": 4
+    },
+    "2026-11-24": {
+     "rooms": 37,
+     "guests": 74,
+     "thai": 70,
+     "foreign": 4
+    },
+    "2026-11-25": {
+     "rooms": 37,
+     "guests": 74,
+     "thai": 70,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 37,
+     "guests": 74,
+     "thai": 70,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 52,
+     "guests": 104,
+     "thai": 99,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 52,
+     "guests": 104,
+     "thai": 99,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 37,
+     "guests": 74,
+     "thai": 70,
+     "foreign": 4,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรม ไอซาน่า โคราช",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 71,
+   "price": "1501-2500",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 80,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "ไม่ทราบ",
+   "festSrc": "",
+   "ly": "น้อยกว่า",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 50,
+     "guests": 100,
+     "thai": 80,
+     "foreign": 20
+    },
+    "2026-11-21": {
+     "rooms": 64,
+     "guests": 128,
+     "thai": 102,
+     "foreign": 26
+    },
+    "2026-11-22": {
+     "rooms": 50,
+     "guests": 100,
+     "thai": 80,
+     "foreign": 20
+    },
+    "2026-11-23": {
+     "rooms": 50,
+     "guests": 100,
+     "thai": 80,
+     "foreign": 20
+    },
+    "2026-11-24": {
+     "rooms": 50,
+     "guests": 100,
+     "thai": 80,
+     "foreign": 20
+    },
+    "2026-11-25": {
+     "rooms": 50,
+     "guests": 100,
+     "thai": 80,
+     "foreign": 20,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 36,
+     "guests": 72,
+     "thai": 58,
+     "foreign": 14,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 64,
+     "guests": 128,
+     "thai": 102,
+     "foreign": 26,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 64,
+     "guests": 128,
+     "thai": 102,
+     "foreign": 26,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 50,
+     "guests": 100,
+     "thai": 80,
+     "foreign": 20,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "สวายเรียงเพลส",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 70,
+   "price": "500-1000",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 1,
+   "fest": "31-50%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "น้อยกว่า",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 35,
+     "guests": 70,
+     "thai": 66,
+     "foreign": 4
+    },
+    "2026-11-21": {
+     "rooms": 49,
+     "guests": 98,
+     "thai": 93,
+     "foreign": 5
+    },
+    "2026-11-22": {
+     "rooms": 35,
+     "guests": 70,
+     "thai": 66,
+     "foreign": 4
+    },
+    "2026-11-23": {
+     "rooms": 35,
+     "guests": 70,
+     "thai": 66,
+     "foreign": 4
+    },
+    "2026-11-24": {
+     "rooms": 21,
+     "guests": 42,
+     "thai": 40,
+     "foreign": 2
+    },
+    "2026-11-25": {
+     "rooms": 35,
+     "guests": 70,
+     "thai": 66,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 49,
+     "guests": 98,
+     "thai": 93,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 49,
+     "guests": 98,
+     "thai": 93,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 63,
+     "guests": 126,
+     "thai": 120,
+     "foreign": 6,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 35,
+     "guests": 70,
+     "thai": 66,
+     "foreign": 4,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมชุนหลีแกรนด์",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 67,
+   "price": "500-1000",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 1,
+   "fest": "10-30%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 47,
+     "guests": 94,
+     "thai": 89,
+     "foreign": 5
+    },
+    "2026-11-21": {
+     "rooms": 60,
+     "guests": 120,
+     "thai": 114,
+     "foreign": 6
+    },
+    "2026-11-22": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 65,
+     "foreign": 3
+    },
+    "2026-11-23": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 65,
+     "foreign": 3
+    },
+    "2026-11-24": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 65,
+     "foreign": 3
+    },
+    "2026-11-25": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 65,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 65,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 47,
+     "guests": 94,
+     "thai": 89,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 60,
+     "guests": 120,
+     "thai": 114,
+     "foreign": 6,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 65,
+     "foreign": 3,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมศิริโฮเต็ล",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 67,
+   "price": "500-1000",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 1,
+   "fest": "10-30%",
+   "festSrc": "หมายเหตุการจอง/กรุ๊ปทัวร์",
+   "ly": "น้อยกว่า",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 47,
+     "guests": 94,
+     "thai": 89,
+     "foreign": 5
+    },
+    "2026-11-21": {
+     "rooms": 60,
+     "guests": 120,
+     "thai": 114,
+     "foreign": 6
+    },
+    "2026-11-22": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 65,
+     "foreign": 3
+    },
+    "2026-11-23": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 65,
+     "foreign": 3
+    },
+    "2026-11-24": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 65,
+     "foreign": 3
+    },
+    "2026-11-25": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 65,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 65,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 47,
+     "guests": 94,
+     "thai": 89,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 60,
+     "guests": 120,
+     "thai": 114,
+     "foreign": 6,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 65,
+     "foreign": 3,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โคราปุระ รีสอร์ท",
+   "district": "เมืองนครราชสีมา",
+   "type": "รีสอร์ท",
+   "rooms": 66,
+   "price": "500-1000",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "31-50%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 33,
+     "guests": 66,
+     "thai": 63,
+     "foreign": 3
+    },
+    "2026-11-21": {
+     "rooms": 59,
+     "guests": 118,
+     "thai": 112,
+     "foreign": 6
+    },
+    "2026-11-22": {
+     "rooms": 46,
+     "guests": 92,
+     "thai": 87,
+     "foreign": 5
+    },
+    "2026-11-23": {
+     "rooms": 33,
+     "guests": 66,
+     "thai": 63,
+     "foreign": 3
+    },
+    "2026-11-24": {
+     "rooms": 33,
+     "guests": 66,
+     "thai": 63,
+     "foreign": 3
+    },
+    "2026-11-25": {
+     "rooms": 33,
+     "guests": 66,
+     "thai": 63,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 33,
+     "guests": 66,
+     "thai": 63,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 46,
+     "guests": 92,
+     "thai": 87,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 59,
+     "guests": 118,
+     "thai": 112,
+     "foreign": 6,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 20,
+     "guests": 40,
+     "thai": 38,
+     "foreign": 2,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "ร่มเย็นการ์เด้น เพลส",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 65,
+   "price": "500-1000",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 80,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "<10%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "น้อยกว่า",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 46,
+     "guests": 92,
+     "thai": 74,
+     "foreign": 18
+    },
+    "2026-11-21": {
+     "rooms": 58,
+     "guests": 116,
+     "thai": 93,
+     "foreign": 23
+    },
+    "2026-11-22": {
+     "rooms": 46,
+     "guests": 92,
+     "thai": 74,
+     "foreign": 18
+    },
+    "2026-11-23": {
+     "rooms": 32,
+     "guests": 64,
+     "thai": 51,
+     "foreign": 13
+    },
+    "2026-11-24": {
+     "rooms": 32,
+     "guests": 64,
+     "thai": 51,
+     "foreign": 13
+    },
+    "2026-11-25": {
+     "rooms": 32,
+     "guests": 64,
+     "thai": 51,
+     "foreign": 13,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 32,
+     "guests": 64,
+     "thai": 51,
+     "foreign": 13,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 58,
+     "guests": 116,
+     "thai": 93,
+     "foreign": 23,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 58,
+     "guests": 116,
+     "thai": 93,
+     "foreign": 23,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 46,
+     "guests": 92,
+     "thai": 74,
+     "foreign": 18,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "คริสตัล รีสอร์ต โคราช",
+   "district": "เมืองนครราชสีมา",
+   "type": "รีสอร์ท",
+   "rooms": 64,
+   "price": "500-1000",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 80,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "<10%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 58,
+     "guests": 116,
+     "thai": 93,
+     "foreign": 23
+    },
+    "2026-11-21": {
+     "rooms": 58,
+     "guests": 116,
+     "thai": 93,
+     "foreign": 23
+    },
+    "2026-11-22": {
+     "rooms": 45,
+     "guests": 90,
+     "thai": 72,
+     "foreign": 18
+    },
+    "2026-11-23": {
+     "rooms": 45,
+     "guests": 90,
+     "thai": 72,
+     "foreign": 18
+    },
+    "2026-11-24": {
+     "rooms": 32,
+     "guests": 64,
+     "thai": 51,
+     "foreign": 13
+    },
+    "2026-11-25": {
+     "rooms": 45,
+     "guests": 90,
+     "thai": 72,
+     "foreign": 18,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 45,
+     "guests": 90,
+     "thai": 72,
+     "foreign": 18,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 45,
+     "guests": 90,
+     "thai": 72,
+     "foreign": 18,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 58,
+     "guests": 116,
+     "thai": 93,
+     "foreign": 23,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 45,
+     "guests": 90,
+     "thai": 72,
+     "foreign": 18,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "Zenith Residence Hotel",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 64,
+   "price": "1001-1500",
+   "priceVsNormal": "ต่ำกว่าปกติ/มีโปรโมชัน",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 1,
+   "fest": "10-30%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 45,
+     "guests": 90,
+     "thai": 86,
+     "foreign": 4
+    },
+    "2026-11-21": {
+     "rooms": 58,
+     "guests": 116,
+     "thai": 110,
+     "foreign": 6
+    },
+    "2026-11-22": {
+     "rooms": 45,
+     "guests": 90,
+     "thai": 86,
+     "foreign": 4
+    },
+    "2026-11-23": {
+     "rooms": 32,
+     "guests": 64,
+     "thai": 61,
+     "foreign": 3
+    },
+    "2026-11-24": {
+     "rooms": 32,
+     "guests": 64,
+     "thai": 61,
+     "foreign": 3
+    },
+    "2026-11-25": {
+     "rooms": 32,
+     "guests": 64,
+     "thai": 61,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 45,
+     "guests": 90,
+     "thai": 86,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 45,
+     "guests": 90,
+     "thai": 86,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 58,
+     "guests": 116,
+     "thai": 110,
+     "foreign": 6,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 32,
+     "guests": 64,
+     "thai": 61,
+     "foreign": 3,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรม เค เอส พาวิลเลี่ยน",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 59,
+   "price": "500-1000",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "10-30%",
+   "festSrc": "หมายเหตุการจอง/กรุ๊ปทัวร์",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 41,
+     "guests": 82,
+     "thai": 78,
+     "foreign": 4
+    },
+    "2026-11-21": {
+     "rooms": 41,
+     "guests": 82,
+     "thai": 78,
+     "foreign": 4
+    },
+    "2026-11-22": {
+     "rooms": 30,
+     "guests": 60,
+     "thai": 57,
+     "foreign": 3
+    },
+    "2026-11-23": {
+     "rooms": 18,
+     "guests": 36,
+     "thai": 34,
+     "foreign": 2
+    },
+    "2026-11-24": {
+     "rooms": 30,
+     "guests": 60,
+     "thai": 57,
+     "foreign": 3
+    },
+    "2026-11-25": {
+     "rooms": 30,
+     "guests": 60,
+     "thai": 57,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 30,
+     "guests": 60,
+     "thai": 57,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 41,
+     "guests": 82,
+     "thai": 78,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 53,
+     "guests": 106,
+     "thai": 101,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 30,
+     "guests": 60,
+     "thai": 57,
+     "foreign": 3,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรม สฎา เรสซิเดนซ์ (ZADA Residence)",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 57,
+   "price": "500-1000",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "<10%",
+   "festSrc": "สอบถามตอนเช็กอิน",
+   "ly": "ไม่มีข้อมูล",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 51,
+     "guests": 102,
+     "thai": 97,
+     "foreign": 5
+    },
+    "2026-11-21": {
+     "rooms": 51,
+     "guests": 102,
+     "thai": 97,
+     "foreign": 5
+    },
+    "2026-11-22": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4
+    },
+    "2026-11-23": {
+     "rooms": 28,
+     "guests": 56,
+     "thai": 53,
+     "foreign": 3
+    },
+    "2026-11-24": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4
+    },
+    "2026-11-25": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 51,
+     "guests": 102,
+     "thai": 97,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 51,
+     "guests": 102,
+     "thai": 97,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 40,
+     "guests": 80,
+     "thai": 76,
+     "foreign": 4,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรม วี51",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 56,
+   "price": "<500",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "ไม่ทราบ",
+   "festSrc": "",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 39,
+     "guests": 78,
+     "thai": 74,
+     "foreign": 4
+    },
+    "2026-11-21": {
+     "rooms": 50,
+     "guests": 100,
+     "thai": 95,
+     "foreign": 5
+    },
+    "2026-11-22": {
+     "rooms": 28,
+     "guests": 56,
+     "thai": 53,
+     "foreign": 3
+    },
+    "2026-11-23": {
+     "rooms": 28,
+     "guests": 56,
+     "thai": 53,
+     "foreign": 3
+    },
+    "2026-11-24": {
+     "rooms": 28,
+     "guests": 56,
+     "thai": 53,
+     "foreign": 3
+    },
+    "2026-11-25": {
+     "rooms": 39,
+     "guests": 78,
+     "thai": 74,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 28,
+     "guests": 56,
+     "thai": 53,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 39,
+     "guests": 78,
+     "thai": 74,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 50,
+     "guests": 100,
+     "thai": 95,
+     "foreign": 5,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 39,
+     "guests": 78,
+     "thai": 74,
+     "foreign": 4,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "มิกส์ โฮเต็ล โรงแรม",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 55,
+   "price": "<500",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 95,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "<10%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 38,
+     "guests": 76,
+     "thai": 72,
+     "foreign": 4
+    },
+    "2026-11-21": {
+     "rooms": 50,
+     "guests": 100,
+     "thai": 95,
+     "foreign": 5
+    },
+    "2026-11-22": {
+     "rooms": 28,
+     "guests": 56,
+     "thai": 53,
+     "foreign": 3
+    },
+    "2026-11-23": {
+     "rooms": 28,
+     "guests": 56,
+     "thai": 53,
+     "foreign": 3
+    },
+    "2026-11-24": {
+     "rooms": 28,
+     "guests": 56,
+     "thai": 53,
+     "foreign": 3
+    },
+    "2026-11-25": {
+     "rooms": 16,
+     "guests": 32,
+     "thai": 30,
+     "foreign": 2,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 28,
+     "guests": 56,
+     "thai": 53,
+     "foreign": 3,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 38,
+     "guests": 76,
+     "thai": 72,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 38,
+     "guests": 76,
+     "thai": 72,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 28,
+     "guests": 56,
+     "thai": 53,
+     "foreign": 3,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมชิน วี-วัน โคราช",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 50,
+   "price": "500-1000",
+   "priceVsNormal": "สูงกว่าปกติ",
+   "thaiPct": 95,
+   "ppr": 3,
+   "avgNights": 2,
+   "fest": ">50%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 35,
+     "guests": 105,
+     "thai": 100,
+     "foreign": 5
+    },
+    "2026-11-21": {
+     "rooms": 45,
+     "guests": 135,
+     "thai": 128,
+     "foreign": 7
+    },
+    "2026-11-22": {
+     "rooms": 35,
+     "guests": 105,
+     "thai": 100,
+     "foreign": 5
+    },
+    "2026-11-23": {
+     "rooms": 25,
+     "guests": 75,
+     "thai": 71,
+     "foreign": 4
+    },
+    "2026-11-24": {
+     "rooms": 35,
+     "guests": 105,
+     "thai": 100,
+     "foreign": 5
+    },
+    "2026-11-25": {
+     "rooms": 25,
+     "guests": 75,
+     "thai": 71,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 25,
+     "guests": 75,
+     "thai": 71,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 45,
+     "guests": 135,
+     "thai": 128,
+     "foreign": 7,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 45,
+     "guests": 135,
+     "thai": 128,
+     "foreign": 7,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 35,
+     "guests": 105,
+     "thai": 100,
+     "foreign": 5,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "Louis Residence Hotel",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 48,
+   "price": "1001-1500",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 80,
+   "ppr": 2,
+   "avgNights": 3,
+   "fest": "10-30%",
+   "festSrc": "สอบถามตอนเช็กอิน",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 43,
+     "guests": 86,
+     "thai": 69,
+     "foreign": 17
+    },
+    "2026-11-21": {
+     "rooms": 43,
+     "guests": 86,
+     "thai": 69,
+     "foreign": 17
+    },
+    "2026-11-22": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 54,
+     "foreign": 14
+    },
+    "2026-11-23": {
+     "rooms": 24,
+     "guests": 48,
+     "thai": 38,
+     "foreign": 10
+    },
+    "2026-11-24": {
+     "rooms": 24,
+     "guests": 48,
+     "thai": 38,
+     "foreign": 10
+    },
+    "2026-11-25": {
+     "rooms": 24,
+     "guests": 48,
+     "thai": 38,
+     "foreign": 10,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 24,
+     "guests": 48,
+     "thai": 38,
+     "foreign": 10,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 34,
+     "guests": 68,
+     "thai": 54,
+     "foreign": 14,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 43,
+     "guests": 86,
+     "thai": 69,
+     "foreign": 17,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 24,
+     "guests": 48,
+     "thai": 38,
+     "foreign": 10,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "ยูเพลส โคราช",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 44,
+   "price": "500-1000",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 80,
+   "ppr": 1,
+   "avgNights": 2,
+   "fest": "10-30%",
+   "festSrc": "หมายเหตุการจอง/กรุ๊ปทัวร์",
+   "ly": "มากกว่าเล็กน้อย",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 40,
+     "guests": 40,
+     "thai": 32,
+     "foreign": 8
+    },
+    "2026-11-21": {
+     "rooms": 40,
+     "guests": 40,
+     "thai": 32,
+     "foreign": 8
+    },
+    "2026-11-22": {
+     "rooms": 22,
+     "guests": 22,
+     "thai": 18,
+     "foreign": 4
+    },
+    "2026-11-23": {
+     "rooms": 22,
+     "guests": 22,
+     "thai": 18,
+     "foreign": 4
+    },
+    "2026-11-24": {
+     "rooms": 22,
+     "guests": 22,
+     "thai": 18,
+     "foreign": 4
+    },
+    "2026-11-25": {
+     "rooms": 22,
+     "guests": 22,
+     "thai": 18,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 22,
+     "guests": 22,
+     "thai": 18,
+     "foreign": 4,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 31,
+     "guests": 31,
+     "thai": 25,
+     "foreign": 6,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 40,
+     "guests": 40,
+     "thai": 32,
+     "foreign": 8,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 31,
+     "guests": 31,
+     "thai": 25,
+     "foreign": 6,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "ยู-สบาย พาร์ค โฮเทล & รีสอร์ท",
+   "district": "เมืองนครราชสีมา",
+   "type": "รีสอร์ท",
+   "rooms": 41,
+   "price": "500-1000",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 80,
+   "ppr": 2,
+   "avgNights": 2,
+   "fest": "10-30%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "ไม่มีข้อมูล",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 29,
+     "guests": 58,
+     "thai": 46,
+     "foreign": 12
+    },
+    "2026-11-21": {
+     "rooms": 29,
+     "guests": 58,
+     "thai": 46,
+     "foreign": 12
+    },
+    "2026-11-22": {
+     "rooms": 29,
+     "guests": 58,
+     "thai": 46,
+     "foreign": 12
+    },
+    "2026-11-23": {
+     "rooms": 20,
+     "guests": 40,
+     "thai": 32,
+     "foreign": 8
+    },
+    "2026-11-24": {
+     "rooms": 20,
+     "guests": 40,
+     "thai": 32,
+     "foreign": 8
+    },
+    "2026-11-25": {
+     "rooms": 20,
+     "guests": 40,
+     "thai": 32,
+     "foreign": 8,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 20,
+     "guests": 40,
+     "thai": 32,
+     "foreign": 8,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 37,
+     "guests": 74,
+     "thai": 59,
+     "foreign": 15,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 37,
+     "guests": 74,
+     "thai": 59,
+     "foreign": 15,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 20,
+     "guests": 40,
+     "thai": 32,
+     "foreign": 8,
+     "booking": 1
+    }
+   }
+  },
+  {
+   "name": "โรงแรมโตเกียว โคราช",
+   "district": "เมืองนครราชสีมา",
+   "type": "โรงแรม",
+   "rooms": 40,
+   "price": "<500",
+   "priceVsNormal": "เท่าเดิม",
+   "thaiPct": 80,
+   "ppr": 2,
+   "avgNights": 1,
+   "fest": "31-50%",
+   "festSrc": "พนักงานประเมิน",
+   "ly": "ใกล้เคียง",
+   "source": "ระบบโรงแรม/ทะเบียนผู้เข้าพัก",
+   "test": false,
+   "nights": {
+    "2026-11-20": {
+     "rooms": 28,
+     "guests": 56,
+     "thai": 45,
+     "foreign": 11
+    },
+    "2026-11-21": {
+     "rooms": 36,
+     "guests": 72,
+     "thai": 58,
+     "foreign": 14
+    },
+    "2026-11-22": {
+     "rooms": 28,
+     "guests": 56,
+     "thai": 45,
+     "foreign": 11
+    },
+    "2026-11-23": {
+     "rooms": 20,
+     "guests": 40,
+     "thai": 32,
+     "foreign": 8
+    },
+    "2026-11-24": {
+     "rooms": 20,
+     "guests": 40,
+     "thai": 32,
+     "foreign": 8
+    },
+    "2026-11-25": {
+     "rooms": 28,
+     "guests": 56,
+     "thai": 45,
+     "foreign": 11,
+     "booking": 1
+    },
+    "2026-11-26": {
+     "rooms": 20,
+     "guests": 40,
+     "thai": 32,
+     "foreign": 8,
+     "booking": 1
+    },
+    "2026-11-27": {
+     "rooms": 36,
+     "guests": 72,
+     "thai": 58,
+     "foreign": 14,
+     "booking": 1
+    },
+    "2026-11-28": {
+     "rooms": 36,
+     "guests": 72,
+     "thai": 58,
+     "foreign": 14,
+     "booking": 1
+    },
+    "2026-11-29": {
+     "rooms": 20,
+     "guests": 40,
+     "thai": 32,
+     "foreign": 8,
+     "booking": 1
+    }
+   }
+  }
+ ],
+ "kpoint": {
+  "note": "ข้อมูลจากระบบ KORAT POINT ไม่รวมบัญชีทดสอบ",
+  "checkin": [
+   {
+    "date": "2026-11-20",
+    "total": 630,
+    "unique": 358
+   },
+   {
+    "date": "2026-11-21",
+    "total": 535,
+    "unique": 482
+   },
+   {
+    "date": "2026-11-22",
+    "total": 581,
+    "unique": 476
+   },
+   {
+    "date": "2026-11-23",
+    "total": 846,
+    "unique": 685
+   },
+   {
+    "date": "2026-11-24",
+    "total": 1366,
+    "unique": 1076
+   }
+  ],
+  "checkinCum": {
+   "asof": "24 พ.ย.",
+   "people": 2669,
+   "times": 3958
+  },
+  "engage": [
+   {
+    "date": "2026-11-20",
+    "total": 2,
+    "points": 6,
+    "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
+   },
+   {
+    "date": "2026-11-21",
+    "total": 47,
+    "points": 185,
+    "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
+   },
+   {
+    "date": "2026-11-22",
+    "total": 101,
+    "points": 365,
+    "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
+   },
+   {
+    "date": "2026-11-23",
+    "total": 192,
+    "points": 703,
+    "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
+   },
+   {
+    "date": "2026-11-24",
+    "total": 171,
+    "points": 882,
+    "source": "สรุป KORAT POINT 20–24 พ.ย. (ส่ง 25 พ.ย. 00:42)"
+   }
+  ],
+  "status": {
+   "asof": "24 พ.ย.",
+   "approved": 513
+  },
+  "redeem": {
+   "items": 65,
+   "points": 1280,
+   "asof": "24 พ.ย."
+  },
+  "shops": {
+   "approved": 56,
+   "submitted": 56
+  },
+  "attend": {
+   "cum": 1782,
+   "day": {
+    "date": "2026-11-23",
+    "people": 707
+   }
+  },
+  "daily": [
+   {
+    "date": "2026-11-20",
+    "checkin": 630,
+    "people": 358,
+    "newMembers": 508,
+    "redeemItems": 0,
+    "redeemPoints": 0,
+    "slips": 2,
+    "slipPoints": 6
+   },
+   {
+    "date": "2026-11-21",
+    "checkin": 535,
+    "people": 482,
+    "newMembers": 481,
+    "redeemItems": 6,
+    "redeemPoints": 45,
+    "slips": 47,
+    "slipPoints": 185
+   },
+   {
+    "date": "2026-11-22",
+    "checkin": 581,
+    "people": 476,
+    "newMembers": 446,
+    "redeemItems": 10,
+    "redeemPoints": 195,
+    "slips": 101,
+    "slipPoints": 365
+   },
+   {
+    "date": "2026-11-23",
+    "checkin": 846,
+    "people": 685,
+    "newMembers": 663,
+    "redeemItems": 25,
+    "redeemPoints": 540,
+    "slips": 192,
+    "slipPoints": 703
+   },
+   {
+    "date": "2026-11-24",
+    "checkin": 1366,
+    "people": 1076,
+    "newMembers": 1004,
+    "redeemItems": 24,
+    "redeemPoints": 500,
+    "slips": 171,
+    "slipPoints": 882
+   }
+  ],
+  "members": {
+   "asof": "24 พ.ย.",
+   "new": 3102
+  }
+ },
+ "reported": [],
+ "agodaMu": {
+  "pool": 4530,
+  "hotels": 237,
+  "withRooms": 95,
+  "checked": "21 พ.ย. 10:45 (คืน 28 พ.ย. เช็กล่าสุด 25 พ.ย. 10:47)",
+  "full": {
+   "2026-11-21": 59,
+   "2026-11-22": 13,
+   "2026-11-23": 4,
+   "2026-11-24": 7,
+   "2026-11-25": 7,
+   "2026-11-26": 3,
+   "2026-11-27": 13,
+   "2026-11-28": 70
+  }
+ }
+}

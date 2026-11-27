@@ -188,7 +188,11 @@ const ATIME={"27": {"band": "08:30-16:40", "kbatx": "10:00-20:00", "talk": "13:0
 function nowMin(){try{const t=new Date().toLocaleTimeString('en-GB',{timeZone:'Asia/Bangkok',hour12:false});return Number(t.slice(0,2))*60+Number(t.slice(3,5))}catch(e){const d=new Date();return d.getHours()*60+d.getMinutes()}}
 function toMin(x){return Number(x.slice(0,2))*60+Number(x.slice(3,5))}
 function dot(x){return x.replace(':','.')}
-function actState(k){const d=q.get('day')||todayNum(),t=(ATIME[d]||{})[k];if(!t)return{open:true,label:''};const [a,b]=t.split('-'),n=nowMin();const lab=dot(a)+'–'+(b==='23:59'?'เป็นต้นไป':dot(b))+' น.';const lab2=b==='23:59'?dot(a)+' น. เป็นต้นไป':lab;if(n<toMin(a)-30)return{open:false,label:lab2,msg:'เริ่ม '+dot(a)+' น.'};if(n>toMin(b))return{open:false,label:lab2,msg:'จบแล้ว'};return{open:true,label:lab2}}
+/* เปิดเช็กอินก่อนเริ่ม: พื้นที่เปิด 90 นาที (K-BATTLE 27 พ.ย. = 14.30 น.) · พาเหรด/พิธีเปิด 14.30 น. · K-BATX ตามห้างเปิด 10.00 น. · ในอาคาร 30 นาที (ตรงกับบอร์ด) */
+const LEAD_OPEN=['kb','open','parkour','c27','c28','c29','klang','graffiti','ride','run'];
+function openAt(k,a){if(k==='open')return toMin('14:30');if(k==='kbatx')return toMin('10:00');return toMin(a)-(LEAD_OPEN.includes(k)?90:30)}
+function hm(m){return String(Math.floor(m/60)).padStart(2,'0')+'.'+String(m%60).padStart(2,'0')}
+function actState(k){const d=q.get('day')||todayNum(),t=(ATIME[d]||{})[k];if(!t)return{open:true,label:''};const [a,b]=t.split('-'),n=nowMin();const lab=dot(a)+'–'+(b==='23:59'?'เป็นต้นไป':dot(b))+' น.';const lab2=b==='23:59'?dot(a)+' น. เป็นต้นไป':lab;const oa=openAt(k,a);if(n<oa)return{open:false,label:lab2,msg:'เปิดเช็กอิน '+hm(oa)+' น.'};if(n>toMin(b))return{open:false,label:lab2,msg:'จบแล้ว'};return{open:true,label:lab2}}
 setInterval(()=>{if(!$('actbox').hidden)renderActs()},60000);
 let LAST=null, DONE=new Set();
 function todayNum(){try{return Number(new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Bangkok'}).slice(8,10))}catch(e){return new Date().getDate()}}

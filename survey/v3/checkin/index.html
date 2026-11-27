@@ -53,15 +53,15 @@ p{margin:0 0 6px;color:var(--muted)}
 </style>
 </head>
 <body>
-<header><div class="wrap hrow">เช็กอินเข้างาน อวดเมืองโคราช<small>K-BATTLE · 27–29 พ.ย. 2569 · ลานย่าโม</small></div></header>
+<header><div class="wrap hrow">เช็กอินเข้างาน อวดเมืองโคราช<small>K-BATTLE · 27–29 พ.ย. 2569</small></div></header>
 <main><div class="wrap">
 
 <!-- start -->
 <section class="card" id="s-start">
   <div class="ic pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/></svg></div>
   <h1>มาถึงงานแล้วใช่ไหม?</h1>
-  <p>กดปุ่มด้านล่างเพื่อเช็กอิน ระบบจะตรวจตำแหน่งว่าอยู่ในรัศมี 2 กม. จากลานย่าโม</p>
-  <div class="map" aria-hidden="true"><svg viewBox="0 0 320 150"><circle cx="160" cy="75" r="62" fill="#003674" fill-opacity=".08" stroke="#003674" stroke-dasharray="5 5" stroke-opacity=".5"/><circle cx="160" cy="75" r="7" fill="#E95429"/><circle cx="160" cy="75" r="13" fill="none" stroke="#E95429" stroke-opacity=".4" stroke-width="2"/><text x="160" y="104" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="12" fill="#003674">ลานย่าโม</text><text x="226" y="34" font-family="IBM Plex Sans Thai,sans-serif" font-size="11" fill="#56627a">รัศมี 2 กม.</text></svg></div>
+  <p>กดปุ่มด้านล่างเพื่อเช็กอิน ระบบจะตรวจตำแหน่งว่าคุณอยู่ในพื้นที่งาน</p>
+  <div class="map" aria-hidden="true"><svg viewBox="0 0 320 150"><circle cx="160" cy="75" r="62" fill="#003674" fill-opacity=".08" stroke="#003674" stroke-dasharray="5 5" stroke-opacity=".5"/><circle cx="160" cy="75" r="7" fill="#E95429"/><circle cx="160" cy="75" r="13" fill="none" stroke="#E95429" stroke-opacity=".4" stroke-width="2"/><text x="160" y="104" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="12" fill="#003674">พื้นที่งาน</text></svg></div>
   <button class="btn" id="go">เช็กอินเลย</button>
   <p class="note">ไม่เก็บข้อมูลส่วนตัว ใช้ตำแหน่งเพื่อยืนยันว่าอยู่ในงานเท่านั้น</p>
 </section>
@@ -79,7 +79,7 @@ p{margin:0 0 6px;color:var(--muted)}
   <div class="ic ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
   <h1>เช็กอินสำเร็จ!</h1>
   <p>ยินดีต้อนรับสู่งานอวดเมืองโคราช</p>
-  <div class="meta"><span class="chip">วันที่ <b id="ok-date">27 พ.ย.</b></span><span class="chip">เวลา <b id="ok-time">17:42</b> น.</span><span class="chip">ห่างลานย่าโม <b id="ok-dist">0.3</b> กม.</span></div>
+  <div class="meta"><span class="chip">วันที่ <b id="ok-date">27 พ.ย.</b></span><span class="chip">เวลา <b id="ok-time">17:42</b> น.</span><span class="chip">อยู่ในพื้นที่งาน</span></div>
   <div class="kv"></div>
   <p class="note">เช็กอินได้วันละ 1 ครั้ง กลับมาเช็กอินใหม่ได้ในวันถัดไปค่ะ</p>
   <button class="btn ghost" onclick="closeApp()">ปิดหน้านี้</button>
@@ -99,10 +99,10 @@ p{margin:0 0 6px;color:var(--muted)}
 <section class="card" id="s-out" hidden>
   <div class="ic warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><path d="M12 7v3.5M12 13h.01"/></svg></div>
   <h1>ยังไม่ถึงพื้นที่งาน</h1>
-  <p>ตอนนี้คุณอยู่ห่างลานย่าโมประมาณ</p>
+  <p>ตอนนี้คุณอยู่นอกพื้นที่งาน ห่างออกไปประมาณ</p>
   <div class="big"><span id="out-dist">5.8</span> กม.</div>
-  <p>เช็กอินได้เมื่ออยู่ในรัศมี 2 กม. จากลานย่าโมค่ะ</p>
-  <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=14.974760,102.098075" target="_blank" rel="noopener">นำทางไปลานย่าโม</a>
+  <p>เข้ามาในพื้นที่งานแล้วกดเช็กอินอีกครั้งนะคะ</p>
+  <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=14.974760,102.098075" target="_blank" rel="noopener">นำทางไปพื้นที่งาน</a>
   <button class="btn ghost" onclick="retry()">ลองอีกครั้ง</button>
 </section>
 
@@ -144,9 +144,9 @@ function closeApp(){try{if(window.liff&&liff.isInClient())return liff.closeWindo
 function retry(){show('start')}
 function bkk(ts){const d=new Date(ts);return{date:d.toLocaleDateString('th-TH',{day:'numeric',month:'short',timeZone:'Asia/Bangkok'}),time:d.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Bangkok'})}}
 function result(r){
-  if(r.status==='ok'){const t=bkk(r.at||Date.now());$('ok-date').textContent=t.date;$('ok-time').textContent=t.time;$('ok-dist').textContent=km(r.dist);show('ok')}
+  if(r.status==='ok'){const t=bkk(r.at||Date.now());$('ok-date').textContent=t.date;$('ok-time').textContent=t.time;show('ok')}
   else if(r.status==='already'){$('al-time').textContent=bkk(r.at).time;show('already')}
-  else if(r.status==='outside'){$('out-dist').textContent=km(r.dist);show('out')}
+  else if(r.status==='outside'){$('out-dist').textContent=km(Math.max(100,r.dist-RADIUS));show('out')}
   else{$('err-msg').textContent=r.msg||'ลองใหม่อีกครั้งนะคะ';show('err')}
 }
 function locate(){

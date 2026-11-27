@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="th" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>เช็กอินอวดเมืองโคราช</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f6f5fb; --surface:#fff; --ink:#0d1f3d; --muted:#56627a; --line:#dcdcea;
+  --navy:#003674; --cta:#E95429; --lime:#D3FF34; --teal:#00A79D; --salmon:#FF999A; --lav:#DCB8FE;
+  --ok:#00866f; --err:#c62f12;
+  --display:"Prompt","IBM Plex Sans Thai",system-ui,sans-serif;
+  --body:"IBM Plex Sans Thai",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+[hidden]{display:none!important}
+header{background:var(--navy);color:#fff;padding-top:env(safe-area-inset-top,0px)}
+header::after{content:"";display:block;height:5px;background:linear-gradient(90deg,var(--cta) 0 20%,var(--lime) 20% 40%,var(--teal) 40% 60%,var(--salmon) 60% 80%,var(--lav) 80%)}
+.wrap{max-width:480px;margin:0 auto;padding:0 16px}
+.hrow{padding-top:14px;padding-bottom:12px;font-family:var(--display);font-weight:600;font-size:16px;line-height:1.3}
+.hrow small{display:block;font:400 12.5px var(--body);color:#c9d3ea}
+main .wrap{padding-top:22px;padding-bottom:32px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 20px 22px;text-align:center;box-shadow:0 6px 24px rgba(0,54,116,.07)}
+.ic{width:92px;height:92px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center}
+.ic svg{width:48px;height:48px}
+.ic.pin{background:#e7eefb;color:var(--navy)}
+.ic.ok{background:#dff5ef;color:var(--ok)}
+.ic.warn{background:#fdeae4;color:var(--cta)}
+h1{font-family:var(--display);font-weight:700;font-size:24px;line-height:1.3;margin:0 0 6px}
+p{margin:0 0 6px;color:var(--muted)}
+.big{font-family:var(--display);font-weight:700;font-size:40px;color:var(--navy);line-height:1.1;margin:10px 0 2px}
+.meta{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.chip{background:#f1f3f9;border-radius:999px;padding:5px 12px;font-size:13.5px;color:var(--ink)}
+.chip b{font-weight:600}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:54px;border:0;border-radius:14px;background:var(--cta);color:#fff;font:600 18px var(--display);cursor:pointer;margin-top:18px;text-decoration:none}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.6}
+.btn.ghost{background:transparent;color:var(--navy);border:1.5px solid var(--line);font-size:16px;min-height:48px;margin-top:10px}
+.spin{width:22px;height:22px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:s 1s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.map{margin-top:16px;border-radius:14px;overflow:hidden;background:#e7eefb;position:relative;height:150px}
+.map svg{width:100%;height:100%;display:block}
+.note{font-size:13px;color:var(--muted);margin-top:16px;text-align:center}
+.steps{text-align:left;margin:14px 0 0;padding:0 0 0 20px;color:var(--ink);font-size:15px}
+.steps li{margin-bottom:4px}
+.kv{height:6px;border-radius:3px;margin:18px auto 0;width:120px;background:linear-gradient(90deg,var(--cta) 0 20%,var(--lime) 20% 40%,var(--teal) 40% 60%,var(--salmon) 60% 80%,var(--lav) 80%)}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap hrow">เช็กอินเข้างาน อวดเมืองโคราช<small>K-BATTLE · 27–29 พ.ย. 2569 · ลานย่าโม</small></div></header>
+<main><div class="wrap">
+
+<!-- start -->
+<section class="card" id="s-start">
+  <div class="ic pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/></svg></div>
+  <h1>มาถึงงานแล้วใช่ไหม?</h1>
+  <p>กดปุ่มด้านล่างเพื่อเช็กอิน ระบบจะตรวจตำแหน่งว่าอยู่ในรัศมี 2 กม. จากลานย่าโม</p>
+  <div class="map" aria-hidden="true"><svg viewBox="0 0 320 150"><circle cx="160" cy="75" r="62" fill="#003674" fill-opacity=".08" stroke="#003674" stroke-dasharray="5 5" stroke-opacity=".5"/><circle cx="160" cy="75" r="7" fill="#E95429"/><circle cx="160" cy="75" r="13" fill="none" stroke="#E95429" stroke-opacity=".4" stroke-width="2"/><text x="160" y="104" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="12" fill="#003674">ลานย่าโม</text><text x="226" y="34" font-family="IBM Plex Sans Thai,sans-serif" font-size="11" fill="#56627a">รัศมี 2 กม.</text></svg></div>
+  <button class="btn" id="go">เช็กอินเลย</button>
+  <p class="note">ไม่เก็บข้อมูลส่วนตัว ใช้ตำแหน่งเพื่อยืนยันว่าอยู่ในงานเท่านั้น</p>
+</section>
+
+<!-- locating -->
+<section class="card" id="s-wait" hidden>
+  <div class="ic pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7.5"/></svg></div>
+  <h1>กำลังหาตำแหน่ง…</h1>
+  <p>ถ้ามีหน้าต่างถามสิทธิ์ตำแหน่ง กด “อนุญาต” นะคะ</p>
+  <button class="btn" disabled><span class="spin"></span>กำลังตรวจสอบ</button>
+</section>
+
+<!-- ok -->
+<section class="card" id="s-ok" hidden>
+  <div class="ic ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+  <h1>เช็กอินสำเร็จ!</h1>
+  <p>ยินดีต้อนรับสู่งานอวดเมืองโคราช</p>
+  <div class="meta"><span class="chip">วันที่ <b id="ok-date">27 พ.ย.</b></span><span class="chip">เวลา <b id="ok-time">17:42</b> น.</span><span class="chip">ห่างลานย่าโม <b id="ok-dist">0.3</b> กม.</span></div>
+  <div class="kv"></div>
+  <p class="note">เช็กอินได้วันละ 1 ครั้ง กลับมาเช็กอินใหม่ได้ในวันถัดไปค่ะ</p>
+  <button class="btn ghost" onclick="closeApp()">ปิดหน้านี้</button>
+</section>
+
+<!-- already -->
+<section class="card" id="s-already" hidden>
+  <div class="ic ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+  <h1>วันนี้เช็กอินแล้ว</h1>
+  <p>คุณเช็กอินไปแล้วเมื่อเวลา <b id="al-time">16:05</b> น. ขอให้สนุกกับงานนะคะ</p>
+  <div class="kv"></div>
+  <p class="note">เช็กอินได้วันละ 1 ครั้ง</p>
+  <button class="btn ghost" onclick="closeApp()">ปิดหน้านี้</button>
+</section>
+
+<!-- outside -->
+<section class="card" id="s-out" hidden>
+  <div class="ic warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><path d="M12 7v3.5M12 13h.01"/></svg></div>
+  <h1>ยังไม่ถึงพื้นที่งาน</h1>
+  <p>ตอนนี้คุณอยู่ห่างลานย่าโมประมาณ</p>
+  <div class="big"><span id="out-dist">5.8</span> กม.</div>
+  <p>เช็กอินได้เมื่ออยู่ในรัศมี 2 กม. จากลานย่าโมค่ะ</p>
+  <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=14.974760,102.098075" target="_blank" rel="noopener">นำทางไปลานย่าโม</a>
+  <button class="btn ghost" onclick="retry()">ลองอีกครั้ง</button>
+</section>
+
+<!-- denied -->
+<section class="card" id="s-denied" hidden>
+  <div class="ic warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg></div>
+  <h1>ยังไม่ได้เปิดตำแหน่ง</h1>
+  <p>ระบบต้องใช้ตำแหน่งเพื่อยืนยันว่าอยู่ในงาน</p>
+  <ol class="steps">
+    <li>เปิด “ตำแหน่ง / Location” ในมือถือ</li>
+    <li>อนุญาตให้ LINE ใช้ตำแหน่ง</li>
+    <li>กด “ลองอีกครั้ง”</li>
+  </ol>
+  <button class="btn" onclick="retry()">ลองอีกครั้ง</button>
+</section>
+
+<!-- error -->
+<section class="card" id="s-err" hidden>
+  <div class="ic warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 8v5M12 16.5h.01"/><circle cx="12" cy="12" r="9"/></svg></div>
+  <h1>เชื่อมต่อไม่สำเร็จ</h1>
+  <p id="err-msg">สัญญาณอินเทอร์เน็ตอาจไม่เสถียร ลองใหม่อีกครั้งนะคะ</p>
+  <button class="btn" onclick="retry()">ลองอีกครั้ง</button>
+</section>
+
+</div></main>
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script>
+const API='https://korat.mididigitalevent.workers.dev/api/checkin';
+const LIFF_ID='2012143290-kTb1tp78';
+const CENTER={lat:14.974760,lng:102.098075}, RADIUS=2000;
+const q=new URLSearchParams(location.search);
+const DEMO=q.get('demo');
+let ID_TOKEN='';
+const $=id=>document.getElementById(id);
+function show(s){document.querySelectorAll('.card').forEach(c=>c.hidden=c.id!=='s-'+s);scrollTo(0,0)}
+function km(m){return (Math.round(m/100)/10).toLocaleString('th-TH',{minimumFractionDigits:1})}
+function did(){try{let d=localStorage.getItem('kci_did');if(!d){d='d'+Date.now().toString(36)+Math.random().toString(36).slice(2,9);localStorage.setItem('kci_did',d)}return d}catch(e){return ''}}
+function closeApp(){try{if(window.liff&&liff.isInClient())return liff.closeWindow()}catch(e){}history.length>1?history.back():show('start')}
+function retry(){show('start')}
+function bkk(ts){const d=new Date(ts);return{date:d.toLocaleDateString('th-TH',{day:'numeric',month:'short',timeZone:'Asia/Bangkok'}),time:d.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Bangkok'})}}
+function result(r){
+  if(r.status==='ok'){const t=bkk(r.at||Date.now());$('ok-date').textContent=t.date;$('ok-time').textContent=t.time;$('ok-dist').textContent=km(r.dist);show('ok')}
+  else if(r.status==='already'){$('al-time').textContent=bkk(r.at).time;show('already')}
+  else if(r.status==='outside'){$('out-dist').textContent=km(r.dist);show('out')}
+  else{$('err-msg').textContent=r.msg||'ลองใหม่อีกครั้งนะคะ';show('err')}
+}
+function locate(){
+  return new Promise((res,rej)=>{
+    if(!navigator.geolocation)return rej({code:2});
+    navigator.geolocation.getCurrentPosition(p=>res(p.coords),e=>rej(e),{enableHighAccuracy:true,timeout:15000,maximumAge:30000});
+  });
+}
+async function go(){
+  show('wait');
+  let c;
+  try{c=await locate()}catch(e){return show(e&&e.code===1?'denied':'denied')}
+  try{
+    const ctl=new AbortController();setTimeout(()=>ctl.abort(),10000);
+    const r=await fetch(API,{method:'POST',signal:ctl.signal,headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({lat:c.latitude,lng:c.longitude,acc:c.accuracy,did:did(),idToken:ID_TOKEN||undefined})});
+    result(await r.json());
+  }catch(e){show('err')}
+}
+$('go').onclick=go;
+if(DEMO){
+  const m={start:null,wait:null,ok:{status:'ok',dist:320,at:Date.now()},already:{status:'already',at:Date.now()-5400e3},out:{status:'outside',dist:5800},denied:null,err:null};
+  if(m[DEMO])result(m[DEMO]);else show(DEMO);
+}else if(window.liff){
+  Promise.race([liff.init({liffId:LIFF_ID}),new Promise((_,j)=>setTimeout(j,6000))])
+    .then(()=>{try{if(liff.isLoggedIn())ID_TOKEN=liff.getIDToken()||''}catch(e){}}).catch(()=>{});
+}
+</script>
+</body>
+</html>

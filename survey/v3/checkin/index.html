@@ -49,6 +49,17 @@ p{margin:0 0 6px;color:var(--muted)}
 .steps{text-align:left;margin:14px 0 0;padding:0 0 0 20px;color:var(--ink);font-size:15px}
 .steps li{margin-bottom:4px}
 .kv{height:6px;border-radius:3px;margin:18px auto 0;width:120px;background:linear-gradient(90deg,var(--cta) 0 20%,var(--lime) 20% 40%,var(--teal) 40% 60%,var(--salmon) 60% 80%,var(--lav) 80%)}
+.acts{margin-top:16px;text-align:left}
+.acts h2{font:600 18px var(--display);margin:0 0 4px;color:var(--ink)}
+.acts .sub{font-size:13.5px;color:var(--muted);margin:0 0 10px}
+.act{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);font:inherit;color:inherit;cursor:pointer}
+.act .mk{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:15px;color:#fff}
+.act small{display:block;color:var(--muted);font-size:12.5px}
+.act.done{border-color:var(--ok);background:#effaf6;cursor:default}
+.act.done .mk{background:var(--ok);border-color:var(--ok)}
+.act.busy{opacity:.6}
+.act .go{margin-left:auto;flex:none;font:600 14px var(--display);color:var(--cta)}
+.act.done .go{color:var(--ok)}
 @media (prefers-reduced-motion:reduce){.spin{animation:none}}
 </style>
 </head>
@@ -81,17 +92,17 @@ p{margin:0 0 6px;color:var(--muted)}
   <p>ยินดีต้อนรับสู่งานอวดเมืองโคราช</p>
   <div class="meta"><span class="chip">วันที่ <b id="ok-date">27 พ.ย.</b></span><span class="chip">เวลา <b id="ok-time">17:42</b> น.</span><span class="chip">อยู่ในพื้นที่งาน</span></div>
   <div class="kv"></div>
-  <p class="note">เช็กอินได้วันละ 1 ครั้ง กลับมาเช็กอินใหม่ได้ในวันถัดไปค่ะ</p>
+  <p class="note">เลือกเช็กอินรายกิจกรรมได้ด้านล่างค่ะ</p>
   <button class="btn ghost" onclick="closeApp()">ปิดหน้านี้</button>
 </section>
 
 <!-- already -->
 <section class="card" id="s-already" hidden>
   <div class="ic ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
-  <h1>วันนี้เช็กอินแล้ว</h1>
-  <p>คุณเช็กอินไปแล้วเมื่อเวลา <b id="al-time">16:05</b> น. ขอให้สนุกกับงานนะคะ</p>
+  <h1>วันนี้เช็กอินเข้างานแล้ว</h1>
+  <p>คุณเข้าพื้นที่งานแล้วเมื่อเวลา <b id="al-time">16:05</b> น. ขอให้สนุกกับงานนะคะ</p>
   <div class="kv"></div>
-  <p class="note">เช็กอินได้วันละ 1 ครั้ง</p>
+  <p class="note">เลือกเช็กอินรายกิจกรรมเพิ่มได้ด้านล่างค่ะ</p>
   <button class="btn ghost" onclick="closeApp()">ปิดหน้านี้</button>
 </section>
 
@@ -127,6 +138,9 @@ p{margin:0 0 6px;color:var(--muted)}
   <button class="btn" onclick="retry()">ลองอีกครั้ง</button>
 </section>
 
+<section class="card acts-wrap" id="actbox" hidden style="margin-top:14px;text-align:left">
+  <div class="acts"><h2>เช็กอินรายกิจกรรม</h2><p class="sub">กำลังร่วมกิจกรรมไหนอยู่ กดเช็กอินได้หลายกิจกรรม (กิจกรรมละ 1 ครั้งต่อวัน)</p><div id="actlist"></div></div>
+</section>
 </div></main>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 <script>
@@ -137,12 +151,22 @@ const q=new URLSearchParams(location.search);
 const DEMO=q.get('demo');
 let ID_TOKEN='';
 const $=id=>document.getElementById(id);
-function show(s){document.querySelectorAll('.card').forEach(c=>c.hidden=c.id!=='s-'+s);scrollTo(0,0)}
+function show(s){document.querySelectorAll('.card').forEach(c=>c.hidden=c.id!=='s-'+s);$('actbox').hidden=!(ACTS_TODAY().length&&(s==='ok'||s==='already'));scrollTo(0,0)}
 function km(m){return (Math.round(m/100)/10).toLocaleString('th-TH',{minimumFractionDigits:1})}
 function did(){try{let d=localStorage.getItem('kci_did');if(!d){d='d'+Date.now().toString(36)+Math.random().toString(36).slice(2,9);localStorage.setItem('kci_did',d)}return d}catch(e){return ''}}
 function closeApp(){try{if(window.liff&&liff.isInClient())return liff.closeWindow()}catch(e){}history.length>1?history.back():show('start')}
 function retry(){show('start')}
 function bkk(ts){const d=new Date(ts);return{date:d.toLocaleDateString('th-TH',{day:'numeric',month:'short',timeZone:'Asia/Bangkok'}),time:d.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Bangkok'})}}
+const ACTN={"open": ["ขบวนพาเหรดและพิธีเปิดงาน K-BATTLE", ""], "kb": ["K-BATTLE Street Competition (แข่งขันสตรีทแดนซ์ / พาร์คัวร์ / แร็ป)", ""], "parkour": ["เวิร์กช็อป Parkour โดย ARCHIE / CORKY / BOY SPINBOY", ""], "c27": ["คอนเสิร์ต JARVIS x M-PEE", ""], "klang": ["ตลาดสตรีทแฟชั่น KLANG SAENG (คลังแสง)", ""], "ride": ["CITY RIDE PARTY ปั่นจักรยานรอบเมือง โดย KLANG SAENG", "รอบเมืองโคราช"], "kbatx": ["K-BATX Creative Industries Expo และเวทีเสวนา", "เซ็นทรัลโคราช"], "talk": ["SOUNDER Artist Talk & Live Session with Andrea Giuffredi", "เซ็นทรัลโคราช"], "band": ["เวิร์กช็อป KORAT BAND MASTER", "ร.ร.สุรนารีวิทยา"], "graffiti": ["Graffiti Painting: KORAT GRAFFITI CITY", "ถ.มหาดไทย – ถ.จอมพล"], "poster": ["กิจกรรมตามล่าโปสเตอร์ (ถ่ายรูปกับกำแพงโปสเตอร์ อวดเมืองโคราช)", "จุดติดโปสเตอร์ทั่วเมืองโคราช"], "recipe": ["ร้านอาหาร/ตลาด KORAT City Recipe", "ร้านที่ร่วมโครงการ"], "kpoint": ["ร่วมเข้า KORAT POINT ในเทศกาล (บูธสะสมแต้ม/แลกของ)", ""], "c28": ["คอนเสิร์ต MAIYARAP", ""], "ws28": ["เวิร์กช็อป Breakdance โดย B-Boy Wing", "CATZY STUDIO คลังพลาซ่า ชั้น 2"], "bball": ["การแข่งขัน KORAT 3x3 Street Basketball", "เทอร์มินอล 21 โคราช"], "run": ["CITY RUN PARTY วิ่งสำรวจเมืองยามค่ำคืน โดย KLANG SAENG", "รอบเมืองโคราช"], "c29": ["คอนเสิร์ต ชิน ชินวุฒ x DJ ลีโอ x ขันเงิน THAITANIUM", ""], "djs": ["การแข่งขัน DJ Scratch", "เซ็นทรัลโคราช"], "ws29": ["เวิร์กช็อป KRUMP โดย 1NSAN3", "CATZY STUDIO คลังพลาซ่า ชั้น 2"]};
+const DAYACT={"27": ["open", "kb", "parkour", "c27", "klang", "ride", "kbatx", "talk", "band", "graffiti", "poster", "recipe", "kpoint"], "28": ["kb", "c28", "klang", "kbatx", "ws28", "band", "bball", "graffiti", "run", "poster", "recipe", "kpoint"], "29": ["kb", "c29", "klang", "kbatx", "djs", "ws29", "band", "bball", "graffiti", "poster", "recipe", "kpoint"]};
+let LAST=null, DONE=new Set();
+function todayNum(){try{return Number(new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Bangkok'}).slice(8,10))}catch(e){return new Date().getDate()}}
+function ACTS_TODAY(){const d=q.get('day')||todayNum();return DAYACT[d]||[]}
+function renderActs(){const L=ACTS_TODAY();$('actlist').innerHTML=L.map(k=>{const a=ACTN[k],on=DONE.has(k);return '<button type="button" class="act'+(on?' done':'')+'" data-k="'+k+'"><span class="mk">'+(on?'✓':'')+'</span><span>'+a[0]+(a[1]?'<small>'+a[1]+'</small>':'')+'</span><span class="go">'+(on?'เช็กอินแล้ว':'เช็กอิน')+'</span></button>'}).join('')}
+async function post(body){const ctl=new AbortController();setTimeout(()=>ctl.abort(),10000);const r=await fetch(API,{method:'POST',signal:ctl.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({lat:LAST.latitude,lng:LAST.longitude,acc:LAST.accuracy,did:did(),idToken:ID_TOKEN||undefined},body))});return r.json()}
+document.addEventListener('click',async e=>{const b=e.target.closest('.act');if(!b||b.classList.contains('done')||b.classList.contains('busy'))return;const k=b.dataset.k;
+  if(DEMO){DONE.add(k);return renderActs()}
+  b.classList.add('busy');try{const r=await post({act:k});if(r.status==='ok'||r.status==='already'){DONE.add(k);renderActs()}else if(r.status==='outside'){result(r)}else{b.classList.remove('busy')}}catch(err){b.classList.remove('busy');alert('เชื่อมต่อไม่สำเร็จ ลองกดอีกครั้งนะคะ')}});
 function result(r){
   if(r.status==='ok'){const t=bkk(r.at||Date.now());$('ok-date').textContent=t.date;$('ok-time').textContent=t.time;show('ok')}
   else if(r.status==='already'){$('al-time').textContent=bkk(r.at).time;show('already')}
@@ -160,14 +184,15 @@ async function go(){
   let c;
   try{c=await locate()}catch(e){return show(e&&e.code===1?'denied':'denied')}
   try{
-    const ctl=new AbortController();setTimeout(()=>ctl.abort(),10000);
-    const r=await fetch(API,{method:'POST',signal:ctl.signal,headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({lat:c.latitude,lng:c.longitude,acc:c.accuracy,did:did(),idToken:ID_TOKEN||undefined})});
-    result(await r.json());
+    LAST=c;
+    const r=await post({});
+    if(r.status==='ok'||r.status==='already'){try{const p=await post({probe:1});(p.done||[]).forEach(x=>DONE.add(x))}catch(e){}renderActs()}
+    result(r);
   }catch(e){show('err')}
 }
 $('go').onclick=go;
 if(DEMO){
+  if(q.get('done'))q.get('done').split(',').forEach(x=>DONE.add(x));renderActs();
   const m={start:null,wait:null,ok:{status:'ok',dist:320,at:Date.now()},already:{status:'already',at:Date.now()-5400e3},out:{status:'outside',dist:5800},denied:null,err:null};
   if(m[DEMO])result(m[DEMO]);else show(DEMO);
 }else if(window.liff){

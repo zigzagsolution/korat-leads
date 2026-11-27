@@ -62,6 +62,17 @@ p{margin:0 0 6px;color:var(--muted)}
 .act.off .go{color:var(--muted);font-weight:500;font-size:13px}
 .act .go{margin-left:auto;flex:none;font:600 14px var(--display);color:var(--cta)}
 .act.done .go{color:var(--ok)}
+.rule{display:flex;gap:10px;align-items:flex-start;text-align:left;background:#fff8e1;border:1px solid #f3d98a;border-radius:12px;padding:10px 12px;margin:0 0 16px;font-size:14px;line-height:1.45;color:var(--ink)}
+.rule b{font-weight:600}
+.party{margin:16px 0 0;text-align:left}
+.party label{display:block;font:600 15.5px var(--display);color:var(--ink);margin-bottom:6px}
+.party .hint{font-size:12.5px;color:var(--muted);margin:4px 0 0}
+.stp{display:flex;align-items:center;gap:10px}
+.stp button{flex:none;width:52px;height:52px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);font:600 26px var(--display);color:var(--navy);cursor:pointer}
+.stp button:active{background:#eef1f8}
+.stp output{flex:1;text-align:center;font:700 30px var(--display);color:var(--navy)}
+.stp output small{font:500 15px var(--body);color:var(--muted);margin-left:4px}
+.acts .party{margin:0 0 14px;padding:0 0 14px;border-bottom:1px solid var(--line)}
 @media (prefers-reduced-motion:reduce){.spin{animation:none}}
 </style>
 </head>
@@ -71,10 +82,12 @@ p{margin:0 0 6px;color:var(--muted)}
 
 <!-- start -->
 <section class="card" id="s-start">
+  <div class="rule"><span aria-hidden="true">📌</span><span><b>เงื่อนไข: 1 บัญชี LINE = 1 เช็กอิน</b><br>เช็กอินเข้างานได้วันละ 1 ครั้ง และกิจกรรมละ 1 ครั้งต่อวัน ต้องเปิดจาก LINE KORAT POINT เท่านั้น</span></div>
   <div class="ic pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/></svg></div>
   <h1>มาถึงงานแล้วใช่ไหม?</h1>
   <p>กดปุ่มด้านล่างเพื่อเช็กอิน ระบบจะตรวจตำแหน่งว่าคุณอยู่ในพื้นที่งาน</p>
   <div class="map" aria-hidden="true"><svg viewBox="0 0 320 150"><circle cx="160" cy="75" r="62" fill="#003674" fill-opacity=".08" stroke="#003674" stroke-dasharray="5 5" stroke-opacity=".5"/><circle cx="160" cy="75" r="7" fill="#E95429"/><circle cx="160" cy="75" r="13" fill="none" stroke="#E95429" stroke-opacity=".4" stroke-width="2"/><text x="160" y="104" text-anchor="middle" font-family="IBM Plex Sans Thai,sans-serif" font-size="12" fill="#003674">พื้นที่งาน</text></svg></div>
+  <div class="party" data-party><label>วันนี้มากันกี่คน (รวมตัวคุณ)</label><div class="stp"><button type="button" data-d="-1" aria-label="ลด">−</button><output>1<small>คน</small></output><button type="button" data-d="1" aria-label="เพิ่ม">+</button></div><p class="hint">นับเพื่อน ครอบครัว ที่มาด้วยกัน คนที่มาด้วยไม่ต้องเช็กอินซ้ำ</p></div>
   <button class="btn" id="go">เช็กอินเลย</button>
   <p class="note">ไม่เก็บข้อมูลส่วนตัว ใช้ตำแหน่งเพื่อยืนยันว่าอยู่ในงานเท่านั้น</p>
 </section>
@@ -92,7 +105,7 @@ p{margin:0 0 6px;color:var(--muted)}
   <div class="ic ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
   <h1>เช็กอินสำเร็จ!</h1>
   <p>ยินดีต้อนรับสู่งานอวดเมืองโคราช</p>
-  <div class="meta"><span class="chip">วันที่ <b id="ok-date">27 พ.ย.</b></span><span class="chip">เวลา <b id="ok-time">17:42</b> น.</span><span class="chip">อยู่ในพื้นที่งาน</span></div>
+  <div class="meta"><span class="chip">วันที่ <b id="ok-date">27 พ.ย.</b></span><span class="chip">เวลา <b id="ok-time">17:42</b> น.</span><span class="chip">มากัน <b id="ok-party">1</b> คน</span><span class="chip">อยู่ในพื้นที่งาน</span></div>
   <div class="kv"></div>
   <p class="note">เลือกเช็กอินรายกิจกรรมได้ด้านล่างค่ะ</p>
   <button class="btn ghost" onclick="closeApp()">ปิดหน้านี้</button>
@@ -132,6 +145,15 @@ p{margin:0 0 6px;color:var(--muted)}
   <button class="btn" onclick="retry()">ลองอีกครั้ง</button>
 </section>
 
+<!-- LINE only -->
+<section class="card" id="s-line" hidden>
+  <div class="ic warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="4"/><path d="M8 21l2-3"/><path d="M8 10h8M8 13h5"/></svg></div>
+  <h1>เปิดผ่าน LINE เท่านั้น</h1>
+  <p>เช็กอินได้เมื่อเปิดลิงก์จาก LINE KORAT POINT เพราะ 1 บัญชี LINE = 1 เช็กอิน</p>
+  <a class="btn" href="https://liff.line.me/2012143290-kTb1tp78/checkin/">เปิดใน LINE</a>
+  <p class="note">ถ้าปุ่มไม่เปิด LINE ให้เข้า LINE KORAT POINT แล้วกดเมนูเช็กอินค่ะ</p>
+</section>
+
 <!-- error -->
 <section class="card" id="s-err" hidden>
   <div class="ic warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 8v5M12 16.5h.01"/><circle cx="12" cy="12" r="9"/></svg></div>
@@ -141,7 +163,7 @@ p{margin:0 0 6px;color:var(--muted)}
 </section>
 
 <section class="card acts-wrap" id="actbox" hidden style="margin-top:14px;text-align:left">
-  <div class="acts"><h2>เช็กอินรายกิจกรรม</h2><p class="sub">กำลังร่วมกิจกรรมไหนอยู่ กดเช็กอินได้หลายกิจกรรม (กิจกรรมละ 1 ครั้งต่อวัน)</p><div id="actlist"></div></div>
+  <div class="acts"><h2>เช็กอินรายกิจกรรม</h2><p class="sub">กำลังร่วมกิจกรรมไหนอยู่ กดเช็กอินได้หลายกิจกรรม (กิจกรรมละ 1 ครั้งต่อวัน)</p><div class="party" data-party><label>ร่วมกิจกรรมนี้กันกี่คน (รวมตัวคุณ)</label><div class="stp"><button type="button" data-d="-1" aria-label="ลด">−</button><output>1<small>คน</small></output><button type="button" data-d="1" aria-label="เพิ่ม">+</button></div></div><div id="actlist"></div></div>
 </section>
 </div></main>
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -151,7 +173,8 @@ const LIFF_ID='2012143290-kTb1tp78';
 const CENTER={lat:14.974760,lng:102.098075}, RADIUS=2000;
 const q=new URLSearchParams(location.search);
 const DEMO=q.get('demo');
-let ID_TOKEN='';
+let ID_TOKEN='', PARTY=1, LIFF_READY=null;
+function setParty(n){PARTY=Math.min(20,Math.max(1,n));document.querySelectorAll('[data-party] output').forEach(o=>o.firstChild.nodeValue=PARTY)}
 const $=id=>document.getElementById(id);
 function show(s){document.querySelectorAll('.card').forEach(c=>c.hidden=c.id!=='s-'+s);$('actbox').hidden=!(ACTS_TODAY().length&&(s==='ok'||s==='already'));scrollTo(0,0)}
 function km(m){return (Math.round(m/100)/10).toLocaleString('th-TH',{minimumFractionDigits:1})}
@@ -171,12 +194,14 @@ let LAST=null, DONE=new Set();
 function todayNum(){try{return Number(new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Bangkok'}).slice(8,10))}catch(e){return new Date().getDate()}}
 function ACTS_TODAY(){const d=q.get('day')||todayNum();return DAYACT[d]||[]}
 function renderActs(){const L=ACTS_TODAY();$('actlist').innerHTML=L.map(k=>{const a=ACTN[k],on=DONE.has(k),st=actState(k),cl=on?' done':(st.open?'':' off');const sub=[st.label?'🕒 '+st.label:'',a[1]].filter(Boolean).join(' · ');return '<button type="button" class="act'+cl+'" data-k="'+k+'"'+(!on&&!st.open?' disabled':'')+'><span class="mk">'+(on?'✓':'')+'</span><span>'+a[0]+(sub?'<small>'+sub+'</small>':'')+'</span><span class="go">'+(on?'เช็กอินแล้ว':(st.open?'เช็กอิน':st.msg))+'</span></button>'}).join('')}
-async function post(body){const ctl=new AbortController();setTimeout(()=>ctl.abort(),10000);const r=await fetch(API,{method:'POST',signal:ctl.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({lat:LAST.latitude,lng:LAST.longitude,acc:LAST.accuracy,did:did(),idToken:ID_TOKEN||undefined},body))});return r.json()}
+async function post(body){const ctl=new AbortController();setTimeout(()=>ctl.abort(),10000);const r=await fetch(API,{method:'POST',signal:ctl.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({lat:LAST.latitude,lng:LAST.longitude,acc:LAST.accuracy,did:did(),idToken:ID_TOKEN||undefined,party:PARTY},body))});return r.json()}
+document.addEventListener('click',e=>{const d=e.target.closest('[data-d]');if(d)setParty(PARTY+Number(d.dataset.d))});
 document.addEventListener('click',async e=>{const b=e.target.closest('.act');if(!b||b.disabled||b.classList.contains('done')||b.classList.contains('busy'))return;const k=b.dataset.k;
   if(DEMO){DONE.add(k);return renderActs()}
-  b.classList.add('busy');try{const r=await post({act:k});if(r.status==='ok'||r.status==='already'){DONE.add(k);renderActs()}else if(r.status==='outside'){result(r)}else{b.classList.remove('busy')}}catch(err){b.classList.remove('busy');alert('เชื่อมต่อไม่สำเร็จ ลองกดอีกครั้งนะคะ')}});
+  b.classList.add('busy');try{const r=await post({act:k});if(r.status==='ok'||r.status==='already'){DONE.add(k);renderActs()}else if(r.status==='outside'||r.status==='needline'){result(r)}else{b.classList.remove('busy')}}catch(err){b.classList.remove('busy');alert('เชื่อมต่อไม่สำเร็จ ลองกดอีกครั้งนะคะ')}});
 function result(r){
-  if(r.status==='ok'){const t=bkk(r.at||Date.now());$('ok-date').textContent=t.date;$('ok-time').textContent=t.time;show('ok')}
+  if(r.status==='ok'){const t=bkk(r.at||Date.now());$('ok-date').textContent=t.date;$('ok-time').textContent=t.time;$('ok-party').textContent=r.party||PARTY;show('ok')}
+  else if(r.status==='needline'){show('line')}
   else if(r.status==='already'){$('al-time').textContent=bkk(r.at).time;show('already')}
   else if(r.status==='outside'){$('out-dist').textContent=km(Math.max(100,r.dist-RADIUS));show('out')}
   else{$('err-msg').textContent=r.msg||'ลองใหม่อีกครั้งนะคะ';show('err')}
@@ -189,6 +214,7 @@ function locate(){
 }
 async function go(){
   show('wait');
+  if(!DEMO){if(!ID_TOKEN&&LIFF_READY){try{await LIFF_READY}catch(e){}}if(!ID_TOKEN)return show('line')}
   let c;
   try{c=await locate()}catch(e){return show(e&&e.code===1?'denied':'denied')}
   try{
@@ -201,12 +227,12 @@ async function go(){
 $('go').onclick=go;
 if(DEMO){
   if(q.get('done'))q.get('done').split(',').forEach(x=>DONE.add(x));renderActs();
-  const m={start:null,wait:null,ok:{status:'ok',dist:320,at:Date.now()},already:{status:'already',at:Date.now()-5400e3},out:{status:'outside',dist:5800},denied:null,err:null};
+  const m={start:null,wait:null,line:null,ok:{status:'ok',dist:320,at:Date.now()},already:{status:'already',at:Date.now()-5400e3},out:{status:'outside',dist:5800},denied:null,err:null};
   if(m[DEMO])result(m[DEMO]);else show(DEMO);
 }else if(window.liff){
-  Promise.race([liff.init({liffId:LIFF_ID}),new Promise((_,j)=>setTimeout(j,6000))])
-    .then(()=>{try{if(liff.isLoggedIn())ID_TOKEN=liff.getIDToken()||''}catch(e){}}).catch(()=>{});
-}
+  LIFF_READY=Promise.race([liff.init({liffId:LIFF_ID}),new Promise((_,j)=>setTimeout(j,8000))])
+    .then(()=>{try{if(!liff.isInClient())return show('line');if(!liff.isLoggedIn())return liff.login({redirectUri:location.href});ID_TOKEN=liff.getIDToken()||''}catch(e){}if(!ID_TOKEN)show('line')}).catch(()=>show('line'));
+}else{show('line')}
 </script>
 </body>
 </html>
